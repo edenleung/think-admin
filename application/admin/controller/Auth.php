@@ -7,10 +7,6 @@ use app\service\model\rbac\AdminModel;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
 
-use lib\Category;
-/**
- *
- */
 class Auth extends HttpResponse
 {
     protected $service;
@@ -52,6 +48,28 @@ class Auth extends HttpResponse
         return (string) $token;
     }
 
+    public function logout()
+    {
+        // todo
+        return $this->sendSuccess();
+    }
+
+    /**
+     * 空路由
+     *
+     * @return void
+     */
+    public function miss()
+    {
+        return $this->sendError('miss route');
+    }
+
+    /**
+     * 获取用户信息与权限
+     *
+     * @param [type] $token
+     * @return void
+     */
     public function info($token)
     {
         $parse = (new Parser())->parse($token);
@@ -64,9 +82,15 @@ class Auth extends HttpResponse
         // 获取用户有权限的规则
         $roles = $info->getAuthList();
 
-        $info = ['id' => '4291d7da9005377ec9aec4a71ea837f', 'name' => $info->admin_nickname, 'username' => 'admin', 'password' => '', 'avatar' => '/avatar2.jpg', 'status' => 1, 'telephone' => '', 'lastLoginIp' => '27.154.74.117', 'lastLoginTime' => 1534837621348, 'creatorId' => 'admin', 'createTime' => 1497160610259, 'merchantCode' => 'TLif2btpzg079h15bk', 'deleted' => 0, 'roleId' => 'admin', 'role' => [
-            'id' => 'admin', 'name' => '管理员', 'describe' => '拥有所有权限', 'status' => 1, 'creatorId' => 'system', 'createTime' => 1497160610259, 'deleted' => 0, 'permissions' => []
-        ]];
+        $info = [
+            'name' => $info->admin_nickname,
+            'avatar' => '/avatar2.jpg',
+            'status' => 1,
+            'roleId' => 'admin',
+            'role' => [
+                'id' => 'admin', 'name' => '管理员', 'describe' => '拥有所有权限', 'status' => 1, 'creatorId' => 'system', 'createTime' => 1497160610259, 'deleted' => 0, 'permissions' => []
+            ]
+        ];
 
         $data = db('auth_rule')->where('pid', '<>', 0)->order('pid asc')->select();
         $parent = db('auth_rule')->where('pid', 0)->field('id,title,role')->select();
@@ -93,17 +117,15 @@ class Auth extends HttpResponse
         return $this->sendSuccess($info);
     }
 
-    public function logout()
-    {
-        // todo
-        return $this->sendSuccess();
-    }
-
-    public function miss()
-    {
-        return $this->sendError('miss route');
-    }
-
+    /**
+     * 获取所有有权限的规则(Action)
+     *
+     * @param [type] $data 规则数据
+     * @param [type] $pid 父级标识
+     * @param [type] $roles 有权限的规则
+     * @param array $temp
+     * @return void
+     */
     protected function getTree($data, $pid, $roles, &$temp = [])
     {
         foreach($data as $v) {

@@ -22,7 +22,7 @@ Route::group('/auth', function () {
     Route::rule('/rule', 'admin/rbac/addRule', 'POST');
     Route::rule('/rule/:id', 'admin/rbac/updateRule', 'PUT');
     Route::rule('/rule/:id', 'admin/rbac/deleteRule', 'DELETE');
-    Route::rule('/tree', 'admin/rbac/getTree', 'GET');
+    Route::rule('/tree', 'admin/rbac/_ajaxTree', 'GET');
 
     Route::rule('/role', 'admin/rbac/groups', 'GET');
     Route::rule('/ajax_group', 'admin/rbac/_ajaxGroup', 'GET');

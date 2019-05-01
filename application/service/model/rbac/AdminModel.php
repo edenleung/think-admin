@@ -38,16 +38,16 @@ class AdminModel extends Model
 
     /**
      * 注册用户
-     * @param array $params
+     * @param array $data
      */
-    public function addUser(array $params)
+    public function addUser(array $data)
     {
 
         Db::startTrans();
         try {
-            $groups = $params['groups'];
-            self::validate($params, 'create');
-            $this->save($params);
+            $groups = $data['groups'];
+            self::validate($data, 'create');
+            $this->save($data);
 
             $access = new GroupAccessModel;
             $temp = [];
@@ -65,24 +65,24 @@ class AdminModel extends Model
 
     /**
      * 修改用户
-     * @param array $params
+     * @param array $data
      */
-    public function updateUser(int $id, array $params)
+    public function updateUser(int $id, array $data)
     {
         Db::startTrans();
         try {
             $info = $this->getInfo($id);
 
-            self::validate($params, 'edit');
+            self::validate($data, 'edit');
 
             // 重置密码
-            if (isset($params['admin_password'])) {
-                $info->admin_password = password_hash($params['admin_password'], PASSWORD_DEFAULT);
+            if (isset($data['admin_password'])) {
+                $info->admin_password = password_hash($data['admin_password'], PASSWORD_DEFAULT);
             }
 
-            $info->save($params);
+            $info->save($data);
 
-            $groups = $params['groups'];
+            $groups = $data['groups'];
             $this->deleteUserGroup($info->admin_id);
 
             $access = new GroupAccessModel;

@@ -15,31 +15,31 @@ class CheckAuth
 {
     public function handle($request, \Closure $next)
     {
-        // if ($request->controller() != 'Auth') {
-        //     $header = request()->header();
-        //     if (empty($header['authorization'])) {
-        //         return response(['code' => 50001, 'message' => '缺少 token'], 200, [], 'json');
-        //     }
+        if ($request->controller() != 'Auth') {
+            $header = request()->header();
+            if (empty($header['authorization'])) {
+                return response(['code' => 50001, 'message' => '缺少Token'], 403, [], 'json');
+            }
 
-        //     $oauthToken = $header['authorization'];
-        //     $token = (new Parser())
-        //         ->parse((string) $oauthToken);
+            $oauthToken = $header['authorization'];
+            $token = (new Parser())
+                ->parse((string) $oauthToken);
 
-        //     $data = new ValidationData();
+            $data = new ValidationData();
 
-        //     if (!$token->validate($data)) {
-        //         return response(['code' => 50008, 'message' => '签名过期或错误'], 200, [], 'json');
-        //     }
+            if (!$token->validate($data)) {
+                return response(['code' => 50008, 'message' => '签名过期'], 403, [], 'json');
+            }
 
-        //     if ($token->getClaim('uid') != Config::get('auth.auth_super_id')) {
-        //         $res = $this->checkAuth($token->getClaim('uid'));
-        //         if (!$res) {
-        //             return response(['code' => 50015, 'message' => '没有操作权限！'], 200, [], 'json');
-        //         }
-        //     }
+            if ($token->getClaim('uid') != Config::get('auth.auth_super_id')) {
+                $res = $this->checkAuth($token->getClaim('uid'));
+                if (!$res) {
+                    return response(['code' => 50015, 'message' => '没有操作权限！'], 401, [], 'json');
+                }
+            }
 
-        //     $request->uid = $token->getClaim('uid');
-        // }
+            $request->uid = $token->getClaim('uid');
+        }
 
         return $next($request);
     }

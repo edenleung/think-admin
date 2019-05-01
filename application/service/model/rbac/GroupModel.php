@@ -5,7 +5,7 @@ use app\service\validate\rbac\GroupValidate;
 use think\Model;
 
 /**
- * 用户分组
+ * 角色
  */
 class GroupModel extends Model
 {
@@ -37,13 +37,13 @@ class GroupModel extends Model
 
     /**
      * 添加
-     * @param array $params
+     * @param array $data
      */
-    public function add(array $params)
+    public function add(array $data)
     {
         try {
-            self::validate($params, 'create');
-            $this->save($params);
+            self::validate($data, 'create');
+            $this->save($data);
         } catch (\Exception $e) {
             exception($e->getMessage());
         }
@@ -51,14 +51,14 @@ class GroupModel extends Model
 
     /**
      * 修改规则
-     * @param array $params
+     * @param array $data
      */
-    public function edit($id, array $params)
+    public function edit($id, array $data)
     {
         try {
             $info = $this->getInfo($id);
-            self::validate($params, 'update');
-            $info->save($params);
+            self::validate($data, 'update');
+            $info->save($data);
         } catch (\Exception $e) {
             exception($e->getMessage());
         }
@@ -76,18 +76,6 @@ class GroupModel extends Model
         } catch (\Exception $e) {
             exception($e->getMessage());
         }
-    }
-
-    /**
-     * 获取树形结构
-     *
-     */
-    public function getTree()
-    {
-        $data = $this->order('pid asc')->select();
-        $category = new \lib\Category(array('id','pid','title','cname'));
-        $res = $category->getTree($data);//获取分类数据树结构
-        return $res;
     }
 
     /**

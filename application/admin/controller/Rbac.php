@@ -38,21 +38,6 @@ class Rbac extends Base
     }
 
     /**
-     * 用户组列表
-     *
-     * @return void
-     */
-    public function _ajaxGroups()
-    {
-        $data = $this->groupModel->select();
-
-        $rules = $this->ruleModel->order('pid asc')->field('id,title,pid')->select();
-        $tree = $this->ruleModel->getRuleTree($rules->toArray());
-
-        return $this->sendSuccess(['groups' => $data, 'rules' => $tree]);
-    }
-
-    /**
      * 添加用户组
      *
      * @return void
@@ -114,7 +99,7 @@ class Rbac extends Base
         return $this->sendSuccess($res);
     }
 
-    public function getTree()
+    public function _ajaxTree()
     {
         $res = $this->ruleModel->getTree();
         return $this->sendSuccess($res);
@@ -198,12 +183,11 @@ class Rbac extends Base
                 $users[$key]['rules'] = array_unique(explode(',', $user['rules']));
             }
           
-            return $this->sendSuccess($users);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
 
-        return $this->sendSuccess($res);
+        return $this->sendSuccess($users);
     }
 
     /**
