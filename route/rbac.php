@@ -1,7 +1,9 @@
 <?php
-$allow = '*';
 
-$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';  
+$allow = '*';
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+// 跨域白名单
 $allow_origin = array(  
     'https://ant.xiaodim.com',
     'http://localhost:8000'
