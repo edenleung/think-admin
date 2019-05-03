@@ -29,7 +29,7 @@ class AdminUserService
 
             $this->verifyPwd($params['password'], $info->admin_password);
         } catch (\Exception $e) {
-            throw $e;
+            exception($e->getMessage());
         }
 
         return $info->admin_id;
