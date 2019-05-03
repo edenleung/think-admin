@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: think
--- Generation Time: 2019-05-03 20:16:07.0040
+-- Generation Time: 2019-05-03 21:43:15.0620
 -- -------------------------------------------------------------
 
 
@@ -30,7 +30,7 @@ CREATE TABLE `pg_admin` (
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `admin_user` (`admin_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `pg_auth_group` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
