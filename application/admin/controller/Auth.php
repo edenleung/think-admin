@@ -84,11 +84,11 @@ class Auth extends HttpResponse
 
         $info = [
             'name' => $info->admin_nickname,
-            'avatar' => '/avatar2.jpg',
-            'status' => 1,
+            'avatar' => 'http://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
+            'status' => $info->admin_status,
             'roleId' => 'admin',
             'role' => [
-                'id' => 'admin', 'name' => '管理员', 'describe' => '拥有所有权限', 'status' => 1, 'creatorId' => 'system', 'createTime' => 1497160610259, 'deleted' => 0, 'permissions' => []
+                'permissions' => []
             ]
         ];
 
@@ -111,6 +111,7 @@ class Auth extends HttpResponse
 
                 $temp[] = $v;
             }
+            
         }
 
         $info['role']['permissions'] = $temp;
