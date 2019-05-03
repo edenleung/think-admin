@@ -5,9 +5,6 @@ Element 前端: https://github.com/xiaodit/think-element
 
 Ant Design 前端: https://github.com/xiaodit/think-ant-vue  
 
-预览地址: https://ant.xiaodim.com
-
-文档: https://pro.loacg.com/docs/getting-started
 
 ### 账号
 * 超级管理员 `admin, 1234` 
