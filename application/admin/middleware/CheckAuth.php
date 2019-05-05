@@ -28,7 +28,7 @@ class CheckAuth
             $data = new ValidationData();
 
             if (!$token->validate($data)) {
-                return response(['code' => 50008, 'message' => '签名过期'], 403, [], 'json');
+                return response(['code' => 50008, 'message' => '签名过期'], 401, [], 'json');
             }
 
             if ($token->getClaim('uid') != Config::get('auth.auth_super_id')) {
