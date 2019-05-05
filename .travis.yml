@@ -11,6 +11,9 @@ before_install:
 install:
   - composer install
   
+script:
+  - composer install
+  
 after_script:
   - chmod 600 /home/travis/build/xiaodit/think-admin/deploy/file
   - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i chmod 600 /home/travis/build/xiaodit/think-admin/deploy/file" ${XDUSER}@${XDHOST}:~/lnmp/workspace/ant/php
