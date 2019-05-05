@@ -1,5 +1,8 @@
-## ThinkPHP Ant Design Pro Vue
-ThinkPHP 5.1 与 Ant Design Pro Vue 基础权限系统  
+## ThinkPHP Admin
+
+[![Build Status](https://travis-ci.org/xiaodit/think-admin.svg?branch=master)](https://travis-ci.org/xiaodit/think-admin)
+
+ThinkPHP 5.1 与 Ant、Element 基础权限系统  
 
 Element 前端: https://github.com/xiaodit/think-element  
 
