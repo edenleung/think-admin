@@ -18,7 +18,7 @@ class CheckAuth
         if ($request->controller() != 'Auth') {
             $header = request()->header();
             if (empty($header['authorization'])) {
-                return response(['code' => 50001, 'message' => '缺少Token'], 403, [], 'json');
+                return response(['code' => 50001, 'message' => '缺少Token test'], 403, [], 'json');
             }
 
             $oauthToken = $header['authorization'];
