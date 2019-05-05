@@ -5,6 +5,11 @@ language: php
 php:
   - 7.1.9
   
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+  
 before_install:
   - composer self-update
 
