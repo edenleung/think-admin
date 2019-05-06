@@ -14,5 +14,5 @@ script:
   - composer install
 
 after_script:
-  - chmod 600 ./privatekey
-  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -i ./privatekey -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
+  - chmod 600 ./key
+  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -i ./key -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
