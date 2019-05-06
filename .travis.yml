@@ -22,4 +22,5 @@ script:
   
 after_script:
   - chmod 600 ./privatekey
+  - cat ./privatekey
   - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i ./privatekey" ${XDUSER}@${XDHOST}:${XDPATH}
