@@ -23,4 +23,4 @@ script:
   
 after_script:
   - cat ./deployer
-  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i ./deployer" ${XDUSER}@${XDHOST}:${XDPATH}
+  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
