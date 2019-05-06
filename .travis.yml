@@ -12,15 +12,10 @@ cache:
   
 before_install:
   - composer self-update
-  - openssl aes-256-cbc -K $encrypted_70c23fbfe7fe_key -iv $encrypted_70c23fbfe7fe_iv -in deployer.enc -out ~/.ssh/id_rsa -d
-  - chmod 600 ~/.ssh/id_rsa
-  - eval $(ssh-agent)
-  - ssh-add ~/.ssh/id_rsa
-  - cp .travis/ssh_config ~/.ssh/config
   
 script:
   - composer install
   
 after_script:
-  - cat ./deployer
-  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
+  - chmod 600 ./deployer
+  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -i ./deployer -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
