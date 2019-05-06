@@ -22,4 +22,4 @@ script:
   
 after_script:
   - chmod 600 ./privatekey
-  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i ./privatekey" ${XDUSER}@${XDHOST}:~/lnmp/workspace/ant/php
+  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i ./privatekey" ${XDUSER}@${XDHOST}:${XDPATH}
