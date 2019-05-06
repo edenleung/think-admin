@@ -7,15 +7,15 @@ php:
 
 cache:
   directories:
-  - vendor
-  - "$HOME/.composer/cache"
-  
+    - vendor
+    - "$HOME/.composer/cache"
+
 before_install:
-  - composer self-update
-  
+  - openssl aes-256-cbc -K $encrypted_70c23fbfe7fe_key -iv $encrypted_70c23fbfe7fe_iv -in privatekey.enc -out privatekey -d
+
 script:
   - composer install
 
 after_script:
-  - chmod 600 ./deployer
-  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -i ./deployer -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
+  - chmod 600 ./privatekey
+  - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -i ./privatekey -p ${XDPORT}" ${XDUSER}@${XDHOST}:${XDPATH}
