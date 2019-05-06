@@ -10,9 +10,6 @@ cache:
     - vendor
     - "$HOME/.composer/cache"
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_70c23fbfe7fe_key -iv $encrypted_70c23fbfe7fe_iv -in privatekey.enc -out privatekey -d
-
 script:
   - composer install
 
