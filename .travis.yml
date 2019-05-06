@@ -13,6 +13,7 @@ cache:
 before_install:
   - composer self-update
   - openssl aes-256-cbc -K $encrypted_70c23fbfe7fe_key -iv $encrypted_70c23fbfe7fe_iv -in privatekey.enc -out privatekey -d
+  - chmod 600 ./privatekey
   - eval `ssh-agent`
   - ssh-add -k ./privatekey
   - ssh-add -l
@@ -23,6 +24,5 @@ script:
   - composer install
   
 after_script:
-  - chmod 600 ./privatekey
   - cat ./privatekey
   - rsync -r /home/travis/build/xiaodit/think-admin/* -e "ssh -o StrictHostKeyChecking=no -p ${XDPORT} -i ./privatekey" ${XDUSER}@${XDHOST}:${XDPATH}
