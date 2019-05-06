@@ -13,7 +13,9 @@ cache:
 before_install:
   - composer self-update
   - openssl aes-256-cbc -K $encrypted_70c23fbfe7fe_key -iv $encrypted_70c23fbfe7fe_iv -in privatekey.enc -out privatekey -d
-
+  - eval `ssh-agent`
+  - ssh-add -k ./privatekey
+  - ssh-add -l
 install:
   - composer install
   
