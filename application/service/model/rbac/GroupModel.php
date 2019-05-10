@@ -89,4 +89,12 @@ class GroupModel extends Model
 
         return $res;
     }
+
+    public function getList($page, $pageSize)
+    {
+        $total = $this->count();
+        $data = $this->limit($pageSize)->page($page)->select();
+
+        return ['data' => $data, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+    }
 }

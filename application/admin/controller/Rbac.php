@@ -28,11 +28,11 @@ class Rbac extends Base
      *
      * @return void
      */
-    public function groups()
+    public function groups($page = 1, $pageSize = 1)
     {
-        $data = $this->groupModel->select();
+        $data = $this->groupModel->getList($page, $pageSize);
 
-        $rules = $this->ruleModel->getList();
+        $rules = $this->ruleModel->getList(1, 1000);
 
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }
@@ -93,9 +93,9 @@ class Rbac extends Base
      *
      * @return void
      */
-    public function rules()
+    public function rules($page = 1, $pageSize = 3)
     {
-        $res = $this->ruleModel->getList();
+        $res = $this->ruleModel->getList($page, $pageSize);
         return $this->sendSuccess($res);
     }
 
@@ -162,32 +162,18 @@ class Rbac extends Base
      *
      * @return void
      */
-    public function users()
+    public function users($page = 1, $pageSize = 1)
     {
         try {
-            $subsql = $this->accessModel->group('uid')->field('uid, GROUP_CONCAT(group_id) as groups')->buildSql();
-
-            $keyword = empty($this->params['keyword']) ? '' : $this->params['keyword'];
-            $users = $this->userModel->alias('A')
-                ->where(function($query) use($keyword) {
-                    if ($keyword) {
-                        $query->where('A.admin_nickname', 'like', $keyword . '%');
-                    }
-                })
-                ->where('A.admin_id', '<>', config('auth.auth_super_id'))
-                ->leftjoin([$subsql => 'G'], ' G.uid = A.admin_id')
-                ->field('A.*,G.groups, (SELECT GROUP_CONCAT(rules) as rules FROM pg_auth_group WHERE id  in (G.groups)) as rules')
-                ->select();
-
-            foreach($users as $key=>$user) {
-                $users[$key]['rules'] = array_unique(explode(',', $user['rules']));
-            }
-          
+            $res['users'] = $this->userModel->getList($page, $pageSize);
+            $res['rules'] = $this->ruleModel->getList(1, 1000);
+            $res['roles'] = $this->groupModel->getList(1, 1000);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
 
-        return $this->sendSuccess($users);
+        
+        return $this->sendSuccess($res);
     }
 
     /**

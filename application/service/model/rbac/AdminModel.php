@@ -209,4 +209,32 @@ class AdminModel extends Model
 
         return $rules;
     }
+
+    /**
+     * 用户列表
+     *
+     * @param [type] $page
+     * @param [type] $pageSize
+     * @return void
+     */
+    public function getList($page, $pageSize)
+    {
+        $subsql = (new GroupAccessModel)->group('uid')->field('uid, GROUP_CONCAT(group_id) as groups')->buildSql();
+        $total = $this->where('admin_id', '<>', config('auth.auth_super_id'))->count();
+
+        $users = $this->alias('A')
+            ->leftjoin([$subsql => 'G'], ' G.uid = A.admin_id')
+            ->where('A.admin_id', '<>', config('auth.auth_super_id'))
+            ->page($page)
+            ->limit($pageSize)
+            ->field('A.*,G.groups, (SELECT GROUP_CONCAT(rules) as rules FROM pg_auth_group WHERE id  in (G.groups)) as rules')
+            ->select();
+
+        foreach($users as $key=>$user) {
+            $users[$key]['rules'] = array_unique(explode(',', $user['rules']));
+        }
+
+        $data = ['data' => $users, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+        return $data;
+    }
 }

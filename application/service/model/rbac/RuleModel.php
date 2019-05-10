@@ -116,9 +116,10 @@ class RuleModel extends Model
         return $data;
     }
 
-    public function getList()
+    public function getList($page, $pageSize)
     {
-        $top = $this->where('pid', 0)->select();
+        $total = $this->where('pid', 0)->count();
+        $top = $this->where('pid', 0)->limit($pageSize)->page($page)->select();
         $data = $this->where('pid', '<>', 0)->select();
 
         foreach($top as $key=>$v) {
@@ -130,7 +131,7 @@ class RuleModel extends Model
             }
         }
 
-        return $top;
+        return ['data' => $top, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
     }
 
     protected function getActions($data, $pid, &$temp = [])
