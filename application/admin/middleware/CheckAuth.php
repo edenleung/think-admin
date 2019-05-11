@@ -2,8 +2,7 @@
 
 namespace app\admin\middleware;
 
-use xiaodi\Auth;
-use app\service\model\rbac\AdminModel;
+use app\service\models\User;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;
 use think\facade\Config;
@@ -50,17 +49,13 @@ class CheckAuth
     protected function checkAuth($uid)
     {
         try {
-            $user = new AdminModel;
-            $userInfo = $user->getInfo($uid);
-
-            // 获取auth实例
-            $auth = Auth::instance();
-
+            $user = (new User)->getInfo($uid);
             $pathInfo = dispatchPath();
+
             // 放行_ajax开头的方法
             if (strpos(request()->action(), '_ajax') === false) {
                 // 检测权限
-                if (!$auth->check($pathInfo, $uid)) {
+                if (!$user->can($pathInfo)) {
                     return false;
                 }
             }

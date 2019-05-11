@@ -29,11 +29,11 @@ Route::group('/auth', function () {
     Route::rule('/rule/:id', 'admin/rbac/deleteRule', 'DELETE');
     Route::rule('/tree', 'admin/rbac/_ajaxTree', 'GET');
 
-    Route::rule('/role', 'admin/rbac/groups', 'GET');
+    Route::rule('/role', 'admin/rbac/roles', 'GET');
     Route::rule('/ajax_group', 'admin/rbac/_ajaxGroup', 'GET');
-    Route::rule('/role', 'admin/rbac/addGroup', 'POST');
-    Route::rule('/role/:id', 'admin/rbac/updateGroup', 'PUT');
-    Route::rule('/role/:id', 'admin/rbac/deleteGroup', 'DELETE');
+    Route::rule('/role', 'admin/rbac/addRole', 'POST');
+    Route::rule('/role/:id', 'admin/rbac/updateRole', 'PUT');
+    Route::rule('/role/:id', 'admin/rbac/deleteRole', 'DELETE');
 
     Route::rule('/user', 'admin/rbac/users', 'GET');
     Route::rule('/user', 'admin/rbac/addUser', 'POST');
@@ -42,4 +42,3 @@ Route::group('/auth', function () {
 })->header('Access-Control-Allow-Origin', $allow)->allowCrossDomain();
 
 Route::miss('auth/miss')->header('Access-Control-Allow-Origin', $allow)->allowCrossDomain();
-Route::rule('test', 'admin/index/index', 'get');

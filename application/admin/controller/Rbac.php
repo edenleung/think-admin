@@ -1,51 +1,51 @@
 <?php
 namespace app\admin\controller;
 
-use app\service\model\rbac\RuleModel;
-use app\service\model\rbac\GroupModel;
-use app\service\model\rbac\GroupAccessModel;
-use app\service\model\rbac\AdminModel;
+use app\service\models\User;
+use app\service\models\Permission;
+use app\service\models\Role;
+use app\service\models\RoleAccess;
 
 class Rbac extends Base
 {
-    protected $ruleModel;
-    protected $groupModel;
-    protected $accessModel;
-    protected $userModel;
+    protected $rule;
+    protected $role;
+    protected $access;
+    protected $user;
 
     public function __construct()
     {
         parent::__construct();
         
-        $this->ruleModel = new RuleModel();
-        $this->groupModel = new GroupModel();
-        $this->userModel = new AdminModel();
-        $this->accessModel = new GroupAccessModel();
+        $this->rule = new Permission();
+        $this->role = new Role();
+        $this->user = new User();
+        $this->access = new RoleAccess();
     }
 
     /**
-     * 用户组列表
+     * 角色列表
      *
      * @return void
      */
-    public function groups($page = 1, $pageSize = 1)
+    public function roles($page = 1, $pageSize = 1)
     {
-        $data = $this->groupModel->getList($page, $pageSize);
+        $data = $this->role->getList($page, $pageSize);
 
-        $rules = $this->ruleModel->getList(1, 1000);
+        $rules = $this->rule->getList(1, 1000);
 
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }
 
     /**
-     * 添加用户组
+     * 添加角色
      *
      * @return void
      */
-    public function addGroup()
+    public function addRole()
     {
         try {
-            $res = $this->groupModel->add($this->params);
+            $res = $this->role->add($this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -55,15 +55,15 @@ class Rbac extends Base
 
 
     /**
-     * 更新用户组
+     * 更新角色
      *
      * @param integer $id 标识
      * @return void
      */
-    public function updateGroup(int $id)
+    public function updateRole(int $id)
     {
         try {
-            $res = $this->groupModel->edit($id, $this->params);
+            $res = $this->role->edit($id, $this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -72,15 +72,15 @@ class Rbac extends Base
     }
 
     /**
-     * 删除用户组
+     * 删除角色
      *
      * @param integer $id 标识
      * @return void
      */
-    public function deleteGroup(int $id)
+    public function deleteRole(int $id)
     {
         try {
-            $res = $this->groupModel->deleteGroup($id);
+            $res = $this->role->deleteRole($id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -95,13 +95,13 @@ class Rbac extends Base
      */
     public function rules($page = 1, $pageSize = 3)
     {
-        $res = $this->ruleModel->getList($page, $pageSize);
+        $res = $this->rule->getList($page, $pageSize);
         return $this->sendSuccess($res);
     }
 
     public function _ajaxTree()
     {
-        $res = $this->ruleModel->getTree();
+        $res = $this->rule->getTree();
         return $this->sendSuccess($res);
     }
 
@@ -114,7 +114,7 @@ class Rbac extends Base
     public function addRule()
     {
         try {
-            $res = $this->ruleModel->add($this->params);
+            $res = $this->rule->add($this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -132,7 +132,7 @@ class Rbac extends Base
     public function updateRule(int $id)
     {
         try {
-            $res = $this->ruleModel->edit($id, $this->params);
+            $res = $this->rule->edit($id, $this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -149,7 +149,7 @@ class Rbac extends Base
     public function deleteRule(int $id)
     {
         try {
-            $res = $this->ruleModel->deleteRule($id);
+            $res = $this->rule->deleteRule($id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -165,9 +165,9 @@ class Rbac extends Base
     public function users($page = 1, $pageSize = 1)
     {
         try {
-            $res['users'] = $this->userModel->getList($page, $pageSize);
-            $res['rules'] = $this->ruleModel->getList(1, 1000);
-            $res['roles'] = $this->groupModel->getList(1, 1000);
+            $res['users'] = $this->user->getList($page, $pageSize);
+            $res['rules'] = $this->rule->getList(1, 1000);
+            $res['roles'] = $this->role->getList(1, 1000);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -184,7 +184,7 @@ class Rbac extends Base
     public function addUser()
     {
         try {
-            $res = $this->userModel->addUser($this->params);
+            $res = $this->user->addUser($this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -201,7 +201,7 @@ class Rbac extends Base
     public function updateUser(int $id)
     {
         try {
-            $res = $this->userModel->updateUser($id, $this->params);
+            $res = $this->user->updateUser($id, $this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -218,7 +218,7 @@ class Rbac extends Base
     public function deleteUser(int $id)
     {
         try {
-            $res = $this->userModel->deleteUser($id);
+            $res = $this->user->deleteUser($id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }

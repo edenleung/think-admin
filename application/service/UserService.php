@@ -1,18 +1,19 @@
 <?php
 namespace app\service;
 
-use app\service\model\rbac\AdminModel;
+use xiaodi\Permission\Models\User;
 
 /**
  * 后台用户服务类.
+ * 
  */
-class AdminUserService
+class UserService
 {
     protected $model;
 
     public function __construct()
     {
-        $this->model = new AdminModel;
+        $this->user = new User;
     }
 
     /**
@@ -21,8 +22,9 @@ class AdminUserService
     public function doLogin(array $params)
     {
         try {
-            $info = $this->model->getUserInfo($params['username']);
-
+            $info = $this->user->getInfo([
+                'admin_user' => $params['username']
+            ]);
             if (!$info->admin_status) {
                 exception('此账号已禁用！');
             }

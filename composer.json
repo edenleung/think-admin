@@ -20,7 +20,8 @@
         "topthink/framework": "5.1.*",
         "topthink/think-testing": "^2.0",
         "xiaodi/think-auth": "^2.0",
-        "lcobucci/jwt": "v3.2.2"
+        "lcobucci/jwt": "v3.2.2",
+        "xiaodi/think-permission": "dev-master"
     },
     "autoload": {
         "psr-4": {
