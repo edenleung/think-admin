@@ -34,8 +34,8 @@ class User extends Model
      */
     public function getList($page, $pageSize)
     {
-        $total = $this->where('admin_id', '<>', config('permission.auth_super_id'))->count();
-        $users = $this->where('admin_id', '<>', config('permission.auth_super_id'))->limit($pageSize)->page($page)->field('admin_password', true)->select();
+        $total = $this->where('id', '<>', config('permission.auth_super_id'))->count();
+        $users = $this->where('id', '<>', config('permission.auth_super_id'))->limit($pageSize)->page($page)->field('admin_password', true)->select();
         foreach($users as $user) {
             $roles = $user->getRoleNames()->toArray();
             $rules = $user->getAllPermissions();

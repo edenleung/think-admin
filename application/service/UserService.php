@@ -22,19 +22,19 @@ class UserService
     public function doLogin(array $params)
     {
         try {
-            $info = $this->user->getInfo([
-                'admin_user' => $params['username']
+            $user = $this->user->getInfo([
+                'user' => $params['username']
             ]);
-            if (!$info->admin_status) {
+            if (!$user->status) {
                 exception('此账号已禁用！');
             }
 
-            $this->verifyPwd($params['password'], $info->admin_password);
+            $this->verifyPwd($params['password'], $user->password);
         } catch (\Exception $e) {
             exception($e->getMessage());
         }
 
-        return $info->admin_id;
+        return $user->id;
     }
 
     /**

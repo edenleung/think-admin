@@ -24,12 +24,12 @@ class Auth extends HttpResponse
     public function doLogin()
     {
         try {
-            $admin_id = $this->service->doLogin($this->params);
+            $uid = $this->service->doLogin($this->params);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
 
-        return $this->sendSuccess(['token' => $this->makeSign($admin_id)]);
+        return $this->sendSuccess(['token' => $this->makeSign($uid)]);
     }
 
     /**
@@ -83,9 +83,9 @@ class Auth extends HttpResponse
         $roles = $user->getAllPermissions();
 
         $info = [
-            'name' => $user->admin_nickname,
+            'name' => $user->nickname,
             'avatar' => 'http://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
-            'status' => $user->admin_status,
+            'status' => $user->status,
             'role' => [
                 'permissions' => []
             ]
