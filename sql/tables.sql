@@ -21,15 +21,15 @@
 
 
 CREATE TABLE `pg_admin` (
-  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
-  `admin_user` char(50) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_nickname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_password` char(250) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_status` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `nickname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` char(250) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
   `update_time` char(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`admin_id`),
-  UNIQUE KEY `admin_user` (`admin_user`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user` (`user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `pg_auth_group` (
@@ -60,7 +60,7 @@ CREATE TABLE `pg_auth_rule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
-INSERT INTO `pg_admin` (`admin_id`, `admin_user`, `admin_nickname`, `admin_password`, `admin_status`, `update_time`, `create_time`) VALUES ('1', X'61646d696e', '小弟', X'243279243130243334337569776f346d612f627959735768724545422e7a433441306b6e46447a767a504a452f624a5749654459684d516734465132', '1', X'31353233353031373830', '1523501780'),
+INSERT INTO `pg_admin` (`id`, `user`, `nickname`, `password`, `status`, `update_time`, `create_time`) VALUES ('1', X'61646d696e', '小弟', X'243279243130243334337569776f346d612f627959735768724545422e7a433441306b6e46447a767a504a452f624a5749654459684d516734465132', '1', X'31353233353031373830', '1523501780'),
 ('28', X'74657374', '测试用户', X'2432792431302461324f7634655a4d696f6b4f6f416e73676b532f4d4f486537485a664c5744737245457353646b6f71456c6c415a3452466e4e4965', '1', X'31353537353532393931', '1557552991');
 
 INSERT INTO `pg_auth_group` (`id`, `title`, `name`, `status`, `rules`) VALUES ('1', X'e6b58be8af95', 'test', '1', '2,7,12');
