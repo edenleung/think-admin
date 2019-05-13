@@ -17,3 +17,6 @@ Ant Design 前端: https://github.com/xiaodit/think-ant-vue
 自行修改数据名，默认是`think`
 自行导入数据表文件  
 https://github.com/xiaodit/think-ant-admin/tree/master/sql
+
+### 权限包
+[think-permission](https://github.com/xiaodit/think-permission)
