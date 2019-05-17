@@ -1,10 +1,10 @@
 <?php
 namespace app\admin\controller;
 
-use app\service\models\User;
-use app\service\models\Permission;
-use app\service\models\Role;
-use app\service\models\RoleAccess;
+use app\Permission\Models\User;
+use app\Permission\Models\Permission;
+use app\Permission\Models\Role;
+use app\Permission\Models\RoleAccess;
 
 class Rbac extends Base
 {
@@ -20,7 +20,7 @@ class Rbac extends Base
         $this->rule = new Permission();
         $this->role = new Role();
         $this->user = new User();
-        $this->access = new RoleAccess();
+        // $this->access = new RoleAccess();
     }
 
     /**
@@ -93,7 +93,7 @@ class Rbac extends Base
      *
      * @return void
      */
-    public function rules($page = 1, $pageSize = 3)
+    public function rules($page = 1, $pageSize = 1)
     {
         $res = $this->rule->getList($page, $pageSize);
         return $this->sendSuccess($res);

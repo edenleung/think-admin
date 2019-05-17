@@ -1,7 +1,7 @@
 <?php
 namespace app\service;
 
-use xiaodi\Permission\Models\User;
+use app\Permission\Models\User;
 
 /**
  * 后台用户服务类.
@@ -22,9 +22,8 @@ class UserService
     public function doLogin(array $params)
     {
         try {
-            $user = $this->user->getInfo([
-                'user' => $params['username']
-            ]);
+            $user = $this->user->getByName($params['username']);
+
             if (!$user->status) {
                 exception('此账号已禁用！');
             }
