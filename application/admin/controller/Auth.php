@@ -3,7 +3,9 @@ namespace app\admin\controller;
 
 use app\common\HttpResponse;
 use app\service\UserService;
-use app\service\models\User;
+
+use xiaodi\Permission\Models\Permission;
+use xiaodi\Permission\Models\User;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
@@ -77,10 +79,16 @@ class Auth extends HttpResponse
         $uid = $parse->getClaim('uid');
 
         // 获取用户信息
-        $user = (new User)->getInfo($uid);
+        $user = (new User)->getById($uid);
 
         // 获取用户有权限的规则
-        $roles = $user->getAllPermissions();
+        if ($user->id === config('permission.auth_super_id')) {
+            // 超级管理员
+            $permissions = Permission::where('pid', '<>', 0)->select();
+        } else {
+            $permissions = $user->getAllPermissions()->toArray();
+            $permissions = Permission::where('name', 'in', array_column($permissions, 'content'))->select();
+        }
 
         $info = [
             'name' => $user->nickname,
@@ -91,18 +99,17 @@ class Auth extends HttpResponse
             ]
         ];
 
-        $data = db('auth_rule')->where('pid', '<>', 0)->order('pid asc')->select();
-        $parent = db('auth_rule')->where('pid', 0)->field('id,title,action')->select();
+        $parent = Permission::where('pid', 0)->field('id,title,action')->select();
 
         $temp = [];
         foreach($parent as $key=>$v) {
-            $actions = $this->getTree($data, $v['id'], $roles);
+            $actions = $this->getTree($permissions, $v['id']);
             if (!empty($actions)) {
                 $v['permissionId'] = $v['action'];
                 $v['actions'] = $actions;
                 $actionEntity = [];
                 foreach($actions as $action) {
-                    $actionEntity[] = ['action' => $action['role'], 'describe' => $action['title'], 'defaultCheck' => false];
+                    $actionEntity[] = ['action' => $action['action'], 'describe' => $action['title'], 'defaultCheck' => false];
                 }
                 $v['actionEntitySet'] = $actionEntity;
                 $v['actionList'] = null;
@@ -122,19 +129,19 @@ class Auth extends HttpResponse
      *
      * @param [type] $data 规则数据
      * @param [type] $pid 父级标识
-     * @param [type] $roles 有权限的规则
+     * @param [type] $permissions 有权限的规则
      * @param array $temp
      * @return void
      */
-    protected function getTree($data, $pid, $roles, &$temp = [])
+    protected function getTree($data, $pid, &$temp = [])
     {
         foreach($data as $v) {
-            if ($v['pid'] == $pid && in_array($v['id'], $roles)) {
+            if ($v['pid'] == $pid) {
                 $temp[] = [
-                    'role' => $v['action'],
+                    'action' => $v['action'],
                     'title' => $v['title']
                 ];
-                $temp = array_merge($temp, $this->getTree($data, $v['id'], $roles));
+                $temp = array_merge($temp, $this->getTree($data, $v['id']));
             }
         }
 

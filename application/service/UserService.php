@@ -1,7 +1,7 @@
 <?php
 namespace app\service;
 
-use app\Permission\Models\User;
+use xiaodi\Permission\Models\User;
 
 /**
  * 后台用户服务类.

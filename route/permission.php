@@ -23,22 +23,22 @@ Route::group('user', function () {
 })->header('Access-Control-Allow-Origin', $allow)->allowCrossDomain();
 
 Route::group('/auth', function () {
-    Route::rule('/rule', 'admin/rbac/rules', 'GET');
-    Route::rule('/rule', 'admin/rbac/addRule', 'POST');
-    Route::rule('/rule/:id', 'admin/rbac/updateRule', 'PUT');
-    Route::rule('/rule/:id', 'admin/rbac/deleteRule', 'DELETE');
+    Route::rule('/rule', 'admin/rbac/rules', 'GET')->middleware('\xiaodi\Permission\Middlewares\Permission', 'rule-view');
+    Route::rule('/rule', 'admin/rbac/addRule', 'POST')->middleware('\xiaodi\Permission\Middlewares\Permission', 'rule-add');
+    Route::rule('/rule/:id', 'admin/rbac/updateRule', 'PUT')->middleware('\xiaodi\Permission\Middlewares\Permission', 'rule-updte');
+    Route::rule('/rule/:id', 'admin/rbac/deleteRule', 'DELETE')->middleware('\xiaodi\Permission\Middlewares\Permission', 'rule-delete');
     Route::rule('/tree', 'admin/rbac/_ajaxTree', 'GET');
 
-    Route::rule('/role', 'admin/rbac/roles', 'GET');
+    Route::rule('/role', 'admin/rbac/roles', 'GET')->middleware('\xiaodi\Permission\Middlewares\Permission', 'role-view');
     Route::rule('/ajax_group', 'admin/rbac/_ajaxGroup', 'GET');
-    Route::rule('/role', 'admin/rbac/addRole', 'POST');
-    Route::rule('/role/:id', 'admin/rbac/updateRole', 'PUT');
-    Route::rule('/role/:id', 'admin/rbac/deleteRole', 'DELETE');
+    Route::rule('/role', 'admin/rbac/addRole', 'POST')->middleware('\xiaodi\Permission\Middlewares\Permission', 'role-add');
+    Route::rule('/role/:id', 'admin/rbac/updateRole', 'PUT')->middleware('\xiaodi\Permission\Middlewares\Permission', 'role-update');
+    Route::rule('/role/:id', 'admin/rbac/deleteRole', 'DELETE')->middleware('\xiaodi\Permission\Middlewares\Permission', 'role-delete');
 
-    Route::rule('/user', 'admin/rbac/users', 'GET');
-    Route::rule('/user', 'admin/rbac/addUser', 'POST');
-    Route::rule('/user/:id', 'admin/rbac/updateUser', 'PUT');
-    Route::rule('/user/:id', 'admin/rbac/deleteUser', 'DELETE');
+    Route::rule('/user', 'admin/rbac/users', 'GET')->middleware('\xiaodi\Permission\Middlewares\Permission', 'account-view');
+    Route::rule('/user', 'admin/rbac/addUser', 'POST')->middleware('\xiaodi\Permission\Middlewares\Permission', 'account-add');
+    Route::rule('/user/:id', 'admin/rbac/updateUser', 'PUT')->middleware('\xiaodi\Permission\Middlewares\Permission', 'account-update');
+    Route::rule('/user/:id', 'admin/rbac/deleteUser', 'DELETE')->middleware('\xiaodi\Permission\Middlewares\Permission', 'account-delete');
 })->header('Access-Control-Allow-Origin', $allow)->allowCrossDomain();
 
 Route::miss('auth/miss')->header('Access-Control-Allow-Origin', $allow)->allowCrossDomain();
