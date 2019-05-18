@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: think
--- Generation Time: 2019-05-11 13:56:52.9020
+-- Generation Time: 2019-05-18 15:51:43.2430
 -- -------------------------------------------------------------
 
 
@@ -20,68 +20,100 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-CREATE TABLE `pg_admin` (
+CREATE TABLE `auth_has_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` char(50) COLLATE utf8_unicode_ci NOT NULL,
-  `nickname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `password` char(250) COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
-  `update_time` char(11) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `create_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `pg_auth_group` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `title` char(100) NOT NULL DEFAULT '',
-  `name` varchar(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `rules` varchar(500) NOT NULL DEFAULT '',
+  `content` varchar(50) NOT NULL,
+  `model_id` int(11) NOT NULL COMMENT '模型主键',
+  `model_type` varchar(50) NOT NULL COMMENT '模型命名空间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `pg_auth_group_access` (
-  `user_id` mediumint(8) unsigned NOT NULL,
-  `role_id` mediumint(8) unsigned NOT NULL,
-  UNIQUE KEY `uid_group_id` (`user_id`,`role_id`),
-  KEY `uid` (`user_id`),
-  KEY `group_id` (`role_id`)
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL COMMENT '规则名称',
+  `title` varchar(100) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `auth_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '角色名称',
+  `title` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `auth_role_permission_access` (
+  `role_id` int(11) NOT NULL COMMENT '角色主键',
+  `permission_id` int(11) NOT NULL COMMENT '规则主键',
+  UNIQUE KEY `permission_id` (`permission_id`,`role_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `pg_auth_rule` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `pid` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `action` char(80) NOT NULL DEFAULT '',
-  `title` char(20) NOT NULL DEFAULT '',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `condition` char(100) DEFAULT '',
-  `name` char(100) NOT NULL DEFAULT '/',
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nickname` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `pg_admin` (`id`, `user`, `nickname`, `password`, `status`, `update_time`, `create_time`) VALUES ('1', X'61646d696e', '小弟', X'243279243130243334337569776f346d612f627959735768724545422e7a433441306b6e46447a767a504a452f624a5749654459684d516734465132', '1', X'31353233353031373830', '1523501780'),
-('28', X'74657374', '测试用户', X'2432792431302461324f7634655a4d696f6b4f6f416e73676b532f4d4f486537485a664c5744737245457353646b6f71456c6c415a3452466e4e4965', '1', X'31353537353532393931', '1557552991');
+CREATE TABLE `auth_user_role_access` (
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `role_id` int(11) NOT NULL COMMENT '角色id',
+  UNIQUE KEY `user_id` (`user_id`,`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `pg_auth_group` (`id`, `title`, `name`, `status`, `rules`) VALUES ('1', X'e6b58be8af95', 'test', '1', '2,7,12');
+INSERT INTO `auth_has_permission` (`id`, `content`, `model_id`, `model_type`) VALUES ('26', 'rule-view', '2', 'xiaodi\\Permission\\Models\\Role'),
+('27', 'rule-add', '2', 'xiaodi\\Permission\\Models\\Role'),
+('28', 'role-view', '2', 'xiaodi\\Permission\\Models\\Role'),
+('29', 'role-add', '2', 'xiaodi\\Permission\\Models\\Role'),
+('30', 'account-view', '2', 'xiaodi\\Permission\\Models\\Role'),
+('31', 'account-add', '2', 'xiaodi\\Permission\\Models\\Role'),
+('32', 'rule-view', '3', 'xiaodi\\Permission\\Models\\Role'),
+('33', 'role-view', '3', 'xiaodi\\Permission\\Models\\Role'),
+('34', 'account-view', '3', 'xiaodi\\Permission\\Models\\Role');
 
-INSERT INTO `pg_auth_group_access` (`user_id`, `role_id`) VALUES ('28', '1');
+INSERT INTO `auth_permission` (`id`, `action`, `name`, `title`, `pid`, `status`) VALUES ('1', 'rule', 'rule', '规则管理', '0', '1'),
+('2', 'view', 'rule-view', '查看', '1', '1'),
+('3', 'add', 'rule-add', '添加', '1', '1'),
+('4', 'update', 'rule-update', '更新', '1', '1'),
+('5', 'delete', 'rule-delete', '删除', '1', '1'),
+('6', 'role', 'role', '角色管理', '0', '1'),
+('7', 'view', 'role-view', '查看', '6', '1'),
+('8', 'add', 'role-add', '添加', '6', '1'),
+('9', 'update', 'role-update', '更新', '6', '1'),
+('10', 'delete', 'role-delete', '删除', '6', '1'),
+('11', 'account', 'account', '管理员管理', '0', '1'),
+('12', 'view', 'account-view', '查看', '11', '1'),
+('13', 'add', 'account-add', '添加', '11', '1'),
+('14', 'update', 'account-update', '更新', '11', '1'),
+('15', 'delete', 'account-delete', '删除', '11', '1');
 
-INSERT INTO `pg_auth_rule` (`id`, `pid`, `action`, `title`, `status`, `condition`, `name`) VALUES ('1', '0', X'72756c65', X'e8a784e58899e7aea1e79086', '1', X'', X'2f'),
-('2', '1', X'76696577', X'e69fa5e79c8b', '1', X'', X'61646d696e2f726261632f72756c6573'),
-('3', '1', X'616464', X'e6b7bbe58aa0', '1', X'', X'61646d696e2f726261632f61646452756c65'),
-('4', '1', X'757064617465', X'e69bb4e696b0', '1', X'', X'61646d696e2f726261632f75706461746552756c65'),
-('5', '1', X'64656c657465', X'e588a0e999a4', '1', X'', X'61646d696e2f726261632f64656c65746552756c65'),
-('6', '0', X'726f6c65', X'e8a792e889b2e7aea1e79086', '1', X'', X'2f'),
-('7', '6', X'76696577', X'e69fa5e79c8b', '1', X'', X'61646d696e2f726261632f726f6c6573'),
-('8', '6', X'616464', X'e6b7bbe58aa0', '1', X'', X'61646d696e2f726261632f616464526f6c65'),
-('9', '6', X'757064617465', X'e69bb4e696b0', '1', X'', X'61646d696e2f726261632f757064617465526f6c65'),
-('10', '6', X'64656c657465', X'e588a0e999a4', '1', X'', X'61646d696e2f726261632f64656c657465526f6c65'),
-('11', '0', X'6163636f756e74', X'e7aea1e79086e59198e7aea1e79086', '1', X'', X'2f'),
-('12', '11', X'76696577', X'e69fa5e79c8b', '1', X'', X'61646d696e2f726261632f7573657273'),
-('13', '11', X'616464', X'e6b7bbe58aa0', '1', X'', X'61646d696e2f726261632f61646455736572'),
-('14', '11', X'757064617465', X'e69bb4e696b0', '1', X'', X'61646d696e2f726261632f75706461746555736572'),
-('15', '11', X'64656c657465', X'e588a0e999a4', '1', X'', X'61646d696e2f726261632f64656c65746555736572');
+INSERT INTO `auth_role` (`id`, `name`, `title`, `status`) VALUES ('2', 'test', '测试', '1'),
+('3', 'test2', '测试2', '1');
+
+INSERT INTO `auth_role_permission_access` (`role_id`, `permission_id`) VALUES ('2', '2'),
+('3', '2'),
+('2', '3'),
+('2', '7'),
+('3', '7'),
+('2', '8'),
+('2', '12'),
+('3', '12'),
+('2', '13');
+
+INSERT INTO `auth_user` (`id`, `name`, `nickname`, `password`, `status`) VALUES ('1', 'admin', '超级管理员', '$2y$10$343uiwo4ma/byYsWhrEEB.zC4A0knFDzvzPJE/bJWIeDYhMQg4FQ2', '1'),
+('2', 'test', '测试', '$2y$10$B50Zho0aO4Dl2GbnZSp4KOsKbSbndnB4ZnK3zngjvMeVRfcKsfelu', '1');
+
+INSERT INTO `auth_user_role_access` (`user_id`, `role_id`) VALUES ('1', '1'),
+('2', '2'),
+('2', '3');
 
 
 
