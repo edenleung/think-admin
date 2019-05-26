@@ -1,5 +1,5 @@
 ## ThinkPHP Admin
-
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/xiaodit/think-admin.svg?branch=master)](https://travis-ci.org/xiaodit/think-admin)
 
 ThinkPHP 5.1 与 Ant、Element 基础权限系统  
