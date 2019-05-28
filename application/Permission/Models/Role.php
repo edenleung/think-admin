@@ -53,6 +53,8 @@ class Role
 
     public function deleteRole(int $id)
     {
+        exception('预览版本 不支持删除');
+        
         $model = new Model;
         $role = $model->getById($id);
         $role->revokeAllPermission();

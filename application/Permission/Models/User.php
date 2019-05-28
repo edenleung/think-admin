@@ -69,6 +69,8 @@ class User
 
     public function deleteUser($id)
     {
+        exception('预览版本 不支持删除');
+        
         Db::startTrans();
         try {
             $model = new Model;

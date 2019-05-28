@@ -79,6 +79,7 @@ class Permission extends Model
      */
     public function deleteRule($id)
     {
+        exception('预览版本 不支持删除');
         try {
             $info = $this->getById($id);
 
