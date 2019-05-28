@@ -23,6 +23,11 @@ class UserService
     {
         try {
             $user = $this->user->getByName($params['username']);
+            
+            if (empty($user)) {
+                 exception('没有此账号！');
+            }
+            
 
             if (!$user->status) {
                 exception('此账号已禁用！');
