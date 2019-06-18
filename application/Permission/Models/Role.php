@@ -44,6 +44,12 @@ class Role
         $model = new Model;
         $role = $model->getById($id);
         $role->permissions()->where('model_id', $id)->delete();
+
+        $delete = array_diff(array_column($role->access->toArray(), 'id'), $data['rules']);
+        if (!empty($delete)) {
+            $role->access()->detach($delete);
+        }
+        
         $permissions = Permission::where('id', 'in', $data['rules'])->select();
         foreach($permissions as $permission)
         {
