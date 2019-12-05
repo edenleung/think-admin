@@ -1,4 +1,4 @@
-ThinkPHP Skeleton
+ThinkPHP6 基础权限系统
 ===============
 
 > 运行环境要求PHP7.1+。
