@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace app\controller;
 
 use app\service\UserService;
+use app\model\Permission;
 
 class Login extends AbstractController
 {
@@ -30,7 +31,7 @@ class Login extends AbstractController
             return json(['code' => 50015, 'message' => '登录失败']);
         }
 
-        $token = (string)$this->userService->makeToken();
+        $token = (string) $this->userService->makeToken();
 
         return json(['code' => 20000, 'message' => '登录成功', 'data' => ['token' => $token]]);
     }
@@ -39,22 +40,45 @@ class Login extends AbstractController
     {
         $user = $this->userService->getUserInfoByToken($token);
 
-        // 是否超级管理员
-        if ($user->isSuper()) {
-        } else {}
-
         $info = [
-            'name' => 'super',
+            'name' => $user->nickname,
             'avatar' => 'http://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
-            'status' => 1,
+            'status' => $user->status,
             'role' => [
                 'permissions' => []
             ]
         ];
 
+        $permission = new Permission;
+        // 获取菜单
+        $menus = $permission->getMenu();
+
+        // 过滤当前用户能操作权限
+        $permissions = [];
+        foreach ($menus as $menu) {
+            $permission = [];
+            if (!empty($menu['child'])) {
+                $actionEntity = [];
+                foreach ($menu['child'] as $action) {
+                    if ($user->can($action['name'])) {
+                        $permission['actions'][] = ['action' => $action['action'], 'title' => $action['title']];
+                        $actionEntity[] = ['action' => $action['action'], 'describe' => $action['title'], 'defaultCheck' => false];
+                    }
+                }
+
+                $permission['permissionId'] = $menu['action'];
+                $permission['actionEntitySet'] = $actionEntity;
+                $permission['actionList'] = null;
+                $permission['dataAccess'] = null;
+                $permissions[] = $permission;
+            }
+        }
+
+        $info['role']['permissions'] = $permissions;
+
         return json(['code' => 20000, 'message' => '登录成功', 'data' => $info]);
     }
 
     public function logout()
-    {}
+    { }
 }

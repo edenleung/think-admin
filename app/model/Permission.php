@@ -53,38 +53,29 @@ class Permission extends \think\Model implements PermissionContract
     {
         $total = $this->where('pid', 0)->count();
         $top = $this->where('pid', 0)->limit($pageSize)->page($page)->select();
-        $data = $this->where('pid', '<>', 0)->select();
-        foreach ($top as $key => $v) {
-            $actions = $this->getActions($data, $v['id']);
-            $top[$key]['actions'] = [];
-            $top[$key]['permissionId'] = $v['action'];
-            if (!empty($actions)) {
-                $top[$key]['actions'] = $actions;
-            }
+        foreach ($top as $permission) {
+            $permission->permissionId = $permission->action;
+            $permission->actions = $permission->getActions();
         }
 
         return ['data' => $top, 'tree' => $this->getTree(), 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
     }
 
     /**
-     * Undocumented function
+     * 获取当前权限下级权限
      *
-     * @param [type] $data
-     * @param [type] $pid
-     * @param array $temp
      * @return void
      */
-    protected function getActions($data, $pid, &$temp = [])
+    protected function getActions()
     {
-        foreach ($data as $v) {
-            if ($v['pid'] == $pid) {
-                $v['value'] = $v['id'];
-                $v['label'] = $v['title'];
-                $temp[] = $v;
-                $temp = array_merge($temp, $this->getActions($data, $v['id']));
-            }
+        $data = Permission::where(['pid' => $this->id])->select();
+
+        foreach($data as $permission) {
+            $permission->value = $permission->id;
+            $permission->label = $permission->title;
         }
-        return $temp;
+        
+        return $data;
     }
 
     /**
@@ -93,9 +84,22 @@ class Permission extends \think\Model implements PermissionContract
      */
     public function getTree()
     {
-        $data = $this->order('pid asc')->select();
+        $data = $this->order('pid asc')->select()->toArray();
         $category = new \extend\Category(array('id', 'pid', 'title', 'cname'));
         $res = $category->getTree($data); //获取分类数据树结构
+        return $res;
+    }
+
+    /**
+     * 获取顶级分类
+     *
+     * @return void
+     */
+    public function getMenu()
+    {
+        $data = $this->order('pid asc')->select()->toArray();
+        $category = new \extend\Category(array('id', 'pid', 'title', 'cname'));
+        $res = $category->formatTree($data); //获取分类数据树结构
         return $res;
     }
 }
