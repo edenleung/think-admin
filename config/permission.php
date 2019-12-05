@@ -26,5 +26,5 @@ return [
     'role_permission_access' => \xiaodi\Permission\Model\RolePermissionAccess::class,
 
     // 用户与角色中间表模型
-    'user_role_access' => \xiaodi\Permission\Model\UserRoleAccess::class
+    'user_role_access' => \xiaodi\Permission\Model\UserRoleAccess::class,
 ];

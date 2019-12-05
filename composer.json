@@ -20,10 +20,9 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-annotation": "^1.0",
-        "xiaodi/think-permission": "dev-master",
         "xiaodi/think-whoops": "^1.1",
-        "xiaodi/think-jwt": "dev-master",
-        "topthink/think-view": "^1.0"
+        "xiaodi/think-permission": "^0.5.0",
+        "xiaodi/think-jwt": "^0.5.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
@@ -56,14 +55,6 @@
         "packagist": {
             "type": "composer",
             "url": "https://mirrors.aliyun.com/composer/"
-        },
-        "think-permission": {
-            "type": "path",
-            "url": "/Users/leung/workspace/docker-compose/workspace/think-permission"
-        },
-        "think-jwt-auth": {
-            "type": "path",
-            "url": "/Users/leung/workspace/docker-compose/workspace/think-jwt-auth"
         }
     }
 }

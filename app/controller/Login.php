@@ -61,12 +61,12 @@ class Login extends AbstractController
                 $actionEntity = [];
                 foreach ($menu['child'] as $action) {
                     if ($user->can($action['name'])) {
-                        $permission['actions'][] = ['action' => $action['action'], 'title' => $action['title']];
-                        $actionEntity[] = ['action' => $action['action'], 'describe' => $action['title'], 'defaultCheck' => false];
+                        $permission['actions'][] = ['action' => $action['name'], 'title' => $action['title']];
+                        $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
                     }
                 }
 
-                $permission['permissionId'] = $menu['action'];
+                $permission['permissionId'] = $menu['name'];
                 $permission['actionEntitySet'] = $actionEntity;
                 $permission['actionList'] = null;
                 $permission['dataAccess'] = null;
