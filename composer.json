@@ -1,6 +1,6 @@
 {
-    "name": "topthink/think",
-    "description": "the new thinkphp framework",
+    "name": "xiaodi/think-skeleton",
+    "description": "Skeleton For ThinkPHP 6",
     "type": "project",
     "keywords": [
         "framework",
@@ -11,27 +11,59 @@
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
+            "name": "xiaodi",
+            "email": "liangjinbiao@live.com"
         }
     ],
     "require": {
-        "php": ">=5.6.0",
-        "topthink/framework": "5.1.34",
-        "topthink/think-testing": "^2.0",
-        "lcobucci/jwt": "v3.2.2",
-        "xiaodi/think-permission": "0.2-beta.1",
-        "topthink/think-migration": "2.0.3"
+        "php": ">=7.1.0",
+        "topthink/framework": "^6.0.0",
+        "topthink/think-orm": "^2.0",
+        "topthink/think-annotation": "^1.0",
+        "xiaodi/think-permission": "dev-master",
+        "xiaodi/think-whoops": "^1.1",
+        "xiaodi/think-jwt": "dev-master",
+        "topthink/think-view": "^1.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "phpstan/phpstan": "^0.11.19",
+        "topthink/think-trace":"^1.0"
     },
     "autoload": {
         "psr-4": {
-            "app\\": "application"
+            "app\\": "app",
+            "extend\\": "extend"
+        },
+        "psr-0": {
+            "": "extend/"
         }
-    },
-    "extra": {
-        "think-path": "thinkphp"
     },
     "config": {
         "preferred-install": "dist"
+    },
+    "scripts": {
+        "start": "php think run",
+        "analyze": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app",
+        "post-autoload-dump": [
+            "@php think service:discover",
+            "@php think vendor:publish"
+        ],
+        "cs-fix": "php-cs-fixer fix $1"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        },
+        "think-permission": {
+            "type": "path",
+            "url": "/Users/leung/workspace/docker-compose/workspace/think-permission"
+        },
+        "think-jwt-auth": {
+            "type": "path",
+            "url": "/Users/leung/workspace/docker-compose/workspace/think-jwt-auth"
+        }
     }
 }
