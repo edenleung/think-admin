@@ -3,7 +3,7 @@
 
 ThinkPHP 6.0 与 Ant-Design-Vue 基础权限系统  
 
-Ant Design Vue 前端: https://github.com/xiaodit/think-ant-vue
+Ant Design Vue 前端: [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
 
 
 ### 账号
@@ -11,7 +11,7 @@ Ant Design Vue 前端: https://github.com/xiaodit/think-ant-vue
 * 普通管理员 `xiaodi, 1234`
 
 ### 权限包
-[think-permission](https://github.com/xiaodit/think-permission)
+https://github.com/xiaodit/think-permission
 
 ### JWT包
-[think-jwt](https://github.com/xiaodit/think-jwt)
+https://github.com/xiaodit/think-jwt
