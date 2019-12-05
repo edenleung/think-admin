@@ -20,17 +20,21 @@ Route::get('/login/info', 'login/info')->allowCrossDomain();
 Route::get('/login/logout', 'login/logout')->allowCrossDomain();
 
 Route::group('/auth', function () {
+    // 规则
     Route::rule('/rule', 'rbac/rules', 'GET')->middleware('auth', 'rule-view');
     Route::rule('/rule', 'rbac/addRule', 'POST')->middleware('auth', 'rule-add');
     Route::rule('/rule/:id', 'rbac/updateRule', 'PUT')->middleware('auth', 'rule-update');
     Route::rule('/rule/:id', 'rbac/deleteRule', 'DELETE')->middleware('auth', 'rule-delete');
 
-    Route::rule('/role', 'rbac/roles', 'GET')->middleware('auth', 'rule-delete');
-    Route::rule('/role', 'rbac/addRole', 'POST')->middleware('auth', 'rule-delete');
-    Route::rule('/role/:id', 'rbac/updateRole', 'PUT')->middleware('auth', 'rule-delete');
-    Route::rule('/role/:id', 'rbac/deleteRole', 'DELETE')->middleware('auth', 'rule-delete');
-    Route::rule('/user', 'rbac/users', 'GET')->middleware('auth', 'rule-delete');
-    Route::rule('/user', 'rbac/addUser', 'POST')->middleware('auth', 'rule-delete');
-    Route::rule('/user/:id', 'rbac/updateUser', 'PUT')->middleware('auth', 'rule-delete');
-    Route::rule('/user/:id', 'rbac/deleteUser', 'DELETE')->middleware('auth', 'rule-delete');
+    // 角色
+    Route::rule('/role', 'rbac/roles', 'GET')->middleware('auth', 'role-view');
+    Route::rule('/role', 'rbac/addRole', 'POST')->middleware('auth', 'role-add');
+    Route::rule('/role/:id', 'rbac/updateRole', 'PUT')->middleware('auth', 'role-update');
+    Route::rule('/role/:id', 'rbac/deleteRole', 'DELETE')->middleware('auth', 'role-delete');
+
+    // 用户
+    Route::rule('/user', 'rbac/users', 'GET')->middleware('auth', 'account-view');
+    Route::rule('/user', 'rbac/addUser', 'POST')->middleware('auth', 'account-add');
+    Route::rule('/user/:id', 'rbac/updateUser', 'PUT')->middleware('auth', 'account-update');
+    Route::rule('/user/:id', 'rbac/deleteUser', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
