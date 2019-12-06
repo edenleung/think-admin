@@ -1,24 +1,17 @@
-ThinkPHP6 基础权限系统
-===============
+## ThinkPHP
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
-> 运行环境要求PHP7.1+。
+ThinkPHP 6.0 与 Ant-Design-Vue 基础权限系统  
 
-### 安装
-```sh
-$ composer i
-```
+Ant Design Vue 前端: [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
 
-### 启动
-```sh
-$ composer start
-```
 
-### 格式化代码
-```sh
-$ composer cs-fix path
-```
+### 账号
+* 超级管理员 `admin, 1234` 
+* 普通管理员 `xiaodi, 1234`
 
-### 代码静态分析 
-```sh
-$ composer analyze
-```
+### 权限包
+https://github.com/xiaodit/think-permission
+
+### JWT包
+https://github.com/xiaodit/think-jwt
