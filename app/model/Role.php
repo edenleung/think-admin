@@ -19,17 +19,17 @@ class Role extends \think\Model implements RoleContract
         return ['data' => $roles, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
     }
 
-    public function add(array $data)
+    public function addRole(array $data)
     {
         $role = Role::create($data);
 
         $permissions = Permission::whereIn('id', implode(',', $data['rules']))->select();
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $role->assignPermission($permission);
         }
     }
 
-    public function edit(int $id, array $data)
+    public function updateRole(int $id, array $data)
     {
         $role = Role::find($id);
 
@@ -38,12 +38,12 @@ class Role extends \think\Model implements RoleContract
         $role->removeAllPermission();
 
         $permissions = Permission::whereIn('id', implode(',', $data['rules']))->select();
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $role->assignPermission($permission);
         }
     }
 
-    public function remove(int $id)
+    public function deleteRole(int $id)
     {
         $role = Role::find($id);
         $role->removeAllPermission();

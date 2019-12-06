@@ -1,44 +1,73 @@
 <?php
 
-declare(strict_types=1);
-/**
- * This file is part of ThinkPHP.
- * @link     https://www.thinkphp.cn
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  group@thinkphp.cn
- * @license  https://github.com/top-think/think/blob/6.0/LICENSE.txt
- */
-
 namespace app\controller;
 
-use app\service\UserService;
+use think\Request;
 use app\model\Permission;
+use app\model\Role;
+use app\model\User as Model;
 
-class Login extends AbstractController
+class User extends AbstractController
 {
-    protected $userService;
+    protected $model;
 
-    public function __construct(UserService $userService)
+    public function __construct(Model $model)
     {
-        $this->userService = $userService;
+        $this->model = $model;
     }
 
-    public function index()
+    /**
+     * 用户列表
+     *
+     * @return void
+     */
+    public function list($page = 1, $pageSize = 1, Permission $permission, Role $role)
     {
-        $username = $this->request->param('username');
-        $password = $this->request->param('password');
-        if (false === $this->userService->login($username, $password)) {
-            return json(['code' => 50015, 'message' => '登录失败']);
-        }
+        $res['users'] = $this->model->getList($page, $pageSize);
 
-        $token = (string) $this->userService->makeToken();
-
-        return json(['code' => 20000, 'message' => '登录成功', 'data' => ['token' => $token]]);
+        $res['rules'] = $permission->getList(1, 1000);
+        $res['roles'] = $role->getList(1, 1000);
+        return $this->sendSuccess($res);
     }
 
-    public function info($token)
+    /**
+     * 添加用户
+     *
+     * @return void
+     */
+    public function add()
     {
-        $user = $this->userService->getUserInfoByToken($token);
+        $this->model->addUser($this->request->param());
+        return $this->sendSuccess();
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param integer $id 标识
+     * @return void
+     */
+    public function update(int $id)
+    {
+        $this->model->updateUser($id, $this->request->param());
+        return $this->sendSuccess();
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param integer $id 标识
+     * @return void
+     */
+    public function delete(int $id)
+    {
+        $this->model->deleteUser($id);
+        return $this->sendSuccess();
+    }
+
+    public function info(Request $request)
+    {
+        $user = $request->user;
 
         $info = [
             'name' => $user->nickname,
@@ -75,10 +104,6 @@ class Login extends AbstractController
         }
 
         $info['role']['permissions'] = $permissions;
-
-        return json(['code' => 20000, 'message' => '登录成功', 'data' => $info]);
+        return $this->sendSuccess($info);
     }
-
-    public function logout()
-    { }
 }

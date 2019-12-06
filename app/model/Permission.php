@@ -14,7 +14,7 @@ class Permission extends \think\Model implements PermissionContract
      * @param array $data
      * @return void
      */
-    public function add(array $data)
+    public function addRule(array $data)
     {
         Permission::create($data);
     }
@@ -26,7 +26,7 @@ class Permission extends \think\Model implements PermissionContract
      * @param array $data
      * @return void
      */
-    public function edit(int $id, array $data)
+    public function updateRule(int $id, array $data)
     {
         $this->find($id)->save($data);
     }
@@ -37,7 +37,7 @@ class Permission extends \think\Model implements PermissionContract
      * @param integer $id
      * @return void
      */
-    public function remove(int $id)
+    public function deleteRule(int $id)
     {
         $this->find($id)->delete();
     }
