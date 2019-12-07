@@ -15,8 +15,8 @@ Route::get('think', function () {
     return 'Hello,ThinkPHP6!';
 });
 
-Route::miss(function () {
-    return redirect('think');
+Route::get('/', function () {
+    return 'Hello,ThinkPHP6!';
 });
 
 Route::group('/auth', function () {

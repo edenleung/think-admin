@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace app\controller;
 
 use app\service\UserService;
-use app\model\Permission;
 
 class Auth extends AbstractController
 {
@@ -28,7 +27,7 @@ class Auth extends AbstractController
         $username = $this->request->param('username');
         $password = $this->request->param('password');
         if (false === $this->userService->login($username, $password)) {
-            return json(['code' => 50015, 'message' => '登录失败']);
+            return $this->sendError('登录失败');
         }
 
         $token = (string) $this->userService->makeToken();

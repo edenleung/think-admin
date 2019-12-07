@@ -103,7 +103,7 @@ abstract class AbstractController
     {
         $res = [];
         $res['message'] = $msg;
-        $res['data'] = $data;
+        $res['result'] = $data;
         $res['code'] = $code;
 
         return Response::create($res, 'json', 200, $header);
