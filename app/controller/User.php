@@ -37,7 +37,11 @@ class User extends AbstractController
      */
     public function add()
     {
-        $this->model->addUser($this->request->param());
+        if (false === $this->model->addUser($this->request->param()))
+        {
+            return $this->sendError($this->model->getError());
+        }
+
         return $this->sendSuccess();
     }
 
@@ -49,8 +53,12 @@ class User extends AbstractController
      */
     public function update(int $id)
     {
-        $this->model->updateUser($id, $this->request->param());
-        return $this->sendSuccess();
+        // if (false === $this->model->updateUser($id, $this->request->param()))
+        // {
+        //     return $this->sendError($this->model->getError());
+        // }
+
+        // return $this->sendSuccess();
     }
 
     /**
@@ -61,7 +69,11 @@ class User extends AbstractController
      */
     public function delete(int $id)
     {
-        $this->model->deleteUser($id);
+        if (false === $this->model->deleteUser($id))
+        {
+            return $this->sendError($this->model->getError());
+        }
+        
         return $this->sendSuccess();
     }
 

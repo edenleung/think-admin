@@ -4,10 +4,12 @@ namespace app\model;
 
 use think\Db;
 use xiaodi\Permission\Contract\UserContract;
+use app\model\validate\UserValidate;
+use think\exception\ValidateException;
 
 class User extends \think\Model implements UserContract
 {
-    use \xiaodi\Permission\Traits\User;
+    use \xiaodi\Permission\Traits\User, \app\traits\ErrorModel;
 
     /**
      * 生成密码.
@@ -21,19 +23,24 @@ class User extends \think\Model implements UserContract
     }
 
     /**
-     * 绑定角色.
+     * 验证数据
      *
-     * @param string $roles
+     * @param string $scene 验证场景
+     * @param array $data 验证数据
      * @return void
      */
-    protected function bindRole(string $roles)
+    protected function validate(string $scene, array $data)
     {
-        //绑定角色
-        $roles = Role::whereIn('id', $roles)->select();
-
-        foreach ($roles as $role) {
-            $this->assignRole($role);
+        try {
+            validate(UserValidate::class)
+                ->scene($scene)
+                ->check($data);
+        } catch (ValidateException $e) {
+            $this->error = $e->getError();
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -44,6 +51,10 @@ class User extends \think\Model implements UserContract
      */
     public function addUser(array $data)
     {
+        if (false === $this->validate('create', $data)) {
+            return false;
+        }
+
         $user = User::create([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
@@ -52,11 +63,15 @@ class User extends \think\Model implements UserContract
         ]);
 
         //绑定角色
-        $user->bindRole(implode(',', $data['roles']));
+        $user->bindRole($data['roles']);
     }
 
     public function updateUser(int $id, array $data)
     {
+        if (false === $this->validate('update', $data)) {
+            return false;
+        }
+
         $user = $this->find($id);
 
         // 重置密码
@@ -74,17 +89,27 @@ class User extends \think\Model implements UserContract
         $user->removeAllRole();
 
         // 重新绑定角色
-        $user->bindRole(implode(',', $data['roles']));
+        if (empty($data['roles'])) {
+            $user->bindRole($data['roles']);
+        }
     }
 
+    /**
+     * 删除用户
+     *
+     * @param integer $id
+     * @return void
+     */
     public function deleteUser(int $id)
     {
         $user = $this->find($id);
+        if (empty($user)) {
+            return false;
+        }
 
         // 解除所有已绑定角色
         $user->removeAllRole();
-        
-        $user->delete();
+        return $user->delete();
     }
 
     public function getList(int $page, int $pageSize)
@@ -98,5 +123,23 @@ class User extends \think\Model implements UserContract
 
         $data = ['data' => $users, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
         return $data;
+    }
+
+    /**
+     * 绑定角色.
+     *
+     * @param array $roles
+     * @return void
+     */
+    protected function bindRole(array $roles)
+    {
+        $roles = implode(',', $roles);
+
+        //绑定角色
+        $roles = Role::whereIn('id', $roles)->select();
+
+        foreach ($roles as $role) {
+            $this->assignRole($role);
+        }
     }
 }

@@ -33,7 +33,10 @@ class Role extends AbstractController
      */
     public function add()
     {
-        $this->model->addRule($this->request->param());
+        if (false === $this->model->addRole($this->request->param()))
+        {
+            return $this->sendError($this->model->getError());
+        }
 
         return $this->sendSuccess();
     }
@@ -46,7 +49,10 @@ class Role extends AbstractController
      */
     public function update(int $id)
     {
-        $this->model->updateRole($id, $this->request->param());
+        if (false === $this->model->updateRole($id, $this->request->param()))
+        {
+            return $this->sendError($this->model->getError());
+        }
 
         return $this->sendSuccess();
     }
@@ -59,7 +65,10 @@ class Role extends AbstractController
      */
     public function delete(int $id)
     {
-        $this->model->deleteRole($id);
+        if (false === $this->model->deleteRole($id))
+        {
+            return $this->sendError($this->model->getError());
+        }
 
         return $this->sendSuccess();
     }

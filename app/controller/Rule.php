@@ -32,7 +32,7 @@ class Rule extends AbstractController
     public function add()
     {
         if (!$this->model->addRule($this->request->param())) {
-            return $this->sendError();
+            return $this->sendError($this->model->getError());
         }
 
         return $this->sendSuccess();
@@ -47,7 +47,7 @@ class Rule extends AbstractController
     public function update(int $id)
     {
         if (!$this->model->updateRule($id, $this->request->param())) {
-            return $this->sendError();
+            return $this->sendError($this->model->getError());
         }
 
         return $this->sendSuccess();
@@ -61,7 +61,10 @@ class Rule extends AbstractController
      */
     public function delete(int $id)
     {
-        $this->model->deleteRule($id);
+        if (false === $this->model->deleteRule($id))
+        {
+            return $this->sendError($this->model->getError());
+        }
 
         return $this->sendSuccess();
     }
