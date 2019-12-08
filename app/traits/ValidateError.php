@@ -2,7 +2,7 @@
 
 namespace app\traits;
 
-trait ErrorModel
+trait ValidateError
 {
     /**
      * 验证错误信息

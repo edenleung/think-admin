@@ -9,7 +9,7 @@ use think\exception\ValidateException;
 
 class User extends \think\Model implements UserContract
 {
-    use \xiaodi\Permission\Traits\User, \app\traits\ErrorModel;
+    use \xiaodi\Permission\Traits\User, \app\traits\ValidateError;
 
     /**
      * 生成密码.

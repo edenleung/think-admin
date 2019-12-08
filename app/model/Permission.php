@@ -8,7 +8,7 @@ use think\exception\ValidateException;
 
 class Permission extends \think\Model implements PermissionContract
 {
-    use \xiaodi\Permission\Traits\Permission, \app\traits\ErrorModel;
+    use \xiaodi\Permission\Traits\Permission, \app\traits\ValidateError;
 
     /**
      * 验证数据

@@ -8,7 +8,7 @@ use think\exception\ValidateException;
 
 class Role extends \think\Model implements RoleContract
 {
-    use \xiaodi\Permission\Traits\Role, \app\traits\ErrorModel;
+    use \xiaodi\Permission\Traits\Role, \app\traits\ValidateError;
 
     /**
      * 验证数据
