@@ -45,6 +45,6 @@ Route::group('/user', function () {
     Route::rule('/', 'user/list', 'GET')->middleware('auth', 'account-view');
     Route::rule('/', 'user/add', 'POST')->middleware('auth', 'account-add');
     Route::rule('/info', 'user/info', 'GET');
-    Route::rule('/user/:id', 'user/update', 'PUT')->middleware('auth', 'account-update');
-    Route::rule('/user/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
+    Route::rule('/:id', 'user/update', 'PUT')->middleware('auth', 'account-update');
+    Route::rule('/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
