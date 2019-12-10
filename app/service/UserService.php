@@ -40,7 +40,7 @@ class UserService
 
     public function makeToken()
     {
-        $token = $this->jwt->getToken(['uid' => $this->user->id]);
+        $token = $this->jwt->token(['uid' => $this->user->id]);
         return $token;
     }
 

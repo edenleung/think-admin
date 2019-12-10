@@ -7,3 +7,4 @@ thinkphp
 .env
 composer.lock
 node_modules
+.DS_Store
