@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::group('/auth', function () {
     Route::post('/login', 'auth/login');
     Route::get('/logout', 'auth/logout');
+    Route::get('/refresh_token', 'auth/refreshToken');
 })->allowCrossDomain();
 
 // 规则
