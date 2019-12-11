@@ -83,7 +83,7 @@ class User extends AbstractController
 
         $info = [
             'name' => $user->nickname,
-            'avatar' => 'http://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
+            'avatar' => 'https://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
             'status' => $user->status,
             'role' => [
                 'permissions' => []
