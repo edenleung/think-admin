@@ -49,3 +49,12 @@ Route::group('/user', function () {
     Route::rule('/:id', 'user/update', 'PUT')->middleware('auth', 'account-update');
     Route::rule('/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
+
+// 模拟数据（可删除）
+Route::group('/mock', function () {
+    Route::rule('/list/search/projects', 'mock/projects', 'GET');
+    Route::rule('/workplace/activity', 'mock/activity', 'GET');
+    Route::rule('/workplace/radar', 'mock/radar', 'GET');
+    Route::rule('/workplace/teams', 'mock/teams', 'GET');
+    
+})->allowCrossDomain();
