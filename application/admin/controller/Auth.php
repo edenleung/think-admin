@@ -4,8 +4,8 @@ namespace app\admin\controller;
 use app\common\HttpResponse;
 use app\service\UserService;
 
-use xiaodi\Permission\Model\Permission;
-use xiaodi\Permission\Model\User;
+use xiaodi\Permission\Models\Permission;
+use xiaodi\Permission\Models\User;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;

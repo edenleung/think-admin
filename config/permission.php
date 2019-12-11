@@ -3,13 +3,13 @@ return [
     'auth_super_id'     => 1,
     
     'models' => [
-        'user' => \xiaodi\Permission\Model\User::class,
+        'user' => \xiaodi\Permission\Models\User::class,
 
-        'role' => \xiaodi\Permission\Model\Role::class,
+        'role' => \xiaodi\Permission\Models\Role::class,
 
-        'has_permission' => \xiaodi\Permission\Model\HasPermissionAccess::class,
+        'has_permission' => \xiaodi\Permission\Models\HasPermissionAccess::class,
 
-        'permission' => \xiaodi\Permission\Model\Permission::class
+        'permission' => \xiaodi\Permission\Models\Permission::class
     ],
 
     'tables' => [

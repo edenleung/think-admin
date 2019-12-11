@@ -2,8 +2,8 @@
 namespace app\Permission\Models;
 
 use app\Permission\Validate\Role as Validate;
-use xiaodi\Permission\Model\Permission;
-use xiaodi\Permission\Model\Role as Model;
+use xiaodi\Permission\Models\Permission;
+use xiaodi\Permission\Models\Role as Model;
 
 class Role
 {

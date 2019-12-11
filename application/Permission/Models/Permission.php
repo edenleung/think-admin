@@ -2,7 +2,7 @@
 namespace app\Permission\Models;
 
 use app\Permission\Validate\Permission as Validate;
-use xiaodi\Permission\Model\Permission as Model;
+use xiaodi\Permission\Models\Permission as Model;
 
 class Permission extends Model
 {

@@ -2,8 +2,8 @@
 namespace app\Permission\Models;
 
 use think\Db;
-use xiaodi\Permission\Model\Role;
-use xiaodi\Permission\Model\User as Model;
+use xiaodi\Permission\Models\Role;
+use xiaodi\Permission\Models\User as Model;
 
 class User
 {
