@@ -1,7 +1,7 @@
 <?php
 namespace app\service;
 
-use xiaodi\Permission\Models\User;
+use xiaodi\Permission\Model\User;
 
 /**
  * 后台用户服务类.
@@ -9,7 +9,7 @@ use xiaodi\Permission\Models\User;
  */
 class UserService
 {
-    protected $model;
+    protected $user;
 
     public function __construct()
     {
