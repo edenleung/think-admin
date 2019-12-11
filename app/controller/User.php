@@ -53,12 +53,12 @@ class User extends AbstractController
      */
     public function update(int $id)
     {
-        // if (false === $this->model->updateUser($id, $this->request->param()))
-        // {
-        //     return $this->sendError($this->model->getError());
-        // }
+        if (false === $this->model->updateUser($id, $this->request->param()))
+        {
+            return $this->sendError($this->model->getError());
+        }
 
-        // return $this->sendSuccess();
+        return $this->sendSuccess();
     }
 
     /**
