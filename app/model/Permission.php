@@ -125,10 +125,8 @@ class Permission extends \think\Model implements PermissionContract
      */
     public function getTree()
     {
-        $data = $this->order('pid asc')->select()->toArray();
-        $category = new \extend\Category(array('id', 'pid', 'title', 'cname'));
-        $res = $category->getTree($data); //获取分类数据树结构
-        return $res;
+        $data = $this->where('pid', 0)->select()->toArray();
+        return $data;
     }
 
     /**

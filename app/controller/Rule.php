@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\controller;
 
 use app\model\Permission as Model;
@@ -61,8 +63,7 @@ class Rule extends AbstractController
      */
     public function delete(int $id)
     {
-        if (false === $this->model->deleteRule($id))
-        {
+        if (false === $this->model->deleteRule($id)) {
             return $this->sendError($this->model->getError());
         }
 

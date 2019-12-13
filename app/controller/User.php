@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\controller;
 
 use think\Request;
@@ -37,8 +39,7 @@ class User extends AbstractController
      */
     public function add()
     {
-        if (false === $this->model->addUser($this->request->param()))
-        {
+        if (false === $this->model->addUser($this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -53,8 +54,7 @@ class User extends AbstractController
      */
     public function update(int $id)
     {
-        if (false === $this->model->updateUser($id, $this->request->param()))
-        {
+        if (false === $this->model->updateUser($id, $this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -69,11 +69,10 @@ class User extends AbstractController
      */
     public function delete(int $id)
     {
-        if (false === $this->model->deleteUser($id))
-        {
+        if (false === $this->model->deleteUser($id)) {
             return $this->sendError($this->model->getError());
         }
-        
+
         return $this->sendSuccess();
     }
 
@@ -83,7 +82,7 @@ class User extends AbstractController
 
         $info = [
             'name' => $user->nickname,
-            'avatar' => 'https://b-ssl.duitang.com/uploads/item/201603/20/20160320095826_x8RcV.thumb.700_0.jpeg',
+            'avatar' => 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
             'status' => $user->status,
             'role' => [
                 'permissions' => []
@@ -102,7 +101,7 @@ class User extends AbstractController
                 $actionEntity = [];
                 foreach ($menu['child'] as $action) {
                     if ($user->can($action['name'])) {
-                        $permission['actions'][] = ['action' => $action['name'], 'title' => $action['title']];
+                        $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
                         $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
                     }
                 }
