@@ -50,6 +50,10 @@ Route::group('/user', function () {
     Route::rule('/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
+// 日志
+Route::rule('/log', 'log/list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+Route::rule('/log', 'log/delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+
 // 模拟数据（可删除）
 Route::group('/mock', function () {
     Route::rule('/list/search/projects', 'mock/projects', 'GET');

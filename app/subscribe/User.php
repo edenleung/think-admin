@@ -3,12 +3,8 @@
 namespace app\subscribe;
 
 use app\event\UserLogin as Event;
+use app\model\Log;
 
-/**
- * 触发例子
- * $user = User::find(1);
- * event(new UserLogin($user));
- */
 class User
 {
     /**
@@ -19,5 +15,12 @@ class User
      */
     public function onUserLogin(Event $event)
     {
+        Log::create([
+            'user_id'    => $event->user->id,
+            'action' => '登录',
+            'url'    => request()->url(),
+            'ip'     => request()->ip(),
+            'user_agent' => request()->header('USER_AGENT')
+        ]);
     }
 }

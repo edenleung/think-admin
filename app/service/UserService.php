@@ -2,6 +2,7 @@
 
 namespace app\service;
 
+use app\event\UserLogin;
 use app\model\User;
 use xiaodi\Jwt;
 
@@ -35,6 +36,8 @@ class UserService
         }
 
         $this->user = $user;
+
+        event('UserLogin', new UserLogin($this->user));
         return true;
     }
 
@@ -42,12 +45,5 @@ class UserService
     {
         $token = $this->jwt->token(['uid' => $this->user->id]);
         return $token;
-    }
-
-    public function getUserInfoByToken($token)
-    {
-        if(true === $this->jwt->verify($token)){
-            return $this->jwt->user();
-        }
     }
 }
