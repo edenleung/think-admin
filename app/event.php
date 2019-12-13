@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 return [
     'bind' => [
+        'UserLogin' => 'app\event\UserLogin'
     ],
 
     'listen' => [
@@ -19,8 +20,10 @@ return [
         'HttpEnd' => [],
         'LogLevel' => [],
         'LogWrite' => [],
+        'UserLogin' => ['app\listener\UserLogin']
     ],
 
     'subscribe' => [
+        'app\subscribe\User'
     ],
 ];
