@@ -9,6 +9,8 @@ use think\exception\ValidateException;
 
 class User extends \think\Model implements UserContract
 {
+    use \app\traits\CurdEvent;
+
     use \xiaodi\Permission\Traits\User, \app\traits\ValidateError;
 
     /**

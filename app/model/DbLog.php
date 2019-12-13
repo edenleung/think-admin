@@ -2,7 +2,7 @@
 
 namespace app\model;
 
-class Log extends \think\Model
+final class DbLog extends \think\Model
 {
     protected $autoWriteTimestamp = true;
 
@@ -15,12 +15,8 @@ class Log extends \think\Model
      */
     public function getList($page, $pageSize)
     {
-        $total = Log::count();
-        $logs = Log::alias('l')->join('user u', 'u.id = l.user_id')
-            ->limit($pageSize)
-            ->page($page)
-            ->field('l.*,u.nickname')
-            ->select();
+        $total = DbLog::count();
+        $logs = DbLog::limit($pageSize)->page($page)->select();
 
         return ['data' => $logs, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
     }
@@ -39,7 +35,7 @@ class Log extends \think\Model
             return false;
         }
 
-        Log::whereIn('id', $ids)->delete();
+        DbLog::whereIn('id', $ids)->delete();
 
         return true;
     }

@@ -8,6 +8,8 @@ use think\exception\ValidateException;
 
 class Role extends \think\Model implements RoleContract
 {
+    use \app\traits\CurdEvent;
+
     use \xiaodi\Permission\Traits\Role, \app\traits\ValidateError;
 
     /**
@@ -31,7 +33,7 @@ class Role extends \think\Model implements RoleContract
         return true;
     }
 
-    public function getList(int $page, int $pageSize)
+    public function getList($page, $pageSize)
     {
         $total = Role::count();
         $roles = Role::limit($pageSize)->page($page)->select();

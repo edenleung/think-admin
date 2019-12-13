@@ -51,8 +51,10 @@ Route::group('/user', function () {
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 日志
-Route::rule('/log', 'log/list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
-Route::rule('/log', 'log/delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+Route::rule('/log/acount', 'log/acount_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+Route::rule('/log/acount', 'log/acount_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+Route::rule('/log/db', 'log/db_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+Route::rule('/log/db', 'log/db_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
 
 // 模拟数据（可删除）
 Route::group('/mock', function () {
