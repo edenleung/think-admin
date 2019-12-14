@@ -144,4 +144,27 @@ class User extends \think\Model implements UserContract
             $this->assignRole($role);
         }
     }
+
+    /**
+     * 更新头像
+     *
+     * @param string $path
+     * @return void
+     */
+    public function updateAvatar(string $path)
+    {
+        $this->avatar = 'storage'. \DIRECTORY_SEPARATOR. $path;
+        return $this->save();
+    }
+
+    /**
+     * 更新个人信息
+     * 
+     * @param array $data
+     * @return void
+     */
+    public function updateCurrent(array $data)
+    {
+        return $this->save($data);
+    }
 }

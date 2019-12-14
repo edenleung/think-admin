@@ -80,15 +80,6 @@ class User extends AbstractController
     {
         $user = $request->user;
 
-        $info = [
-            'name' => $user->nickname,
-            'avatar' => 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-            'status' => $user->status,
-            'role' => [
-                'permissions' => []
-            ]
-        ];
-
         $permission = new Permission;
         // 获取菜单
         $menus = $permission->getMenu();
@@ -114,7 +105,60 @@ class User extends AbstractController
             }
         }
 
-        $info['role']['permissions'] = $permissions;
-        return $this->sendSuccess($info);
+        unset($user->password);
+        $user->role = ['permissions' => $permissions];
+
+        return $this->sendSuccess($user);
+    }
+
+    /**
+     * 获取个人信息
+     *
+     * @param Model $user
+     * @return void
+     */
+    public function current(Model $user)
+    {
+        return $this->sendSuccess($user);
+    }
+
+    /**
+     * 更新个人信息
+     *
+     * @param Model $user
+     * @return void
+     */
+    public function updateCurrent(Model $user)
+    {
+        $data = $this->request->param();
+        if (empty($data))
+        {
+            return $this->sendError('数据出错');
+        }
+
+        if (!$user->updateCurrent($data))
+        {
+            return $this->sendError('更新失败');
+        }
+
+
+        return $this->sendSuccess(null, '已更新个人信息');
+    }
+
+    /**
+     * 更新头像
+     *
+     * @return void
+     */
+    public function avatar(Model $user)
+    {
+        $file = $this->request->file('file');
+        $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
+        if (!$user->updateAvatar($savename))
+        {
+            return $this->sendError('更新失败');
+        }
+
+        return $this->sendSuccess($user->avatar, '已成功更换头像');
     }
 }

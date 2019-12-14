@@ -43,18 +43,27 @@ Route::group('/role', function () {
 
 // 用户
 Route::group('/user', function () {
+    //获取 个人信息
+    Route::rule('/current$', 'user/current', 'GET');
+    //更新 个人信息
+    Route::rule('/current$', 'user/updateCurrent', 'PUT');
+    //更新 头像
+    Route::rule('/avatar$', 'user/avatar', 'POST');
+
     Route::rule('/', 'user/list', 'GET')->middleware('auth', 'account-view');
     Route::rule('/', 'user/add', 'POST')->middleware('auth', 'account-add');
-    Route::rule('/info', 'user/info', 'GET');
+    Route::rule('/info$', 'user/info', 'GET');
     Route::rule('/:id', 'user/update', 'PUT')->middleware('auth', 'account-update');
     Route::rule('/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 日志
-Route::rule('/log/acount', 'log/acount_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
-Route::rule('/log/acount', 'log/acount_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
-Route::rule('/log/db', 'log/db_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
-Route::rule('/log/db', 'log/db_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+Route::group('/log', function () {
+    Route::rule('/acount', 'log/acount_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+    Route::rule('/acount', 'log/acount_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+    Route::rule('/db', 'log/db_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+    Route::rule('/db', 'log/db_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+})->allowCrossDomain()->middleware(Jwt::class);
 
 // 模拟数据（可删除）
 Route::group('/mock', function () {
@@ -62,5 +71,4 @@ Route::group('/mock', function () {
     Route::rule('/workplace/activity', 'mock/activity', 'GET');
     Route::rule('/workplace/radar', 'mock/radar', 'GET');
     Route::rule('/workplace/teams', 'mock/teams', 'GET');
-    
 })->allowCrossDomain();
