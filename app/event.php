@@ -20,7 +20,7 @@ return [
         'HttpEnd' => [],
         'LogLevel' => [],
         'LogWrite' => [],
-        'UserLogin' => ['app\listener\UserLogin']
+        'UserLogin' => ['app\listener\UserLogin'],
     ],
 
     'subscribe' => [
