@@ -33,11 +33,13 @@ class User extends \think\Model implements UserContract
             return false;
         }
 
+        $hash = mt_rand();
         $user = User::create([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
             'status' => $data['status'],
-            'password' => $this->makePassword($data['password']),
+            'hash'  => $hash,
+            'password' => $this->makePassword($data['password'], $hash),
         ]);
 
         //绑定角色
@@ -54,7 +56,9 @@ class User extends \think\Model implements UserContract
 
         // 重置密码
         if (isset($data['password'])) {
-            $user->password = $this->makePassword($data['password']);
+            $hash = mt_rand();
+            $user->hash = $hash;
+            $user->password = $this->makePassword($data['password'], $hash);
         }
 
         $user->save([
@@ -119,11 +123,13 @@ class User extends \think\Model implements UserContract
     /**
      * 生成密码.
      *
-     * @return string
+     * @param string $password
+     * @param integer $hash
+     * @return void
      */
-    protected function makePassword(string $password)
+    protected function makePassword(string $password, int $hash)
     {
-        return password_hash($password, PASSWORD_DEFAULT);
+        return password_hash($password, $hash);
     }
 
     /**
