@@ -120,22 +120,22 @@ class User extends AbstractController
     /**
      * 获取个人信息.
      */
-    public function current(Model $user)
+    public function current()
     {
-        return $this->sendSuccess($user);
+        return $this->sendSuccess($this->model);
     }
 
     /**
      * 更新个人信息.
      */
-    public function updateCurrent(Model $user)
+    public function updateCurrent()
     {
         $data = $this->request->param();
         if (empty($data)) {
             return $this->sendError('数据出错');
         }
 
-        if (! $user->updateCurrent($data)) {
+        if (! $this->model->updateCurrent($data)) {
             return $this->sendError('更新失败');
         }
 
@@ -145,14 +145,35 @@ class User extends AbstractController
     /**
      * 更新头像.
      */
-    public function avatar(Model $user)
+    public function avatar()
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (! $user->updateAvatar($savename)) {
+        if (! $this->model->updateAvatar($savename)) {
             return $this->sendError('更新失败');
         }
 
-        return $this->sendSuccess($user->avatar, '已成功更换头像');
+        return $this->sendSuccess($this->model->avatar, '已成功更换头像');
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return void
+     */
+    public function resetPassword()
+    {
+        $oldPassword = $this->request->param('oldPassword');
+        $newPassword = $this->request->param('newPassword');
+
+        if (!$oldPassword || !$newPassword) {
+            return $this->sendError('数据出错');
+        }
+
+        if (! $this->model->resetPassword($oldPassword, $newPassword)) {
+            return $this->sendError($this->model->getError());
+        }
+
+        return $this->sendSuccess(null, '修改成功');
     }
 }

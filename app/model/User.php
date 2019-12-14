@@ -33,12 +33,12 @@ class User extends \think\Model implements UserContract
             return false;
         }
 
-        $hash = mt_rand();
+        $hash = randomKey();
         $user = User::create([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
             'status' => $data['status'],
-            'hash'  => $hash,
+            'hash'   => $hash,
             'password' => $this->makePassword($data['password'], $hash),
         ]);
 
@@ -56,7 +56,7 @@ class User extends \think\Model implements UserContract
 
         // 重置密码
         if (isset($data['password'])) {
-            $hash = mt_rand();
+            $hash = randomKey();
             $user->hash = $hash;
             $user->password = $this->makePassword($data['password'], $hash);
         }
@@ -124,12 +124,13 @@ class User extends \think\Model implements UserContract
      * 生成密码.
      *
      * @param string $password
-     * @param integer $hash
+     * @param string $hash
      * @return void
      */
-    protected function makePassword(string $password, int $hash)
+    protected function makePassword(string $password, string $hash)
     {
-        return password_hash($password, $hash);
+        $pwd_peppered = hash_hmac("sha256", $password, $hash);
+        return password_hash($pwd_peppered, PASSWORD_DEFAULT);
     }
 
     /**
@@ -165,5 +166,37 @@ class User extends \think\Model implements UserContract
         foreach ($roles as $role) {
             $this->assignRole($role);
         }
+    }
+
+    /**
+     * 验证用户密码
+     * @param string $password
+     * @return void
+     */
+    public function verifyPassword(string $password)
+    {
+        $pwd_peppered = hash_hmac("sha256", $password, $this->hash);
+
+        return \password_verify($pwd_peppered, $this->password);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param string $oldPassword
+     * @param string $newPassword
+     * @return void
+     */
+    public function resetPassword(string $oldPassword, string $newPassword)
+    {
+        if (!$this->verifyPassword($oldPassword)) {
+            $this->error = '原密码不正确';
+            return false;
+        }
+
+        $this->hash = randomKey();
+        $this->password = $this->makePassword($newPassword, $this->hash);
+
+        return  $this->save();
     }
 }

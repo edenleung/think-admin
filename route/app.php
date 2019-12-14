@@ -60,6 +60,8 @@ Route::group('/user', function () {
     Route::rule('/current$', 'user/updateCurrent', 'PUT');
     //更新 头像
     Route::rule('/avatar$', 'user/avatar', 'POST');
+    //更新 密码
+    Route::rule('/reset-password$', 'user/resetPassword', 'PUT');
 
     Route::rule('/', 'user/list', 'GET')->middleware('auth', 'account-view');
     Route::rule('/', 'user/add', 'POST')->middleware('auth', 'account-add');
