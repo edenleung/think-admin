@@ -3,10 +3,12 @@
 declare(strict_types=1);
 /**
  * This file is part of ThinkPHP.
- * @link     https://www.thinkphp.cn
+ * @link     https://github.com/xiaodit/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  group@thinkphp.cn
- * @license  https://github.com/top-think/think/blob/6.0/LICENSE.txt
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
 namespace app\controller;
@@ -15,8 +17,8 @@ use think\annotation\Inject;
 use think\App;
 use think\exception\ValidateException;
 use think\Request;
-use think\Validate;
 use think\Response;
+use think\Validate;
 
 abstract class AbstractController
 {
@@ -62,7 +64,8 @@ abstract class AbstractController
      * 初始化.
      */
     protected function initialize()
-    { }
+    {
+    }
 
     /**
      * 验证数据.
@@ -84,7 +87,7 @@ abstract class AbstractController
             }
             $class = strpos($validate, '\\') !== false ? $validate : $this->app->parseClass('validate', $validate);
             $this->validate = new $class();
-            if (!empty($scene)) {
+            if (! empty($scene)) {
                 $this->validate->scene($scene);
             }
         }
@@ -99,7 +102,7 @@ abstract class AbstractController
         return $this->validate->failException(true)->check($data);
     }
 
-    protected function sendSuccess($data = [], $msg = null, $code = 20000, $header =  []): Response
+    protected function sendSuccess($data = [], $msg = null, $code = 20000, $header = []): Response
     {
         $res = [];
         $res['message'] = $msg ?? '操作成功';
@@ -109,7 +112,7 @@ abstract class AbstractController
         return Response::create($res, 'json', 200, $header);
     }
 
-    protected function sendError($msg = null, $code = 50015, $header =  []): Response
+    protected function sendError($msg = null, $code = 50015, $header = []): Response
     {
         $res = [];
         $res['message'] = $msg ?? '操作失败';

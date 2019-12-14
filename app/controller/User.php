@@ -1,13 +1,22 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of ThinkPHP.
+ * @link     https://github.com/xiaodit/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  group@thinkphp.cn
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
+ */
 
 namespace app\controller;
 
-use think\Request;
 use app\model\Permission;
 use app\model\Role;
 use app\model\User as Model;
+use think\Request;
 
 class User extends AbstractController
 {
@@ -19,9 +28,10 @@ class User extends AbstractController
     }
 
     /**
-     * 用户列表
+     * 用户列表.
      *
-     * @return void
+     * @param mixed $page
+     * @param mixed $pageSize
      */
     public function list($page = 1, $pageSize = 1, Permission $permission, Role $role)
     {
@@ -33,13 +43,11 @@ class User extends AbstractController
     }
 
     /**
-     * 添加用户
-     *
-     * @return void
+     * 添加用户.
      */
     public function add()
     {
-        if (false === $this->model->addUser($this->request->param())) {
+        if ($this->model->addUser($this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -47,14 +55,13 @@ class User extends AbstractController
     }
 
     /**
-     * 更新用户
+     * 更新用户.
      *
-     * @param integer $id 标识
-     * @return void
+     * @param int $id 标识
      */
     public function update(int $id)
     {
-        if (false === $this->model->updateUser($id, $this->request->param())) {
+        if ($this->model->updateUser($id, $this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -62,14 +69,13 @@ class User extends AbstractController
     }
 
     /**
-     * 删除用户
+     * 删除用户.
      *
-     * @param integer $id 标识
-     * @return void
+     * @param int $id 标识
      */
     public function delete(int $id)
     {
-        if (false === $this->model->deleteUser($id)) {
+        if ($this->model->deleteUser($id) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -80,7 +86,7 @@ class User extends AbstractController
     {
         $user = $request->user;
 
-        $permission = new Permission;
+        $permission = new Permission();
         // 获取菜单
         $menus = $permission->getMenu();
 
@@ -88,7 +94,7 @@ class User extends AbstractController
         $permissions = [];
         foreach ($menus as $menu) {
             $permission = [];
-            if (!empty($menu['child'])) {
+            if (! empty($menu['child'])) {
                 $actionEntity = [];
                 foreach ($menu['child'] as $action) {
                     if ($user->can($action['name'])) {
@@ -112,10 +118,7 @@ class User extends AbstractController
     }
 
     /**
-     * 获取个人信息
-     *
-     * @param Model $user
-     * @return void
+     * 获取个人信息.
      */
     public function current(Model $user)
     {
@@ -123,39 +126,30 @@ class User extends AbstractController
     }
 
     /**
-     * 更新个人信息
-     *
-     * @param Model $user
-     * @return void
+     * 更新个人信息.
      */
     public function updateCurrent(Model $user)
     {
         $data = $this->request->param();
-        if (empty($data))
-        {
+        if (empty($data)) {
             return $this->sendError('数据出错');
         }
 
-        if (!$user->updateCurrent($data))
-        {
+        if (! $user->updateCurrent($data)) {
             return $this->sendError('更新失败');
         }
-
 
         return $this->sendSuccess(null, '已更新个人信息');
     }
 
     /**
-     * 更新头像
-     *
-     * @return void
+     * 更新头像.
      */
     public function avatar(Model $user)
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$user->updateAvatar($savename))
-        {
+        if (! $user->updateAvatar($savename)) {
             return $this->sendError('更新失败');
         }
 

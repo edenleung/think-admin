@@ -3,10 +3,12 @@
 declare(strict_types=1);
 /**
  * This file is part of ThinkPHP.
- * @link     https://www.thinkphp.cn
+ * @link     https://github.com/xiaodit/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  group@thinkphp.cn
- * @license  https://github.com/top-think/think/blob/6.0/LICENSE.txt
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
 namespace app;
@@ -39,8 +41,6 @@ class ExceptionHandle extends Handle
 
     /**
      * 记录异常信息（包括日志或者其它方式记录）.
-     *
-     * @param Throwable $exception
      */
     public function report(Throwable $exception): void
     {
@@ -52,8 +52,6 @@ class ExceptionHandle extends Handle
      * Render an exception into an HTTP response.
      *
      * @param \think\Request $request
-     * @param Throwable $e
-     * @return Response
      */
     public function render($request, Throwable $e): Response
     {

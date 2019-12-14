@@ -1,6 +1,15 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of ThinkPHP.
+ * @link     https://github.com/xiaodit/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  group@thinkphp.cn
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
+ */
 
 namespace app\controller;
 
@@ -17,9 +26,10 @@ class Role extends AbstractController
     }
 
     /**
-     * 角色列表
+     * 角色列表.
      *
-     * @return void
+     * @param mixed $page
+     * @param mixed $pageSize
      */
     public function list($page = 1, $pageSize = 1, Permission $permission)
     {
@@ -29,13 +39,11 @@ class Role extends AbstractController
     }
 
     /**
-     * 添加角色
-     *
-     * @return void
+     * 添加角色.
      */
     public function add()
     {
-        if (false === $this->model->addRole($this->request->param())) {
+        if ($this->model->addRole($this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -43,14 +51,13 @@ class Role extends AbstractController
     }
 
     /**
-     * 更新角色
+     * 更新角色.
      *
-     * @param integer $id 标识
-     * @return void
+     * @param int $id 标识
      */
     public function update(int $id)
     {
-        if (false === $this->model->updateRole($id, $this->request->param())) {
+        if ($this->model->updateRole($id, $this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -58,14 +65,13 @@ class Role extends AbstractController
     }
 
     /**
-     * 删除角色
+     * 删除角色.
      *
-     * @param integer $id 标识
-     * @return void
+     * @param int $id 标识
      */
     public function delete(int $id)
     {
-        if (false === $this->model->deleteRole($id)) {
+        if ($this->model->deleteRole($id) === false) {
             return $this->sendError($this->model->getError());
         }
 

@@ -1,23 +1,36 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of ThinkPHP.
+ * @link     https://github.com/xiaodit/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  group@thinkphp.cn
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace extend;
 
 /**
- * Tree 分类扩展
- * 
+ * Tree 分类扩展.
  */
 class Category
 {
     //原始的分类数据
-    private $rawList = array();
-    //格式化后的分类
-    private $formatList = array();
-    //格式化的字符
-    private $icon = array('│', '├', '└');
-    //字段映射，分类id，上级分类pid,分类名称title,格式化后分类名称fulltitle
-    private $field = array();
+    private $rawList = [];
 
-    public function __construct($field = array())
+    //格式化后的分类
+    private $formatList = [];
+
+    //格式化的字符
+    private $icon = ['│', '├', '└'];
+
+    //字段映射，分类id，上级分类pid,分类名称title,格式化后分类名称fulltitle
+    private $field = [];
+
+    public function __construct($field = [])
     {
         $this->field['id'] = isset($field['0']) ? $field['0'] : 'id';
         $this->field['pid'] = isset($field['1']) ? $field['1'] : 'pid';
@@ -25,9 +38,9 @@ class Category
         $this->field['fulltitle'] = isset($field['3']) ? $field['3'] : 'fulltitle';
     }
 
-    public function getChild($pid, $data = array())
+    public function getChild($pid, $data = [])
     {
-        $childs = array();
+        $childs = [];
         if (empty($data)) {
             $data = $this->rawList;
         }
@@ -46,8 +59,8 @@ class Category
             return false;
         }
 
-        $this->rawList = array();
-        $this->formatList = array();
+        $this->rawList = [];
+        $this->formatList = [];
         $this->rawList = $data;
         $this->_searchList($id);
         return $this->formatList;
@@ -66,52 +79,13 @@ class Category
         return array_reverse($this->formatList);
     }
 
-    private function _searchList($id = 0, $space = "")
-    {
-        //下级分类的数组
-        $childs = $this->getChild($id);
-        //如果没下级分类，结束递归
-        if (!($n = count($childs))) {
-            return;
-        }
-        $cnt = 1;
-        //循环所有的下级分类
-        for ($i = 0; $i < $n; $i++) {
-            $pre = "";
-            $pad = "";
-            if ($n == $cnt) {
-                $pre = $this->icon[2];
-            } else {
-                $pre = $this->icon[1];
-                $pad = $space ? $this->icon[0] : "";
-            }
-            $childs[$i][$this->field['fulltitle']] = ($space ? $space . $pre : "") . $childs[$i][$this->field['title']];
-            $this->formatList[] = $childs[$i];
-            //递归下一级分类
-            $this->_searchList($childs[$i][$this->field['id']], $space . $pad . "&nbsp;&nbsp;");
-            $cnt++;
-        }
-    }
-
-    //通过当前id获取pid
-    private function _getPid($id)
-    {
-        foreach ($this->rawList as $key => $value) {
-            if ($this->rawList[$key][$this->field['id']] == $id) {
-                $this->formatList[] = $this->rawList[$key];
-                return $this->rawList[$key][$this->field['pid']];
-            }
-        }
-        return 0;
-    }
-
     /**
-     * 格式化 
+     * 格式化.
      *
      * @param [type] $data
      * @param string $child_key
-     * @param integer $pid
-     * @return void
+     * @param int $pid
+     * @param mixed $id
      */
     public function formatTree($data, $child_key = 'child', $id = 0)
     {
@@ -124,5 +98,44 @@ class Category
             }
         }
         return $child;
+    }
+
+    private function _searchList($id = 0, $space = '')
+    {
+        //下级分类的数组
+        $childs = $this->getChild($id);
+        //如果没下级分类，结束递归
+        if (! ($n = count($childs))) {
+            return;
+        }
+        $cnt = 1;
+        //循环所有的下级分类
+        for ($i = 0; $i < $n; ++$i) {
+            $pre = '';
+            $pad = '';
+            if ($n == $cnt) {
+                $pre = $this->icon[2];
+            } else {
+                $pre = $this->icon[1];
+                $pad = $space ? $this->icon[0] : '';
+            }
+            $childs[$i][$this->field['fulltitle']] = ($space ? $space . $pre : '') . $childs[$i][$this->field['title']];
+            $this->formatList[] = $childs[$i];
+            //递归下一级分类
+            $this->_searchList($childs[$i][$this->field['id']], $space . $pad . '&nbsp;&nbsp;');
+            ++$cnt;
+        }
+    }
+
+    //通过当前id获取pid
+    private function _getPid($id)
+    {
+        foreach ($this->rawList as $key => $value) {
+            if ($id == $this->rawList[$key][$this->field['id']]) {
+                $this->formatList[] = $this->rawList[$key];
+                return $this->rawList[$key][$this->field['pid']];
+            }
+        }
+        return 0;
     }
 }

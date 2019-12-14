@@ -3,17 +3,19 @@
 declare(strict_types=1);
 /**
  * This file is part of ThinkPHP.
- * @link     https://www.thinkphp.cn
+ * @link     https://github.com/xiaodit/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  group@thinkphp.cn
- * @license  https://github.com/top-think/think/blob/6.0/LICENSE.txt
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
 namespace app\controller;
 
 use app\service\UserService;
-use xiaodi\Facade\Jwt;
 use think\Response;
+use xiaodi\Facade\Jwt;
 
 class Auth extends AbstractController
 {
@@ -25,7 +27,7 @@ class Auth extends AbstractController
     }
 
     /**
-     * 登录
+     * 登录.
      *
      * @return Response
      */
@@ -33,7 +35,7 @@ class Auth extends AbstractController
     {
         $username = $this->request->param('username');
         $password = $this->request->param('password');
-        if (false === $this->userService->login($username, $password)) {
+        if ($this->userService->login($username, $password) === false) {
             return $this->sendError('登录失败');
         }
 
@@ -43,7 +45,7 @@ class Auth extends AbstractController
     }
 
     /**
-     * 刷新Token
+     * 刷新Token.
      *
      * @param string $token
      * @return Response
@@ -54,7 +56,7 @@ class Auth extends AbstractController
         return $this->sendSuccess([
             'token' => Jwt::refresh($token),
             'token_type' => Jwt::type(),
-            'expires_in' => Jwt::ttl()
+            'expires_in' => Jwt::ttl(),
         ]);
     }
 

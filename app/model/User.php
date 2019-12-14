@@ -1,59 +1,35 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of ThinkPHP.
+ * @link     https://github.com/xiaodit/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  group@thinkphp.cn
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace app\model;
 
-use think\Db;
-use xiaodi\Permission\Contract\UserContract;
 use app\model\validate\UserValidate;
 use think\exception\ValidateException;
+use xiaodi\Permission\Contract\UserContract;
 
 class User extends \think\Model implements UserContract
 {
     use \app\traits\CurdEvent;
 
-    use \xiaodi\Permission\Traits\User, \app\traits\ValidateError;
+    use \xiaodi\Permission\Traits\User;
+    use \app\traits\ValidateError;
 
     /**
-     * 生成密码.
-     *
-     * @param string $password
-     * @return string
-     */
-    protected function makePassword(string $password)
-    {
-        return password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    /**
-     * 验证数据
-     *
-     * @param string $scene 验证场景
-     * @param array $data 验证数据
-     * @return void
-     */
-    protected function validate(string $scene, array $data)
-    {
-        try {
-            validate(UserValidate::class)
-                ->scene($scene)
-                ->check($data);
-        } catch (ValidateException $e) {
-            $this->error = $e->getError();
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * 创建用户
-     *
-     * @param array $data
-     * @return void
+     * 创建用户.
      */
     public function addUser(array $data)
     {
-        if (false === $this->validate('create', $data)) {
+        if ($this->validate('create', $data) === false) {
             return false;
         }
 
@@ -61,7 +37,7 @@ class User extends \think\Model implements UserContract
             'name' => $data['name'],
             'nickname' => $data['nickname'],
             'status' => $data['status'],
-            'password' => $this->makePassword($data['password'])
+            'password' => $this->makePassword($data['password']),
         ]);
 
         //绑定角色
@@ -70,7 +46,7 @@ class User extends \think\Model implements UserContract
 
     public function updateUser(int $id, array $data)
     {
-        if (false === $this->validate('update', $data)) {
+        if ($this->validate('update', $data) === false) {
             return false;
         }
 
@@ -84,7 +60,7 @@ class User extends \think\Model implements UserContract
         $user->save([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
-            'status' => $data['status']
+            'status' => $data['status'],
         ]);
 
         // 解除所有已绑定角色
@@ -97,10 +73,7 @@ class User extends \think\Model implements UserContract
     }
 
     /**
-     * 删除用户
-     *
-     * @param integer $id
-     * @return void
+     * 删除用户.
      */
     public function deleteUser(int $id)
     {
@@ -123,15 +96,58 @@ class User extends \think\Model implements UserContract
             $user->rules = $rules;
         }
 
-        $data = ['data' => $users, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
-        return $data;
+        return ['data' => $users, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+    }
+
+    /**
+     * 更新头像.
+     */
+    public function updateAvatar(string $path)
+    {
+        $this->avatar = 'storage' . \DIRECTORY_SEPARATOR . $path;
+        return $this->save();
+    }
+
+    /**
+     * 更新个人信息.
+     */
+    public function updateCurrent(array $data)
+    {
+        return $this->save($data);
+    }
+
+    /**
+     * 生成密码.
+     *
+     * @return string
+     */
+    protected function makePassword(string $password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /**
+     * 验证数据.
+     *
+     * @param string $scene 验证场景
+     * @param array $data 验证数据
+     */
+    protected function validate(string $scene, array $data)
+    {
+        try {
+            validate(UserValidate::class)
+                ->scene($scene)
+                ->check($data);
+        } catch (ValidateException $e) {
+            $this->error = $e->getError();
+            return false;
+        }
+
+        return true;
     }
 
     /**
      * 绑定角色.
-     *
-     * @param array $roles
-     * @return void
      */
     protected function bindRole(array $roles)
     {
@@ -143,28 +159,5 @@ class User extends \think\Model implements UserContract
         foreach ($roles as $role) {
             $this->assignRole($role);
         }
-    }
-
-    /**
-     * 更新头像
-     *
-     * @param string $path
-     * @return void
-     */
-    public function updateAvatar(string $path)
-    {
-        $this->avatar = 'storage'. \DIRECTORY_SEPARATOR. $path;
-        return $this->save();
-    }
-
-    /**
-     * 更新个人信息
-     * 
-     * @param array $data
-     * @return void
-     */
-    public function updateCurrent(array $data)
-    {
-        return $this->save($data);
     }
 }

@@ -1,23 +1,101 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of ThinkPHP.
+ * @link     https://github.com/xiaodit/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  group@thinkphp.cn
+ * @author   XiaoDi 758861884@qq.com
+ * @copyright 2019 Xiaodi
+ * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace app\model;
 
-use xiaodi\Permission\Contract\RoleContract;
 use app\model\validate\RoleValidate;
 use think\exception\ValidateException;
+use xiaodi\Permission\Contract\RoleContract;
 
 class Role extends \think\Model implements RoleContract
 {
     use \app\traits\CurdEvent;
 
-    use \xiaodi\Permission\Traits\Role, \app\traits\ValidateError;
+    use \xiaodi\Permission\Traits\Role;
+    use \app\traits\ValidateError;
+
+    public function getList($page, $pageSize)
+    {
+        $total = Role::count();
+        $roles = Role::limit($pageSize)->page($page)->select();
+        foreach ($roles as $role) {
+            $role->permissions = $role->permissions()->select()->column('id');
+        }
+
+        return ['data' => $roles, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+    }
 
     /**
-     * 验证数据
+     * 添加角色.
+     */
+    public function addRole(array $data)
+    {
+        if ($this->validate('create', $data) === false) {
+            return false;
+        }
+
+        $role = Role::create($data);
+
+        // 绑定关系
+        if (! empty($data['rules'])) {
+            $role->assignPermissions($data['rules']);
+        }
+    }
+
+    /**
+     * 更新角色.
+     */
+    public function updateRole(int $id, array $data)
+    {
+        if ($this->validate('update', $data) === false) {
+            return false;
+        }
+
+        $role = Role::find($id);
+        if (empty($role)) {
+            return false;
+        }
+
+        $role->save($data);
+
+        // 解除关系
+        $role->removeAllPermission();
+
+        // 绑定关系
+        if (! empty($data['rules'])) {
+            $role->assignPermissions($data['rules']);
+        }
+    }
+
+    /**
+     * 删除角色.
+     */
+    public function deleteRole(int $id)
+    {
+        $role = $this->find($id);
+        if (empty($role)) {
+            return false;
+        }
+
+        $role->removeAllPermission();
+        return $role->delete();
+    }
+
+    /**
+     * 验证数据.
      *
      * @param string $scene 验证场景
      * @param array $data 验证数据
-     * @return void
      */
     protected function validate(string $scene, array $data)
     {
@@ -33,88 +111,8 @@ class Role extends \think\Model implements RoleContract
         return true;
     }
 
-    public function getList($page, $pageSize)
-    {
-        $total = Role::count();
-        $roles = Role::limit($pageSize)->page($page)->select();
-        foreach ($roles as $role) {
-            $role->permissions = $role->permissions()->select()->column('id');
-        }
-
-        return ['data' => $roles, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
-    }
-
     /**
-     * 添加角色
-     *
-     * @param array $data
-     * @return void
-     */
-    public function addRole(array $data)
-    {
-        if (false === $this->validate('create', $data)) {
-            return false;
-        }
-
-        $role = Role::create($data);
-
-        // 绑定关系
-        if (!empty($data['rules'])) {
-            $role->assignPermissions($data['rules']);
-        }
-    }
-
-    /**
-     * 更新角色
-     *
-     * @param integer $id
-     * @param array $data
-     * @return void
-     */
-    public function updateRole(int $id, array $data)
-    {
-        if (false === $this->validate('update', $data)) {
-            return false;
-        }
-
-        $role = Role::find($id);
-        if (empty($role)) {
-            return false;
-        }
-
-        $role->save($data);
-
-        // 解除关系
-        $role->removeAllPermission();
-
-        // 绑定关系
-        if (!empty($data['rules'])) {
-            $role->assignPermissions($data['rules']);
-        }
-    }
-
-    /**
-     * 删除角色
-     *
-     * @param integer $id
-     * @return void
-     */
-    public function deleteRole(int $id)
-    {
-        $role = $this->find($id);
-        if (empty($role)) {
-            return false;
-        }
-
-        $role->removeAllPermission();
-        return $role->delete();
-    }
-
-    /**
-     * 绑定关系
-     *
-     * @param array $rules
-     * @return void
+     * 绑定关系.
      */
     protected function assignPermissions(array $rules)
     {
