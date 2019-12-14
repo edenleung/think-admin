@@ -31,17 +31,17 @@ class UserService
     /**
      * 用户登录.
      *
-     * @param [type] $username
-     * @param [type] $password
+     * @param string $username
+     * @param string $password
      */
-    public function login($username, $password)
+    public function login(string $username, string $password)
     {
         $user = User::findByName($username);
         if (empty($user)) {
             return false;
         }
 
-        if (! \password_verify($password, $user->password)) {
+        if (!$user->verifyPassword($password)) {
             return false;
         }
 
