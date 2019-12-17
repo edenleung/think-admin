@@ -36,7 +36,7 @@ class Log extends AbstractController
      */
     public function acount_list($page = 1, $pageSize = 10)
     {
-        $data = $this->log->getList((int) $page, (int)$pageSize);
+        $data = $this->log->getList((int)$page, (int)$pageSize);
         return $this->sendSuccess($data);
     }
 
@@ -62,7 +62,7 @@ class Log extends AbstractController
      */
     public function db_list($page = 1, $pageSize = 10)
     {
-        $data = $this->db->getList($page, $pageSize);
+        $data = $this->db->getList((int)$page, (int)$pageSize);
         return $this->sendSuccess($data);
     }
 
