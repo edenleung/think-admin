@@ -33,7 +33,7 @@ class User extends Migrator
     {
         $table = $this->table('user', array('engine' => 'InnoDB'));
         $table->addColumn('name', 'string', array('limit' => 50, 'comment' => '用户唯一标识（登录名）'))
-            ->addColumn('password', 'string', array('limit' => 60, 'comment' => '登录密码'))
+            ->addColumn('password', 'string', array('limit' => 255, 'comment' => '登录密码'))
             ->addColumn('hash', 'string', array('limit' => 11, 'comment' => '加密hash'))
             ->addColumn('nickname', 'string', array('limit' => 50, 'default' => '', 'comment' => '昵称'))
             ->addColumn('status', 'integer', array('limit' => 11, 'default' => 0, 'comment' => '状态'))
