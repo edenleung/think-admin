@@ -20,10 +20,10 @@ final class DbLog extends \think\Model
     /**
      * 获取日志列表.
      *
-     * @param string $page
-     * @param string $pageSize
+     * @param int $page
+     * @param int $pageSize
      */
-    public function getList($page, $pageSize)
+    public function getList(int $page, int $pageSize)
     {
         $total = DbLog::count();
         $logs = DbLog::limit($pageSize)->page($page)->order('create_time desc')->select();

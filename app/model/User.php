@@ -94,11 +94,11 @@ class User extends \think\Model implements UserContract
     /**
      * 获取用户列表
      *
-     * @param string $page
-     * @param string $pageSize
+     * @param int $page
+     * @param int $pageSize
      * @return void
      */
-    public function getList($page, $pageSize)
+    public function getList(int $page, int $pageSize)
     {
         $total = $this->where('id', '<>', config('permission.super_id'))->count();
         $users = $this->where('id', '<>', config('permission.super_id'))->limit($pageSize)->page($page)->select();

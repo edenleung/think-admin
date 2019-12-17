@@ -32,7 +32,7 @@ class Rule extends AbstractController
      */
     public function list($page = 1, $pageSize = 1)
     {
-        $data = $this->model->getList($page, $pageSize);
+        $data = $this->model->getList((int)$page, (int)$pageSize);
         return $this->sendSuccess($data);
     }
 

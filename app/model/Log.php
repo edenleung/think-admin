@@ -20,10 +20,10 @@ class Log extends \think\Model
     /**
      * 获取日志列表.
      *
-     * @param string $page
+     * @param int $page
      * @param string $pageSize
      */
-    public function getList($page, $pageSize)
+    public function getList(int $page, int $pageSize)
     {
         $total = Log::count();
         $logs = Log::alias('l')->join('user u', 'u.id = l.user_id')

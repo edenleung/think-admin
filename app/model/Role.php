@@ -27,11 +27,11 @@ class Role extends \think\Model implements RoleContract
     /**
      * a获取角色列表
      *
-     * @param string $page
-     * @param string $pageSize
+     * @param int $page
+     * @param int $pageSize
      * @return void
      */
-    public function getList($page, $pageSize)
+    public function getList(int $page, int $pageSize)
     {
         $total = Role::count();
         $roles = Role::limit($pageSize)->page($page)->select();

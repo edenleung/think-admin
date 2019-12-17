@@ -69,10 +69,10 @@ class Permission extends \think\Model implements PermissionContract
     /**
      * 获取规则列表.
      *
-     * @param string $page
-     * @param string $pageSize
+     * @param int $page
+     * @param int $pageSize
      */
-    public function getList($page, $pageSize)
+    public function getList(int $page, int $pageSize)
     {
         $total = $this->where('pid', 0)->count();
         $top = $this->where('pid', 0)->limit($pageSize)->page($page)->select();
