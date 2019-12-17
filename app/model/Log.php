@@ -30,7 +30,7 @@ class Log extends \think\Model
             ->limit($pageSize)
             ->page($page)
             ->field('l.*,u.nickname')
-            ->order('create_time')
+            ->order('create_time desc')
             ->select();
 
         return ['data' => $logs, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
