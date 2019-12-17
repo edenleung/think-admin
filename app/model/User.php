@@ -91,7 +91,14 @@ class User extends \think\Model implements UserContract
         return $user->delete();
     }
 
-    public function getList(int $page, int $pageSize)
+    /**
+     * 获取用户列表
+     *
+     * @param string $page
+     * @param string $pageSize
+     * @return void
+     */
+    public function getList($page, $pageSize)
     {
         $total = $this->where('id', '<>', config('permission.super_id'))->count();
         $users = $this->where('id', '<>', config('permission.super_id'))->limit($pageSize)->page($page)->select();

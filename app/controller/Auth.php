@@ -60,8 +60,14 @@ class Auth extends AbstractController
         ]);
     }
 
+    /**
+     * 退出登录
+     *
+     * @return void
+     */
     public function logout()
     {
         // TODO
+        return $this->sendSuccess();
     }
 }

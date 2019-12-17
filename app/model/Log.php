@@ -20,8 +20,8 @@ class Log extends \think\Model
     /**
      * 获取日志列表.
      *
-     * @param int $page
-     * @param int $pageSize
+     * @param string $page
+     * @param string $pageSize
      */
     public function getList($page, $pageSize)
     {
@@ -30,6 +30,7 @@ class Log extends \think\Model
             ->limit($pageSize)
             ->page($page)
             ->field('l.*,u.nickname')
+            ->order('create_time')
             ->select();
 
         return ['data' => $logs, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];

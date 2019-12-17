@@ -24,6 +24,13 @@ class Role extends \think\Model implements RoleContract
     use \xiaodi\Permission\Traits\Role;
     use \app\traits\ValidateError;
 
+    /**
+     * a获取角色列表
+     *
+     * @param string $page
+     * @param string $pageSize
+     * @return void
+     */
     public function getList($page, $pageSize)
     {
         $total = Role::count();
