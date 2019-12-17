@@ -22,7 +22,8 @@
         "topthink/think-annotation": "^1.0",
         "xiaodi/think-whoops": "1.1.*",
         "xiaodi/think-permission": "^0.5.0",
-        "xiaodi/think-jwt": "0.5.*"
+        "xiaodi/think-jwt": "0.5.*",
+        "topthink/think-migration": "^3.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
