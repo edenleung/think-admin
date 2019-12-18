@@ -71,7 +71,7 @@ class User extends \think\Model implements UserContract
         $user->removeAllRole();
 
         // 重新绑定角色
-        if (empty($data['roles'])) {
+        if (!empty($data['roles'])) {
             $user->bindRole($data['roles']);
         }
     }
