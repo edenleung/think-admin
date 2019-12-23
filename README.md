@@ -7,6 +7,25 @@ ThinkPHP 6.0 与 Ant-Design-Vue 基础权限系统
 前端: 
 Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) . [预览](https://ant.xiaodim.com)
 
+## 安装
+- 拉取最新源码
+```sh
+git clone https://github.com/edenleung/think-admin.git
+```
+
+- 依赖安装
+```sh
+composer i
+```
+- 配置数据库
+```sh
+cp .env.example .env
+```
+
+- 迁移数据
+```
+php think migrate:run
+```
 
 ### 账号
 * 超级管理员 `admin, 1234` 
