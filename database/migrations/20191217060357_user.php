@@ -1,10 +1,20 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 /**
- * 用户表
+ * 用户表.
  */
 class User extends Migrator
 {
@@ -31,17 +41,17 @@ class User extends Migrator
      */
     public function change()
     {
-        $table = $this->table('user', array('engine' => 'InnoDB'));
-        $table->addColumn('name', 'string', array('limit' => 50, 'comment' => '用户唯一标识（登录名）'))
-            ->addColumn('password', 'string', array('limit' => 255, 'comment' => '登录密码'))
-            ->addColumn('hash', 'string', array('limit' => 11, 'comment' => '加密hash'))
-            ->addColumn('nickname', 'string', array('limit' => 50, 'default' => '', 'comment' => '昵称'))
-            ->addColumn('status', 'integer', array('limit' => 11, 'default' => 0, 'comment' => '状态'))
-            ->addColumn('avatar', 'string', array('limit' => 255, 'default' => '', 'comment' => '头像'))
-            ->addColumn('email', 'string', array('limit' => 50, 'default' => '', 'comment' => '邮箱'))
-            ->addColumn('create_time', 'integer', array('limit' => 11, 'comment' => '创建时间'))
-            ->addColumn('update_time', 'integer', array('limit' => 11, 'comment' => '更新时间'))
-            ->addIndex(array('name'), array('unique' => true))
+        $table = $this->table('user', ['engine' => 'InnoDB']);
+        $table->addColumn('name', 'string', ['limit' => 50, 'comment' => '用户唯一标识（登录名）'])
+            ->addColumn('password', 'string', ['limit' => 255, 'comment' => '登录密码'])
+            ->addColumn('hash', 'string', ['limit' => 11, 'comment' => '加密hash'])
+            ->addColumn('nickname', 'string', ['limit' => 50, 'default' => '', 'comment' => '昵称'])
+            ->addColumn('status', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '状态'])
+            ->addColumn('avatar', 'string', ['limit' => 255, 'default' => '', 'comment' => '头像'])
+            ->addColumn('email', 'string', ['limit' => 50, 'default' => '', 'comment' => '邮箱'])
+            ->addColumn('create_time', 'integer', ['limit' => 11, 'comment' => '创建时间'])
+            ->addColumn('update_time', 'integer', ['limit' => 11, 'comment' => '更新时间'])
+            ->addIndex(['name'], ['unique' => true])
             ->create();
     }
 }

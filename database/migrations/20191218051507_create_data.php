@@ -1,7 +1,17 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class CreateData extends Migrator
 {
@@ -39,54 +49,62 @@ class CreateData extends Migrator
     {
     }
 
+    public function randomKey($len = 11)
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~0123456789#$%^&';
+        $pass = [];
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 10; ++$i) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
+    }
+
     /**
-     * 创建用户
-     *
-     * @return void
+     * 创建用户.
      */
     protected function createUserData()
     {
         // 超级管理员
-        $default_password = '1234'; 
+        $default_password = '1234';
         $hash = $this->randomKey();
 
-        $pwd_peppered = hash_hmac("sha256", $default_password, $hash);
+        $pwd_peppered = hash_hmac('sha256', $default_password, $hash);
         $password = password_hash($pwd_peppered, PASSWORD_DEFAULT);
 
         $table = $this->table('user');
         $table->insert([
-            'name'     => 'admin',
+            'name' => 'admin',
             'password' => $password,
-            'hash'     => $hash,
+            'hash' => $hash,
             'nickname' => 'Serati Ma',
-            'status'   => 1,
+            'status' => 1,
             'create_time' => time(),
         ]);
         $table->saveData();
 
         // 游客账号
-        $default_password = '1234'; 
+        $default_password = '1234';
         $hash = $this->randomKey();
 
-        $pwd_peppered = hash_hmac("sha256", $default_password, $hash);
+        $pwd_peppered = hash_hmac('sha256', $default_password, $hash);
         $password = password_hash($pwd_peppered, PASSWORD_DEFAULT);
 
         $table = $this->table('user');
         $table->insert([
-            'name'     => 'xiaodi',
+            'name' => 'xiaodi',
             'password' => $password,
-            'hash'     => $hash,
+            'hash' => $hash,
             'nickname' => 'Xiao Di',
-            'status'   => 1,
+            'status' => 1,
             'create_time' => time(),
         ]);
         $table->saveData();
     }
 
     /**
-     * 创建规则数据
-     *
-     * @return void
+     * 创建规则数据.
      */
     protected function createPermissionData()
     {
@@ -108,31 +126,26 @@ class CreateData extends Migrator
             ['name' => 'account-add', 'title' => '添加', 'pid' => 11, 'status' => 1],
             ['name' => 'account-update', 'title' => '更新', 'pid' => 11, 'status' => 1],
             ['name' => 'account-delete', 'title' => '删除', 'pid' => 11, 'status' => 1],
-
         ];
 
         $this->insert('permission', $rows);
     }
 
     /**
-     * 创建角色
-     *
-     * @return void
+     * 创建角色.
      */
     protected function createRoleData()
     {
         $rows = [
             // 创建游客角色
-            ['name' => 'guest', 'title' => '游客', 'status' => 1]
+            ['name' => 'guest', 'title' => '游客', 'status' => 1],
         ];
 
         $this->insert('role', $rows);
     }
 
     /**
-     * 创建角色与规则关系
-     *
-     * @return void
+     * 创建角色与规则关系.
      */
     protected function createRolePermissionData()
     {
@@ -147,9 +160,7 @@ class CreateData extends Migrator
     }
 
     /**
-     * 创建用户与角色关系
-     *
-     * @return void
+     * 创建用户与角色关系.
      */
     protected function createUserRoleData()
     {
@@ -158,17 +169,5 @@ class CreateData extends Migrator
             ['user_id' => 2, 'role_id' => 1],
         ];
         $this->insert('user_role_access', $rows);
-    }
-
-    function randomKey($len = 11)
-    {
-        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~0123456789#$%^&';
-        $pass = [];
-        $alphaLength = strlen($alphabet) - 1;
-        for ($i = 0; $i < 10; $i++) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
-        return implode($pass);
     }
 }

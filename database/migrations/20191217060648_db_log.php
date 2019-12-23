@@ -1,10 +1,20 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 /**
- * 数据日志表
+ * 数据日志表.
  */
 class DbLog extends Migrator
 {
@@ -31,12 +41,12 @@ class DbLog extends Migrator
      */
     public function change()
     {
-        $table = $this->table('db_log', array('engine' => 'InnoDB'));
-        $table->addColumn('model', 'integer', array('limit' => 100, 'comment' => '模型名'))
-            ->addColumn('url', 'string', array('limit' => 255, 'comment' => '访问地址'))
-            ->addColumn('action', 'string', array('limit' => 255, 'comment' => '操作'))
-            ->addColumn('sql', 'text', array('comment' => 'sql'))
-            ->addColumn('create_time', 'integer', array('limit' => 11, 'comment' => '创建时间'))
+        $table = $this->table('db_log', ['engine' => 'InnoDB']);
+        $table->addColumn('model', 'integer', ['limit' => 100, 'comment' => '模型名'])
+            ->addColumn('url', 'string', ['limit' => 255, 'comment' => '访问地址'])
+            ->addColumn('action', 'string', ['limit' => 255, 'comment' => '操作'])
+            ->addColumn('sql', 'text', ['comment' => 'sql'])
+            ->addColumn('create_time', 'integer', ['limit' => 11, 'comment' => '创建时间'])
             ->create();
     }
 }
