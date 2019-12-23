@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app;
 
 use think\annotation\Inject;
 use think\App;

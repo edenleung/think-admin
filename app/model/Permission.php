@@ -68,9 +68,6 @@ class Permission extends \think\Model implements PermissionContract
 
     /**
      * 获取规则列表.
-     *
-     * @param int $page
-     * @param int $pageSize
      */
     public function getList(int $page, int $pageSize)
     {

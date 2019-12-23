@@ -25,11 +25,7 @@ class Role extends \think\Model implements RoleContract
     use \app\traits\ValidateError;
 
     /**
-     * a获取角色列表
-     *
-     * @param int $page
-     * @param int $pageSize
-     * @return void
+     * a获取角色列表.
      */
     public function getList(int $page, int $pageSize)
     {

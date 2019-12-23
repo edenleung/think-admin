@@ -11,11 +11,13 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
 
-use app\model\Permission as Model;
+use app\AbstractController;
+use app\model\Permission;
+use app\model\Role as Model;
 
-class Rule extends AbstractController
+class Role extends AbstractController
 {
     protected $model;
 
@@ -25,23 +27,24 @@ class Rule extends AbstractController
     }
 
     /**
-     * 规则列表.
+     * 角色列表.
      *
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 1)
+    public function list($page = 1, $pageSize = 1, Permission $permission)
     {
-        $data = $this->model->getList((int)$page, (int)$pageSize);
-        return $this->sendSuccess($data);
+        $data = $this->model->getList((int) $page, (int) $pageSize);
+        $rules = $permission->getList(1, 10000);
+        return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }
 
     /**
-     * 添加规则.
+     * 添加角色.
      */
     public function add()
     {
-        if (! $this->model->addRule($this->request->param())) {
+        if ($this->model->addRole($this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -49,13 +52,13 @@ class Rule extends AbstractController
     }
 
     /**
-     * 更新规则.
+     * 更新角色.
      *
      * @param int $id 标识
      */
     public function update(int $id)
     {
-        if (! $this->model->updateRule($id, $this->request->param())) {
+        if ($this->model->updateRole($id, $this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -63,13 +66,13 @@ class Rule extends AbstractController
     }
 
     /**
-     * 删除规则.
+     * 删除角色.
      *
      * @param int $id 标识
      */
     public function delete(int $id)
     {
-        if ($this->model->deleteRule($id) === false) {
+        if ($this->model->deleteRole($id) === false) {
             return $this->sendError($this->model->getError());
         }
 

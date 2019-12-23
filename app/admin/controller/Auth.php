@@ -11,8 +11,9 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
 
+use app\AbstractController;
 use app\service\UserService;
 use think\Response;
 use xiaodi\Facade\Jwt;
@@ -61,9 +62,7 @@ class Auth extends AbstractController
     }
 
     /**
-     * 退出登录
-     *
-     * @return void
+     * 退出登录.
      */
     public function logout()
     {

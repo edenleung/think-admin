@@ -11,12 +11,12 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
 
-use app\model\Permission;
-use app\model\Role as Model;
+use app\AbstractController;
+use app\model\Permission as Model;
 
-class Role extends AbstractController
+class Rule extends AbstractController
 {
     protected $model;
 
@@ -26,24 +26,23 @@ class Role extends AbstractController
     }
 
     /**
-     * 角色列表.
+     * 规则列表.
      *
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 1, Permission $permission)
+    public function list($page = 1, $pageSize = 1)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
-        $rules = $permission->getList(1, 10000);
-        return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
+        return $this->sendSuccess($data);
     }
 
     /**
-     * 添加角色.
+     * 添加规则.
      */
     public function add()
     {
-        if ($this->model->addRole($this->request->param()) === false) {
+        if (! $this->model->addRule($this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -51,13 +50,13 @@ class Role extends AbstractController
     }
 
     /**
-     * 更新角色.
+     * 更新规则.
      *
      * @param int $id 标识
      */
     public function update(int $id)
     {
-        if ($this->model->updateRole($id, $this->request->param()) === false) {
+        if (! $this->model->updateRule($id, $this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -65,13 +64,13 @@ class Role extends AbstractController
     }
 
     /**
-     * 删除角色.
+     * 删除规则.
      *
      * @param int $id 标识
      */
     public function delete(int $id)
     {
-        if ($this->model->deleteRole($id) === false) {
+        if ($this->model->deleteRule($id) === false) {
             return $this->sendError($this->model->getError());
         }
 

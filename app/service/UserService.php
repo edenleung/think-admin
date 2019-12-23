@@ -30,9 +30,6 @@ class UserService
 
     /**
      * 用户登录.
-     *
-     * @param string $username
-     * @param string $password
      */
     public function login(string $username, string $password)
     {
@@ -41,7 +38,7 @@ class UserService
             return false;
         }
 
-        if (!$user->verifyPassword($password)) {
+        if (! $user->verifyPassword($password)) {
             return false;
         }
 

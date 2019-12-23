@@ -11,8 +11,9 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
 
+use app\AbstractController;
 use app\model\DbLog;
 use app\model\Log as Model;
 
@@ -36,7 +37,7 @@ class Log extends AbstractController
      */
     public function acount_list($page = 1, $pageSize = 10)
     {
-        $data = $this->log->getList((int)$page, (int)$pageSize);
+        $data = $this->log->getList((int) $page, (int) $pageSize);
         return $this->sendSuccess($data);
     }
 
@@ -62,7 +63,7 @@ class Log extends AbstractController
      */
     public function db_list($page = 1, $pageSize = 10)
     {
-        $data = $this->db->getList((int)$page, (int)$pageSize);
+        $data = $this->db->getList((int) $page, (int) $pageSize);
         return $this->sendSuccess($data);
     }
 

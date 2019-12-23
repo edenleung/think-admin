@@ -11,7 +11,9 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
+
+use app\AbstractController;
 
 class Mock extends AbstractController
 {

@@ -11,8 +11,9 @@ declare(strict_types=1);
  * @license  https://github.com/xiaodit/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\controller;
+namespace app\admin\controller;
 
+use app\AbstractController;
 use app\model\Permission;
 use app\model\Role;
 use app\model\User as Model;
@@ -158,15 +159,13 @@ class User extends AbstractController
 
     /**
      * 修改密码
-     *
-     * @return void
      */
     public function resetPassword()
     {
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (!$oldPassword || !$newPassword) {
+        if (! $oldPassword || ! $newPassword) {
             return $this->sendError('数据出错');
         }
 
