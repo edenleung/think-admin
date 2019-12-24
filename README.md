@@ -2,7 +2,7 @@
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![Ant-Design-Vue-Pro](https://img.shields.io/travis/edenleung/think-ant-vue.svg)](https://github.com/xiaodit/think-ant-vue)
 
-ThinkPHP 6.0 与 Ant-Design-Vue 基础权限系统  
+ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
 前端: 
 Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
