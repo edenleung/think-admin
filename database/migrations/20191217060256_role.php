@@ -44,6 +44,7 @@ class Role extends Migrator
         $table = $this->table('role', ['engine' => 'InnoDB']);
         $table->addColumn('name', 'string', ['limit' => 100, 'comment' => '角色唯一标识'])
             ->addColumn('title', 'string', ['limit' => 100, 'comment' => '角色名称'])
+            ->addColumn('pid', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '父级标识'])
             ->addColumn('status', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '状态'])
             ->addIndex(['name'], ['unique' => true])
             ->create();

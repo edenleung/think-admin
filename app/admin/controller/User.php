@@ -34,7 +34,7 @@ class User extends AbstractController
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 1, Permission $permission, Role $role)
+    public function list($page = 1, $pageSize = 10, Permission $permission, Role $role)
     {
         $res['users'] = $this->model->getList((int) $page, (int) $pageSize);
 
@@ -95,9 +95,9 @@ class User extends AbstractController
         $permissions = [];
         foreach ($menus as $menu) {
             $permission = [];
-            if (! empty($menu['child'])) {
+            if (! empty($menu['children'])) {
                 $actionEntity = [];
-                foreach ($menu['child'] as $action) {
+                foreach ($menu['children'] as $action) {
                     if ($user->can($action['name'])) {
                         $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
                         $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
@@ -113,6 +113,7 @@ class User extends AbstractController
         }
 
         unset($user->password);
+        unset($user->hash);
         $user->role = ['permissions' => $permissions];
 
         return $this->sendSuccess($user);

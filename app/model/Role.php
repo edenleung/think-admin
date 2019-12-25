@@ -25,7 +25,7 @@ class Role extends \think\Model implements RoleContract
     use \app\traits\ValidateError;
 
     /**
-     * a获取角色列表.
+     * 获取角色列表.
      */
     public function getList(int $page, int $pageSize)
     {
@@ -35,7 +35,7 @@ class Role extends \think\Model implements RoleContract
             $role->permissions = $role->permissions()->select()->column('id');
         }
 
-        return ['data' => $roles, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+        return ['data' => $roles, 'tree' => $this->getTree(), 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
     }
 
     /**
@@ -77,7 +77,61 @@ class Role extends \think\Model implements RoleContract
         // 绑定关系
         if (! empty($data['rules'])) {
             $role->assignPermissions($data['rules']);
+
+            // 如当前角色有删除一些权限并且有子角色时，子角色也一并删除权限
+            $role->updateChildrenRole($data['rules']);
         }
+    }
+
+    /**
+     * 更新子角色权限
+     *
+     * @param array $rules
+     */
+    protected function updateChildrenRole(array $rules)
+    {
+        // 对比差异 获取子角色要删除的权限
+        $delete_rules = array_diff($this->permissions->column('id'), $rules);
+
+        if (!empty($delete_rules)) {
+            $permissions = Permission::whereIn('id', $delete_rules)->select();
+
+            $roles = $this->childrenRole();
+            foreach($roles as $role) {
+                foreach($permissions as $permission) {
+                    $role->removePermission($permission);
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取当前角色的所有子角色
+     *
+     * @return void
+     */
+    protected function childrenRole()
+    {
+        $roles = Role::select();
+        $category = new \extend\Category();
+        $children = $category->getTree($roles, $this->id);
+
+        return $children;
+    }
+
+    /**
+     * 当前角色是否存在子角色
+     *
+     * @return boolean
+     */
+    protected function hasChildrenRole()
+    {
+        $roles = Role::select();
+
+        $category = new \extend\Category();
+        $children = $category->getChild($this->id, $roles);
+
+        return !empty($children);
     }
 
     /**
@@ -87,6 +141,11 @@ class Role extends \think\Model implements RoleContract
     {
         $role = $this->find($id);
         if (empty($role)) {
+            return false;
+        }
+
+        if ($role->hasChildrenRole()) {
+            $this->error = '请先删除子角色';
             return false;
         }
 
@@ -124,5 +183,22 @@ class Role extends \think\Model implements RoleContract
         foreach ($permissions as $permission) {
             $this->assignPermission($permission);
         }
+    }
+
+    protected function getTree()
+    {
+        $data = $this->order('pid asc')->select();
+        $category = new \extend\Category();
+        $children = $category->formatTree($data, 'children');
+
+        $result = [
+            [
+                'title' => '根',
+                'value'    => 0,
+                'children' => $children
+            ]
+        ];
+
+        return $result;
     }
 }

@@ -82,22 +82,23 @@ class Category
     /**
      * 格式化.
      *
-     * @param [type] $data
+     * @param array $data
      * @param string $child_key
      * @param int $pid
      * @param mixed $id
      */
-    public function formatTree($data, $child_key = 'child', $id = 0)
+    public function formatTree($data, $child_key = 'children', $id = 0)
     {
-        $child = [];
+        $children = [];
         $field = $this->field;
         foreach ($data as $item) {
             if ($item[$field['pid']] == $id) {
-                $child[$item[$field['id']]] = $item;
-                $child[$item[$field['id']]][$child_key] = $this->formatTree($data, $child_key, $item[$field['id']]);
+                $item['value'] = (string)$item[$field['id']];
+                $item[$child_key] = $this->formatTree($data, $child_key, $item[$field['id']]);
+                $children[] = $item;
             }
         }
-        return $child;
+        return $children;
     }
 
     private function _searchList($id = 0, $space = '')
