@@ -32,7 +32,7 @@ class Role extends AbstractController
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 1, Permission $permission)
+    public function list($page = 1, $pageSize = 10, Permission $permission)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
         $rules = $permission->getList(1, 10000);

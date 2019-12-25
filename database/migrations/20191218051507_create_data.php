@@ -81,6 +81,7 @@ class CreateData extends Migrator
             'nickname' => 'Serati Ma',
             'status' => 1,
             'create_time' => time(),
+            'update_time' => time(),
         ]);
         $table->saveData();
 
@@ -99,6 +100,7 @@ class CreateData extends Migrator
             'nickname' => 'Xiao Di',
             'status' => 1,
             'create_time' => time(),
+            'update_time' => time(),
         ]);
         $table->saveData();
     }
@@ -137,8 +139,10 @@ class CreateData extends Migrator
     protected function createRoleData()
     {
         $rows = [
-            // 创建游客角色
-            ['name' => 'guest', 'title' => '游客', 'status' => 1],
+            // 创建 超级管理员角色
+            ['name' => 'admin', 'title' => '超级管理员组', 'status' => 1, 'pid' => 0],
+            // 创建 游客角色
+            ['name' => 'guest', 'title' => '游客组', 'status' => 1, 'pid' => 0],
         ];
 
         $this->insert('role', $rows);
@@ -150,10 +154,23 @@ class CreateData extends Migrator
     protected function createRolePermissionData()
     {
         $rows = [
-            // 为游客角色分配权限
             ['role_id' => 1, 'permission_id' => 2],
+            ['role_id' => 1, 'permission_id' => 3],
+            ['role_id' => 1, 'permission_id' => 4],
+            ['role_id' => 1, 'permission_id' => 5],
             ['role_id' => 1, 'permission_id' => 7],
+            ['role_id' => 1, 'permission_id' => 8],
+            ['role_id' => 1, 'permission_id' => 9],
+            ['role_id' => 1, 'permission_id' => 10],
             ['role_id' => 1, 'permission_id' => 12],
+            ['role_id' => 1, 'permission_id' => 13],
+            ['role_id' => 1, 'permission_id' => 14],
+            ['role_id' => 1, 'permission_id' => 15],
+
+            // 为游客角色分配权限(默认只有查看权限)
+            ['role_id' => 2, 'permission_id' => 2],
+            ['role_id' => 2, 'permission_id' => 7],
+            ['role_id' => 2, 'permission_id' => 12],
         ];
 
         $this->insert('role_permission_access', $rows);
@@ -166,7 +183,7 @@ class CreateData extends Migrator
     {
         $rows = [
             // 为游客账分配游客角色
-            ['user_id' => 2, 'role_id' => 1],
+            ['user_id' => 2, 'role_id' => 3],
         ];
         $this->insert('user_role_access', $rows);
     }

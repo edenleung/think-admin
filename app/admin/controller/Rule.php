@@ -31,7 +31,7 @@ class Rule extends AbstractController
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 1)
+    public function list($page = 1, $pageSize = 10)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
         return $this->sendSuccess($data);
