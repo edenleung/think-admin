@@ -1,12 +1,33 @@
 ## T-Ant
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-[![Ant-Design-Vue-Pro](https://img.shields.io/travis/xiaodit/think-ant-vue.svg)](https://github.com/xiaodit/think-ant-vue)
+[![Ant-Design-Vue-Pro](https://img.shields.io/travis/edenleung/think-ant-vue.svg)](https://github.com/xiaodit/think-ant-vue)
 
-ThinkPHP 6.0 与 Ant-Design-Vue 基础权限系统  
+ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
 前端: 
-Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) . [预览](https://ant.xiaodim.com)
+Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
 
+[开发计划](https://github.com/edenleung/think-admin/projects/1)
+
+## 安装
+- 拉取最新源码
+```sh
+git clone https://github.com/edenleung/think-admin.git
+```
+
+- 依赖安装
+```sh
+composer i
+```
+- 配置数据库
+```sh
+cp .env.example .env
+```
+
+- 迁移数据
+```
+php think migrate:run
+```
 
 ### 账号
 * 超级管理员 `admin, 1234` 
