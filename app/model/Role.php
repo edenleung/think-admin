@@ -31,11 +31,11 @@ class Role extends \think\Model implements RoleContract
     {
         $user = request()->user;
 
-        $roleIds = [];
         $category = new \extend\Category();
 
         // 不是超级管理员，只显示当前用户所属角色
         if (false === $user->isSuper()) {
+            $roleIds = [];
             $all = $this->order('pid asc')->select()->toArray();
             $roleIds = $user->roles->column('id');
             foreach($roleIds as $id) {
@@ -46,10 +46,12 @@ class Role extends \think\Model implements RoleContract
             }
 
             $roleIds = implode(',', $roleIds);
+            $total = Role::whereIn('id', $roleIds)->count();
+            $model = Role::whereIn('id', $roleIds)->limit($pageSize)->page($page);
+        } else {
+            $total = Role::count();
+            $model = Role::limit($pageSize)->page($page);
         }
-
-        $total = Role::whereIn('id', $roleIds)->count();
-        $model = Role::whereIn('id', $roleIds)->limit($pageSize)->page($page);
 
         $roles = $category->getTree($model->select());
         foreach ($roles as $role) {
@@ -139,7 +141,7 @@ class Role extends \think\Model implements RoleContract
     /**
      * 获取当前角色的所有子角色
      *
-     * @return void
+     * @return \think\Collection
      */
     protected function childrenRole()
     {
