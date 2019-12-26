@@ -11,8 +11,6 @@ script:
   - composer global require phpstan/phpstan
   - composer install
   - composer analyze
-  - ls
-  - ls vendor
 
 cache:
   directories:
