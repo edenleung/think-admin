@@ -5,4 +5,4 @@
 #
 parameters:
   ignoreErrors:
-#    - '#Static call to instance method Hyperf\\DbConnection\\Db::[a-zA-Z0-9\\_]+\(\)#'
+#     - '#Call to an undefined method think\\[a-zA-Z0-9\]::[a-zA-Z0-9\\_]+\(\)#'
