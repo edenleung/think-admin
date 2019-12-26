@@ -7,6 +7,8 @@ ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 前端: 
 Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
 
+QQ 群 `996887666` 暗号 `Tant`
+
 [开发计划](https://github.com/edenleung/think-admin/projects/1)
 
 ## 安装
@@ -39,5 +41,3 @@ https://github.com/xiaodit/think-permission
 ### JWT包
 https://github.com/xiaodit/think-jwt
 
-### QQ 群
-`996887666` 暗号 `Tant`
