@@ -29,8 +29,8 @@
     "require-dev": {
         "symfony/var-dumper": "^4.2",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpstan/phpstan": "^0.11.19",
-        "topthink/think-trace":"^1.0"
+        "topthink/think-trace":"^1.0",
+        "phpstan/phpstan": "0.12.*"
     },
     "autoload": {
         "psr-4": {
@@ -39,14 +39,18 @@
         },
         "psr-0": {
             "": "extend/"
-        }
+        },
+        "files": [
+            "app/common.php",
+            "vendor/topthink/framework/src/helper.php"
+        ]
     },
     "config": {
         "preferred-install": "dist"
     },
     "scripts": {
         "start": "php think run",
-        "analyze": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app",
+        "analyze": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app --autoload-file=vendor/autoload.php",
         "post-autoload-dump": [
             "@php think service:discover",
             "@php think vendor:publish"

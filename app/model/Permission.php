@@ -108,7 +108,7 @@ class Permission extends \think\Model implements PermissionContract
     protected function validate(string $scene, array $data)
     {
         try {
-            validate(PermissionValidate::class)
+            \validate(PermissionValidate::class)
                 ->scene($scene)
                 ->check($data);
         } catch (ValidateException $e) {

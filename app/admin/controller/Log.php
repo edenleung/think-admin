@@ -25,6 +25,7 @@ class Log extends AbstractController
 
     public function __construct(Model $model, DbLog $dbLog)
     {
+        parent::__construct();
         $this->log = $model;
         $this->db = $dbLog;
     }

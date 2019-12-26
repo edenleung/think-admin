@@ -33,7 +33,7 @@ class UserService
      */
     public function login(string $username, string $password)
     {
-        $user = User::findByName($username);
+        $user = User::getByName($username);
         if (empty($user)) {
             return false;
         }

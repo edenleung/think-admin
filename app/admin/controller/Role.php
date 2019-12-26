@@ -23,6 +23,7 @@ class Role extends AbstractController
 
     public function __construct(Model $model)
     {
+        parent::__construct();
         $this->model = $model;
     }
 

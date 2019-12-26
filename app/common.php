@@ -11,19 +11,21 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-/**
- * 随机生成指定长度字符串.
- *
- * @param int $len
- */
-function randomKey($len = 11)
-{
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~0123456789#$%^&';
-    $pass = [];
-    $alphaLength = strlen($alphabet) - 1;
-    for ($i = 0; $i < 10; ++$i) {
-        $n = rand(0, $alphaLength);
-        $pass[] = $alphabet[$n];
+if (!function_exists('randomKey')) {
+    /**
+     * 随机生成指定长度字符串.
+     *
+     * @param int $len
+     */
+    function randomKey($len = 11)
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~0123456789#$%^&';
+        $pass = [];
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < $len; ++$i) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
     }
-    return implode($pass);
 }
