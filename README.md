@@ -38,3 +38,6 @@ https://github.com/xiaodit/think-permission
 
 ### JWT包
 https://github.com/xiaodit/think-jwt
+
+### QQ 群
+`996887666` 暗号 `Tant`
