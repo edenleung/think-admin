@@ -20,22 +20,53 @@ use xiaodi\Permission\Contract\RoleContract;
 class Role extends \think\Model implements RoleContract
 {
     use \app\traits\CurdEvent;
+    use \app\traits\ValidateError;
 
     use \xiaodi\Permission\Traits\Role;
-    use \app\traits\ValidateError;
 
     /**
      * 获取角色列表.
      */
     public function getList(int $page, int $pageSize)
     {
-        $total = Role::count();
-        $roles = Role::limit($pageSize)->page($page)->select();
+        $user = request()->user;
+
+        $roleIds = [];
+        $category = new \extend\Category();
+
+        // 不是超级管理员，只显示当前用户所属角色
+        if (false === $user->isSuper()) {
+            $all = $this->order('pid asc')->select()->toArray();
+            $roleIds = $user->roles->column('id');
+            foreach($roleIds as $id) {
+                $roles = array_column($category->getTree($all, $id), 'id');
+                if (!empty($roles)) {
+                    $roleIds = array_merge($roleIds, $roles);
+                }
+            }
+
+            $roleIds = implode(',', $roleIds);
+        }
+
+        $total = Role::whereIn('id', $roleIds)->count();
+        $model = Role::whereIn('id', $roleIds)->limit($pageSize)->page($page);
+
+        $roles = $category->getTree($model->select());
         foreach ($roles as $role) {
+            unset($role->children);
             $role->permissions = $role->permissions()->select()->column('id');
         }
 
-        return ['data' => $roles, 'tree' => $this->getTree(), 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+        $children = $category->formatTree($model->select(), 'children');
+        $tree = [
+            [
+                'title' => '根',
+                'value'    => '0',
+                'selectable' => $user->isSuper(),
+                'children' => $children
+            ]
+        ];
+        return ['data' => $roles, 'tree' => $tree, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
     }
 
     /**
@@ -183,22 +214,5 @@ class Role extends \think\Model implements RoleContract
         foreach ($permissions as $permission) {
             $this->assignPermission($permission);
         }
-    }
-
-    protected function getTree()
-    {
-        $data = $this->order('pid asc')->select();
-        $category = new \extend\Category();
-        $children = $category->formatTree($data, 'children');
-
-        $result = [
-            [
-                'title' => '根',
-                'value'    => 0,
-                'children' => $children
-            ]
-        ];
-
-        return $result;
     }
 }
