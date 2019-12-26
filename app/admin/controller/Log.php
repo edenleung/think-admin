@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -39,6 +41,7 @@ class Log extends AbstractController
     public function acount_list($page = 1, $pageSize = 10)
     {
         $data = $this->log->getList((int) $page, (int) $pageSize);
+
         return $this->sendSuccess($data);
     }
 
@@ -65,6 +68,7 @@ class Log extends AbstractController
     public function db_list($page = 1, $pageSize = 10)
     {
         $data = $this->db->getList((int) $page, (int) $pageSize);
+
         return $this->sendSuccess($data);
     }
 

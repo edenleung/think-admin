@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -16,6 +16,6 @@ use app\Request;
 
 // 容器Provider定义文件
 return [
-    'think\Request' => Request::class,
+    'think\Request'          => Request::class,
     'think\exception\Handle' => ExceptionHandle::class,
 ];

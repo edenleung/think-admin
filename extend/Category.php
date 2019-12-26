@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -49,6 +51,7 @@ class Category
                 $childs[] = $Category;
             }
         }
+
         return $childs;
     }
 
@@ -63,6 +66,7 @@ class Category
         $this->formatList = [];
         $this->rawList = $data;
         $this->_searchList($id);
+
         return $this->formatList;
     }
 
@@ -76,16 +80,17 @@ class Category
                 break;
             }
         }
+
         return array_reverse($this->formatList);
     }
 
     /**
      * 格式化.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $child_key
-     * @param int $pid
-     * @param mixed $id
+     * @param int    $pid
+     * @param mixed  $id
      */
     public function formatTree($data, $child_key = 'children', $id = 0)
     {
@@ -93,11 +98,12 @@ class Category
         $field = $this->field;
         foreach ($data as $item) {
             if ($item[$field['pid']] == $id) {
-                $item['value'] = (string)$item[$field['id']];
+                $item['value'] = (string) $item[$field['id']];
                 $item[$child_key] = $this->formatTree($data, $child_key, $item[$field['id']]);
                 $children[] = $item;
             }
         }
+
         return $children;
     }
 
@@ -106,12 +112,12 @@ class Category
         //下级分类的数组
         $childs = $this->getChild($id);
         //如果没下级分类，结束递归
-        if (! ($n = count($childs))) {
+        if (!($n = count($childs))) {
             return;
         }
         $cnt = 1;
         //循环所有的下级分类
-        for ($i = 0; $i < $n; ++$i) {
+        for ($i = 0; $i < $n; $i++) {
             $pre = '';
             $pad = '';
             if ($n == $cnt) {
@@ -120,11 +126,11 @@ class Category
                 $pre = $this->icon[1];
                 $pad = $space ? $this->icon[0] : '';
             }
-            $childs[$i][$this->field['fulltitle']] = ($space ? $space . $pre : '') . $childs[$i][$this->field['title']];
+            $childs[$i][$this->field['fulltitle']] = ($space ? $space.$pre : '').$childs[$i][$this->field['title']];
             $this->formatList[] = $childs[$i];
             //递归下一级分类
-            $this->_searchList($childs[$i][$this->field['id']], $space . $pad . '&nbsp;&nbsp;');
-            ++$cnt;
+            $this->_searchList($childs[$i][$this->field['id']], $space.$pad.'&nbsp;&nbsp;');
+            $cnt++;
         }
     }
 
@@ -134,9 +140,11 @@ class Category
         foreach ($this->rawList as $key => $value) {
             if ($id == $this->rawList[$key][$this->field['id']]) {
                 $this->formatList[] = $this->rawList[$key];
+
                 return $this->rawList[$key][$this->field['pid']];
             }
         }
+
         return 0;
     }
 }

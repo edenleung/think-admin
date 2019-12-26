@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 return [
     'inject' => [
-        'enable' => true,
+        'enable'     => true,
         'namespaces' => [],
     ],
     'route' => [
-        'enable' => true,
+        'enable'      => true,
         'controllers' => [],
     ],
     'ignore' => [],

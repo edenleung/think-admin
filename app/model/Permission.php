@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -20,7 +22,6 @@ use xiaodi\Permission\Contract\PermissionContract;
 class Permission extends \think\Model implements PermissionContract
 {
     use \app\traits\CurdEvent;
-
     use \xiaodi\Permission\Traits\Permission;
     use \app\traits\ValidateError;
 
@@ -33,7 +34,7 @@ class Permission extends \think\Model implements PermissionContract
             return false;
         }
 
-        return Permission::create($data);
+        return self::create($data);
     }
 
     /**
@@ -96,6 +97,7 @@ class Permission extends \think\Model implements PermissionContract
     {
         $data = $this->order('pid asc')->select()->toArray();
         $category = new \extend\Category(['id', 'pid', 'title', 'cname']);
+
         return $category->formatTree($data); //获取分类数据树结构
     }
 
@@ -103,7 +105,7 @@ class Permission extends \think\Model implements PermissionContract
      * 验证数据.
      *
      * @param string $scene 验证场景
-     * @param array $data 验证数据
+     * @param array  $data  验证数据
      */
     protected function validate(string $scene, array $data)
     {
@@ -113,6 +115,7 @@ class Permission extends \think\Model implements PermissionContract
                 ->check($data);
         } catch (ValidateException $e) {
             $this->error = $e->getError();
+
             return false;
         }
 
@@ -124,7 +127,7 @@ class Permission extends \think\Model implements PermissionContract
      */
     protected function getActions()
     {
-        $data = Permission::where(['pid' => $this->id])->select();
+        $data = self::where(['pid' => $this->id])->select();
 
         foreach ($data as $permission) {
             $permission->value = $permission->id;

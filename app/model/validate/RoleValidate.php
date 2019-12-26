@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -18,13 +20,13 @@ use think\Validate;
 class RoleValidate extends Validate
 {
     protected $rule = [
-        'name' => 'require|unique:role',
+        'name'  => 'require|unique:role',
         'title' => 'require',
     ];
 
     protected $message = [
-        'name.require' => '唯一标识必须',
-        'name.unique' => '唯一标识重复',
+        'name.require'  => '唯一标识必须',
+        'name.unique'   => '唯一标识重复',
         'title.require' => '名称必须',
     ];
 

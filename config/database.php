@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -67,7 +67,7 @@ return [
             // 开启字段缓存
             'fields_cache' => false,
             // 字段缓存路径
-            'schema_cache_path' => app()->getRuntimePath() . 'schema' . DIRECTORY_SEPARATOR,
+            'schema_cache_path' => app()->getRuntimePath().'schema'.DIRECTORY_SEPARATOR,
         ],
 
         // 更多的数据库配置信息

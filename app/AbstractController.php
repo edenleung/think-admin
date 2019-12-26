@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -24,33 +26,41 @@ abstract class AbstractController
 {
     /**
      * App应用.
+     *
      * @Inject
+     *
      * @var App
      */
     protected $app;
 
     /**
      * 是否批量验证
+     *
      * @var bool
      */
     protected $batchValidate = false;
 
     /**
      * 控制器中间件.
+     *
      * @var array
      */
     protected $middleware = [];
 
     /**
      * Request实例.
+     *
      * @Inject
+     *
      * @var Request
      */
     protected $request;
 
     /**
      * Validate实例.
+     *
      * @Inject
+     *
      * @var Validate
      */
     protected $validate;
@@ -69,11 +79,14 @@ abstract class AbstractController
 
     /**
      * 验证数据.
-     * @param array $data 数据
+     *
+     * @param array        $data     数据
      * @param array|string $validate 验证器名或者验证规则数组
-     * @param array $message 提示信息
-     * @param bool $batch 是否批量验证
+     * @param array        $message  提示信息
+     * @param bool         $batch    是否批量验证
+     *
      * @throws ValidateException
+     *
      * @return array|string|true
      */
     protected function validate(array $data, $validate, array $message = [], bool $batch = false)
@@ -87,7 +100,7 @@ abstract class AbstractController
             }
             $class = strpos($validate, '\\') !== false ? $validate : $this->app->parseClass('validate', $validate);
             $this->validate = new $class();
-            if (! empty($scene)) {
+            if (!empty($scene)) {
                 $this->validate->scene($scene);
             }
         }

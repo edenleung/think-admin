@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -33,10 +35,11 @@ class Role extends AbstractController
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 10, Permission $permission)
+    public function list($page, $pageSize, Permission $permission)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
         $rules = $permission->getList(1, 10000);
+
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }
 

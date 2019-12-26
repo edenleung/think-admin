@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -35,6 +37,7 @@ class Rule extends AbstractController
     public function list($page = 1, $pageSize = 10)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
+
         return $this->sendSuccess($data);
     }
 
@@ -43,7 +46,7 @@ class Rule extends AbstractController
      */
     public function add()
     {
-        if (! $this->model->addRule($this->request->param())) {
+        if (!$this->model->addRule($this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -57,7 +60,7 @@ class Rule extends AbstractController
      */
     public function update(int $id)
     {
-        if (! $this->model->updateRule($id, $this->request->param())) {
+        if (!$this->model->updateRule($id, $this->request->param())) {
             return $this->sendError($this->model->getError());
         }
 

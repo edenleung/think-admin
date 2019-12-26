@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -17,19 +17,19 @@ return [
 
     // 用户模型
     'user' => [
-        'model' => \xiaodi\Permission\Model\User::class,
+        'model'       => \xiaodi\Permission\Model\User::class,
         'froeign_key' => 'user_id',
     ],
 
     // 规则模型
     'permission' => [
-        'model' => \xiaodi\Permission\Model\Permission::class,
+        'model'       => \xiaodi\Permission\Model\Permission::class,
         'froeign_key' => 'permission_id',
     ],
 
     // 角色模型
     'role' => [
-        'model' => \xiaodi\Permission\Model\Role::class,
+        'model'       => \xiaodi\Permission\Model\Role::class,
         'froeign_key' => 'role_id',
     ],
 

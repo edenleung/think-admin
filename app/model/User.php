@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -20,7 +22,6 @@ use xiaodi\Permission\Contract\UserContract;
 class User extends \think\Model implements UserContract
 {
     use \app\traits\CurdEvent;
-
     use \xiaodi\Permission\Traits\User;
     use \app\traits\ValidateError;
 
@@ -34,11 +35,11 @@ class User extends \think\Model implements UserContract
         }
 
         $hash = randomKey();
-        $user = User::create([
-            'name' => $data['name'],
+        $user = self::create([
+            'name'     => $data['name'],
             'nickname' => $data['nickname'],
-            'status' => $data['status'],
-            'hash' => $hash,
+            'status'   => $data['status'],
+            'hash'     => $hash,
             'password' => $this->makePassword($data['password'], $hash),
         ]);
 
@@ -62,16 +63,16 @@ class User extends \think\Model implements UserContract
         }
 
         $user->save([
-            'name' => $data['name'],
+            'name'     => $data['name'],
             'nickname' => $data['nickname'],
-            'status' => $data['status'],
+            'status'   => $data['status'],
         ]);
 
         // 解除所有已绑定角色
         $user->removeAllRole();
 
         // 重新绑定角色
-        if (! empty($data['roles'])) {
+        if (!empty($data['roles'])) {
             $user->bindRole($data['roles']);
         }
     }
@@ -88,6 +89,7 @@ class User extends \think\Model implements UserContract
 
         // 解除所有已绑定角色
         $user->removeAllRole();
+
         return $user->delete();
     }
 
@@ -111,7 +113,8 @@ class User extends \think\Model implements UserContract
      */
     public function updateAvatar(string $path)
     {
-        $this->avatar = 'storage' . \DIRECTORY_SEPARATOR . $path;
+        $this->avatar = 'storage'.\DIRECTORY_SEPARATOR.$path;
+
         return $this->save();
     }
 
@@ -138,8 +141,9 @@ class User extends \think\Model implements UserContract
      */
     public function resetPassword(string $oldPassword, string $newPassword)
     {
-        if (! $this->verifyPassword($oldPassword)) {
+        if (!$this->verifyPassword($oldPassword)) {
             $this->error = '原密码不正确';
+
             return false;
         }
 
@@ -155,6 +159,7 @@ class User extends \think\Model implements UserContract
     protected function makePassword(string $password, string $hash)
     {
         $pwd_peppered = hash_hmac('sha256', $password, $hash);
+
         return password_hash($pwd_peppered, PASSWORD_DEFAULT);
     }
 
@@ -162,7 +167,7 @@ class User extends \think\Model implements UserContract
      * 验证数据.
      *
      * @param string $scene 验证场景
-     * @param array $data 验证数据
+     * @param array  $data  验证数据
      */
     protected function validate(string $scene, array $data)
     {
@@ -172,6 +177,7 @@ class User extends \think\Model implements UserContract
                 ->check($data);
         } catch (ValidateException $e) {
             $this->error = $e->getError();
+
             return false;
         }
 

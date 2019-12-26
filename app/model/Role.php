@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -21,7 +23,6 @@ class Role extends \think\Model implements RoleContract
 {
     use \app\traits\CurdEvent;
     use \app\traits\ValidateError;
-
     use \xiaodi\Permission\Traits\Role;
 
     /**
@@ -38,7 +39,7 @@ class Role extends \think\Model implements RoleContract
             $roleIds = [];
             $all = $this->order('pid asc')->select()->toArray();
             $roleIds = $user->roles->column('id');
-            foreach($roleIds as $id) {
+            foreach ($roleIds as $id) {
                 $roles = array_column($category->getTree($all, $id), 'id');
                 if (!empty($roles)) {
                     $roleIds = array_merge($roleIds, $roles);
@@ -46,11 +47,11 @@ class Role extends \think\Model implements RoleContract
             }
 
             $roleIds = implode(',', $roleIds);
-            $total = Role::whereIn('id', $roleIds)->count();
-            $model = Role::whereIn('id', $roleIds)->limit($pageSize)->page($page);
+            $total = self::whereIn('id', $roleIds)->count();
+            $model = self::whereIn('id', $roleIds)->limit($pageSize)->page($page);
         } else {
-            $total = Role::count();
-            $model = Role::limit($pageSize)->page($page);
+            $total = self::count();
+            $model = self::limit($pageSize)->page($page);
         }
 
         $roles = $category->getTree($model->select());
@@ -62,12 +63,13 @@ class Role extends \think\Model implements RoleContract
         $children = $category->formatTree($model->select(), 'children');
         $tree = [
             [
-                'title' => '根',
-                'value'    => '0',
+                'title'      => '根',
+                'value'      => '0',
                 'selectable' => $user->isSuper(),
-                'children' => $children
-            ]
+                'children'   => $children,
+            ],
         ];
+
         return ['data' => $roles, 'tree' => $tree, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
     }
 
@@ -80,10 +82,10 @@ class Role extends \think\Model implements RoleContract
             return false;
         }
 
-        $role = Role::create($data);
+        $role = self::create($data);
 
         // 绑定关系
-        if (! empty($data['rules'])) {
+        if (!empty($data['rules'])) {
             $role->assignPermissions($data['rules']);
         }
     }
@@ -97,7 +99,7 @@ class Role extends \think\Model implements RoleContract
             return false;
         }
 
-        $role = Role::find($id);
+        $role = self::find($id);
         if (empty($role)) {
             return false;
         }
@@ -108,7 +110,7 @@ class Role extends \think\Model implements RoleContract
         $role->removeAllPermission();
 
         // 绑定关系
-        if (! empty($data['rules'])) {
+        if (!empty($data['rules'])) {
             $role->assignPermissions($data['rules']);
 
             // 如当前角色有删除一些权限并且有子角色时，子角色也一并删除权限
@@ -117,7 +119,7 @@ class Role extends \think\Model implements RoleContract
     }
 
     /**
-     * 更新子角色权限
+     * 更新子角色权限.
      *
      * @param array $rules
      */
@@ -130,8 +132,8 @@ class Role extends \think\Model implements RoleContract
             $permissions = Permission::whereIn('id', $delete_rules)->select();
 
             $roles = $this->childrenRole();
-            foreach($roles as $role) {
-                foreach($permissions as $permission) {
+            foreach ($roles as $role) {
+                foreach ($permissions as $permission) {
                     $role->removePermission($permission);
                 }
             }
@@ -139,13 +141,13 @@ class Role extends \think\Model implements RoleContract
     }
 
     /**
-     * 获取当前角色的所有子角色
+     * 获取当前角色的所有子角色.
      *
      * @return \think\Collection
      */
     protected function childrenRole()
     {
-        $roles = Role::select();
+        $roles = self::select();
         $category = new \extend\Category();
         $children = $category->getTree($roles, $this->id);
 
@@ -153,13 +155,13 @@ class Role extends \think\Model implements RoleContract
     }
 
     /**
-     * 当前角色是否存在子角色
+     * 当前角色是否存在子角色.
      *
-     * @return boolean
+     * @return bool
      */
     protected function hasChildrenRole()
     {
-        $roles = Role::select();
+        $roles = self::select();
 
         $category = new \extend\Category();
         $children = $category->getChild($this->id, $roles);
@@ -179,10 +181,12 @@ class Role extends \think\Model implements RoleContract
 
         if ($role->hasChildrenRole()) {
             $this->error = '请先删除子角色';
+
             return false;
         }
 
         $role->removeAllPermission();
+
         return $role->delete();
     }
 
@@ -190,7 +194,7 @@ class Role extends \think\Model implements RoleContract
      * 验证数据.
      *
      * @param string $scene 验证场景
-     * @param array $data 验证数据
+     * @param array  $data  验证数据
      */
     protected function validate(string $scene, array $data)
     {
@@ -200,6 +204,7 @@ class Role extends \think\Model implements RoleContract
                 ->check($data);
         } catch (ValidateException $e) {
             $this->error = $e->getError();
+
             return false;
         }
 

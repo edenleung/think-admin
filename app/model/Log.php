@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -22,8 +24,8 @@ class Log extends \think\Model
      */
     public function getList(int $page, int $pageSize)
     {
-        $total = Log::count();
-        $logs = Log::alias('l')->join('user u', 'u.id = l.user_id')
+        $total = self::count();
+        $logs = self::alias('l')->join('user u', 'u.id = l.user_id')
             ->limit($pageSize)
             ->page($page)
             ->field('l.*,u.nickname')
@@ -44,7 +46,7 @@ class Log extends \think\Model
             return false;
         }
 
-        Log::whereIn('id', $ids)->delete();
+        self::whereIn('id', $ids)->delete();
 
         return true;
     }

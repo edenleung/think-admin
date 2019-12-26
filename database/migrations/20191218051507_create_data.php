@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -54,10 +54,11 @@ class CreateData extends Migrator
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~0123456789#$%^&';
         $pass = [];
         $alphaLength = strlen($alphabet) - 1;
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 10; $i++) {
             $n = rand(0, $alphaLength);
             $pass[] = $alphabet[$n];
         }
+
         return implode($pass);
     }
 
@@ -75,12 +76,12 @@ class CreateData extends Migrator
 
         $table = $this->table('user');
         $table->insert([
-            'name' => 'admin',
-            'password' => $password,
-            'hash' => $hash,
-            'nickname' => 'Serati Ma',
-            'email' => 'SeratiMa@aliyun.com',
-            'status' => 1,
+            'name'        => 'admin',
+            'password'    => $password,
+            'hash'        => $hash,
+            'nickname'    => 'Serati Ma',
+            'email'       => 'SeratiMa@aliyun.com',
+            'status'      => 1,
             'create_time' => time(),
             'update_time' => time(),
         ]);
@@ -95,12 +96,12 @@ class CreateData extends Migrator
 
         $table = $this->table('user');
         $table->insert([
-            'name' => 'xiaodi',
-            'password' => $password,
-            'hash' => $hash,
-            'nickname' => 'Xiao Di',
-            'email' => 'XiaoDi@aliyun.com',
-            'status' => 1,
+            'name'        => 'xiaodi',
+            'password'    => $password,
+            'hash'        => $hash,
+            'nickname'    => 'Xiao Di',
+            'email'       => 'XiaoDi@aliyun.com',
+            'status'      => 1,
             'create_time' => time(),
             'update_time' => time(),
         ]);

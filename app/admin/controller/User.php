@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -35,12 +37,13 @@ class User extends AbstractController
      * @param mixed $page
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 10, Permission $permission, Role $role)
+    public function list($page, $pageSize, Permission $permission, Role $role)
     {
         $res['users'] = $this->model->getList((int) $page, (int) $pageSize);
 
         $res['rules'] = $permission->getList(1, 1000);
         $res['roles'] = $role->getList(1, 1000);
+
         return $this->sendSuccess($res);
     }
 
@@ -96,7 +99,7 @@ class User extends AbstractController
         $permissions = [];
         foreach ($menus as $menu) {
             $permission = [];
-            if (! empty($menu['children'])) {
+            if (!empty($menu['children'])) {
                 $actionEntity = [];
                 foreach ($menu['children'] as $action) {
                     if ($user->can($action['name'])) {
@@ -138,7 +141,7 @@ class User extends AbstractController
             return $this->sendError('数据出错');
         }
 
-        if (! $this->model->updateCurrent($data)) {
+        if (!$this->model->updateCurrent($data)) {
             return $this->sendError('更新失败');
         }
 
@@ -152,7 +155,7 @@ class User extends AbstractController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (! $this->model->updateAvatar($savename)) {
+        if (!$this->model->updateAvatar($savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -167,11 +170,11 @@ class User extends AbstractController
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (! $oldPassword || ! $newPassword) {
+        if (!$oldPassword || !$newPassword) {
             return $this->sendError('数据出错');
         }
 
-        if (! $this->model->resetPassword($oldPassword, $newPassword)) {
+        if (!$this->model->resetPassword($oldPassword, $newPassword)) {
             return $this->sendError($this->model->getError());
         }
 

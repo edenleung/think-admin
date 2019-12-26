@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -38,7 +38,7 @@ return [
     'deny_app_list' => [],
 
     // 异常页面的模板文件
-    'exception_tmpl' => app()->getThinkPath() . 'tpl/think_exception.tpl',
+    'exception_tmpl' => app()->getThinkPath().'tpl/think_exception.tpl',
 
     // 错误显示信息,非调试模式有效
     'error_message' => '页面错误！请稍后再试～',
