@@ -8,6 +8,7 @@ php:
 script:
   - php -v
   - composer self-update
+  - composer global require phpstan/phpstan
   - composer install --no-dev --no-interaction --ignore-platform-reqs
   - composer analyze
 
