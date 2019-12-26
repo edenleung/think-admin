@@ -50,7 +50,7 @@
     },
     "scripts": {
         "start": "php think run",
-        "analyze": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app --autoload-file=vendor/autoload.php",
+        "analyze": "vendor/bin/phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app --autoload-file=vendor/autoload.php",
         "post-autoload-dump": [
             "@php think service:discover",
             "@php think vendor:publish"
