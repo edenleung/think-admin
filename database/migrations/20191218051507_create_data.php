@@ -79,6 +79,7 @@ class CreateData extends Migrator
             'password' => $password,
             'hash' => $hash,
             'nickname' => 'Serati Ma',
+            'email' => 'SeratiMa@aliyun.com',
             'status' => 1,
             'create_time' => time(),
             'update_time' => time(),
@@ -98,6 +99,7 @@ class CreateData extends Migrator
             'password' => $password,
             'hash' => $hash,
             'nickname' => 'Xiao Di',
+            'email' => 'XiaoDi@aliyun.com',
             'status' => 1,
             'create_time' => time(),
             'update_time' => time(),
@@ -183,7 +185,7 @@ class CreateData extends Migrator
     {
         $rows = [
             // 为游客账分配游客角色
-            ['user_id' => 2, 'role_id' => 3],
+            ['user_id' => 2, 'role_id' => 2],
         ];
         $this->insert('user_role_access', $rows);
     }
