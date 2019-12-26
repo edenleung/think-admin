@@ -1,0 +1,34 @@
+language: php
+
+php:
+- '7.0'
+- '7.1'
+- '7.2'
+- '7.3'
+
+script:
+  - php -v
+
+cache:
+  directories:
+    - "$HOME/.composer/cache"
+
+before_deploy:
+  - echo 'start'
+  - zip -r --exclude='*.git*' --exclude='*.zip' --exclude='*.travis.yml' Tant.zip .
+  - composer self-update
+  - composer install --no-dev --no-interaction --ignore-platform-reqs
+  - zip -r --exclude='*.git*' --exclude='*.zip' --exclude='*.travis.yml' Tant_Full.zip .
+
+deploy:
+  provider: releases
+  api_key:
+    secure: rMCKulorfzZakJZtfjVLeuwG2x4G+cu+SgCLypL9CJDAYnE9RWMEL1sBFqcXdu45HchMh3SxlK/Vshg1KlHOvRSr6N21EvAAvdg45n47tT1kUJO41H2zFfl3r1WaQlZA/ZgEcCtBsEgnzDvhNEecIGGuXK7NYfFNbz6g3VyrbMruunx3I0FrzyxCO5uU8Urk5P6q1ElQT1jS2MpyMod/XdVgDEesN1MTX5hVcfVTquF0qBoUqNx3Kau6EweTKXsmLmiw1UxNPYbBKKIQ8tj+51aZHMulsKTIuHAdTIE/KplRpgITU9WYyGN6kKIn6tWWkt8Ti90yo9bh4PrCgs8K8ZHOqzGbIBMpAdj9PFOSS10/jRvqez4TjfCcWRnINupIQygpL1uHKzVyfidJ/eyPfBa0KkCKJimDH2Fp2yJdD0YgzV50vHCcuYwihuOD58UurL2HaxdwjnoIElDv38jaHl6NESvPp0kZzXnYqLEVmmP36LzBWB+TZD79EC9RLMd/5zrtkpeIiAaLVNjegcIcZSfjCy3TRGI1KcOpynZdqBAS4d9kKirycSeefoVKi9j7Av/KqZlyq34vT6gNyvdPD1X5UrUPcUiIdx5zBF/Bpm9bk2sWeONh5f18nots7BYyBmPEHmcbvzSLxLfCxFe6qOc2gU8TEIS+xeZcsrIeeP0=
+  file:
+    - /home/travis/build/edenleung/think-admin/Tant.zip
+    - /home/travis/build/edenleung/think-admin/Tant_FULL.zip
+  skip_cleanup: true
+  overwrite: true
+  on:
+    repo: edenleung/think-admin
+    tags: true
