@@ -169,6 +169,8 @@ class Role extends \think\Model implements RoleContract
 
     /**
      * 删除角色.
+     *
+     * @return boolean
      */
     public function deleteRole(int $id)
     {
@@ -179,6 +181,11 @@ class Role extends \think\Model implements RoleContract
 
         if ($role->hasChildrenRole()) {
             $this->error = '请先删除子角色';
+            return false;
+        }
+
+        if (count($role->users) > 0) {
+            $this->error = '当前角色下存在使用中的用户，请为用户更换其它角色后，再执行删除操作';
             return false;
         }
 
