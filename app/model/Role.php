@@ -33,33 +33,35 @@ class Role extends \think\Model implements RoleContract
 
         $category = new \extend\Category();
 
-        // 不是超级管理员，只显示当前用户所属角色
+        $map = [];
+        // 不是超级管理员，只显示当前用户所属角色的所有下级角色
         if (false === $user->isSuper()) {
-            $roleIds = [];
+            $childrenRoleIds = [];
             $all = $this->order('pid asc')->select()->toArray();
-            $roleIds = $user->roles->column('id');
-            foreach($roleIds as $id) {
-                $roles = array_column($category->getTree($all, $id), 'id');
+
+            foreach($user->roles as $role) {
+                $roles = array_column($category->getTree($all, $role->id), 'id');
                 if (!empty($roles)) {
-                    $roleIds = array_merge($roleIds, $roles);
+                    $childrenRoleIds = array_merge($childrenRoleIds, $roles);
                 }
             }
 
-            $roleIds = implode(',', $roleIds);
-            $total = Role::whereIn('id', $roleIds)->count();
-            $model = Role::whereIn('id', $roleIds)->limit($pageSize)->page($page);
-        } else {
-            $total = Role::count();
-            $model = Role::limit($pageSize)->page($page);
+            if (!empty($childrenRoleIds)) {
+                $map[] = ['id', 'in', $childrenRoleIds];
+            }
         }
 
-        $roles = $category->getTree($model->select());
+        $total = Role::where($map)->count();
+        $roles = Role::where($map)->limit($pageSize)->page($page)->select();
         foreach ($roles as $role) {
-            unset($role->children);
             $role->permissions = $role->permissions()->select()->column('id');
         }
 
-        $children = $category->formatTree($model->select(), 'children');
+        $data = $roles->toArray();
+        $roles = $category->getTree($data, $data[0]['pid']);
+
+        $tree = Role::where($map)->select()->toArray();
+        $children = $category->formatTree($tree, 'children', $tree[0]['pid']);
         $tree = [
             [
                 'title' => '根',
