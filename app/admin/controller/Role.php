@@ -36,7 +36,7 @@ class Role extends AbstractController
     public function list($page = 1, $pageSize = 10, Permission $permission)
     {
         $data = $this->model->getList((int) $page, (int) $pageSize);
-        $rules = $permission->getList(1, 10000);
+        $rules = $permission->getTopPermission();
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }
 

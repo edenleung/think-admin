@@ -96,14 +96,43 @@ class User extends \think\Model implements UserContract
      */
     public function getList(int $page, int $pageSize)
     {
-        $total = $this->where('id', '<>', config('permission.super_id'))->count();
-        $users = $this->where('id', '<>', config('permission.super_id'))->limit($pageSize)->page($page)->select();
-        foreach ($users as $user) {
-            $rules = $user->getAllPermissions()->column('id');
-            $user->rules = $rules;
+        $map = [];
+
+        $query = new User;
+        if (!$this->isSuper()) {
+            // 获取当前用户的所有角色id
+            $roles = $this->roles;
+            $userIds = [];
+
+            foreach($roles as $role) {
+                $ids = $role->users->column('id');
+
+                if (!empty($ids)) {
+                    $userIds = array_merge($userIds, $ids);
+                }
+            }
+
+            $userIds = array_unique($userIds);
+
+            if (!empty($userIds)) {
+                foreach($userIds as $key=>$id) {
+                    if ($id == $this->id) {
+                        unset($userIds[$key]);
+                    }
+                }
+                $map[] = ['id', 'in', $userIds];
+            }
+        } else {
+            $map[] = ['id', '<>', config('permission.super_id')];
         }
 
-        return ['data' => $users, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+        $total = $query->where($map)->count();
+        $users = $query->where($map)->limit($pageSize)->page($page)->select();
+        foreach ($users as $user) {
+            $user->rules = $user->getAllPermissions()->column('id');
+        }
+
+        return ['data' => $users, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
     }
 
     /**

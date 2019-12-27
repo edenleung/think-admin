@@ -36,15 +36,7 @@ class Role extends \think\Model implements RoleContract
         $map = [];
         // 不是超级管理员，只显示当前用户所属角色的所有下级角色
         if (false === $user->isSuper()) {
-            $childrenRoleIds = [];
-            $all = $this->order('pid asc')->select()->toArray();
-
-            foreach($user->roles as $role) {
-                $roles = array_column($category->getTree($all, $role->id), 'id');
-                if (!empty($roles)) {
-                    $childrenRoleIds = array_merge($childrenRoleIds, $roles);
-                }
-            }
+            $childrenRoleIds = $this->getChildrenRoleIds($user);
 
             if (!empty($childrenRoleIds)) {
                 $map[] = ['id', 'in', $childrenRoleIds];
@@ -71,6 +63,56 @@ class Role extends \think\Model implements RoleContract
             ]
         ];
         return ['data' => $roles, 'tree' => $tree, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
+    }
+
+    /**
+     * 获取下拉选择数据
+     *
+     * @return \think\Collection
+     */
+    public function getSelectData()
+    {
+        $user = request()->user;
+
+        $map = [];
+        // 不是超级管理员，只显示当前用户所属角色的所有下级角色
+        if (false === $user->isSuper()) {
+            $childrenRoleIds = $this->getChildrenRoleIds($user);
+
+            if (!empty($childrenRoleIds)) {
+                $map[] = ['id', 'in', $childrenRoleIds];
+            }
+        }
+
+        $roles = Role::where($map)->select();
+        foreach ($roles as $role) {
+            $role->permissions = $role->permissions()->select()->column('id');
+        }
+
+        return $roles;
+    }
+
+    /**
+     * 获取当前用户下所有子角色id
+     *
+     * @param User $user
+     * @return array
+     */
+    protected function getChildrenRoleIds(User $user)
+    {
+        $ids = [];
+        $category = new \extend\Category();
+
+        $all = $this->order('pid asc')->select()->toArray();
+
+        foreach($user->roles as $role) {
+            $roles = array_column($category->getTree($all, $role->id), 'id');
+            if (!empty($roles)) {
+                $ids = array_merge($ids, $roles);
+            }
+        }
+
+        return $ids;
     }
 
     /**

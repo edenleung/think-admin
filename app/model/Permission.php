@@ -74,11 +74,25 @@ class Permission extends \think\Model implements PermissionContract
         $total = $this->where('pid', 0)->count();
         $top = $this->where('pid', 0)->limit($pageSize)->page($page)->select();
         foreach ($top as $permission) {
-            $permission->permissionId = $permission->action;
+            $permission->permissionId = $permission->name;
             $permission->actions = $permission->getActions();
         }
 
         return ['data' => $top, 'tree' => $this->getTree(), 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+    }
+
+    /**
+     * 获取顶级
+     */
+    public function getTopPermission()
+    {
+        $top = $this->where('pid', 0)->select();
+        foreach ($top as $permission) {
+            $permission->permissionId = $permission->name;
+            $permission->actions = $permission->getActions();
+        }
+
+        return $top;
     }
 
     /**
