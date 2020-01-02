@@ -39,7 +39,7 @@ class User extends AbstractController
     {
         $res['users'] = $this->model->getList((int) $page, (int) $pageSize);
         $res['rules'] = $permission->getTopPermission();
-        $res['roles'] = $role->getSelectData();
+        $res['roles'] = $role->getTree();
         return $this->sendSuccess($res);
     }
 

@@ -132,7 +132,14 @@ class User extends \think\Model implements UserContract
             $user->rules = $user->getAllPermissions()->column('id');
         }
 
-        return ['data' => $users, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
+        return [
+            'data' => $users,
+            'pagination' => [
+                'total' => $total,
+                'current' => $page,
+                'pageSize' => $pageSize
+            ]
+        ];
     }
 
     /**

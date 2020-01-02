@@ -29,11 +29,10 @@ class Role extends \think\Model implements RoleContract
      */
     public function getList(int $page, int $pageSize)
     {
+        $map = [];
         $user = request()->user;
-
         $category = new \extend\Category();
 
-        $map = [];
         // 不是超级管理员，只显示当前用户所属角色的所有下级角色
         if (false === $user->isSuper()) {
             $childrenRoleIds = $this->getChildrenRoleIds($user);
@@ -52,6 +51,33 @@ class Role extends \think\Model implements RoleContract
         $data = $roles->toArray();
         $roles = $category->getTree($data, $data[0]['pid']);
 
+        $tree = $this->getTree();
+        return [
+            'data' => $roles,
+            'tree' => $tree,
+            'pagination' => [
+                'total' => $total,
+                'current' => $page,
+                'pageSize' => $pageSize
+            ]
+        ];
+    }
+
+    public function getTree()
+    {
+        $map = [];
+        $user = request()->user;
+        $category = new \extend\Category();
+
+        // 不是超级管理员，只显示当前用户所属角色的所有下级角色
+        if (false === $user->isSuper()) {
+            $childrenRoleIds = $this->getChildrenRoleIds($user);
+
+            if (!empty($childrenRoleIds)) {
+                $map[] = ['id', 'in', $childrenRoleIds];
+            }
+        }
+
         $tree = Role::where($map)->select()->toArray();
         $children = $category->formatTree($tree, 'children', $tree[0]['pid']);
         $tree = [
@@ -62,7 +88,8 @@ class Role extends \think\Model implements RoleContract
                 'children' => $children
             ]
         ];
-        return ['data' => $roles, 'tree' => $tree, 'pagination' => ['total' => $total, 'current' => $page, 'pageSize' => $pageSize]];
+
+        return $tree;
     }
 
     /**
