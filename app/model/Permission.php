@@ -71,19 +71,25 @@ class Permission extends \think\Model implements PermissionContract
      */
     public function getList(int $pageNo, int $pageSize)
     {
-        $total = $this->where('pid', 0)->count();
-        $top = $this->where('pid', 0)->limit($pageSize)->page($pageNo)->select();
-        foreach ($top as $permission) {
+        $map = [];
+
+        $category = new \extend\Category();
+
+        $map['type'] = 'menu';
+        $total = $this->where($map)->count();
+        $data = $this->where($map)->limit($pageSize)->page($pageNo)->select();
+        $data = $category->getTree($data);
+        foreach ($data as $permission) {
             $permission->permissionId = $permission->name;
             $permission->actions = $permission->getActions();
         }
 
         return [
-            'data' => $top,
+            'data' => $data,
             'tree' => $this->getTree(),
             'pageSize' => $pageSize,
             'pageNo' => $pageNo,
-            'totalPage' => count($top),
+            'totalPage' => count($data),
             'totalCount' => $total
         ];
     }
@@ -107,7 +113,22 @@ class Permission extends \think\Model implements PermissionContract
      */
     public function getTree()
     {
-        return $this->where('pid', 0)->select()->toArray();
+        $map = [];
+
+        $category = new \extend\Category();
+
+        $map['type'] = 'menu';
+        $data = $this->where($map)->select();
+        $data = $category->formatTree($data);
+        $tree = [
+            [
+                'title' => '根',
+                'value'    => '0',
+                'children' => $data
+            ]
+        ];
+
+        return $tree;
     }
 
     /**
@@ -145,7 +166,7 @@ class Permission extends \think\Model implements PermissionContract
      */
     protected function getActions()
     {
-        $data = Permission::where(['pid' => $this->id])->select();
+        $data = Permission::where(['pid' => $this->id, 'type' => 'action'])->select();
 
         foreach ($data as $permission) {
             $permission->value = $permission->id;
