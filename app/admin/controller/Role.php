@@ -30,12 +30,12 @@ class Role extends AbstractController
     /**
      * 角色列表.
      *
-     * @param mixed $page
+     * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 10, Permission $permission)
+    public function list($pageNo = 1, $pageSize = 10, Permission $permission)
     {
-        $data = $this->model->getList((int) $page, (int) $pageSize);
+        $data = $this->model->getList((int) $pageNo, (int) $pageSize);
         $rules = $permission->getTopPermission();
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
     }

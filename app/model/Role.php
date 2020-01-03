@@ -27,7 +27,7 @@ class Role extends \think\Model implements RoleContract
     /**
      * 获取角色列表.
      */
-    public function getList(int $page, int $pageSize)
+    public function getList(int $pageNo, int $pageSize)
     {
         $map = [];
         $user = request()->user;
@@ -43,7 +43,7 @@ class Role extends \think\Model implements RoleContract
         }
 
         $total = Role::where($map)->count();
-        $roles = Role::where($map)->limit($pageSize)->page($page)->select();
+        $roles = Role::where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($roles as $role) {
             $role->permissions = $role->permissions()->select()->column('id');
         }
@@ -55,11 +55,10 @@ class Role extends \think\Model implements RoleContract
         return [
             'data' => $roles,
             'tree' => $tree,
-            'pagination' => [
-                'total' => $total,
-                'current' => $page,
-                'pageSize' => $pageSize
-            ]
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($roles),
+            'totalCount' => $total
         ];
     }
 

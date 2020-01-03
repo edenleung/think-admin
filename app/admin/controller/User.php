@@ -32,12 +32,12 @@ class User extends AbstractController
     /**
      * 用户列表.
      *
-     * @param mixed $page
+     * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 10, Permission $permission, Role $role)
+    public function list($pageNo = 1, $pageSize = 10, Permission $permission, Role $role)
     {
-        $res['users'] = $this->model->getList((int) $page, (int) $pageSize);
+        $res['users'] = $this->model->getList((int) $pageNo, (int) $pageSize);
         $res['rules'] = $permission->getTopPermission();
         $res['roles'] = $role->getTree();
         return $this->sendSuccess($res);

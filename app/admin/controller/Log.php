@@ -33,12 +33,12 @@ class Log extends AbstractController
     /**
      * 管理员日志列表.
      *
-     * @param mixed $page
+     * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function acount_list($page = 1, $pageSize = 10)
+    public function account_list($pageNo = 1, $pageSize = 10)
     {
-        $data = $this->log->getList((int) $page, (int) $pageSize);
+        $data = $this->log->getList((int) $pageNo, (int) $pageSize);
         return $this->sendSuccess($data);
     }
 
@@ -59,12 +59,12 @@ class Log extends AbstractController
     /**
      * CURD日志列表.
      *
-     * @param mixed $page
+     * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function db_list($page = 1, $pageSize = 10)
+    public function db_list($pageNo = 1, $pageSize = 10)
     {
-        $data = $this->db->getList((int) $page, (int) $pageSize);
+        $data = $this->db->getList((int) $pageNo, (int) $pageSize);
         return $this->sendSuccess($data);
     }
 

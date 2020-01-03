@@ -94,7 +94,7 @@ class User extends \think\Model implements UserContract
     /**
      * 获取用户列表.
      */
-    public function getList(int $page, int $pageSize)
+    public function getList(int $pageNo, int $pageSize)
     {
         $map = [];
 
@@ -127,18 +127,17 @@ class User extends \think\Model implements UserContract
         }
 
         $total = $query->where($map)->count();
-        $users = $query->where($map)->limit($pageSize)->page($page)->select();
+        $users = $query->where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($users as $user) {
             $user->rules = $user->getAllPermissions()->column('id');
         }
 
         return [
             'data' => $users,
-            'pagination' => [
-                'total' => $total,
-                'current' => $page,
-                'pageSize' => $pageSize
-            ]
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($users),
+            'totalCount' => $total
         ];
     }
 

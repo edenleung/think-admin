@@ -63,8 +63,8 @@ Route::group('/user', function () {
 
 // 日志
 Route::group('/log', function () {
-    Route::rule('/acount', 'log/acount_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
-    Route::rule('/acount', 'log/acount_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+    Route::rule('/acount', 'log/account_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
+    Route::rule('/acount', 'log/account_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
     Route::rule('/db', 'log/db_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
     Route::rule('/db', 'log/db_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
 })->allowCrossDomain()->middleware(Jwt::class);

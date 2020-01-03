@@ -20,17 +20,23 @@ class Log extends \think\Model
     /**
      * 获取日志列表.
      */
-    public function getList(int $page, int $pageSize)
+    public function getList(int $pageNo, int $pageSize)
     {
         $total = Log::count();
         $logs = Log::alias('l')->join('user u', 'u.id = l.user_id')
             ->limit($pageSize)
-            ->page($page)
+            ->page($pageNo)
             ->field('l.*,u.nickname')
             ->order('create_time desc')
             ->select();
 
-        return ['data' => $logs, 'pagination' => ['total' => $total, 'current' => intval($page), 'pageSize' => intval($pageSize)]];
+        return [
+            'data' => $logs,
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($logs),
+            'totalCount' => $total
+        ];
     }
 
     /**

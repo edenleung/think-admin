@@ -29,12 +29,12 @@ class Rule extends AbstractController
     /**
      * 规则列表.
      *
-     * @param mixed $page
+     * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($page = 1, $pageSize = 10)
+    public function list($pageNo = 1, $pageSize = 10)
     {
-        $data = $this->model->getList((int) $page, (int) $pageSize);
+        $data = $this->model->getList((int) $pageNo, (int) $pageSize);
         return $this->sendSuccess($data);
     }
 
