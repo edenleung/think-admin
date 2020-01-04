@@ -117,7 +117,7 @@ class Permission extends \think\Model implements PermissionContract
 
         $category = new \extend\Category();
 
-        $map['type'] = 'menu';
+        $map[] = ['type', '<>', 'action'];
         $data = $this->where($map)->select();
         $data = $category->formatTree($data);
         $tree = [
