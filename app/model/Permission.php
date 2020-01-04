@@ -75,7 +75,7 @@ class Permission extends \think\Model implements PermissionContract
 
         $category = new \extend\Category();
 
-        $map['type'] = 'menu';
+        $map[] = ['type', '<>', 'action'];
         $total = $this->where($map)->count();
         $data = $this->where($map)->limit($pageSize)->page($pageNo)->select();
         $data = $category->getTree($data);
@@ -97,15 +97,15 @@ class Permission extends \think\Model implements PermissionContract
     /**
      * 获取顶级
      */
-    public function getTopPermission()
+    public function getMenuPermission()
     {
-        $top = $this->where('pid', 0)->select();
-        foreach ($top as $permission) {
+        $menu = $this->where('type', 'menu')->select();
+        foreach ($menu as $permission) {
             $permission->permissionId = $permission->name;
             $permission->actions = $permission->getActions();
         }
 
-        return $top;
+        return $menu;
     }
 
     /**
