@@ -11,6 +11,10 @@ QQ 群 `996887666` 暗号 `Tant`
 
 [开发计划](https://github.com/edenleung/think-admin/projects/1)
 
+[最新版本](https://github.com/edenleung/think-admin/releases/latest)
+
+没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
+
 ## 安装
 - 拉取最新源码
 ```sh
