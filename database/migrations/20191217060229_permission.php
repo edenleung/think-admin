@@ -45,6 +45,7 @@ class Permission extends Migrator
         $table->addColumn('name', 'string', ['limit' => 100, 'comment' => '规则名称'])
             ->addColumn('title', 'string', ['limit' => 100, 'comment' => '名称'])
             ->addColumn('pid', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '父级标识'])
+            ->addColumn('type', 'string', ['limit' => 6, 'comment' => '类别'])
             ->addColumn('status', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '状态'])
             ->addIndex(['name'], ['unique' => true])
             ->create();
