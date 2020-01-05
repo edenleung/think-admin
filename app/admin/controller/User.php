@@ -83,6 +83,35 @@ class User extends AbstractController
         return $this->sendSuccess();
     }
 
+    protected function filterPermissionMenu($data, $user)
+    {
+        $permissions = [];
+        foreach ($data as $menu) {
+            if ($menu['type'] == 'menu') {
+                if (! empty($menu['children'])) {
+                    $actionEntity = [];
+                    foreach ($menu['children'] as $action) {
+                        if ($user->can($action['name'])) {
+                            $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
+                            $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
+                        }
+                    }
+
+                    $permission['permissionId'] = $menu['name'];
+                    $permission['actionEntitySet'] = $actionEntity;
+                    $permission['actionList'] = null;
+                    $permission['dataAccess'] = null;
+                    $permissions[] = $permission;
+                }
+            }
+            if (! empty($menu['children'])) {
+                $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
+            }
+        }
+
+        return $permissions;
+    }
+
     public function info(Request $request)
     {
         $user = $request->user;
@@ -92,26 +121,7 @@ class User extends AbstractController
         $menus = $permission->getMenu();
 
         // 过滤当前用户能操作权限
-        $permissions = [];
-        foreach ($menus as $menu) {
-            $permission = [];
-            if (! empty($menu['children'])) {
-                $actionEntity = [];
-                foreach ($menu['children'] as $action) {
-                    if ($user->can($action['name'])) {
-                        $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
-                        $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
-                    }
-                }
-
-                $permission['permissionId'] = $menu['name'];
-                $permission['actionEntitySet'] = $actionEntity;
-                $permission['actionList'] = null;
-                $permission['dataAccess'] = null;
-                $permissions[] = $permission;
-            }
-        }
-
+        $permissions = $this->filterPermissionMenu($menus, $user);
         unset($user->password);
         unset($user->hash);
         $user->role = ['permissions' => $permissions];
