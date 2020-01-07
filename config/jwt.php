@@ -16,14 +16,15 @@ declare(strict_types=1);
  */
 
 return [
-    'sso' => true,
-    'sso_cache_key' => 'jwt-auth-user',
-    'sso_key' => 'uid',
-    'signer_key' => 'RvAjzUhtJs',
-    'not_before' => 0,
-    'expires_at' => 3600,
-    'signer' => 'Lcobucci\JWT\Signer\Hmac\Sha256',
-    'claims' => ['iss' => '', 'aud' => ''],
-    'inject_user' => true,
-    'user_model' => \app\model\User::class,
+    'sso'         => true,
+    'ssoCacheKey' => 'jwt-auth-user',
+    'ssoKey'      => 'uid',
+    'signerKey'   => 'RvAjzUhtJs',
+    'notBefore'   => 0,
+    'expiresAt'   => 3600,
+    'signer'      => 'Lcobucci\JWT\Signer\Hmac\Sha256',
+    'injectUser'  => true,
+    'userModel'   => \app\model\User::class,
+    'hasLogged'   => 50401,
+    'tokenAlready' => 50402
 ];
