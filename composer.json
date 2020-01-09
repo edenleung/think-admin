@@ -9,6 +9,8 @@
     ],
     "homepage": "https://www.xiaodim.com/",
     "license": "Apache-2.0",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "xiaodi",
