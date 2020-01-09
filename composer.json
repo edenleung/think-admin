@@ -1,13 +1,13 @@
 {
-    "name": "xiaodi/think-skeleton",
-    "description": "Skeleton For ThinkPHP 6",
+    "name": "xiaodi/tant",
+    "description": "Ant Design Vue Pro For ThinkPHP 6",
     "type": "project",
     "keywords": [
         "framework",
         "thinkphp",
         "ORM"
     ],
-    "homepage": "http://thinkphp.cn/",
+    "homepage": "https://www.xiaodim.com/",
     "license": "Apache-2.0",
     "authors": [
         {
