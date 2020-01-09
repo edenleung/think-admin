@@ -50,7 +50,7 @@ class Permission extends \think\Model implements PermissionContract
             return false;
         }
 
-        return $this->find($id)->save($data);
+        return $rule->save($data);
     }
 
     /**
@@ -77,7 +77,7 @@ class Permission extends \think\Model implements PermissionContract
 
         $map[] = ['type', '<>', 'action'];
         $total = $this->where($map)->count();
-        $data = $this->where($map)->limit($pageSize)->page($pageNo)->select();
+        $data = $this->where($map)->select();
         $data = $category->getTree($data);
         foreach ($data as $permission) {
             $permission->permissionId = $permission->name;

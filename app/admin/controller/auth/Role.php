@@ -11,11 +11,12 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\admin\controller;
+namespace app\admin\controller\auth;
 
 use app\AbstractController;
 use app\model\Permission;
 use app\model\Role as Model;
+use app\model\Dept;
 
 class Role extends AbstractController
 {
@@ -33,11 +34,12 @@ class Role extends AbstractController
      * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($pageNo = 1, $pageSize = 10, Permission $permission)
+    public function list($pageNo = 1, $pageSize = 10, Permission $permission, Dept $dept)
     {
         $data = $this->model->getList((int) $pageNo, (int) $pageSize);
         $rules = $permission->getMenuPermission();
-        return $this->sendSuccess(['roles' => $data, 'rules' => $rules]);
+        $depts = $dept->getTree();
+        return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts]);
     }
 
     /**
@@ -79,4 +81,15 @@ class Role extends AbstractController
 
         return $this->sendSuccess();
     }
+
+    public function mode(int $id)
+    {
+        if ($this->model->updateMode($id, $this->request->param()) === false) {
+            return $this->sendError($this->model->getError());
+        }
+
+        return $this->sendSuccess();
+    }
+
+
 }

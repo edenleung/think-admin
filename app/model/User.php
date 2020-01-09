@@ -38,6 +38,7 @@ class User extends \think\Model implements UserContract
             'name' => $data['name'],
             'nickname' => $data['nickname'],
             'status' => $data['status'],
+            'dept_id' => $data['dept_id'],
             'hash' => $hash,
             'password' => $this->makePassword($data['password'], $hash),
         ]);
@@ -46,6 +47,13 @@ class User extends \think\Model implements UserContract
         $user->bindRole($data['roles']);
     }
 
+    /**
+     * 更新角色
+     *
+     * @param integer $id
+     * @param array $data
+     * @return void
+     */
     public function updateUser(int $id, array $data)
     {
         if ($this->validate('update', $data) === false) {
@@ -64,6 +72,7 @@ class User extends \think\Model implements UserContract
         $user->save([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
+            'dept_id' => $data['dept_id'],
             'status' => $data['status'],
         ]);
 
@@ -100,27 +109,14 @@ class User extends \think\Model implements UserContract
 
         $query = new User;
         if (!$this->isSuper()) {
-            // 获取当前用户的所有角色id
-            $roles = $this->roles;
-            $userIds = [];
 
-            foreach($roles as $role) {
-                $ids = $role->users->column('id');
+            // 当前用户所有角色下的数据权限
+            $deptIds = $this->getDataAuthorization();
 
-                if (!empty($ids)) {
-                    $userIds = array_merge($userIds, $ids);
-                }
-            }
-
-            $userIds = array_unique($userIds);
-
-            if (!empty($userIds)) {
-                foreach($userIds as $key=>$id) {
-                    if ($id == $this->id) {
-                        unset($userIds[$key]);
-                    }
-                }
-                $map[] = ['id', 'in', $userIds];
+            if (!empty($deptIds)) {
+                $map[] = ['dept_id', 'in', $deptIds];
+                $map[] = ['id', '<>', config('permission.super_id')];
+                $map[] = ['id', '<>', $this->id];
             }
         } else {
             $map[] = ['id', '<>', config('permission.super_id')];
@@ -129,6 +125,8 @@ class User extends \think\Model implements UserContract
         $total = $query->where($map)->count();
         $users = $query->where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($users as $user) {
+            $dept = Dept::find($user->dept_id);
+            $user->dept_name = $dept->dept_name;
             $user->rules = $user->getAllPermissions()->column('id');
         }
 
@@ -149,6 +147,7 @@ class User extends \think\Model implements UserContract
         $this->avatar = 'storage' . \DIRECTORY_SEPARATOR . $path;
         return $this->save();
     }
+
 
     /**
      * 更新个人信息.
@@ -227,4 +226,55 @@ class User extends \think\Model implements UserContract
             $this->assignRole($role);
         }
     }
+
+    /**
+     * 获取当前用户数据权限
+     *
+     * @return array
+     */
+    public function getDataAuthorization()
+    {
+        $deptsIds = [];
+        foreach($this->roles as $role) {
+            $depts = [];
+            switch($role->mode) {
+                // 全部数据权限
+                case 1:
+                    $depts = Dept::select()->column('dept_id');
+                break;
+                // 自定义数据权限
+                case 2:
+                    $depts = $role->depts->column('dept_id');
+                break;
+                // 本部门数据权限
+                case 3:
+                    $depts[] = $this->dept_id;
+                break;
+                // 本部门及以下数据权限
+                case 4:
+                    $depts[] = $this->dept_id;
+                    $data = Dept::select()->toArray();
+                    $category = new \extend\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
+                    $children = array_column($category->getTree($data, $this->dept_id), 'dept_id');
+                    if (!empty($children)) {
+                        $depts = array_merge($depts, $children);
+                    }
+                break;
+                // 仅本人数据权限
+                case 5:
+                    // TODO
+                break;
+            }
+            // 全部数据
+
+            if (!empty($depts)) {
+                $deptsIds = array_merge($deptsIds, $depts);
+            }
+        }
+
+        return $deptsIds;
+    }
 }
+
+
+

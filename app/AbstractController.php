@@ -22,6 +22,7 @@ use think\Validate;
 
 abstract class AbstractController
 {
+    protected $model;
     /**
      * App应用.
      * @Inject

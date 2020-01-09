@@ -94,7 +94,12 @@ class Category
         foreach ($data as $item) {
             if ($item[$field['pid']] == $id) {
                 $item['value'] = (string)$item[$field['id']];
-                $item[$child_key] = $this->formatTree($data, $child_key, $item[$field['id']]);
+                $item['title'] = $item[$field['title']];
+                $item['key'] = (string)$item[$field['id']];
+                $c = $this->formatTree($data, $child_key, $item[$field['id']]);
+                if (!empty($c)) {
+                    $item[$child_key] = $c;
+                }
                 $children[] = $item;
             }
         }

@@ -16,13 +16,29 @@ namespace app\model;
 use app\model\validate\RoleValidate;
 use think\exception\ValidateException;
 use xiaodi\Permission\Contract\RoleContract;
+use think\model\relation\BelongsToMany;
 
-class Role extends \think\Model implements RoleContract
+class Role extends \xiaodi\Permission\Model\Role implements RoleContract
 {
     use \app\traits\CurdEvent;
     use \app\traits\ValidateError;
 
     use \xiaodi\Permission\Traits\Role;
+
+    /**
+     * 获取角色下部门.
+     *
+     * @return BelongsToMany
+     */
+    public function depts(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Dept::class,
+            RoleDeptAccess::class,
+            'dept_id',
+            'role_id'
+        );
+    }
 
     /**
      * 获取角色列表.
@@ -42,27 +58,30 @@ class Role extends \think\Model implements RoleContract
             }
         }
 
+        $map[] = ['id', '<>', 1];
         $total = Role::where($map)->count();
+
         $roles = Role::where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($roles as $role) {
             $role->permissions = $role->permissions()->select()->column('id');
+            $role->deptIds = $role->depts()->select()->column('dept_id');
         }
 
         $data = $roles->toArray();
-        $roles = $category->getTree($data, $data[0]['pid']);
+        $roles = $category->getTree($data);
 
-        $tree = $this->getTree();
+        $tree = $this->getSelectTree();
         return [
-            'data' => $roles,
+            'data' => $data,
             'tree' => $tree,
             'pageSize' => $pageSize,
             'pageNo' => $pageNo,
-            'totalPage' => count($roles),
+            // 'totalPage' => count($roles),
             'totalCount' => $total
         ];
     }
 
-    public function getTree()
+    public function getSelectTree()
     {
         $map = [];
         $user = request()->user;
@@ -77,17 +96,9 @@ class Role extends \think\Model implements RoleContract
             }
         }
 
-        $tree = Role::where($map)->select()->toArray();
-        $children = $category->formatTree($tree, 'children', $tree[0]['pid']);
-        $tree = [
-            [
-                'title' => '根',
-                'value'    => '0',
-                'selectable' => $user->isSuper(),
-                'children' => $children
-            ]
-        ];
-
+        $data = Role::where($map)->select()->toArray();
+        $tree = $category->formatTree($data);
+        $tree[0]['selectable'] = $user->isSuper();
         return $tree;
     }
 
@@ -293,5 +304,31 @@ class Role extends \think\Model implements RoleContract
         foreach ($permissions as $permission) {
             $this->assignPermission($permission);
         }
+    }
+
+    /**
+     * 更新角色数据权限
+     *
+     * @param [type] $id
+     * @param [type] $data
+     * @return void
+     */
+    public function updateMode($id, $data)
+    {
+        $role = $this->find($id);
+        $mode = $data['mode'];
+
+        $role->mode = $mode;
+        $role->depts()->detach();
+
+        // 自定义数据权限
+        if ($mode === 2) {
+            $depts = $data['deptIds'];
+            if (!empty($depts)) {
+                $role->depts()->attach($depts);
+            }
+        }
+
+        $role->save();
     }
 }

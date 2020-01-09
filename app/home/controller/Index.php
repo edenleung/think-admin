@@ -14,9 +14,6 @@ declare(strict_types=1);
 namespace app\home\controller;
 
 use app\AbstractController;
-use Houdunwang\Arr\Arr;
-use app\model\Role;
-use app\model\User;
 
 class Index extends AbstractController
 {

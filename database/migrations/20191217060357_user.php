@@ -46,6 +46,7 @@ class User extends Migrator
             ->addColumn('password', 'string', ['limit' => 255, 'comment' => '登录密码'])
             ->addColumn('hash', 'string', ['limit' => 11, 'comment' => '加密hash'])
             ->addColumn('nickname', 'string', ['limit' => 50, 'default' => '', 'comment' => '昵称'])
+            ->addColumn('dept_id', 'integer', ['limit' => 11, 'default' => 3, 'comment' => '部门标识'])
             ->addColumn('status', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '状态'])
             ->addColumn('avatar', 'string', ['limit' => 255, 'default' => '', 'comment' => '头像'])
             ->addColumn('email', 'string', ['limit' => 50, 'default' => '', 'comment' => '邮箱'])

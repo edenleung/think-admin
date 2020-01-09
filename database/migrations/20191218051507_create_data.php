@@ -41,8 +41,7 @@ class CreateData extends Migrator
         $this->createUserData();
         $this->createPermissionData();
         $this->createRoleData();
-        $this->createRolePermissionData();
-        $this->createUserRoleData();
+        $this->createDeptData();
     }
 
     public function down()
@@ -83,26 +82,8 @@ class CreateData extends Migrator
             'status' => 1,
             'create_time' => time(),
             'update_time' => time(),
-        ]);
-        $table->saveData();
-
-        // 游客账号
-        $default_password = '1234';
-        $hash = $this->randomKey();
-
-        $pwd_peppered = hash_hmac('sha256', $default_password, $hash);
-        $password = password_hash($pwd_peppered, PASSWORD_DEFAULT);
-
-        $table = $this->table('user');
-        $table->insert([
-            'name' => 'xiaodi',
-            'password' => $password,
-            'hash' => $hash,
-            'nickname' => 'Xiao Di',
-            'email' => 'XiaoDi@aliyun.com',
-            'status' => 1,
-            'create_time' => time(),
-            'update_time' => time(),
+            'dept_id' => 0,
+            'avatar' => 'storage/topic/avatar.png'
         ]);
         $table->saveData();
     }
@@ -157,63 +138,24 @@ class CreateData extends Migrator
     {
         $rows = [
             // 创建 超级管理员角色
-            ['name' => 'admin', 'title' => '超级管理员组', 'status' => 1, 'pid' => 0],
-            // 创建 游客角色
-            ['name' => 'guest', 'title' => '游客组', 'status' => 1, 'pid' => 0],
+            ['name' => 'root', 'title' => '根', 'status' => 1, 'pid' => 0 , 'mode' => 0],
         ];
 
         $this->insert('role', $rows);
     }
 
-    /**
-     * 创建角色与规则关系.
-     */
-    protected function createRolePermissionData()
+    protected function createDeptData()
     {
         $rows = [
-            ['role_id' => 1, 'permission_id' => 14],
-            ['role_id' => 1, 'permission_id' => 15],
-            ['role_id' => 1, 'permission_id' => 16],
-            ['role_id' => 1, 'permission_id' => 17],
-            ['role_id' => 1, 'permission_id' => 18],
-            ['role_id' => 1, 'permission_id' => 19],
-            ['role_id' => 1, 'permission_id' => 20],
-            ['role_id' => 1, 'permission_id' => 21],
-            ['role_id' => 1, 'permission_id' => 22],
-            ['role_id' => 1, 'permission_id' => 23],
-            ['role_id' => 1, 'permission_id' => 24],
-            ['role_id' => 1, 'permission_id' => 25],
-            ['role_id' => 1, 'permission_id' => 26],
-            ['role_id' => 1, 'permission_id' => 27],
-            ['role_id' => 1, 'permission_id' => 28],
-            ['role_id' => 1, 'permission_id' => 29],
-            ['role_id' => 1, 'permission_id' => 30],
-            ['role_id' => 1, 'permission_id' => 31],
+            ['dept_name' => 'Ant-Design', 'dept_pid' => 0],
+            ['dept_name' => '深圳总公司', 'dept_pid' => 1],
+            ['dept_name' => '北京总公司', 'dept_pid' => 1],
 
-            // 为游客角色分配权限(默认只有查看权限)
-            ['role_id' => 2, 'permission_id' => 14],
-            ['role_id' => 2, 'permission_id' => 15],
-            ['role_id' => 2, 'permission_id' => 16],
-            ['role_id' => 2, 'permission_id' => 20],
-            ['role_id' => 2, 'permission_id' => 24],
-            ['role_id' => 2, 'permission_id' => 28],
-            ['role_id' => 2, 'permission_id' => 29],
-            ['role_id' => 2, 'permission_id' => 30],
-            ['role_id' => 2, 'permission_id' => 31],
+            ['dept_name' => '设计部', 'dept_pid' => 2],
+            ['dept_name' => '运营部', 'dept_pid' => 2],
+            ['dept_name' => '研发部', 'dept_pid' => 3],
+            ['dept_name' => '销售部', 'dept_pid' => 3],
         ];
-
-        $this->insert('role_permission_access', $rows);
-    }
-
-    /**
-     * 创建用户与角色关系.
-     */
-    protected function createUserRoleData()
-    {
-        $rows = [
-            // 为游客账分配游客角色
-            ['user_id' => 2, 'role_id' => 2],
-        ];
-        $this->insert('user_role_access', $rows);
+        $this->insert('dept', $rows);
     }
 }

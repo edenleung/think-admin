@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\admin\controller;
+namespace app\admin\controller\auth;
 
 use app\AbstractController;
 use app\model\Permission as Model;
@@ -32,7 +32,7 @@ class Rule extends AbstractController
      * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($pageNo = 1, $pageSize = 10)
+    public function list($pageNo = 1, $pageSize = 100)
     {
         $data = $this->model->getList((int) $pageNo, (int) $pageSize);
         return $this->sendSuccess($data);

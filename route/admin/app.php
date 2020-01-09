@@ -18,6 +18,10 @@ Route::get('/', function () {
     return 'Hello,ThinkPHP6!';
 });
 
+Route::get('/hello', function () {
+    return 'Hello,ThinkPHP6!';
+});
+
 Route::miss(function () {
     return 'Miss Route!';
 });
@@ -30,35 +34,36 @@ Route::group('/auth', function () {
 
 // 规则
 Route::group('/rule', function () {
-    Route::rule('/', 'rule/list', 'GET')->middleware('auth', 'rule-view');
-    Route::rule('/', 'rule/add', 'POST')->middleware('auth', 'rule-add');
-    Route::rule('/:id', 'rule/update', 'PUT')->middleware('auth', 'rule-update');
-    Route::rule('/:id', 'rule/delete', 'DELETE')->middleware('auth', 'rule-delete');
+    Route::rule('/', 'auth.rule/list', 'GET')->middleware('auth', 'rule-view');
+    Route::rule('/', 'auth.rule/add', 'POST')->middleware('auth', 'rule-add');
+    Route::rule('/:id', 'auth.rule/update', 'PUT')->middleware('auth', 'rule-update');
+    Route::rule('/:id', 'auth.rule/delete', 'DELETE')->middleware('auth', 'rule-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 角色
 Route::group('/role', function () {
-    Route::rule('/', 'role/list', 'GET')->middleware('auth', 'role-view');
-    Route::rule('/', 'role/add', 'POST')->middleware('auth', 'role-add');
-    Route::rule('/:id', 'role/update', 'PUT')->middleware('auth', 'role-update');
-    Route::rule('/:id', 'role/delete', 'DELETE')->middleware('auth', 'role-delete');
+    Route::rule('/', 'auth.role/list', 'GET')->middleware('auth', 'role-view');
+    Route::rule('/', 'auth.role/add', 'POST')->middleware('auth', 'role-add');
+    Route::rule('/:id$', 'auth.role/update', 'PUT')->middleware('auth', 'role-update');
+    Route::rule('/:id$', 'auth.role/delete', 'DELETE')->middleware('auth', 'role-delete');
+    Route::rule('/:id/mode', 'auth.role/mode', 'PUT');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 用户
 Route::group('/user', function () {
     //获取 个人信息
-    Route::rule('/current$', 'user/current', 'GET');
+    Route::rule('/current$', 'auth.user/current', 'GET');
     //更新 个人信息
-    Route::rule('/current$', 'user/updateCurrent', 'PUT');
+    Route::rule('/current$', 'auth.user/updateCurrent', 'PUT');
     //更新 头像
-    Route::rule('/avatar$', 'user/avatar', 'POST');
+    Route::rule('/avatar$', 'auth.user/avatar', 'POST');
     //更新 密码
-    Route::rule('/reset-password$', 'user/resetPassword', 'PUT');
-    Route::rule('/', 'user/list', 'GET')->middleware('auth', 'account-view');
-    Route::rule('/', 'user/add', 'POST')->middleware('auth', 'account-add');
-    Route::rule('/info$', 'user/info', 'GET');
-    Route::rule('/:id', 'user/update', 'PUT')->middleware('auth', 'account-update');
-    Route::rule('/:id', 'user/delete', 'DELETE')->middleware('auth', 'account-delete');
+    Route::rule('/reset-password$', 'auth.user/resetPassword', 'PUT');
+    Route::rule('/', 'auth.user/list', 'GET')->middleware('auth', 'account-view');
+    Route::rule('/', 'auth.user/add', 'POST')->middleware('auth', 'account-add');
+    Route::rule('/info$', 'auth.user/info', 'GET');
+    Route::rule('/:id', 'auth.user/update', 'PUT')->middleware('auth', 'account-update');
+    Route::rule('/:id', 'auth.user/delete', 'DELETE')->middleware('auth', 'account-delete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 日志
@@ -67,6 +72,13 @@ Route::group('/log', function () {
     Route::rule('/acount', 'log/account_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
     Route::rule('/db', 'log/db_list', 'GET')->allowCrossDomain()->middleware(Jwt::class);
     Route::rule('/db', 'log/db_delete', 'DELETE')->allowCrossDomain()->middleware(Jwt::class);
+})->allowCrossDomain()->middleware(Jwt::class);
+
+Route::group('/system', function () {
+    Route::rule('/dept', 'system.dept/list', 'GET');
+    Route::rule('/dept', 'system.dept/add', 'POST');
+    Route::rule('/dept/:id', 'system.dept/update', 'PUT');
+    Route::rule('/dept/:id', 'system.dept/delete', 'DELETE');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 模拟数据（可删除）
