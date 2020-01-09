@@ -42,7 +42,7 @@ class DbLog extends Migrator
     public function change()
     {
         $table = $this->table('db_log', ['engine' => 'InnoDB']);
-        $table->addColumn('model', 'integer', ['limit' => 100, 'comment' => '模型名'])
+        $table->addColumn('model', 'string', ['limit' => 100, 'comment' => '模型名'])
             ->addColumn('url', 'string', ['limit' => 255, 'comment' => '访问地址'])
             ->addColumn('action', 'string', ['limit' => 255, 'comment' => '操作'])
             ->addColumn('sql', 'text', ['comment' => 'sql'])
