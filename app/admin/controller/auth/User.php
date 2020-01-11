@@ -91,6 +91,7 @@ class User extends AbstractController
         foreach ($data as $menu) {
             if ($menu['type'] == 'menu') {
                 if (! empty($menu['children'])) {
+                    $permission = [];
                     $actionEntity = [];
                     foreach ($menu['children'] as $action) {
                         if ($user->can($action['name'])) {
@@ -99,11 +100,13 @@ class User extends AbstractController
                         }
                     }
 
-                    $permission['permissionId'] = $menu['name'];
-                    $permission['actionEntitySet'] = $actionEntity;
-                    $permission['actionList'] = null;
-                    $permission['dataAccess'] = null;
-                    $permissions[] = $permission;
+                    if (!empty($actionEntity)) {
+                        $permission['permissionId'] = $menu['name'];
+                        $permission['actionEntitySet'] = $actionEntity;
+                        $permission['actionList'] = null;
+                        $permission['dataAccess'] = null;
+                        $permissions[] = $permission;
+                    }
                 }
             }
             if (! empty($menu['children'])) {
