@@ -16,6 +16,12 @@ QQ 群 `996887666` 暗号 `Tant`
 没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
 
 ## 安装
+### 正式版本
+```sh
+composer create-project xiaodi/tant
+```
+
+### 开发版本
 - 拉取最新源码
 ```sh
 git clone https://github.com/edenleung/think-admin.git
@@ -25,12 +31,12 @@ git clone https://github.com/edenleung/think-admin.git
 ```sh
 composer i
 ```
-- 配置数据库
+### 配置数据库
 ```sh
 cp .env.example .env
 ```
 
-- 迁移数据
+### 迁移数据
 ```
 php think migrate:run
 ```
