@@ -103,6 +103,7 @@ class CreateData extends Migrator
             ['name' => 'permission', 'title' => '菜单管理', 'pid' => 2, 'status' => 1, 'type' => 'menu'],
             ['name' => 'role', 'title' => '角色管理', 'pid' => 2, 'status' => 1, 'type' => 'menu'],
             ['name' => 'account', 'title' => '管理员管理', 'pid' => 2, 'status' => 1, 'type' => 'menu'],
+            ['name' => 'dept', 'title' => '部门管理', 'pid' => 2, 'status' => 1, 'type' => 'menu'],
             ['name' => 'log-account', 'title' => '管理员日志', 'pid' => 3, 'status' => 1, 'type' => 'menu'],
             ['name' => 'log-db', 'title' => '数据库日志', 'pid' => 3, 'status' => 1, 'type' => 'menu'],
             ['name' => 'profile-account', 'title' => '个人中心', 'pid' => 4, 'status' => 1, 'type' => 'menu'],
@@ -121,10 +122,16 @@ class CreateData extends Migrator
             ['name' => 'account-add', 'title' => '添加', 'pid' => 9, 'status' => 1, 'type' => 'action'],
             ['name' => 'account-update', 'title' => '更新', 'pid' => 9, 'status' => 1, 'type' => 'action'],
             ['name' => 'account-delete', 'title' => '删除', 'pid' => 9, 'status' => 1, 'type' => 'action'],
-            ['name' => 'log-account-view', 'title' => '查看', 'pid' => 10, 'status' => 1, 'type' => 'action'],
-            ['name' => 'log-db-view', 'title' => '查看', 'pid' => 11, 'status' => 1, 'type' => 'action'],
-            ['name' => 'profile-account-view', 'title' => '查看', 'pid' => 12, 'status' => 1, 'type' => 'action'],
-            ['name' => 'profile-setting-view', 'title' => '查看', 'pid' => 13, 'status' => 1, 'type' => 'action'],
+            ['name' => 'dept-view', 'title' => '查看', 'pid' => 10, 'status' => 1, 'type' => 'action'],
+            ['name' => 'dept-add', 'title' => '添加', 'pid' => 10, 'status' => 1, 'type' => 'action'],
+            ['name' => 'dept-update', 'title' => '更新', 'pid' => 10, 'status' => 1, 'type' => 'action'],
+            ['name' => 'dept-delete', 'title' => '删除', 'pid' => 10, 'status' => 1, 'type' => 'action'],
+            ['name' => 'log-account-view', 'title' => '查看', 'pid' => 11, 'status' => 1, 'type' => 'action'],
+            ['name' => 'log-account-delete', 'title' => '删除', 'pid' => 11, 'status' => 1, 'type' => 'action'],
+            ['name' => 'log-db-view', 'title' => '查看', 'pid' => 12, 'status' => 1, 'type' => 'action'],
+            ['name' => 'log-db-delete', 'title' => '删除', 'pid' => 12, 'status' => 1, 'type' => 'action'],
+            ['name' => 'profile-account-view', 'title' => '查看', 'pid' => 13, 'status' => 1, 'type' => 'action'],
+            ['name' => 'profile-setting-view', 'title' => '查看', 'pid' => 14, 'status' => 1, 'type' => 'action'],
 
         ];
 
