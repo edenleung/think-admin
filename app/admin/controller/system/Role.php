@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\admin\controller\auth;
+namespace app\admin\controller\system;
 
 use app\AbstractController;
 use app\model\Permission;
@@ -34,11 +34,11 @@ class Role extends AbstractController
      * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($pageNo = 1, $pageSize = 10, Permission $permission, Dept $dept)
+    public function list($pageNo = 1, $pageSize = 10)
     {
         $data = $this->model->getList((int) $pageNo, (int) $pageSize);
-        $rules = $permission->getMenuPermission();
-        $depts = $dept->getTree();
+        $rules = (new Permission)->getMenuPermission();
+        $depts = (new Dept)->getTree();
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts]);
     }
 

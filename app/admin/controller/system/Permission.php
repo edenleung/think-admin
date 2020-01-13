@@ -11,12 +11,12 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\admin\controller\auth;
+namespace app\admin\controller\system;
 
 use app\AbstractController;
 use app\model\Permission as Model;
 
-class Rule extends AbstractController
+class Permission extends AbstractController
 {
     protected $model;
 
