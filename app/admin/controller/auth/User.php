@@ -36,9 +36,9 @@ class User extends AbstractController
      * @param mixed $pageNo
      * @param mixed $pageSize
      */
-    public function list($pageNo = 1, $pageSize = 10, Permission $permission, Role $role, Dept $dept)
+    public function list($pageNo = 1, $pageSize = 10, $deptPid = 0, Permission $permission, Role $role, Dept $dept)
     {
-        $res['users'] = $this->model->getList((int) $pageNo, (int) $pageSize);
+        $res['users'] = $this->model->getList((int) $pageNo, (int) $pageSize, (int) $deptPid);
         $res['rules'] = $permission->getMenuPermission();
         $res['roles'] = $role->getSelectTree();
         $res['depts'] = $dept->getTree();

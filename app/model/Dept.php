@@ -83,4 +83,13 @@ class Dept extends \think\Model
 
         return true;
     }
+
+    public function getChildrenDepts($deptPid)
+    {
+        $data = $this->select();
+        $category = new \extend\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
+
+        $tree = $category->getTree($data->toArray(), $deptPid);
+        return $tree;
+    }
 }

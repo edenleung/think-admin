@@ -103,24 +103,39 @@ class User extends \think\Model implements UserContract
     /**
      * 获取用户列表.
      */
-    public function getList(int $pageNo, int $pageSize)
+    public function getList(int $pageNo, int $pageSize, int $deptId = 0)
     {
         $map = [];
-
         $query = new User;
-        if (!$this->isSuper()) {
 
-            // 当前用户所有角色下的数据权限
-            $deptIds = $this->getDataAuthorization();
+        // 当前用户所有角色下的数据权限
+        $deptIds = $this->getDataAccess();
 
-            if (!empty($deptIds)) {
-                $map[] = ['dept_id', 'in', $deptIds];
-                $map[] = ['id', '<>', config('permission.super_id')];
-                $map[] = ['id', '<>', $this->id];
+
+        $mapDeptIds = [];
+        // 指定部门
+        if ($deptId) {
+            $dept = new Dept;
+            $childrenDeptIds = $dept->getChildrenDepts($deptId);
+
+            if (empty($childrenDeptIds)) {
+                $childrenDeptIds= [$deptId];
+            } else {
+                $childrenDeptIds= array_column($childrenDeptIds, 'dept_id');
+            }
+
+            foreach($childrenDeptIds as $deptId) {
+                if (in_array($deptId, $deptIds)) {
+                    $mapDeptIds[] = $deptId;
+                }
             }
         } else {
-            $map[] = ['id', '<>', config('permission.super_id')];
+            $mapDeptIds = $deptIds;
         }
+
+        $map[] = ['dept_id', 'in', $mapDeptIds];
+        $map[] = ['id', '<>', config('permission.super_id')];
+        $map[] = ['id', '<>', $this->id];
 
         $total = $query->where($map)->count();
         $users = $query->where($map)->limit($pageSize)->page($pageNo)->select();
@@ -232,9 +247,14 @@ class User extends \think\Model implements UserContract
      *
      * @return array
      */
-    public function getDataAuthorization()
+    public function getDataAccess()
     {
         $deptsIds = [];
+
+        if ($this->isSuper()) {
+            return $depts = Dept::select()->column('dept_id');
+        }
+
         foreach($this->roles as $role) {
             $depts = [];
             switch($role->mode) {
@@ -275,6 +295,3 @@ class User extends \think\Model implements UserContract
         return $deptsIds;
     }
 }
-
-
-
