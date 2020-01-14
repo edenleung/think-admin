@@ -5,7 +5,7 @@
 ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
 前端: 
-Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.xiaodim.com)
+Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.wfunc.com)
 
 QQ 群 `996887666` 暗号 `Tant`
 
