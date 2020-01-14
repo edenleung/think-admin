@@ -90,7 +90,7 @@ class User extends AbstractController
         $permissions = [];
         foreach ($data as $menu) {
             if ($menu['type'] == 'menu') {
-                if (! empty($menu['children'])) {
+                if (!empty($menu['children'])) {
                     $permission = [];
                     $actionEntity = [];
                     foreach ($menu['children'] as $action) {
@@ -109,7 +109,7 @@ class User extends AbstractController
                     }
                 }
             }
-            if (! empty($menu['children'])) {
+            if (!empty($menu['children'])) {
                 $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
             }
         }
@@ -131,6 +131,8 @@ class User extends AbstractController
         unset($user->hash);
         $user->role = ['permissions' => $permissions];
 
+        $tree = $permission->getTree();
+        $user->menus = $permission->formatRoute($tree);
         return $this->sendSuccess($user);
     }
 
@@ -152,7 +154,7 @@ class User extends AbstractController
             return $this->sendError('数据出错');
         }
 
-        if (! $this->model->updateCurrent($data)) {
+        if (!$this->model->updateCurrent($data)) {
             return $this->sendError('更新失败');
         }
 
@@ -166,7 +168,7 @@ class User extends AbstractController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (! $this->model->updateAvatar($savename)) {
+        if (!$this->model->updateAvatar($savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -181,11 +183,11 @@ class User extends AbstractController
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (! $oldPassword || ! $newPassword) {
+        if (!$oldPassword || !$newPassword) {
             return $this->sendError('数据出错');
         }
 
-        if (! $this->model->resetPassword($oldPassword, $newPassword)) {
+        if (!$this->model->resetPassword($oldPassword, $newPassword)) {
             return $this->sendError($this->model->getError());
         }
 

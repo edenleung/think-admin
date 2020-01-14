@@ -86,11 +86,9 @@ class Permission extends \think\Model implements PermissionContract
         $map[] = ['type', '<>', 'action'];
         $total = $this->where($map)->count();
         $data = $this->where($map)->select();
-        $data = $category->getTree($data);
-        foreach ($data as $permission) {
-            $permission->permissionId = $permission->name;
-            $permission->actions = $permission->getActions();
-        }
+        $data = $category->formatTree($data);
+
+        $data = $this->formatTreeAction($data);
 
         return [
             'data' => $data,
@@ -100,6 +98,21 @@ class Permission extends \think\Model implements PermissionContract
             'totalPage' => count($data),
             'totalCount' => $total
         ];
+    }
+
+    protected function formatTreeAction($data)
+    {
+        foreach($data as $item) {
+            if ($item['type'] == 'menu') {
+                $item->actions = $item->getActions();
+            }
+
+            if (!empty($item['children'])) {
+                $this->formatTreeAction($item['children']);
+            }
+        }
+
+        return $data;
     }
 
     /**
