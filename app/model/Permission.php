@@ -33,6 +33,10 @@ class Permission extends \think\Model implements PermissionContract
             return false;
         }
 
+        if (!empty($data['permission'])) {
+            $data['permission'] = implode(',', $data['permission']);
+        }
+
         return Permission::create($data);
     }
 
@@ -48,6 +52,10 @@ class Permission extends \think\Model implements PermissionContract
         $rule = $this->find($id);
         if (empty($rule)) {
             return false;
+        }
+
+        if (!empty($data['permission'])) {
+            $data['permission'] = implode(',', $data['permission']);
         }
 
         return $rule->save($data);
@@ -114,21 +122,37 @@ class Permission extends \think\Model implements PermissionContract
     public function getTree()
     {
         $map = [];
-
         $category = new \extend\Category();
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->where($map)->select();
-        $data = $category->formatTree($data);
-        $tree = [
-            [
-                'title' => '根',
-                'value'    => '0',
-                'children' => $data
-            ]
-        ];
-
+        $tree = $category->formatTree($data);
         return $tree;
+    }
+
+    public function formatRoute($data)
+    {
+        $routes = [];
+        foreach($data as $item) {
+            $route = [];
+
+            $route['path'] = $item['path'];
+            $route['name'] = $item['name'];
+            $route['component'] = $item['component'];
+            $route['meta']['title'] = $item['title'];
+
+            $item['keepAlive'] === 1 && $route['meta']['keepAlive'] = true;
+            $item['icon'] && $route['meta']['icon'] = $item['icon'];
+            $item['permission'] && $route['meta']['permission'] = explode(',', $item['permission']);
+            $item['redirect'] && $route['redirect'] = $item['redirect'];
+
+            if (!empty($item['children'])) {
+                $route['children'] = $this->formatRoute($item['children']);
+            }
+            $routes[] = $route;
+        }
+
+        return $routes;
     }
 
     /**

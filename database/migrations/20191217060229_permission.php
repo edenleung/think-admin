@@ -47,6 +47,13 @@ class Permission extends Migrator
             ->addColumn('pid', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '父级标识'])
             ->addColumn('type', 'string', ['limit' => 6, 'comment' => '类别'])
             ->addColumn('status', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '状态'])
+            ->addColumn('path', 'string', ['limit' => 100, 'default' => '', 'comment' => 'path'])
+            ->addColumn('redirect', 'string', ['limit' => 100, 'default' => '', 'comment' => 'redirect'])
+            ->addColumn('component', 'string', ['limit' => 100, 'default' => '', 'comment' => 'component'])
+            ->addColumn('icon', 'string', ['limit' => 30, 'default' => '', 'comment' => 'icon'])
+            ->addColumn('permission', 'string', ['limit' => 100, 'default' => '', 'comment' => 'permission'])
+            ->addColumn('keepAlive', 'integer', ['limit' => 11, 'default' => 0, 'comment' => 'keepAlive'])
+            ->addColumn('hidden', 'integer', ['limit' => 11, 'default' => 0, 'comment' => 'hidden'])
             ->addIndex(['name'], ['unique' => true])
             ->create();
     }
