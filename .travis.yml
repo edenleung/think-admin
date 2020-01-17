@@ -1,9 +1,7 @@
 language: php
 
 php:
-- '7.1'
 - '7.2'
-- '7.3'
 
 script:
   - composer self-update
@@ -15,17 +13,32 @@ cache:
   directories:
     - "$HOME/.composer/cache"
 
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+
 before_deploy:
   - composer self-update
   - composer install --no-dev --no-interaction --ignore-platform-reqs
   - zip -r --exclude='*.git*' --exclude='*.zip' --exclude='*.travis.yml' Tant_Full.zip .
+  - docker -v
+  - export DOCKER_CLI_EXPERIMENTAL=enabled
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker run --rm --privileged docker/binfmt:66f9012c56a8316f9244ffd7622d7c21c1f6f28d
+  - ls -al /proc/sys/fs/binfmt_misc/
+  - docker buildx create --use --name mybuilder
+  - cp .env.example .env
+  - chmod -R 777 runtime
+  - docker buildx ls
+  - docker buildx build -t xiaodi93/ant-design-admin:latest --platform=linux/arm64 . --push
 
 deploy:
   provider: releases
   api_key:
     secure: rMCKulorfzZakJZtfjVLeuwG2x4G+cu+SgCLypL9CJDAYnE9RWMEL1sBFqcXdu45HchMh3SxlK/Vshg1KlHOvRSr6N21EvAAvdg45n47tT1kUJO41H2zFfl3r1WaQlZA/ZgEcCtBsEgnzDvhNEecIGGuXK7NYfFNbz6g3VyrbMruunx3I0FrzyxCO5uU8Urk5P6q1ElQT1jS2MpyMod/XdVgDEesN1MTX5hVcfVTquF0qBoUqNx3Kau6EweTKXsmLmiw1UxNPYbBKKIQ8tj+51aZHMulsKTIuHAdTIE/KplRpgITU9WYyGN6kKIn6tWWkt8Ti90yo9bh4PrCgs8K8ZHOqzGbIBMpAdj9PFOSS10/jRvqez4TjfCcWRnINupIQygpL1uHKzVyfidJ/eyPfBa0KkCKJimDH2Fp2yJdD0YgzV50vHCcuYwihuOD58UurL2HaxdwjnoIElDv38jaHl6NESvPp0kZzXnYqLEVmmP36LzBWB+TZD79EC9RLMd/5zrtkpeIiAaLVNjegcIcZSfjCy3TRGI1KcOpynZdqBAS4d9kKirycSeefoVKi9j7Av/KqZlyq34vT6gNyvdPD1X5UrUPcUiIdx5zBF/Bpm9bk2sWeONh5f18nots7BYyBmPEHmcbvzSLxLfCxFe6qOc2gU8TEIS+xeZcsrIeeP0=
   file:
-    - /home/travis/build/edenleung/think-admin/Tant.zip
     - /home/travis/build/edenleung/think-admin/Tant_Full.zip
   skip_cleanup: true
   overwrite: true
