@@ -13,16 +13,15 @@ declare(strict_types=1);
 
 namespace app\model;
 
+use app\AbstractModel;
 use app\model\validate\UserValidate;
-use think\exception\ValidateException;
 use xiaodi\Permission\Contract\UserContract;
 
-class User extends \think\Model implements UserContract
+class User extends AbstractModel implements UserContract
 {
-    use \app\traits\CurdEvent;
+    protected $validate = UserValidate::class;
 
-    use \xiaodi\Permission\Traits\User;
-    use \app\traits\ValidateError;
+    use \app\traits\CurdEvent, \xiaodi\Permission\Traits\User;
 
     /**
      * 创建用户.
@@ -208,26 +207,6 @@ class User extends \think\Model implements UserContract
     }
 
     /**
-     * 验证数据.
-     *
-     * @param string $scene 验证场景
-     * @param array $data 验证数据
-     */
-    protected function validate(string $scene, array $data)
-    {
-        try {
-            validate(UserValidate::class)
-                ->scene($scene)
-                ->check($data);
-        } catch (ValidateException $e) {
-            $this->error = $e->getError();
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * 绑定角色.
      */
     protected function bindRole(array $roles)
@@ -247,7 +226,7 @@ class User extends \think\Model implements UserContract
      *
      * @return array
      */
-    public function getDataAccess()
+    public function getDataAccess($table = '')
     {
         $deptsIds = [];
 

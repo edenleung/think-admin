@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace app\model;
 
+use app\AbstractModel;
 use app\model\validate\PermissionValidate;
-use think\exception\ValidateException;
 use xiaodi\Permission\Contract\PermissionContract;
 
-class Permission extends \think\Model implements PermissionContract
+class Permission extends AbstractModel implements PermissionContract
 {
-    use \app\traits\CurdEvent;
+    protected $validate = PermissionValidate::class;
 
+    use \app\traits\CurdEvent;
     use \xiaodi\Permission\Traits\Permission;
-    use \app\traits\ValidateError;
 
     /**
      * 添加规则.
@@ -176,26 +176,6 @@ class Permission extends \think\Model implements PermissionContract
         $data = $this->order('pid asc')->select()->toArray();
         $category = new \extend\Category(['id', 'pid', 'title', 'cname']);
         return $category->formatTree($data); //获取分类数据树结构
-    }
-
-    /**
-     * 验证数据.
-     *
-     * @param string $scene 验证场景
-     * @param array $data 验证数据
-     */
-    protected function validate(string $scene, array $data)
-    {
-        try {
-            \validate(PermissionValidate::class)
-                ->scene($scene)
-                ->check($data);
-        } catch (ValidateException $e) {
-            $this->error = $e->getError();
-            return false;
-        }
-
-        return true;
     }
 
     /**

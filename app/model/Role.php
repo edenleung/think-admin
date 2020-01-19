@@ -13,17 +13,16 @@ declare(strict_types=1);
 
 namespace app\model;
 
+use app\AbstractModel;
 use app\model\validate\RoleValidate;
-use think\exception\ValidateException;
 use xiaodi\Permission\Contract\RoleContract;
 use think\model\relation\BelongsToMany;
 
-class Role extends \xiaodi\Permission\Model\Role implements RoleContract
+class Role extends AbstractModel implements RoleContract
 {
-    use \app\traits\CurdEvent;
-    use \app\traits\ValidateError;
+    protected $validate = RoleValidate::class;
 
-    use \xiaodi\Permission\Traits\Role;
+    use \app\traits\CurdEvent, \xiaodi\Permission\Traits\Role;
 
     /**
      * 获取角色下部门.
@@ -272,26 +271,6 @@ class Role extends \xiaodi\Permission\Model\Role implements RoleContract
 
         $role->removeAllPermission();
         return $role->delete();
-    }
-
-    /**
-     * 验证数据.
-     *
-     * @param string $scene 验证场景
-     * @param array $data 验证数据
-     */
-    protected function validate(string $scene, array $data)
-    {
-        try {
-            validate(RoleValidate::class)
-                ->scene($scene)
-                ->check($data);
-        } catch (ValidateException $e) {
-            $this->error = $e->getError();
-            return false;
-        }
-
-        return true;
     }
 
     /**

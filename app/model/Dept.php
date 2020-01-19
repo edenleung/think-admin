@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace app\model;
 
+use app\AbstractModel;
 use app\model\validate\DeptValidate;
-use think\exception\ValidateException;
 
-class Dept extends \think\Model
+class Dept extends AbstractModel
 {
     protected $pk = 'dept_id';
 
-    use \app\traits\ValidateError;
+    protected $validate = DeptValidate::class;
 
     public function getTree()
     {
@@ -62,26 +62,6 @@ class Dept extends \think\Model
         }
 
         return $rule->delete();
-    }
-
-    /**
-     * 验证数据.
-     *
-     * @param string $scene 验证场景
-     * @param array $data 验证数据
-     */
-    protected function validate(string $scene, array $data)
-    {
-        try {
-            \validate(DeptValidate::class)
-                ->scene($scene)
-                ->check($data);
-        } catch (ValidateException $e) {
-            $this->error = $e->getError();
-            return false;
-        }
-
-        return true;
     }
 
     public function getChildrenDepts($deptPid)
