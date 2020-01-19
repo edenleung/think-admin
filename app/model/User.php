@@ -16,12 +16,28 @@ namespace app\model;
 use app\AbstractModel;
 use app\model\validate\UserValidate;
 use xiaodi\Permission\Contract\UserContract;
+use think\model\relation\BelongsToMany;
 
 class User extends AbstractModel implements UserContract
 {
     protected $validate = UserValidate::class;
 
     use \app\traits\CurdEvent, \xiaodi\Permission\Traits\User;
+
+    /**
+     * 获取用户所有岗位.
+     *
+     * @return BelongsToMany
+     */
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Post::class,
+            UserPostAccess::class,
+            'post_id',
+            'user_id'
+        );
+    }
 
     /**
      * 创建用户.
@@ -44,6 +60,11 @@ class User extends AbstractModel implements UserContract
 
         //绑定角色
         $user->bindRole($data['roles']);
+
+        if (!empty($data['posts'])) {
+            //绑定岗位
+            $user->bindPost($data['posts']);
+        }
     }
 
     /**
@@ -82,6 +103,22 @@ class User extends AbstractModel implements UserContract
         if (! empty($data['roles'])) {
             $user->bindRole($data['roles']);
         }
+
+        if (! empty($data['posts'])) {
+            $user->removeAllPost();
+            //绑定岗位
+            $user->bindPost($data['posts']);
+        }
+    }
+
+    /**
+     * 解除用户岗位绑定
+     *
+     * @return void
+     */
+    public function removeAllPost()
+    {
+        $this->posts()->detach($this->posts->column('postId'));
     }
 
     /**
@@ -96,6 +133,10 @@ class User extends AbstractModel implements UserContract
 
         // 解除所有已绑定角色
         $user->removeAllRole();
+
+        // 删除所有已绑定岗位
+        $user->removeAllPost();
+        
         return $user->delete();
     }
 
@@ -142,6 +183,7 @@ class User extends AbstractModel implements UserContract
             $dept = Dept::find($user->dept_id);
             $user->dept_name = $dept->dept_name;
             $user->rules = $user->getAllPermissions()->column('id');
+            $user->posts = $user->posts->column('postId');
         }
 
         return [
@@ -219,6 +261,14 @@ class User extends AbstractModel implements UserContract
         foreach ($roles as $role) {
             $this->assignRole($role);
         }
+    }
+
+    /**
+     * 绑定岗位.
+     */
+    protected function bindPost(array $postIds)
+    {
+        $this->posts()->saveAll($postIds);
     }
 
     /**
