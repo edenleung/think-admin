@@ -3,7 +3,7 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" > /log
 
-FROM nginx:1.17.7-alpine
+FROM xiaodi93/rpi-php:latest
 
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
@@ -14,4 +14,4 @@ RUN apk upgrade --update \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /var/cache/apk/*
 
-COPY ./ /usr/share/nginx/html/tant/admin
+COPY ./ /var/www/html
