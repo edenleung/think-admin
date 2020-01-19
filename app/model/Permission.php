@@ -158,6 +158,7 @@ class Permission extends AbstractModel implements PermissionContract
             $item['icon'] && $route['meta']['icon'] = $item['icon'];
             $item['permission'] && $route['meta']['permission'] = explode(',', $item['permission']);
             $item['redirect'] && $route['redirect'] = $item['redirect'];
+            $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
 
             if (!empty($item['children'])) {
                 $route['children'] = $this->formatRoute($item['children']);

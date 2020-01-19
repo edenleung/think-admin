@@ -108,7 +108,7 @@ class CreateData extends Migrator
             ['name' => 'LogAccount', 'title' => '管理员日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/account', 'redirect' => '', 'component' => 'LogAccount', 'icon' => '', 'permission' => 'LogAccount', 'keepAlive' => 0 ],
             ['name' => 'LogDb', 'title' => '数据库日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/db', 'redirect' => '', 'component' => 'LogDb', 'icon' => '', 'permission' => 'LogDb', 'keepAlive' => 0 ],
             ['name' => 'ProfileAccount', 'title' => '个人中心', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/center', 'redirect' => '', 'component' => 'Center', 'icon' => '', 'permission' => 'ProfileAccount', 'keepAlive' => 0 ],
-            ['name' => 'ProfileSetting', 'title' => '个人设置', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings', 'redirect' => '', 'component' => 'Settings', 'icon' => '', 'permission' => 'ProfileSetting', 'keepAlive' => 0 ],
+            ['name' => 'ProfileSetting', 'title' => '个人设置', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings', 'redirect' => '/account/settings/base', 'component' => 'Settings', 'icon' => '', 'permission' => 'ProfileSetting', 'keepAlive' => 0, 'hideChildrenInMenu' => 1 ],
             ['name' => 'AnalysisView', 'title' => '查看', 'pid' => 6, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
             ['name' => 'WorkspaceView', 'title' => '查看', 'pid' => 7, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
             ['name' => 'PermissionView', 'title' => '查看', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
@@ -133,6 +133,8 @@ class CreateData extends Migrator
             ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
             ['name' => 'ProfileAccountView', 'title' => '查看', 'pid' => 14, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
             ['name' => 'ProfileSettingView', 'title' => '查看', 'pid' => 15, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
+            ['name' => 'BaseSettings', 'title' => '基本设置', 'pid' => 15, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/base', 'redirect' => '', 'component' => 'BaseSettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
+            ['name' => 'SecuritySettings', 'title' => '安全设置', 'pid' => 15, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/security', 'redirect' => '', 'component' => 'SecuritySettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
         ];
 
         $this->insert('permission', $rows);
