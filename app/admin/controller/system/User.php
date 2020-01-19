@@ -17,6 +17,7 @@ use app\AbstractController;
 use app\model\Permission;
 use app\model\Role;
 use app\model\Dept;
+use app\model\Post;
 use app\model\User as Model;
 use think\Request;
 
@@ -42,6 +43,7 @@ class User extends AbstractController
         $res['rules'] = (new Permission)->getMenuPermission();
         $res['roles'] = (new Role)->getSelectTree();
         $res['depts'] = (new Dept)->getTree();
+        $res['posts'] = (new Post)->select();
         return $this->sendSuccess($res);
     }
 
