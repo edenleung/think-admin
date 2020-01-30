@@ -102,7 +102,7 @@ class Permission extends AbstractModel implements PermissionContract
      * 递归菜单下的操作
      *
      * @param [type] $data
-     * @return void
+     * @return array
      */
     protected function formatTreeAction($data)
     {
