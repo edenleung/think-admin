@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "topthink/framework": "^6.0.0",
+        "topthink/framework": "^6.0.2",
         "topthink/think-orm": "^2.0",
         "topthink/think-annotation": "^1.0",
         "xiaodi/think-whoops": "1.1.*",
