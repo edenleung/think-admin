@@ -23,7 +23,7 @@
         "topthink/think-orm": "^2.0",
         "topthink/think-annotation": "^1.0",
         "xiaodi/think-whoops": "1.1.*",
-        "xiaodi/think-permission": "^0.5.1",
+        "xiaodi/think-permission": "^0.5.2",
         "xiaodi/think-jwt": "^0.6.2",
         "topthink/think-migration": "^3.0",
         "topthink/think-multi-app": "^1.0"
