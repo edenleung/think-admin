@@ -91,10 +91,13 @@ class User extends AbstractController
     {
         $permissions = [];
         foreach ($data as $menu) {
-            if ($menu['type'] == 'menu') {
+            if ($menu['type'] == 'menu' && $user->can($menu['name'])) {
+                $permission = [];
+                $permission['permissionId'] = $menu['name'];
+                $permission['actionList'] = null;
+                $permission['dataAccess'] = null;
+                $actionEntity = [];
                 if (!empty($menu['children'])) {
-                    $permission = [];
-                    $actionEntity = [];
                     foreach ($menu['children'] as $action) {
                         if ($user->can($action['name'])) {
                             $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
@@ -102,14 +105,9 @@ class User extends AbstractController
                         }
                     }
 
-                    if (!empty($actionEntity)) {
-                        $permission['permissionId'] = $menu['name'];
-                        $permission['actionEntitySet'] = $actionEntity;
-                        $permission['actionList'] = null;
-                        $permission['dataAccess'] = null;
-                        $permissions[] = $permission;
-                    }
+                    $permission['actionEntitySet'] = $actionEntity;
                 }
+                $permissions[] = $permission;
             }
             if (!empty($menu['children'])) {
                 $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
@@ -122,20 +120,45 @@ class User extends AbstractController
     public function info(Request $request)
     {
         $user = $request->user;
-
         $permission = new Permission();
-        // 获取菜单
+
+        // 获取所有菜单
         $menus = $permission->getMenu();
 
-        // 过滤当前用户能操作权限
+        // 过滤当前用户有权限的菜单及操作按钮
         $permissions = $this->filterPermissionMenu($menus, $user);
         unset($user->password);
         unset($user->hash);
         $user->role = ['permissions' => $permissions];
 
-        $tree = $permission->getTree();
-        $user->menus = $permission->formatRoute($tree);
+        $routes = $permission->getTree();
+        $user->menus = $this->formatRoute($routes, $user);
         return $this->sendSuccess($user);
+    }
+
+    public function formatRoute($data)
+    {
+        $routes = [];
+        foreach($data as $item) {
+            $route = [];
+            $route['path'] = $item['path'];
+            $route['name'] = $item['name'];
+            $route['component'] = $item['component'];
+            $route['meta']['title'] = $item['title'];
+
+            $item['keepAlive'] === 1 && $route['meta']['keepAlive'] = true;
+            $item['icon'] && $route['meta']['icon'] = $item['icon'];
+            $item['permission'] && $route['meta']['permission'] = explode(',', $item['permission']);
+            $item['redirect'] && $route['redirect'] = $item['redirect'];
+            $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
+
+            if (!empty($item['children'])) {
+                $route['children'] = $this->formatRoute($item['children']);
+            }
+            $routes[] = $route;
+        }
+
+        return $routes;
     }
 
     /**

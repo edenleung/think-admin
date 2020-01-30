@@ -80,14 +80,12 @@ class Permission extends AbstractModel implements PermissionContract
     public function getList(int $pageNo, int $pageSize)
     {
         $map = [];
-
         $category = new \extend\Category();
 
         $map[] = ['type', '<>', 'action'];
         $total = $this->where($map)->count();
         $data = $this->where($map)->select();
         $data = $category->formatTree($data);
-
         $data = $this->formatTreeAction($data);
 
         return [
@@ -100,6 +98,12 @@ class Permission extends AbstractModel implements PermissionContract
         ];
     }
 
+    /**
+     * 递归菜单下的操作
+     *
+     * @param [type] $data
+     * @return void
+     */
     protected function formatTreeAction($data)
     {
         foreach($data as $item) {
@@ -122,8 +126,8 @@ class Permission extends AbstractModel implements PermissionContract
     {
         $menu = $this->where('type', 'menu')->select();
         foreach ($menu as $permission) {
-            $permission->permissionId = $permission->name;
             $permission->actions = $permission->getActions();
+            $permission->selected = [];
         }
 
         return $menu;
@@ -134,39 +138,12 @@ class Permission extends AbstractModel implements PermissionContract
      */
     public function getTree()
     {
-        $map = [];
         $category = new \extend\Category();
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->where($map)->select();
         $tree = $category->formatTree($data);
         return $tree;
-    }
-
-    public function formatRoute($data)
-    {
-        $routes = [];
-        foreach($data as $item) {
-            $route = [];
-
-            $route['path'] = $item['path'];
-            $route['name'] = $item['name'];
-            $route['component'] = $item['component'];
-            $route['meta']['title'] = $item['title'];
-
-            $item['keepAlive'] === 1 && $route['meta']['keepAlive'] = true;
-            $item['icon'] && $route['meta']['icon'] = $item['icon'];
-            $item['permission'] && $route['meta']['permission'] = explode(',', $item['permission']);
-            $item['redirect'] && $route['redirect'] = $item['redirect'];
-            $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
-
-            if (!empty($item['children'])) {
-                $route['children'] = $this->formatRoute($item['children']);
-            }
-            $routes[] = $route;
-        }
-
-        return $routes;
     }
 
     /**
@@ -180,17 +157,11 @@ class Permission extends AbstractModel implements PermissionContract
     }
 
     /**
-     * 获取当前权限下级权限.
+     * 获取当前菜单的子操作.
      */
     protected function getActions()
     {
         $data = Permission::where(['pid' => $this->id, 'type' => 'action'])->select();
-
-        foreach ($data as $permission) {
-            $permission->value = $permission->id;
-            $permission->label = $permission->title;
-        }
-
         return $data;
     }
 }

@@ -39,7 +39,8 @@ class Role extends AbstractController
         $data = $this->model->getList((int) $pageNo, (int) $pageSize);
         $rules = (new Permission)->getMenuPermission();
         $depts = (new Dept)->getTree();
-        return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts]);
+        $menu = (new Permission)->getTree();
+        return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts, 'menu' => $menu]);
     }
 
     /**

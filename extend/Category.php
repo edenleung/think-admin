@@ -89,21 +89,19 @@ class Category
      */
     public function formatTree($data, $child_key = 'children', $id = 0)
     {
-        $children = [];
+        $tree = [];
         $field = $this->field;
         foreach ($data as $item) {
             if ($item[$field['pid']] == $id) {
                 $item['value'] = (string)$item[$field['id']];
                 $item['title'] = $item[$field['title']];
                 $item['key'] = (string)$item[$field['id']];
-                $c = $this->formatTree($data, $child_key, $item[$field['id']]);
-                if (!empty($c)) {
-                    $item[$child_key] = $c;
-                }
-                $children[] = $item;
+                $item[$child_key] = [];
+                $item[$child_key] = array_merge($item[$child_key], $this->formatTree($data, $child_key, $item[$field['id']]));
+                $tree[] = $item;
             }
         }
-        return $children;
+        return $tree;
     }
 
     private function _searchList($id = 0, $space = '')

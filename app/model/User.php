@@ -136,7 +136,7 @@ class User extends AbstractModel implements UserContract
 
         // 删除所有已绑定岗位
         $user->removeAllPost();
-        
+
         return $user->delete();
     }
 
@@ -322,5 +322,24 @@ class User extends AbstractModel implements UserContract
         }
 
         return $deptsIds;
+    }
+
+    /**
+     * 获取当前用户有权限的菜单
+     *
+     * @return void
+     */
+    public function getPermissionMenu()
+    {
+        $category = new \extend\Category();
+        $menus = $this->getAllPermissions()->toArray();
+
+        if (!$this->isSuper()) {
+            $data = $category->formatTree($menus, 'children', 1);
+        } else {
+            $data = $category->formatTree($menus);
+        }
+
+        return $data;
     }
 }

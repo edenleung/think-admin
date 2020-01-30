@@ -35,18 +35,18 @@ Route::group('/auth', function () {
 
 // 规则
 Route::group('/permission', function () {
-    Route::rule('/', 'system.permission/list', 'GET')->middleware(Permission::class, 'permission-view');
-    Route::rule('/', 'system.permission/add', 'POST')->middleware(Permission::class, 'permission-add');
-    Route::rule('/:id', 'system.permission/update', 'PUT')->middleware(Permission::class, 'permission-update');
-    Route::rule('/:id', 'system.permission/delete', 'DELETE')->middleware(Permission::class, 'permission-delete');
+    Route::rule('/', 'system.permission/list', 'GET')->middleware(Permission::class, 'Permission');
+    Route::rule('/', 'system.permission/add', 'POST')->middleware(Permission::class, 'PermissionAdd');
+    Route::rule('/:id', 'system.permission/update', 'PUT')->middleware(Permission::class, 'PermissionUpdate');
+    Route::rule('/:id', 'system.permission/delete', 'DELETE')->middleware(Permission::class, 'PermissionDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 角色
 Route::group('/role', function () {
-    Route::rule('/', 'system.role/list', 'GET')->middleware(Permission::class, 'role-view');
-    Route::rule('/', 'system.role/add', 'POST')->middleware(Permission::class, 'role-add');
-    Route::rule('/:id$', 'system.role/update', 'PUT')->middleware(Permission::class, 'role-update');
-    Route::rule('/:id$', 'system.role/delete', 'DELETE')->middleware(Permission::class, 'role-delete');
+    Route::rule('/', 'system.role/list', 'GET')->middleware(Permission::class, 'Role');
+    Route::rule('/', 'system.role/add', 'POST')->middleware(Permission::class, 'RoleAdd');
+    Route::rule('/:id$', 'system.role/update', 'PUT')->middleware(Permission::class, 'RoleUpdate');
+    Route::rule('/:id$', 'system.role/delete', 'DELETE')->middleware(Permission::class, 'RoleDelete');
     Route::rule('/:id/mode', 'system.role/mode', 'PUT');
 })->allowCrossDomain()->middleware(Jwt::class);
 
@@ -60,31 +60,31 @@ Route::group('/user', function () {
     Route::rule('/avatar$', 'system.user/avatar', 'POST');
     //更新 密码
     Route::rule('/reset-password$', 'system.user/resetPassword', 'PUT');
-    Route::rule('/', 'system.user/list', 'GET')->middleware(Permission::class, 'account-view');
-    Route::rule('/', 'system.user/add', 'POST')->middleware(Permission::class, 'account-add');
+    Route::rule('/', 'system.user/list', 'GET')->middleware(Permission::class, 'Account');
+    Route::rule('/', 'system.user/add', 'POST')->middleware(Permission::class, 'AccountAdd');
     Route::rule('/info$', 'system.user/info', 'GET');
-    Route::rule('/:id', 'system.user/update', 'PUT')->middleware(Permission::class, 'account-update');
-    Route::rule('/:id', 'system.user/delete', 'DELETE')->middleware(Permission::class, 'account-delete');
+    Route::rule('/:id', 'system.user/update', 'PUT')->middleware(Permission::class, 'AccountUpdate');
+    Route::rule('/:id', 'system.user/delete', 'DELETE')->middleware(Permission::class, 'AccountDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 日志
 Route::group('/log', function () {
-    Route::rule('/acount', 'log/account_list', 'GET')->middleware(Permission::class, 'log-account-view');
-    Route::rule('/acount', 'log/account_delete', 'DELETE')->middleware(Permission::class, 'log-account-delete');
-    Route::rule('/db', 'log/db_list', 'GET')->middleware(Permission::class, 'log-db-view');
-    Route::rule('/db', 'log/db_delete', 'DELETE')->middleware(Permission::class, 'log-db-delete');
+    Route::rule('/acount', 'log/account_list', 'GET')->middleware(Permission::class, 'LogAccount');
+    Route::rule('/acount', 'log/account_delete', 'DELETE')->middleware(Permission::class, 'LogAccountDelete');
+    Route::rule('/db', 'log/db_list', 'GET')->middleware(Permission::class, 'LogDb');
+    Route::rule('/db', 'log/db_delete', 'DELETE')->middleware(Permission::class, 'LogDbDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 Route::group('/system', function () {
-    Route::rule('/dept', 'system.dept/list', 'GET')->middleware(Permission::class, 'dept-view');
-    Route::rule('/dept', 'system.dept/add', 'POST')->middleware(Permission::class, 'dept-add');
-    Route::rule('/dept/:id', 'system.dept/update', 'PUT')->middleware(Permission::class, 'dept-update');
-    Route::rule('/dept/:id', 'system.dept/delete', 'DELETE')->middleware(Permission::class, 'dept-delete');
+    Route::rule('/dept', 'system.dept/list', 'GET')->middleware(Permission::class, 'DeptView');
+    Route::rule('/dept', 'system.dept/add', 'POST')->middleware(Permission::class, 'DeptAdd');
+    Route::rule('/dept/:id', 'system.dept/update', 'PUT')->middleware(Permission::class, 'DeptUpdate');
+    Route::rule('/dept/:id', 'system.dept/delete', 'DELETE')->middleware(Permission::class, 'DeptDelete');
 
-    Route::rule('/post', 'system.post/list', 'GET')->middleware(Permission::class, 'post-view');
-    Route::rule('/post', 'system.post/add', 'POST')->middleware(Permission::class, 'post-add');
-    Route::rule('/post/:id', 'system.post/update', 'PUT')->middleware(Permission::class, 'post-update');
-    Route::rule('/post/:id', 'system.post/delete', 'DELETE')->middleware(Permission::class, 'post-delete');
+    Route::rule('/post', 'system.post/list', 'GET')->middleware(Permission::class, 'Post');
+    Route::rule('/post', 'system.post/add', 'POST')->middleware(Permission::class, 'PostAdd');
+    Route::rule('/post/:id', 'system.post/update', 'PUT')->middleware(Permission::class, 'PostUpdate');
+    Route::rule('/post/:id', 'system.post/delete', 'DELETE')->middleware(Permission::class, 'PostDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 模拟数据（可删除）
