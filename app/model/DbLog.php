@@ -23,7 +23,10 @@ final class DbLog extends \think\Model
     public function getList(int $pageNo, int $pageSize)
     {
         $total = DbLog::count();
-        $logs = DbLog::limit($pageSize)->page($pageNo)->order('create_time desc')->select();
+        $logs = DbLog::alias('d')->join('user u', 'd.user_id = u.id')
+            ->limit($pageSize)->page($pageNo)->order('d.create_time desc')
+            ->field('d.*, u.nickname')
+            ->select();
 
         return [
             'data' => $logs,

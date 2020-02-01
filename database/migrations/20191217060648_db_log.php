@@ -46,6 +46,7 @@ class DbLog extends Migrator
             ->addColumn('url', 'string', ['limit' => 255, 'comment' => '访问地址'])
             ->addColumn('action', 'string', ['limit' => 255, 'comment' => '操作'])
             ->addColumn('sql', 'text', ['comment' => 'sql'])
+            ->addColumn('user_id', 'integer', ['limit' => 11, 'comment' => '操作员id'])
             ->addColumn('create_time', 'integer', ['limit' => 11, 'comment' => '创建时间'])
             ->create();
     }
