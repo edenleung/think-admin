@@ -13,47 +13,74 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\AbstractController;
-use app\model\Permission;
-use app\model\Role;
-use app\model\Dept;
-use app\model\Post;
-use app\model\User as Model;
+use app\BaseController;
+use app\service\DeptService;
+use app\service\PermissionService;
+use app\service\PostService;
+use app\service\RoleService;
+use app\service\UserService;
 use think\Request;
+use think\exception\ValidateException;
 
-class User extends AbstractController
+class User extends BaseController
 {
-    protected $model;
-
-    public function __construct(Model $model)
+    public function __construct(UserService $service, PermissionService $permission, RoleService $role, PostService $post, DeptService $dept)
     {
-        parent::__construct();
-        $this->model = $model;
+        $this->service = $service;
+        $this->permission = $permission;
+        $this->role = $role;
+        $this->post = $post;
+        $this->dept = $dept;
     }
 
     /**
      * 用户列表.
      *
-     * @param mixed $pageNo
-     * @param mixed $pageSize
+     * @param [type] $pageNo
+     * @param [type] $pageSize
+     * @param int $deptPid
+     * @return \think\Response
      */
-    public function list($pageNo = 1, $pageSize = 10, $deptPid = 0)
+    public function list($pageNo, $pageSize, $deptPid = 0)
     {
-        $res['users'] = $this->model->getList((int) $pageNo, (int) $pageSize, (int) $deptPid);
-        $res['rules'] = (new Permission)->getMenuPermission();
-        $res['roles'] = (new Role)->getSelectTree();
-        $res['depts'] = (new Dept)->getTree();
-        $res['posts'] = (new Post)->select();
+        $res['users'] = $this->service->getList((int) $pageNo, (int) $pageSize, (int) $deptPid);
+        $res['rules'] = $this->permission->getMenuPermission();
+        $res['roles'] = $this->role->getSelectTree();
+        $res['depts'] = $this->dept->getTree();
+        $res['posts'] = $this->post->all();
+
         return $this->sendSuccess($res);
     }
 
     /**
      * 添加用户.
+     *
+     * @return \think\Response
      */
     public function add()
     {
-        if ($this->model->addUser($this->request->param()) === false) {
-            return $this->sendError($this->model->getError());
+        $data = $this->request->param();
+
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:user',
+                'nickname' => 'require',
+                'password' => 'require',
+                'roles' => 'require',
+            ], [
+                'name.require' => '登录账号必须',
+                'name.unique' => '登录账号重复',
+                'nickname.require' => '名称必须',
+                'password.require' => '密码必须',
+                'roles.require' => '角色必须',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->add($data) === false) {
+            $error = $this->service->getError();
+            return $this->sendError($error);
         }
 
         return $this->sendSuccess();
@@ -62,12 +89,28 @@ class User extends AbstractController
     /**
      * 更新用户.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function update(int $id)
+    public function update($id)
     {
-        if ($this->model->updateUser($id, $this->request->param()) === false) {
-            return $this->sendError($this->model->getError());
+        $data = $this->request->param();
+
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:user',
+                'nickname' => 'require',
+            ], [
+                'name.require' => '登录账号必须',
+                'name.unique' => '登录账号重复',
+                'nickname.require' => '名称必须',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->renew($id, $data) === false) {
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
@@ -76,110 +119,51 @@ class User extends AbstractController
     /**
      * 删除用户.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function delete(int $id)
+    public function delete($id)
     {
-        if ($this->model->deleteUser($id) === false) {
-            return $this->sendError($this->model->getError());
+        if ($this->service->remove($id) === false) {
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
     }
 
-    protected function filterPermissionMenu($data, $user)
-    {
-        $permissions = [];
-        foreach ($data as $menu) {
-            if ($menu['type'] == 'menu' && $user->can($menu['name'])) {
-                $permission = [];
-                $permission['permissionId'] = $menu['name'];
-                $permission['actionList'] = null;
-                $permission['dataAccess'] = null;
-                $actionEntity = [];
-                if (!empty($menu['children'])) {
-                    foreach ($menu['children'] as $action) {
-                        if ($user->can($action['name'])) {
-                            $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
-                            $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
-                        }
-                    }
-
-                    $permission['actionEntitySet'] = $actionEntity;
-                }
-                $permissions[] = $permission;
-            }
-            if (!empty($menu['children'])) {
-                $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
-            }
-        }
-
-        return $permissions;
-    }
-
+    /**
+     * 获取用户信息与菜单列表.
+     *
+     * @return \think\Response
+     */
     public function info(Request $request)
     {
         $user = $request->user;
-        $permission = new Permission();
-
-        // 获取所有菜单
-        $menus = $permission->getMenu();
-
-        // 过滤当前用户有权限的菜单及操作按钮
-        $permissions = $this->filterPermissionMenu($menus, $user);
-        unset($user->password);
-        unset($user->hash);
-        $user->role = ['permissions' => $permissions];
-
-        $routes = $permission->getTree();
-        $user->menus = $this->formatRoute($routes, $user);
-        return $this->sendSuccess($user);
-    }
-
-    public function formatRoute($data)
-    {
-        $routes = [];
-        foreach($data as $item) {
-            $route = [];
-            $route['path'] = $item['path'];
-            $route['name'] = $item['name'];
-            $route['component'] = $item['component'];
-            $route['meta']['title'] = $item['title'];
-
-            $item['keepAlive'] === 1 && $route['meta']['keepAlive'] = true;
-            $item['icon'] && $route['meta']['icon'] = $item['icon'];
-            $item['permission'] && $route['meta']['permission'] = explode(',', $item['permission']);
-            $item['redirect'] && $route['redirect'] = $item['redirect'];
-            $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
-
-            if (!empty($item['children'])) {
-                $route['children'] = $this->formatRoute($item['children']);
-            }
-            $routes[] = $route;
-        }
-
-        return $routes;
+        $result = $this->service->info($user);
+        return $this->sendSuccess($result);
     }
 
     /**
      * 获取个人信息.
      */
-    public function current()
+    public function current(User $user)
     {
-        return $this->sendSuccess($this->model);
+        return $this->sendSuccess($user);
     }
 
     /**
      * 更新个人信息.
+     *
+     * @return \think\Response
      */
-    public function updateCurrent()
+    public function updateCurrent(Request $request)
     {
         $data = $this->request->param();
         if (empty($data)) {
             return $this->sendError('数据出错');
         }
 
-        if (!$this->model->updateCurrent($data)) {
+        if (!$this->service->updateCurrent($request->user, $data)) {
             return $this->sendError('更新失败');
         }
 
@@ -188,12 +172,14 @@ class User extends AbstractController
 
     /**
      * 更新头像.
+     *
+     * @return \think\Response
      */
-    public function avatar()
+    public function avatar(Request $request)
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$this->model->updateAvatar($savename)) {
+        if (!$this->service->updateAvatar($request->user, $savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -202,8 +188,10 @@ class User extends AbstractController
 
     /**
      * 修改密码
+     *
+     * @return \think\Response
      */
-    public function resetPassword()
+    public function resetPassword(Request $request)
     {
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
@@ -212,8 +200,8 @@ class User extends AbstractController
             return $this->sendError('数据出错');
         }
 
-        if (!$this->model->resetPassword($oldPassword, $newPassword)) {
-            return $this->sendError($this->model->getError());
+        if (!$this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess(null, '修改成功');

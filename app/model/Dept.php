@@ -13,63 +13,9 @@ declare(strict_types=1);
 
 namespace app\model;
 
-use app\AbstractModel;
-use app\model\validate\DeptValidate;
+use app\BaseModel;
 
-class Dept extends AbstractModel
+class Dept extends BaseModel
 {
     protected $pk = 'dept_id';
-
-    protected $validate = DeptValidate::class;
-
-    public function getTree()
-    {
-        $data = $this->select();
-        $category = new \extend\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
-
-        $tree = $category->formatTree($data->toArray());
-        return $tree;
-    }
-
-    public function addDept(array $data)
-    {
-        if ($this->validate('create', $data) === false) {
-            return false;
-        }
-
-        return Dept::create($data);
-    }
-
-    public function updateDept(int $id, array $data)
-    {
-        if ($this->validate('update', $data) === false) {
-            return false;
-        }
-
-        $rule = $this->find($id);
-        if (empty($rule)) {
-            return false;
-        }
-
-        return $rule->save($data);
-    }
-
-    public function deleteDept(int $id)
-    {
-        $rule = $this->find($id);
-        if (empty($rule)) {
-            return false;
-        }
-
-        return $rule->delete();
-    }
-
-    public function getChildrenDepts($deptPid)
-    {
-        $data = $this->select();
-        $category = new \extend\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
-
-        $tree = $category->getTree($data->toArray(), $deptPid);
-        return $tree;
-    }
 }

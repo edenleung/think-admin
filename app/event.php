@@ -22,7 +22,6 @@ return [
         'HttpEnd' => [],
         'LogLevel' => [],
         'LogWrite' => [],
-        'UserLogin' => ['app\listener\UserLogin'],
     ],
 
     'subscribe' => [

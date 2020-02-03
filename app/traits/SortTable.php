@@ -11,23 +11,21 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\listener;
+namespace app\traits;
 
-use app\event\UserLogin as Event;
-
-/**
- * 触发例子
- * $user = User::find(1);
- * event(new UserLogin($user));.
- */
-class UserLogin
+trait Sortable
 {
-    /**
-     * 事件监听处理.
-     *
-     * @return mixed
-     */
-    public function handle(Event $event)
+    public $sortBy = 'createTime';
+
+    public $sortOrder = 'asc';
+
+    public function setSortBy($sortBy = 'createTime')
     {
+        $this->sortBy = $sortBy;
+    }
+
+    public function setSortOrder($sortOrder = 'desc')
+    {
+        $this->sortOrder = $sortOrder;
     }
 }

@@ -16,7 +16,7 @@ namespace app\traits;
 use app\model\DbLog;
 use think\Model;
 
-trait CurdEvent
+trait Log
 {
     /**
      * 新增后.
@@ -24,6 +24,7 @@ trait CurdEvent
     public static function onAfterInsert(Model $model)
     {
         DbLog::create([
+            'user_id' => request()->user->id,
             'model' => $model->getName(),
             'url' => request()->url(),
             'action' => 'insert',

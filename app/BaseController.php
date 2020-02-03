@@ -13,24 +13,25 @@ declare(strict_types=1);
 
 namespace app;
 
+use app\service\BaseService;
+use think\annotation\Inject;
 use think\App;
 use think\exception\ValidateException;
+use think\Request;
+use think\Response;
 use think\Validate;
 
-/**
- * 控制器基础类.
- */
 abstract class BaseController
 {
     /**
-     * Request实例.
-     * @var \think\Request
+     * @var BaseService
      */
-    protected $request;
+    protected $service;
 
     /**
-     * 应用实例.
-     * @var \think\App
+     * App应用.
+     * @Inject
+     * @var App
      */
     protected $app;
 
@@ -47,19 +48,27 @@ abstract class BaseController
     protected $middleware = [];
 
     /**
-     * 构造方法.
-     * @param App $app 应用对象
+     * Request实例.
+     * @Inject
+     * @var Request
      */
-    public function __construct(App $app)
-    {
-        $this->app = $app;
-        $this->request = $this->app->request;
+    protected $request;
 
-        // 控制器初始化
+    /**
+     * Validate实例.
+     * @Inject
+     * @var Validate
+     */
+    protected $validate;
+
+    public function __construct()
+    {
         $this->initialize();
     }
 
-    // 初始化
+    /**
+     * 初始化.
+     */
     protected function initialize()
     {
     }
@@ -76,27 +85,60 @@ abstract class BaseController
     protected function validate(array $data, $validate, array $message = [], bool $batch = false)
     {
         if (is_array($validate)) {
-            $v = new Validate();
-            $v->rule($validate);
+            $this->validate->rule($validate);
         } else {
             if (strpos($validate, '.')) {
                 // 支持场景
                 [$validate, $scene] = explode('.', $validate);
             }
             $class = strpos($validate, '\\') !== false ? $validate : $this->app->parseClass('validate', $validate);
-            $v = new $class();
+            $this->validate = new $class();
             if (! empty($scene)) {
-                $v->scene($scene);
+                $this->validate->scene($scene);
             }
         }
 
-        $v->message($message);
+        $this->validate->message($message);
 
         // 是否批量验证
         if ($batch || $this->batchValidate) {
-            $v->batch(true);
+            $this->validate->batch(true);
         }
 
-        return $v->failException(true)->check($data);
+        return $this->validate->failException(true)->check($data);
+    }
+
+    /**
+     * sendSuccess.
+     *
+     * @param array $data
+     * @param [type] $msg
+     * @param int $code
+     * @param array $header
+     */
+    protected function sendSuccess($data = [], $msg = null, $code = 20000, $header = []): Response
+    {
+        $res = [];
+        $res['message'] = $msg ?? '操作成功';
+        $res['result'] = $data;
+        $res['code'] = $code;
+
+        return Response::create($res, 'json', 200, $header);
+    }
+
+    /**
+     * sendError.
+     *
+     * @param [type] $msg
+     * @param int $code
+     * @param array $header
+     */
+    protected function sendError($msg = null, $code = 50015, $header = []): Response
+    {
+        $res = [];
+        $res['message'] = $msg ?? '操作失败';
+        $res['code'] = $code;
+
+        return Response::create($res, 'json', 200, $header);
     }
 }

@@ -13,35 +13,29 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use app\AbstractController;
+use app\BaseController;
 use app\service\UserService;
 use think\Response;
 use xiaodi\Facade\Jwt;
 
-class Auth extends AbstractController
+class Auth extends BaseController
 {
-    protected $userService;
-
-    public function __construct(UserService $userService)
-    {
-        parent::__construct();
-        $this->userService = $userService;
-    }
-
     /**
-     * 登录.
+     * 用户登录.
      *
      * @return Response
      */
-    public function login()
+    public function login(UserService $service)
     {
         $username = $this->request->param('username');
         $password = $this->request->param('password');
-        if ($this->userService->login($username, $password) === false) {
+
+        $user = $service->login($username, $password);
+        if ($user === false) {
             return $this->sendError('登录失败');
         }
 
-        $token = (string) $this->userService->makeToken();
+        $token = (string) $service->makeToken($user);
 
         return $this->sendSuccess(['token' => $token, 'token_type' => Jwt::type(), 'expires_in' => Jwt::ttl()]);
     }

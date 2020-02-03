@@ -83,7 +83,7 @@ class CreateData extends Migrator
             'create_time' => time(),
             'update_time' => time(),
             'dept_id' => 0,
-            'avatar' => 'storage/topic/avatar.png'
+            'avatar' => 'storage/topic/avatar.png',
         ]);
         $table->saveData();
     }
@@ -94,43 +94,43 @@ class CreateData extends Migrator
     protected function createPermissionData()
     {
         $rows = [
-            ['name' => 'Index', 'title' => '首页', 'pid' => 0, 'status' => 1, 'type' => 'path', 'path' => '/', 'redirect' => '/dashboard/workplace', 'component' => 'BasicLayout', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'Dashboard', 'title' => '仪表盘', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/dashboard', 'redirect' => '/dashboard/workplace', 'component' => 'RouteView', 'icon' => 'dashboard', 'permission' => 'Analysis,Workspace', 'keepAlive' => 0 ],
-            ['name' => 'System', 'title' => '系统管理', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/system', 'redirect' => '/system/permission', 'component' => 'PageView', 'icon' => 'slack', 'permission' => 'Permission,Role,Account,Dept', 'keepAlive' => 0 ],
-            ['name' => 'Log', 'title' => '日志管理', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/log', 'redirect' => '/log/account', 'component' => 'PageView', 'icon' => 'file-text', 'permission' => 'LogAccount,LogDb', 'keepAlive' => 0 ],
-            ['name' => 'Profile', 'title' => '个人页', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/account', 'redirect' => '/account/center', 'component' => 'RouteView', 'icon' => 'user', 'permission' => 'ProfileAccount,ProfileSetting', 'keepAlive' => 0 ],
-            ['name' => 'Test', 'title' => '权限测试', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/test', 'redirect' => '/test/not_ajax', 'component' => 'RouteView', 'icon' => 'user', 'permission' => 'TestNotAjax', 'keepAlive' => 0 ],
-            ['name' => 'Analysis', 'title' => '分析页', 'pid' => 2, 'status' => 1, 'type' => 'menu', 'path' => '/dashboard/analysis', 'redirect' => '', 'component' => 'Analysis', 'icon' => '', 'permission' => 'Analysis', 'keepAlive' => 0 ],
-            ['name' => 'Workspace', 'title' => '工作台', 'pid' => 2, 'status' => 1, 'type' => 'menu', 'path' => '/dashboard/workplace', 'redirect' => '', 'component' => 'Workplace', 'icon' => '', 'permission' => 'Workspace', 'keepAlive' => 0 ],
-            ['name' => 'Permission', 'title' => '菜单管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/permission', 'redirect' => '', 'component' => 'Permission', 'icon' => '', 'permission' => 'Permission', 'keepAlive' => 0 ],
-            ['name' => 'Role', 'title' => '角色管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/role', 'redirect' => '', 'component' => 'Role', 'icon' => '', 'permission' => 'Role', 'keepAlive' => 0 ],
-            ['name' => 'Account', 'title' => '管理员管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/user', 'redirect' => '', 'component' => 'Account', 'icon' => '', 'permission' => 'Account', 'keepAlive' => 0 ],
-            ['name' => 'Dept', 'title' => '部门管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/Dept', 'redirect' => '', 'component' => 'Dept', 'icon' => '', 'permission' => 'Dept', 'keepAlive' => 0 ],
-            ['name' => 'Post', 'title' => '岗位管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/post', 'redirect' => '', 'component' => 'Post', 'icon' => '', 'permission' => 'Post', 'keepAlive' => 0 ],
-            ['name' => 'LogAccount', 'title' => '管理员日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/account', 'redirect' => '', 'component' => 'LogAccount', 'icon' => '', 'permission' => 'LogAccount', 'keepAlive' => 0 ],
-            ['name' => 'LogDb', 'title' => '数据库日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/db', 'redirect' => '', 'component' => 'LogDb', 'icon' => '', 'permission' => 'LogDb', 'keepAlive' => 0 ],
-            ['name' => 'ProfileAccount', 'title' => '个人中心', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/center', 'redirect' => '', 'component' => 'Center', 'icon' => '', 'permission' => 'ProfileAccount', 'keepAlive' => 0 ],
-            ['name' => 'ProfileSetting', 'title' => '个人设置', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings', 'redirect' => '/account/settings/base', 'component' => 'Settings', 'icon' => '', 'permission' => 'ProfileSetting', 'keepAlive' => 0, 'hideChildrenInMenu' => 1 ],
-            ['name' => 'PermissionAdd', 'title' => '添加', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'PermissionUpdate', 'title' => '更新', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'PermissionDelete', 'title' => '删除', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'RoleAdd', 'title' => '添加', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'RoleUpdate', 'title' => '更新', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'RoleDelete', 'title' => '删除', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'AccountAdd', 'title' => '添加', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'AccountUpdate', 'title' => '更新', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'AccountDelete', 'title' => '删除', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'DeptAdd', 'title' => '添加', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'DeptUpdate', 'title' => '更新', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'DeptDelete', 'title' => '删除', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'PostAdd', 'title' => '添加', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'PostUpdate', 'title' => '更新', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'PostDelete', 'title' => '删除', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'LogAccountDelete', 'title' => '删除', 'pid' => 14, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 15, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'BaseSettings', 'title' => '基本设置', 'pid' => 17, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/base', 'redirect' => '', 'component' => 'BaseSettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'SecuritySettings', 'title' => '安全设置', 'pid' => 17, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/security', 'redirect' => '', 'component' => 'SecuritySettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0 ],
-            ['name' => 'TestNotAjax', 'title' => '无异步权限页', 'pid' => 6, 'status' => 1, 'type' => 'menu', 'path' => '/test/not_ajax', 'redirect' => '', 'component' => 'TestNotAjax', 'icon' => '', 'permission' => 'TestNotAjax', 'keepAlive' => 0 ],
+            ['name' => 'Index', 'title' => '首页', 'pid' => 0, 'status' => 1, 'type' => 'path', 'path' => '/', 'redirect' => '/dashboard/workplace', 'component' => 'BasicLayout', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'Dashboard', 'title' => '仪表盘', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/dashboard', 'redirect' => '/dashboard/workplace', 'component' => 'RouteView', 'icon' => 'dashboard', 'permission' => 'Analysis,Workspace', 'keepAlive' => 0],
+            ['name' => 'System', 'title' => '系统管理', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/system', 'redirect' => '/system/permission', 'component' => 'PageView', 'icon' => 'slack', 'permission' => 'Permission,Role,Account,Dept', 'keepAlive' => 0],
+            ['name' => 'Log', 'title' => '日志管理', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/log', 'redirect' => '/log/account', 'component' => 'PageView', 'icon' => 'file-text', 'permission' => 'LogAccount,LogDb', 'keepAlive' => 0],
+            ['name' => 'Profile', 'title' => '个人页', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/account', 'redirect' => '/account/center', 'component' => 'RouteView', 'icon' => 'user', 'permission' => 'ProfileAccount,ProfileSetting', 'keepAlive' => 0],
+            ['name' => 'Test', 'title' => '权限测试', 'pid' => 1, 'status' => 1, 'type' => 'path', 'path' => '/test', 'redirect' => '/test/not_ajax', 'component' => 'RouteView', 'icon' => 'user', 'permission' => 'TestNotAjax', 'keepAlive' => 0],
+            ['name' => 'Analysis', 'title' => '分析页', 'pid' => 2, 'status' => 1, 'type' => 'menu', 'path' => '/dashboard/analysis', 'redirect' => '', 'component' => 'Analysis', 'icon' => '', 'permission' => 'Analysis', 'keepAlive' => 0],
+            ['name' => 'Workspace', 'title' => '工作台', 'pid' => 2, 'status' => 1, 'type' => 'menu', 'path' => '/dashboard/workplace', 'redirect' => '', 'component' => 'Workplace', 'icon' => '', 'permission' => 'Workspace', 'keepAlive' => 0],
+            ['name' => 'Permission', 'title' => '菜单管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/permission', 'redirect' => '', 'component' => 'Permission', 'icon' => '', 'permission' => 'Permission', 'keepAlive' => 0],
+            ['name' => 'Role', 'title' => '角色管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/role', 'redirect' => '', 'component' => 'Role', 'icon' => '', 'permission' => 'Role', 'keepAlive' => 0],
+            ['name' => 'Account', 'title' => '管理员管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/user', 'redirect' => '', 'component' => 'Account', 'icon' => '', 'permission' => 'Account', 'keepAlive' => 0],
+            ['name' => 'Dept', 'title' => '部门管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/Dept', 'redirect' => '', 'component' => 'Dept', 'icon' => '', 'permission' => 'Dept', 'keepAlive' => 0],
+            ['name' => 'Post', 'title' => '岗位管理', 'pid' => 3, 'status' => 1, 'type' => 'menu', 'path' => '/system/post', 'redirect' => '', 'component' => 'Post', 'icon' => '', 'permission' => 'Post', 'keepAlive' => 0],
+            ['name' => 'LogAccount', 'title' => '管理员日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/account', 'redirect' => '', 'component' => 'LogAccount', 'icon' => '', 'permission' => 'LogAccount', 'keepAlive' => 0],
+            ['name' => 'LogDb', 'title' => '数据库日志', 'pid' => 4, 'status' => 1, 'type' => 'menu', 'path' => '/log/db', 'redirect' => '', 'component' => 'LogDb', 'icon' => '', 'permission' => 'LogDb', 'keepAlive' => 0],
+            ['name' => 'ProfileAccount', 'title' => '个人中心', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/center', 'redirect' => '', 'component' => 'Center', 'icon' => '', 'permission' => 'ProfileAccount', 'keepAlive' => 0],
+            ['name' => 'ProfileSetting', 'title' => '个人设置', 'pid' => 5, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings', 'redirect' => '/account/settings/base', 'component' => 'Settings', 'icon' => '', 'permission' => 'ProfileSetting', 'keepAlive' => 0, 'hideChildrenInMenu' => 1],
+            ['name' => 'PermissionAdd', 'title' => '添加', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'PermissionUpdate', 'title' => '更新', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'PermissionDelete', 'title' => '删除', 'pid' => 9, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'RoleAdd', 'title' => '添加', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'RoleUpdate', 'title' => '更新', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'RoleDelete', 'title' => '删除', 'pid' => 10, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'AccountAdd', 'title' => '添加', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'AccountUpdate', 'title' => '更新', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'AccountDelete', 'title' => '删除', 'pid' => 11, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'DeptAdd', 'title' => '添加', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'DeptUpdate', 'title' => '更新', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'DeptDelete', 'title' => '删除', 'pid' => 12, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'PostAdd', 'title' => '添加', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'PostUpdate', 'title' => '更新', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'PostDelete', 'title' => '删除', 'pid' => 13, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'LogAccountDelete', 'title' => '删除', 'pid' => 14, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 15, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'BaseSettings', 'title' => '基本设置', 'pid' => 17, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/base', 'redirect' => '', 'component' => 'BaseSettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'SecuritySettings', 'title' => '安全设置', 'pid' => 17, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/security', 'redirect' => '', 'component' => 'SecuritySettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+            ['name' => 'TestNotAjax', 'title' => '无异步权限页', 'pid' => 6, 'status' => 1, 'type' => 'menu', 'path' => '/test/not_ajax', 'redirect' => '', 'component' => 'TestNotAjax', 'icon' => '', 'permission' => 'TestNotAjax', 'keepAlive' => 0],
         ];
 
         $this->insert('permission', $rows);
@@ -142,7 +142,7 @@ class CreateData extends Migrator
     protected function createRoleData()
     {
         $rows = [
-            ['name' => 'root', 'title' => '根', 'status' => 1, 'pid' => 0 , 'mode' => 0],
+            ['name' => 'root', 'title' => '根', 'status' => 1, 'pid' => 0, 'mode' => 0],
         ];
 
         $this->insert('role', $rows);

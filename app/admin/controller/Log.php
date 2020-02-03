@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use app\AbstractController;
+use app\BaseController;
 use app\model\DbLog;
 use app\model\Log as Model;
 
-class Log extends AbstractController
+class Log extends BaseController
 {
     protected $log;
 

@@ -13,19 +13,19 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\AbstractController;
-use app\model\Permission;
-use app\model\Role as Model;
-use app\model\Dept;
+use app\BaseController;
+use app\service\DeptService;
+use app\service\PermissionService;
+use app\service\RoleService;
+use think\exception\ValidateException;
 
-class Role extends AbstractController
+class Role extends BaseController
 {
-    protected $model;
-
-    public function __construct(Model $model)
+    public function __construct(RoleService $service, PermissionService $permission, DeptService $dept)
     {
-        parent::__construct();
-        $this->model = $model;
+        $this->service = $service;
+        $this->permission = $permission;
+        $this->dept = $dept;
     }
 
     /**
@@ -33,22 +33,40 @@ class Role extends AbstractController
      *
      * @param mixed $pageNo
      * @param mixed $pageSize
+     * @return \think\Response
      */
     public function list($pageNo = 1, $pageSize = 10)
     {
-        $data = $this->model->getList((int) $pageNo, (int) $pageSize);
-        $rules = (new Permission)->getMenuPermission();
-        $depts = (new Dept)->getTree();
-        $menu = (new Permission)->getTree();
+        $data = $this->service->getList((int) $pageNo, (int) $pageSize);
+        $rules = $this->permission->getMenuPermission();
+        $depts = $this->dept->getTree();
+        $menu = $this->permission->getTree();
+
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts, 'menu' => $menu]);
     }
 
     /**
      * 添加角色.
+     * @return \think\Response
      */
     public function add()
     {
-        if ($this->model->addRole($this->request->param()) === false) {
+        $data = $this->request->param();
+
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:role',
+                'title' => 'require',
+            ], [
+                'name.require' => '唯一标识必须',
+                'name.unique' => '唯一标识重复',
+                'title.require' => '名称必须',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->add($data) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -58,11 +76,27 @@ class Role extends AbstractController
     /**
      * 更新角色.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function update(int $id)
+    public function update($id)
     {
-        if ($this->model->updateRole($id, $this->request->param()) === false) {
+        $data = $this->request->param();
+        
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:role',
+                'title' => 'require',
+            ], [
+                'name.require' => '唯一标识必须',
+                'name.unique' => '唯一标识重复',
+                'title.require' => '名称必须',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->renew($id, $this->request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -72,25 +106,31 @@ class Role extends AbstractController
     /**
      * 删除角色.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function delete(int $id)
+    public function delete($id)
     {
-        if ($this->model->deleteRole($id) === false) {
-            return $this->sendError($this->model->getError());
+        if ($this->service->remove($id) === false) {
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
     }
 
-    public function mode(int $id)
+    /**
+     * 更新角色数据权限.
+     *
+     * @param [type] $id
+     * @return \think\Response
+     */
+    public function mode($id)
     {
-        if ($this->model->updateMode($id, $this->request->param()) === false) {
-            return $this->sendError($this->model->getError());
+        $params = $this->request->param();
+        if ($this->service->updateMode($id, $params) === false) {
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
     }
-
-
 }

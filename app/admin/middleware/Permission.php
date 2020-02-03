@@ -20,10 +20,6 @@ class Permission extends \xiaodi\Permission\Middleware\Permission
 {
     /**
      * 用户未登录.
-     *
-     * @param Request $request
-     *
-     * @return void
      */
     public function handleNotLoggedIn(Request $request): Response
     {
@@ -32,10 +28,6 @@ class Permission extends \xiaodi\Permission\Middleware\Permission
 
     /**
      * 没有权限.
-     *
-     * @param Request $request
-     *
-     * @return void
      */
     public function handleNoAuthority(Request $request): Response
     {

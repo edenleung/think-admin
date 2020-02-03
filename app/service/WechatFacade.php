@@ -17,11 +17,6 @@ use think\Facade;
 
 class WechatFacade extends Facade
 {
-    protected static function getFacadeClass()
-    {
-        return 'wechat.official_account';
-    }
-
     /**
      * @return \EasyWeChat\OfficialAccount\Application
      */
@@ -60,5 +55,10 @@ class WechatFacade extends Facade
     public static function openPlatform()
     {
         return app('wechat.open_platform');
+    }
+
+    protected static function getFacadeClass()
+    {
+        return 'wechat.official_account';
     }
 }

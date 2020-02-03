@@ -35,7 +35,7 @@ class Log extends \think\Model
             'pageSize' => $pageSize,
             'pageNo' => $pageNo,
             'totalPage' => count($logs),
-            'totalCount' => $total
+            'totalCount' => $total,
         ];
     }
 

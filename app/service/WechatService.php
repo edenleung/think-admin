@@ -20,9 +20,8 @@ use EasyWeChat\OpenWork\Application as OpenWork;
 use EasyWeChat\Payment\Application as Payment;
 use EasyWeChat\Work\Application as Work;
 
-class WechatService  extends \think\Service
+class WechatService extends \think\Service
 {
-
     /**
      * 注册服务
      *
@@ -40,15 +39,14 @@ class WechatService  extends \think\Service
         ];
 
         foreach ($apps as $name => $class) {
-            if (empty(config('wechat.'.$name))) {
+            if (empty(config('wechat.' . $name))) {
                 continue;
             }
 
-            $config = array_merge(config('wechat.defaults'), config("wechat.$name.default", []));
+            $config = array_merge(config('wechat.defaults'), config("wechat.{$name}.default", []));
             $this->app->bind("wechat.{$name}", new $class($config));
         }
     }
-
 
     /**
      * 执行服务
@@ -57,6 +55,5 @@ class WechatService  extends \think\Service
      */
     public function boot()
     {
-        //
     }
 }

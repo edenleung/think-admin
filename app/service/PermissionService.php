@@ -1,0 +1,114 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
+namespace app\service;
+
+use app\BaseService;
+use app\model\Permission;
+
+class PermissionService extends BaseService
+{
+    public function __construct(Permission $permission)
+    {
+        $this->model = $permission;
+    }
+
+    /**
+     * 获取列表.
+     */
+    public function list(int $pageNo, int $pageSize)
+    {
+        $map = [];
+        $category = new \extend\Category();
+
+        $map[] = ['type', '<>', 'action'];
+        $total = $this->model->where($map)->count();
+        $data = $this->model->where($map)->select();
+        $data = $category->formatTree($data);
+        $data = $this->formatTreeAction($data);
+
+        return [
+            'data' => $data,
+            'tree' => $this->getTree(),
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($data),
+            'totalCount' => $total,
+        ];
+    }
+
+    /**
+     * 获取顶级.
+     */
+    public function getMenuPermission()
+    {
+        $menu = $this->model->where('type', 'menu')->select();
+        foreach ($menu as $permission) {
+            $permission->actions = $this->getActions($permission);
+            $permission->selected = [];
+        }
+
+        return $menu;
+    }
+
+    /**
+     * 获取树形结构.
+     */
+    public function getTree()
+    {
+        $category = new \extend\Category();
+
+        $map[] = ['type', '<>', 'action'];
+        $data = $this->model->where($map)->select();
+        return $category->formatTree($data);
+    }
+
+    /**
+     * 获取顶级分类.
+     */
+    public function getMenu()
+    {
+        $data = $this->model->order('pid asc')->select()->toArray();
+        $category = new \extend\Category(['id', 'pid', 'title', 'cname']);
+        return $category->formatTree($data); //获取分类数据树结构
+    }
+
+    /**
+     * 获取当前菜单的子操作.
+     */
+    protected function getActions(Permission $permission)
+    {
+        return Permission::where(['pid' => $permission->id, 'type' => 'action'])->select();
+    }
+
+    /**
+     * 递归菜单下的操作.
+     *
+     * @param [type] $data
+     * @return array
+     */
+    protected function formatTreeAction($data)
+    {
+        foreach ($data as $item) {
+            if ($item['type'] == 'menu') {
+                $item->actions = $this->getActions($item);
+            }
+
+            if (! empty($item['children'])) {
+                $this->formatTreeAction($item['children']);
+            }
+        }
+
+        return $data;
+    }
+}

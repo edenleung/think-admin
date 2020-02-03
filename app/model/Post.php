@@ -13,49 +13,9 @@ declare(strict_types=1);
 
 namespace app\model;
 
-use app\AbstractModel;
-use app\model\validate\PostValidate;
+use app\BaseModel;
 
-class Post extends AbstractModel
+class Post extends BaseModel
 {
     protected $pk = 'postId';
-
-    protected $autoWriteTimestamp = true;
-    protected $createTime = 'createTime';
-    protected $updateTime = 'updateTime';
-
-    protected $validate = PostValidate::class;
-
-    public function addPost(array $data)
-    {
-        if ($this->validate('create', $data) === false) {
-            return false;
-        }
-
-        return Post::create($data);
-    }
-
-    public function updatePost(int $id, array $data)
-    {
-        if ($this->validate('update', $data) === false) {
-            return false;
-        }
-
-        $rule = $this->find($id);
-        if (empty($rule)) {
-            return false;
-        }
-
-        return $rule->save($data);
-    }
-
-    public function deletePost(int $id)
-    {
-        $rule = $this->find($id);
-        if (empty($rule)) {
-            return false;
-        }
-
-        return $rule->delete();
-    }
 }

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use app\AbstractController;
+use app\BaseController;
 
-class Mock extends AbstractController
+class Mock extends BaseController
 {
     public function projects()
     {

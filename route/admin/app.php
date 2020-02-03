@@ -11,9 +11,9 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
+use app\admin\middleware\Permission;
 use think\facade\Route;
 use xiaodi\Middleware\Jwt;
-use app\admin\middleware\Permission;
 
 Route::get('/', function () {
     return 'Hello,ThinkPHP6!';
@@ -37,8 +37,8 @@ Route::group('/auth', function () {
 Route::group('/permission', function () {
     Route::rule('/', 'system.permission/list', 'GET')->middleware(Permission::class, 'Permission');
     Route::rule('/', 'system.permission/add', 'POST')->middleware(Permission::class, 'PermissionAdd');
-    Route::rule('/:id', 'system.permission/update', 'PUT')->middleware(Permission::class, 'PermissionUpdate');
-    Route::rule('/:id', 'system.permission/delete', 'DELETE')->middleware(Permission::class, 'PermissionDelete');
+    Route::rule('/:id', 'system.permission/renew', 'PUT')->middleware(Permission::class, 'PermissionUpdate');
+    Route::rule('/:id', 'system.permission/remove', 'DELETE')->middleware(Permission::class, 'PermissionDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 角色

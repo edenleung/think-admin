@@ -13,38 +13,56 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\AbstractController;
-use app\model\Permission as Model;
+use app\BaseController;
+use app\service\PermissionService;
+use think\exception\ValidateException;
 
-class Permission extends AbstractController
+class Permission extends BaseController
 {
-    protected $model;
-
-    public function __construct(Model $model)
+    public function __construct(PermissionService $service)
     {
-        parent::__construct();
-        $this->model = $model;
+        $this->service = $service;
     }
 
     /**
      * 规则列表.
      *
-     * @param mixed $pageNo
-     * @param mixed $pageSize
+     * @param [type] $pageSize
+     * @param [type] $pageNo
+     * @return \think\Response
      */
-    public function list($pageNo = 1, $pageSize = 100)
+    public function list($pageSize, $pageNo)
     {
-        $data = $this->model->getList((int) $pageNo, (int) $pageSize);
-        return $this->sendSuccess($data);
+        $result = $this->service->list((int) $pageNo, (int) $pageSize);
+        return $this->sendSuccess($result);
     }
 
     /**
      * 添加规则.
+     *
+     * @return \think\Response
      */
     public function add()
     {
-        if (! $this->model->addRule($this->request->param())) {
-            return $this->sendError($this->model->getError());
+        $data = $this->request->param();
+
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:permission',
+                'title' => 'require',
+                'pid' => 'require',
+            ], [
+                'pid.require' => '父级必须',
+                'title.require' => '名称必须',
+                'name.require' => '规则必须',
+                'name.unique' => '规则重复',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->add($data) === false) {
+            return $this->sendError();
         }
 
         return $this->sendSuccess();
@@ -53,12 +71,30 @@ class Permission extends AbstractController
     /**
      * 更新规则.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function update(int $id)
+    public function renew($id)
     {
-        if (! $this->model->updateRule($id, $this->request->param())) {
-            return $this->sendError($this->model->getError());
+        $data = $this->request->param();
+        
+        try {
+            $this->validate($data, [
+                'name' => 'require|unique:permission',
+                'title' => 'require',
+                'pid' => 'require',
+            ], [
+                'pid.require' => '父级必须',
+                'title.require' => '名称必须',
+                'name.require' => '规则必须',
+                'name.unique' => '规则重复',
+            ]);
+        } catch (ValidateException $e) {
+            return $this->sendError($e->getError());
+        }
+
+        if ($this->service->renew($id, $this->request->param()) === false) {
+            return $this->sendError();
         }
 
         return $this->sendSuccess();
@@ -67,12 +103,13 @@ class Permission extends AbstractController
     /**
      * 删除规则.
      *
-     * @param int $id 标识
+     * @param [type] $id
+     * @return \think\Response
      */
-    public function delete(int $id)
+    public function remove($id)
     {
-        if ($this->model->deleteRule($id) === false) {
-            return $this->sendError($this->model->getError());
+        if ($this->service->remove($id) === false) {
+            return $this->sendError();
         }
 
         return $this->sendSuccess();
