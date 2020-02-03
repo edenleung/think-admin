@@ -18,7 +18,7 @@ QQ 群 `996887666` 暗号 `Tant`
 没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
 
 ## 安装
-### 正式版本
+### 测试版本
 ```sh
 composer create-project xiaodi/tant
 ```
