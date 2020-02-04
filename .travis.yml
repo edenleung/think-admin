@@ -33,7 +33,6 @@ before_deploy:
   - chmod -R 777 runtime
   - docker buildx ls
   - docker buildx build -t xiaodi93/ant-design-admin:latest --platform=linux/amd64 . --push
-  - docker buildx build -t xiaodi93/ant-design-admin:arm --platform=linux/arm64 . --push
 
 deploy:
   provider: releases
