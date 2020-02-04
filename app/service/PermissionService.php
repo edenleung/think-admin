@@ -48,6 +48,43 @@ class PermissionService extends BaseService
     }
 
     /**
+     * 添加菜单
+     *
+     * @param array $data
+     * @return void
+     */
+    public function add(array $data)
+    {
+        if (!empty($data['permission'])) {
+            $data['permission'] = implode(',', $data['permission']);
+        }
+
+        if (!empty($data['permission'])) {
+            $data['permission'] = implode(',', $data['permission']);
+        }
+
+        return $this->model->save($data);
+    }
+
+    /**
+     * 更新菜单
+     *
+     * @param [type] $id
+     * @param array $input
+     * @return void
+     */
+    public function renew($id, array $input)
+    {
+        $rule = $this->model->find($id);
+
+        if (!empty($input['permission'])) {
+            $input['permission'] = implode(',', $input['permission']);
+        }
+
+        return $rule->save($input);
+    }
+
+    /**
      * 获取顶级.
      */
     public function getMenuPermission()
