@@ -16,23 +16,22 @@ namespace app\service;
 use app\BaseService;
 use app\event\UserLogin;
 use app\model\Dept;
+use app\model\Permission;
 use app\model\Role;
 use app\model\User;
 use think\facade\Db;
+use app\service\PermissionService;
 
 class UserService extends BaseService
 {
     /**
-     * @var User
+     * @param User $user
      */
     public $model;
 
-    public $permission;
-
-    public function __construct(User $user, PermissionService $permission)
+    public function __construct(User $user)
     {
         $this->model = $user;
-        $this->permission = $permission;
     }
 
     /**
@@ -76,15 +75,18 @@ class UserService extends BaseService
         return app('jwt')->token(['uid' => $user->id]);
     }
 
-    /**
-     * 获取用户信息与菜单列表.
-     *
-     * @return User
-     */
+     /**
+      * 获取用户信息与菜单列表.
+      *
+      * @param User $user
+      * @return User
+      */
     public function info(User $user)
     {
+        $permission = new PermissionService(new Permission());
+
         // 获取所有菜单
-        $menus = $this->permission->getMenu();
+        $menus = $permission->getMenu();
 
         // 过滤当前用户有权限的菜单及操作按钮
         $permissions = $this->filterPermissionMenu($menus, $user);
@@ -93,8 +95,8 @@ class UserService extends BaseService
 
         $user->role = ['permissions' => $permissions];
 
-        $routes = $this->permission->getTree();
-        $user->menus = $this->formatRoute($routes, $user);
+        $routes = $permission->getTree();
+        $user->menus = $this->formatRoute($routes);
 
         return $user;
     }
@@ -379,7 +381,7 @@ class UserService extends BaseService
             if ($menu['type'] == 'menu' && $user->can($menu['name'])) {
                 $permission = [];
                 $permission['permissionId'] = $menu['name'];
-                $permission['actionList'] = null;
+                $permission['actionList'] = [];
                 $permission['dataAccess'] = null;
                 $actionEntity = [];
                 if (! empty($menu['children'])) {
@@ -387,13 +389,15 @@ class UserService extends BaseService
                         if ($user->can($action['name'])) {
                             $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
                             $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
+                            $permission['actionList'][] = $action['name'];
                         }
                     }
-
-                    $permission['actionEntitySet'] = $actionEntity;
                 }
+
+                $permission['actionEntitySet'] = $actionEntity;
                 $permissions[] = $permission;
             }
+            
             if (! empty($menu['children'])) {
                 $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
             }
