@@ -3,7 +3,7 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" > /log
 
-FROM xiaodi93/rpi-php:latest
+FROM xiaodi93/dcnmp-php71:latest
 
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}

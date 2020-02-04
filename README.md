@@ -4,8 +4,10 @@
 
 ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
+**目前为止，它还是一个开发版本**
+
 前端: 
-Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://ant.wfunc.com)
+Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](https://preview.wfunc.com)
 
 QQ 群 `996887666` 暗号 `Tant`
 
@@ -16,7 +18,7 @@ QQ 群 `996887666` 暗号 `Tant`
 没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
 
 ## 安装
-### 正式版本
+### 测试版本
 ```sh
 composer create-project xiaodi/tant
 ```
