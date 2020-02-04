@@ -32,7 +32,7 @@ before_deploy:
   - cp .env.example .env
   - chmod -R 777 runtime
   - docker buildx ls
-  - docker buildx build -t xiaodi93/ant-design-admin:latest --platform=linux/arm64 . --push
+  - docker buildx build -t xiaodi93/ant-design-admin:latest --platform linux/amd64,linux/arm64 . --push
 
 deploy:
   provider: releases
