@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace app\service;
 
 use app\BaseService;
+use app\dataScope\DataScope;
 use app\event\UserLogin;
 use app\model\Dept;
 use app\model\Permission;
@@ -137,44 +138,17 @@ class UserService extends BaseService
      */
     public function getList(int $pageNo, int $pageSize, int $deptId = 0)
     {
+        $dataScope = new DataScope;
+        $sql = $dataScope->handle('u');
+
         $map = [];
-        $query = new User();
-        $user = request()->user;
-
-        // 当前用户所有角色下的数据权限
-        $deptIds = [];
-
-        $mapDeptIds = [];
-        // 指定部门
         if ($deptId) {
-            $dept = new Dept();
-            $childrenDeptIds = $dept->getChildrenDepts($deptId);
-
-            if (empty($childrenDeptIds)) {
-                $childrenDeptIds = [$deptId];
-            } else {
-                $childrenDeptIds = array_column($childrenDeptIds, 'dept_id');
-            }
-
-            foreach ($childrenDeptIds as $deptId) {
-                if (in_array($deptId, $deptIds)) {
-                    $mapDeptIds[] = $deptId;
-                }
-            }
-        } else {
-            $mapDeptIds = $deptIds;
+            $map['u.dept_id'] = $deptId;
         }
+        $total = $this->model->alias('u')->where($map)->where($sql)->count();
+        $users = $this->model->alias('u')->where($map)->where($sql)->limit($pageSize)->page($pageNo)->join('dept d', 'd.dept_id=u.dept_id')->field('u.*,d.dept_name')->select();
 
-        $map[] = ['dept_id', 'in', $mapDeptIds];
-        $map[] = ['id', '<>', config('permission.super_id')];
-        $map[] = ['id', '<>', $user->id];
-
-        $total = $query->where($map)->count();
-        $users = $query->where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($users as $user) {
-            $dept = Dept::find($user->dept_id);
-            $user->dept_name = $dept->dept_name;
-            $user->rules = $user->getAllPermissions()->column('id');
             $user->posts = $user->posts->column('postId');
         }
 
@@ -183,7 +157,7 @@ class UserService extends BaseService
             'pageSize' => $pageSize,
             'pageNo' => $pageNo,
             'totalPage' => count($users),
-            'totalCount' => $total,
+            'totalCount' => $total
         ];
     }
 
@@ -397,7 +371,7 @@ class UserService extends BaseService
                 $permission['actionEntitySet'] = $actionEntity;
                 $permissions[] = $permission;
             }
-            
+
             if (! empty($menu['children'])) {
                 $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
             }
