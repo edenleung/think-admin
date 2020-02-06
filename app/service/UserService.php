@@ -255,7 +255,7 @@ class UserService extends BaseService
      */
     public function removeAllPost(User $user)
     {
-        $user->posts()->detach($this->posts->column('postId'));
+        $user->posts()->detach($user->posts->column('postId'));
     }
 
     /**
