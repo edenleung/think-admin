@@ -19,6 +19,8 @@ before_deploy:
   - docker -v
   - export DOCKER_CLI_EXPERIMENTAL=enabled
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - cp .env.example .env
+  - chmod -R 777 runtime
   - docker build -t xiaodi93/ant-design-admin:latest .
   - docker push xiaodi93/ant-design-admin:latest
   - ssh -i ~/.ssh/travis root@47.56.158.125 "cd server;docker pull xiaodi93/ant-design-admin:latest;docker-compose -f app.yaml up -d"
