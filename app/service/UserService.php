@@ -16,11 +16,9 @@ namespace app\service;
 use app\BaseService;
 use app\dataScope\DataScope;
 use app\event\UserLogin;
-use app\model\Dept;
 use app\model\Permission;
 use app\model\Role;
 use app\model\User;
-use think\facade\Db;
 use app\service\PermissionService;
 
 class UserService extends BaseService
@@ -295,51 +293,6 @@ class UserService extends BaseService
         $user->password = $this->makePassword($newPassword, $user->hash);
 
         return  $user->save();
-    }
-
-    /**
-     * 获取当前用户数据权限.
-     *
-     * @param string $table
-     * @param string $column
-     */
-    public function getDataAccess($table = '', $column = 'user_id')
-    {
-        $table = Db::table($table);
-        $user = request()->user;
-        if ($user->isSuper()) {
-            $roles = Role::select();
-        } else {
-            $roles = $user->roles;
-        }
-
-        foreach ($roles as $role) {
-            $depts = [];
-            switch ($role->mode) {
-                    // 全部数据权限
-                case 1:
-                    $depts = Dept::select();
-                    break;
-                    // 自定义数据权限
-                case 2:
-                    $depts = $role->depts;
-                    break;
-                    // 本部门数据权限
-                case 3:
-                    $depts = Dept::where('dept_id', $this->dept_id)->select();
-                    break;
-                    // 本部门及以下数据权限
-                case 4:
-                    break;
-                    // 仅本人数据权限
-                case 5:
-                    // TODO
-                    $table = $table->where($column, $this->id);
-                    break;
-            }
-        }
-
-        return $table->buildSql();
     }
 
     /**
