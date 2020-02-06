@@ -148,6 +148,7 @@ class UserService extends BaseService
 
         foreach ($users as $user) {
             $user->posts = $user->posts->column('postId');
+            $user->rules = $user->getAllPermissions()->column('id');
         }
 
         return [
