@@ -83,8 +83,8 @@ Route::group('/system', function () {
 
     Route::rule('/post', 'system.post/list', 'GET')->middleware(Permission::class, 'Post');
     Route::rule('/post', 'system.post/add', 'POST')->middleware(Permission::class, 'PostAdd');
-    Route::rule('/post/:id', 'system.post/update', 'PUT')->middleware(Permission::class, 'PostUpdate');
-    Route::rule('/post/:id', 'system.post/delete', 'DELETE')->middleware(Permission::class, 'PostDelete');
+    Route::rule('/post/:id', 'system.post/renew', 'PUT')->middleware(Permission::class, 'PostUpdate');
+    Route::rule('/post/:id', 'system.post/remove', 'DELETE')->middleware(Permission::class, 'PostDelete');
 })->allowCrossDomain()->middleware(Jwt::class);
 
 // 模拟数据（可删除）
