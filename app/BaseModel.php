@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace app;
 
 use think\Model;
+use app\dataScope\DataScope;
 
 abstract class BaseModel extends Model
 {
@@ -61,16 +62,6 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * 查找一条记录.
-     *
-     * @param [type] $id
-     */
-    public function find($id)
-    {
-        return $this->where($this->pk, $id)->find();
-    }
-
-    /**
      * 删除一条记录.
      *
      * @param [type] $id
@@ -91,5 +82,20 @@ abstract class BaseModel extends Model
         $model->save($input);
 
         return $model;
+    }
+
+    /**
+     * 数据权限 (数据范围)
+     *
+     * @param [type] $query
+     * @param [type] $alias
+     * @return void
+     */
+    public function scopeDataAccess($query, $alias)
+    {
+        $dataScope = new DataScope;
+        $sql = $dataScope->handle($alias);
+
+        $query->where($sql);
     }
 }
