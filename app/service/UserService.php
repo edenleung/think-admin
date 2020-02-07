@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace app\service;
 
 use app\BaseService;
-use app\dataScope\DataScope;
 use app\event\UserLogin;
 use app\model\Permission;
 use app\model\Role;
@@ -136,15 +135,13 @@ class UserService extends BaseService
      */
     public function getList(int $pageNo, int $pageSize, int $deptId = 0)
     {
-        $dataScope = new DataScope;
-        $sql = $dataScope->handle('u');
-
         $map = [];
         if ($deptId) {
             $map['u.dept_id'] = $deptId;
         }
-        $total = $this->model->alias('u')->where($map)->where($sql)->count();
-        $users = $this->model->alias('u')->where($map)->where($sql)->limit($pageSize)->page($pageNo)->join('dept d', 'd.dept_id=u.dept_id')->field('u.*,d.dept_name')->select();
+
+        $total = $this->model->alias('u')->where($map)->scope('dataAccess', 'u')->count();
+        $users = $this->model->alias('u')->where($map)->scope('dataAccess', 'u')->limit($pageSize)->page($pageNo)->join('dept d', 'd.dept_id=u.dept_id')->field('u.*,d.dept_name')->select();
 
         foreach ($users as $user) {
             $user->posts = $user->posts->column('postId');
