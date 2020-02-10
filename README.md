@@ -55,7 +55,11 @@ https://github.com/xiaodit/think-permission
 ### JWT包
 https://github.com/xiaodit/think-jwt
 
+## 打赏
 如果此项目对你有帮助的，不忘给我打赏哦。
 
-![x](https://www.xiaodim.com/images/wechatpay.jpeg)
+<div align=center>
+    <img src="https://camo.githubusercontent.com/221cd3f58c9bf8058e52c40fd74b5a4a671f745f/68747470733a2f2f7777772e7869616f64696d2e636f6d2f696d616765732f7765636861747061792e6a706567" width="400" height="400" />
+</div>
+
 
