@@ -47,7 +47,6 @@ php think migrate:run
 
 ### 账号
 * 超级管理员 `admin, 1234` 
-* 普通管理员 `xiaodi, 1234`
 
 ### 权限包
 https://github.com/xiaodit/think-permission
