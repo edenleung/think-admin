@@ -18,7 +18,6 @@ use app\event\UserLogin;
 use app\model\Permission;
 use app\model\Role;
 use app\model\User;
-use app\service\PermissionService;
 
 class UserService extends BaseService
 {
@@ -73,12 +72,11 @@ class UserService extends BaseService
         return app('jwt')->token(['uid' => $user->id]);
     }
 
-     /**
-      * 获取用户信息与菜单列表.
-      *
-      * @param User $user
-      * @return User
-      */
+    /**
+     * 获取用户信息与菜单列表.
+     *
+     * @return User
+     */
     public function info(User $user)
     {
         $permission = new PermissionService(new Permission());
@@ -153,7 +151,7 @@ class UserService extends BaseService
             'pageSize' => $pageSize,
             'pageNo' => $pageNo,
             'totalPage' => count($users),
-            'totalCount' => $total
+            'totalCount' => $total,
         ];
     }
 

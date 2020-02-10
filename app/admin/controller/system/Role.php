@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\admin\request\RoleRequest;
 use app\BaseController;
 use app\service\DeptService;
 use app\service\PermissionService;
 use app\service\RoleService;
-use think\exception\ValidateException;
 
 class Role extends BaseController
 {
@@ -49,24 +49,10 @@ class Role extends BaseController
      * 添加角色.
      * @return \think\Response
      */
-    public function add()
+    public function add(RoleRequest $request)
     {
-        $data = $this->request->param();
-
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:role',
-                'title' => 'require',
-            ], [
-                'name.require' => '唯一标识必须',
-                'name.unique' => '唯一标识重复',
-                'title.require' => '名称必须',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->add($data) === false) {
+        $request->scene('create')->validate();
+        if ($this->service->add($request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 
@@ -79,24 +65,11 @@ class Role extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function update($id)
+    public function update($id, RoleRequest $request)
     {
-        $data = $this->request->param();
-        
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:role',
-                'title' => 'require',
-            ], [
-                'name.require' => '唯一标识必须',
-                'name.unique' => '唯一标识重复',
-                'title.require' => '名称必须',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
+        $request->scene('update')->validate();
 
-        if ($this->service->renew($id, $this->request->param()) === false) {
+        if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError($this->model->getError());
         }
 

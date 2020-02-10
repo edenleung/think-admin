@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\admin\request\UserRequest;
 use app\BaseController;
 use app\service\DeptService;
 use app\service\PermissionService;
@@ -20,7 +21,6 @@ use app\service\PostService;
 use app\service\RoleService;
 use app\service\UserService;
 use think\Request;
-use think\exception\ValidateException;
 
 class User extends BaseController
 {
@@ -57,28 +57,11 @@ class User extends BaseController
      *
      * @return \think\Response
      */
-    public function add()
+    public function add(UserRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('create')->validate();
 
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:user',
-                'nickname' => 'require',
-                'password' => 'require',
-                'roles' => 'require',
-            ], [
-                'name.require' => '登录账号必须',
-                'name.unique' => '登录账号重复',
-                'nickname.require' => '名称必须',
-                'password.require' => '密码必须',
-                'roles.require' => '角色必须',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->add($data) === false) {
+        if ($this->service->add($request->param()) === false) {
             $error = $this->service->getError();
             return $this->sendError($error);
         }
@@ -92,24 +75,11 @@ class User extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function update($id)
+    public function update($id, UserRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('update')->validate();
 
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:user',
-                'nickname' => 'require',
-            ], [
-                'name.require' => '登录账号必须',
-                'name.unique' => '登录账号重复',
-                'nickname.require' => '名称必须',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->renew($id, $data) === false) {
+        if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError($this->service->getError());
         }
 
@@ -163,7 +133,7 @@ class User extends BaseController
             return $this->sendError('数据出错');
         }
 
-        if (!$this->service->updateCurrent($request->user, $data)) {
+        if (! $this->service->updateCurrent($request->user, $data)) {
             return $this->sendError('更新失败');
         }
 
@@ -179,7 +149,7 @@ class User extends BaseController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$this->service->updateAvatar($request->user, $savename)) {
+        if (! $this->service->updateAvatar($request->user, $savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -196,11 +166,11 @@ class User extends BaseController
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (!$oldPassword || !$newPassword) {
+        if (! $oldPassword || ! $newPassword) {
             return $this->sendError('数据出错');
         }
 
-        if (!$this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
+        if (! $this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
             return $this->sendError($this->service->getError());
         }
 

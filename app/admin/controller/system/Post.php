@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\admin\request\PostRequest;
 use app\BaseController;
 use app\service\PostService;
-use think\exception\ValidateException;
 
 class Post extends BaseController
 {
@@ -41,24 +41,10 @@ class Post extends BaseController
      *
      * @return \think\Response
      */
-    public function add()
+    public function add(PostRequest $request)
     {
-        $data = $this->request->param();
-
-        try {
-            $this->validate($data, [
-                'postName' => 'require',
-                'postCode' => 'require|unique:post',
-            ], [
-                'postName.require' => '名称必须',
-                'postCode.require' => '标识必须',
-                'postCode.unique' => '标识重复',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->add($data) === false) {
+        $request->scene('create')->validate();
+        if ($this->service->add($request->param()) === false) {
             return $this->sendError();
         }
 
@@ -71,21 +57,11 @@ class Post extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function renew($id)
+    public function renew($id, PostRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('update')->validate();
 
-        try {
-            $this->validate($data, [
-                'postName' => 'require',
-            ], [
-                'postName.require' => '名称必须',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->renew($id, $this->request->param()) === false) {
+        if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError();
         }
 

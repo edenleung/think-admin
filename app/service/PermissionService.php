@@ -48,18 +48,15 @@ class PermissionService extends BaseService
     }
 
     /**
-     * 添加菜单
-     *
-     * @param array $data
-     * @return void
+     * 添加菜单.
      */
     public function add(array $data)
     {
-        if (!empty($data['permission'])) {
+        if (! empty($data['permission'])) {
             $data['permission'] = implode(',', $data['permission']);
         }
 
-        if (!empty($data['permission'])) {
+        if (! empty($data['permission'])) {
             $data['permission'] = implode(',', $data['permission']);
         }
 
@@ -67,17 +64,15 @@ class PermissionService extends BaseService
     }
 
     /**
-     * 更新菜单
+     * 更新菜单.
      *
      * @param [type] $id
-     * @param array $input
-     * @return void
      */
     public function renew($id, array $input)
     {
         $rule = $this->model->find($id);
 
-        if (!empty($input['permission'])) {
+        if (! empty($input['permission'])) {
             $input['permission'] = implode(',', $input['permission']);
         }
 
@@ -89,11 +84,18 @@ class PermissionService extends BaseService
      */
     public function getMenuPermission()
     {
-        $menu = $this->model->where('type', 'menu')->select();
-        foreach ($menu as $permission) {
-            $permission->actions = $this->getActions($permission);
-            $permission->selected = [];
+        $menus = $this->model->where('type', 'menu')->select();
+        $actions = $this->model->where('type', 'action')->select();
+
+        $category = new \extend\Category();
+        foreach ($menus as $menu) {
+            $menu->actions = $category->getChild($menu->id, $actions);
         }
+        return $menus;
+        // foreach ($menu as $permission) {
+        //     $permission->actions = $this->getActions($permission);
+        //     $permission->selected = [];
+        // }
 
         return $menu;
     }

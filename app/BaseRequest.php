@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace app;
 
+use think\exception\ValidateException;
 use think\Request;
 use think\Validate;
-use think\exception\ValidateException;
 
 abstract class BaseRequest extends Request
 {
@@ -25,7 +25,7 @@ abstract class BaseRequest extends Request
     public $currentScene;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $batch = false;
 
@@ -48,7 +48,7 @@ abstract class BaseRequest extends Request
      * 指定场景验证
      *
      * @param string $scene
-     * @return this
+     * @return $this
      */
     public function scene($scene)
     {
@@ -60,7 +60,7 @@ abstract class BaseRequest extends Request
      * 批量验证
      *
      * @param [type] $batch
-     * @return this
+     * @return $this
      */
     public function batch($batch)
     {
@@ -70,9 +70,7 @@ abstract class BaseRequest extends Request
     }
 
     /**
-     * 验证数据
-     *
-     * @return void
+     * 验证数据.
      */
     public function validate()
     {

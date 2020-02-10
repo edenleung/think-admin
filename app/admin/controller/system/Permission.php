@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\admin\request\PermissionRequest;
 use app\BaseController;
 use app\service\PermissionService;
-use think\exception\ValidateException;
 
 class Permission extends BaseController
 {
@@ -42,26 +42,11 @@ class Permission extends BaseController
      *
      * @return \think\Response
      */
-    public function add()
+    public function add(PermissionRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('create')->validate();
 
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:permission',
-                'title' => 'require',
-                'pid' => 'require',
-            ], [
-                'pid.require' => '父级必须',
-                'title.require' => '名称必须',
-                'name.require' => '规则必须',
-                'name.unique' => '规则重复',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if ($this->service->add($data) === false) {
+        if ($this->service->add($request->param()) === false) {
             return $this->sendError();
         }
 
@@ -74,26 +59,11 @@ class Permission extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function renew($id)
+    public function renew($id, PermissionRequest $request)
     {
-        $data = $this->request->param();
-        
-        try {
-            $this->validate($data, [
-                'name' => 'require|unique:permission',
-                'title' => 'require',
-                'pid' => 'require',
-            ], [
-                'pid.require' => '父级必须',
-                'title.require' => '名称必须',
-                'name.require' => '规则必须',
-                'name.unique' => '规则重复',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
+        $request->scene('update')->validate();
 
-        if ($this->service->renew($id, $this->request->param()) === false) {
+        if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError();
         }
 

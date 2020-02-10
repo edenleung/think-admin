@@ -85,15 +85,14 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * 数据权限 (数据范围)
+     * 数据权限 (数据范围).
      *
      * @param [type] $query
      * @param [type] $alias
-     * @return void
      */
     public function scopeDataAccess($query, $alias)
     {
-        $dataScope = new DataScope;
+        $dataScope = new DataScope();
         $sql = $dataScope->handle($alias);
 
         $query->where($sql);

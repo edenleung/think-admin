@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\admin\request\DeptRequest;
 use app\BaseController;
 use app\service\DeptService;
-use think\exception\ValidateException;
 
 class Dept extends BaseController
 {
@@ -45,24 +45,11 @@ class Dept extends BaseController
      * 添加部门.
      * @return \think\Response
      */
-    public function add()
+    public function add(DeptRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('create')->validate();
 
-        try {
-            $this->validate($data, [
-                'dept_name' => 'require|unique:dept',
-                'dept_pid' => 'require',
-            ], [
-                'dept_pid.require' => '父级必须',
-                'dept_name.require' => '名称必须',
-                'dept_name.unique' => '规则重复',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if (! $this->service->add($data)) {
+        if (! $this->service->add($request->param())) {
             return $this->sendError($this->model->getError());
         }
 
@@ -75,24 +62,11 @@ class Dept extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function update($id)
+    public function update($id, DeptRequest $request)
     {
-        $data = $this->request->param();
+        $request->scene('update')->validate();
 
-        try {
-            $this->validate($data, [
-                'dept_name' => 'require|unique:dept',
-                'dept_pid' => 'require',
-            ], [
-                'dept_pid.require' => '父级必须',
-                'dept_name.require' => '名称必须',
-                'dept_name.unique' => '规则重复',
-            ]);
-        } catch (ValidateException $e) {
-            return $this->sendError($e->getError());
-        }
-
-        if (! $this->service->renew($id, $data)) {
+        if (! $this->service->renew($id, $request->param())) {
             return $this->sendError($this->service->getError());
         }
 
