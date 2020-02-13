@@ -15,9 +15,34 @@ namespace app\admin\middleware;
 
 use think\Request;
 use think\Response;
+use app\model\User;
 
 class Permission extends \xiaodi\Permission\Middleware\Permission
 {
+    /**
+     * 重写 handle
+     *
+     * @param Request $request
+     * @param \Closure $next
+     * @param [type] $permission
+     * @return void
+     */
+    public function handle($request, \Closure $next, $permission)
+    {
+        if (!$request->user) {
+            return $this->handleNotLoggedIn($request);
+        }
+
+        if (false === $this->requestHasPermission($request, $request->user, $permission)) {
+            return $this->handleNoAuthority($request);
+        }
+
+        // 绑定已登录用户的模型类
+        app()->bind(User::class, $request->user);
+
+        return $next($request);
+    }
+
     /**
      * 用户未登录.
      */
