@@ -28,8 +28,4 @@ class DeptRequest extends BaseRequest
         'dept_name.unique' => '规则重复',
     ];
 
-    protected $scene = [
-        'create' => [],
-        'update' => [],
-    ];
 }

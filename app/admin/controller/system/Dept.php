@@ -47,7 +47,7 @@ class Dept extends BaseController
      */
     public function add(DeptRequest $request)
     {
-        $request->scene('create')->validate();
+        $request->validate();
 
         if (! $this->service->add($request->param())) {
             return $this->sendError($this->model->getError());
@@ -64,7 +64,7 @@ class Dept extends BaseController
      */
     public function update($id, DeptRequest $request)
     {
-        $request->scene('update')->validate();
+        $request->validate();
 
         if (! $this->service->renew($id, $request->param())) {
             return $this->sendError($this->service->getError());

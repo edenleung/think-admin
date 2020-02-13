@@ -29,7 +29,7 @@ class RoleRequest extends BaseRequest
     ];
 
     protected $scene = [
-        'create' => [],
-        'update' => [],
+        'create' => ['name', 'title'],
+        'update' => ['name', 'title'],
     ];
 }

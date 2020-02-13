@@ -33,7 +33,7 @@ class UserRequest extends BaseRequest
     ];
 
     protected $scene = [
-        'create' => [],
-        'update' => [],
+        'create' => ['name', 'nickname', 'password'],
+        'update' => ['name', 'nickname'],
     ];
 }
