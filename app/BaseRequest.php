@@ -15,19 +15,20 @@ namespace app;
 
 use think\exception\ValidateException;
 use think\Request;
+use think\Response;
 use think\Validate;
 
 abstract class BaseRequest extends Request
 {
     /**
-     * @var string
-     */
-    public $currentScene;
-
-    /**
      * @var bool
      */
     public $batch = false;
+
+    /**
+     * @var string
+     */
+    protected $currentScene;
 
     /**
      * @var array
@@ -71,6 +72,8 @@ abstract class BaseRequest extends Request
 
     /**
      * 验证数据.
+     *
+     * @return bool|Response
      */
     public function validate()
     {
@@ -87,8 +90,13 @@ abstract class BaseRequest extends Request
             $data = $this->param();
             $validate->rule($this->rule)->message($this->message)->batch($this->batch)->failException(true)->check($data);
         } catch (ValidateException $e) {
-            // 验证失败 输出错误信息
-            dump($e->getError());
+            // 验证失败 默认返回json
+            return Response::create([
+                'message' => $e->getError(),
+                'code' => 50015,
+            ], 'json', 200);
         }
+
+        return true;
     }
 }
