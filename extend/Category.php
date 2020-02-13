@@ -38,6 +38,23 @@ class Category
         $this->field['fulltitle'] = isset($field['3']) ? $field['3'] : 'fulltitle';
     }
 
+    public function getChildTree($data)
+    {
+        $tree = [];
+        $field = $this->field;
+        foreach ($data as $item) {
+            $children = $this->getChild($item[$field['id']], $data);
+            if (! empty($chilren)) {
+                $this->getChildTree($children);
+                $item['children'] = $children;
+            }
+
+            $tree[] = $item;
+        }
+
+        return $tree;
+    }
+
     public function getChild($pid, $data = [])
     {
         $childs = [];
