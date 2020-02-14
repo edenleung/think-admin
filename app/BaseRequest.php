@@ -87,7 +87,11 @@ abstract class BaseRequest extends Request
                 $validate->only($only);
             }
 
-            $data = $this->param();
+            // TODO
+            // apache 环境下会获取当前url
+            // $data = $this->param();
+
+            $data = request()->param();
             $validate->rule($this->rule)->message($this->message)->batch($this->batch)->failException(true)->check($data);
         } catch (ValidateException $e) {
             // 验证失败 默认返回json
