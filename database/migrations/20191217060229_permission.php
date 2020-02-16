@@ -55,6 +55,7 @@ class Permission extends Migrator
             ->addColumn('keepAlive', 'integer', ['limit' => 11, 'default' => 0, 'comment' => 'keepAlive'])
             ->addColumn('hidden', 'integer', ['limit' => 11, 'default' => 0, 'comment' => 'hidden'])
             ->addColumn('hideChildrenInMenu', 'integer', ['limit' => 11, 'default' => 0, 'comment' => 'hideChildrenInMenu'])
+            ->addColumn('visable', 'integer', ['limit' => 11, 'default' => 1, 'comment' => '是否可见'])
             ->addIndex(['name'], ['unique' => true])
             ->create();
     }
