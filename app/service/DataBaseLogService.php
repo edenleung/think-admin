@@ -11,19 +11,25 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\service;
 
-final class DbLog extends \think\Model
+use app\BaseService;
+use app\model\DataBaseLog;
+
+class DataBaseLogService extends BaseService
 {
-    protected $autoWriteTimestamp = true;
+    public function __construct(DataBaseLog $model)
+    {
+        $this->model = $model;
+    }
 
     /**
-     * 获取日志列表.
-     */
-    public function getList(int $pageNo, int $pageSize)
+    * 获取日志列表.
+    */
+    public function list(int $pageNo, int $pageSize)
     {
-        $total = DbLog::count();
-        $logs = DbLog::alias('d')->join('user u', 'd.user_id = u.id')
+        $total = $this->model->count();
+        $logs = $this->model->alias('d')->join('user u', 'd.user_id = u.id')
             ->limit($pageSize)->page($pageNo)->order('d.create_time desc')
             ->field('d.*, u.nickname')
             ->select();
@@ -38,9 +44,9 @@ final class DbLog extends \think\Model
     }
 
     /**
-     * 删除日志.
-     */
-    public function deleteLog(string $id)
+    * 删除日志.
+    */
+    public function remove($id)
     {
         $ids = explode(',', $id);
 
@@ -48,7 +54,7 @@ final class DbLog extends \think\Model
             return false;
         }
 
-        DbLog::whereIn('id', $ids)->delete();
+        $this->model->whereIn('id', $ids)->delete();
 
         return true;
     }

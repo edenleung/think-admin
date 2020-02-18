@@ -11,19 +11,25 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\service;
 
-class Log extends \think\Model
+use app\BaseService;
+use app\model\AccountLog;
+
+class AccountLogService extends BaseService
 {
-    protected $autoWriteTimestamp = true;
+    public function __construct(AccountLog $model)
+    {
+        $this->model = $model;
+    }
 
     /**
      * 获取日志列表.
      */
-    public function getList(int $pageNo, int $pageSize)
+    public function list(int $pageNo, int $pageSize)
     {
-        $total = Log::count();
-        $logs = Log::alias('l')->join('user u', 'u.id = l.user_id')
+        $total = $this->model->count();
+        $logs = $this->model->alias('l')->join('user u', 'u.id = l.user_id')
             ->limit($pageSize)
             ->page($pageNo)
             ->field('l.*,u.nickname')
@@ -41,8 +47,9 @@ class Log extends \think\Model
 
     /**
      * 删除日志.
+     * @param mixed $id
      */
-    public function deleteLog(string $id)
+    public function remove($id)
     {
         $ids = explode(',', $id);
 
@@ -50,7 +57,7 @@ class Log extends \think\Model
             return false;
         }
 
-        Log::whereIn('id', $ids)->delete();
+        $this->model->whereIn('id', $ids)->delete();
 
         return true;
     }

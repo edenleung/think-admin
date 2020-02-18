@@ -57,7 +57,7 @@ class Post extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function renew($id, PostRequest $request)
+    public function update($id, PostRequest $request)
     {
         $request->scene('update')->validate();
 
@@ -74,7 +74,7 @@ class Post extends BaseController
      * @param [type] $id
      * @return \think\Response
      */
-    public function remove($id)
+    public function delete($id)
     {
         if ($this->service->remove($id) === false) {
             return $this->sendError();

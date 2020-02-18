@@ -13,27 +13,26 @@ declare(strict_types=1);
 
 namespace app\admin\middleware;
 
+use app\model\User;
 use think\Request;
 use think\Response;
-use app\model\User;
+use xiaodi\Permission\Middleware\Permission as BasePermission;
 
-class Permission extends \xiaodi\Permission\Middleware\Permission
+class Permission extends BasePermission
 {
     /**
-     * 重写 handle
+     * 重写 handle.
      *
      * @param Request $request
-     * @param \Closure $next
      * @param [type] $permission
-     * @return void
      */
     public function handle($request, \Closure $next, $permission)
     {
-        if (!$request->user) {
+        if (! $request->user) {
             return $this->handleNotLoggedIn($request);
         }
 
-        if (false === $this->requestHasPermission($request, $request->user, $permission)) {
+        if ($this->requestHasPermission($request, $request->user, $permission) === false) {
             return $this->handleNoAuthority($request);
         }
 

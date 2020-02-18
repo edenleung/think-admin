@@ -50,7 +50,7 @@ class Dept extends BaseController
         $request->validate();
 
         if (! $this->service->add($request->param())) {
-            return $this->sendError($this->model->getError());
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
