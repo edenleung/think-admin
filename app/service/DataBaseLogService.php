@@ -24,8 +24,8 @@ class DataBaseLogService extends BaseService
     }
 
     /**
-    * 获取日志列表.
-    */
+     * 获取日志列表.
+     */
     public function list(int $pageNo, int $pageSize)
     {
         $total = $this->model->count();
@@ -44,8 +44,9 @@ class DataBaseLogService extends BaseService
     }
 
     /**
-    * 删除日志.
-    */
+     * 删除日志.
+     * @param mixed $id
+     */
     public function remove($id)
     {
         $ids = explode(',', $id);

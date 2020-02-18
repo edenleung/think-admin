@@ -21,8 +21,14 @@ use app\service\RoleService;
 
 class Role extends BaseController
 {
+    protected $permission;
+
+    protected $dept;
+
     public function __construct(RoleService $service, PermissionService $permission, DeptService $dept)
     {
+        parent::__construct();
+
         $this->service = $service;
         $this->permission = $permission;
         $this->dept = $dept;
@@ -53,7 +59,7 @@ class Role extends BaseController
     {
         $request->scene('create')->validate();
         if ($this->service->add($request->param()) === false) {
-            return $this->sendError($this->model->getError());
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();
@@ -70,7 +76,7 @@ class Role extends BaseController
         $request->scene('update')->validate();
 
         if ($this->service->renew($id, $request->param()) === false) {
-            return $this->sendError($this->model->getError());
+            return $this->sendError($this->service->getError());
         }
 
         return $this->sendSuccess();

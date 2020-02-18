@@ -24,6 +24,14 @@ use think\Request;
 
 class User extends BaseController
 {
+    protected $permission;
+
+    protected $role;
+
+    protected $post;
+
+    protected $dept;
+
     public function __construct(UserService $service, PermissionService $permission, RoleService $role, PostService $post, DeptService $dept)
     {
         $this->service = $service;
@@ -153,7 +161,7 @@ class User extends BaseController
             return $this->sendError('更新失败');
         }
 
-        return $this->sendSuccess($this->model->avatar, '已成功更换头像');
+        return $this->sendSuccess($request->user->avatar, '已成功更换头像');
     }
 
     /**
