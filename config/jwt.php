@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 
 return [
-    'sso'         => true,
+    'sso'         => false,
     'ssoCacheKey' => 'jwt-auth-user',
     'ssoKey'      => 'uid',
     'signerKey'   => 'RvAjzUhtJs',
