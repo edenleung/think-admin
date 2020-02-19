@@ -18,15 +18,15 @@ use app\dataScope\DataScope;
 
 abstract class BaseModel extends Model
 {
-    public $sortBy = 'createTime';
+    public $sortBy = 'create_time';
 
     public $sortOrder = 'asc';
 
     protected $autoWriteTimestamp = true;
 
-    protected $createTime = 'createTime';
+    protected $createTime = 'create_time';
 
-    protected $updateTime = 'updateTime';
+    protected $updateTime = 'update_time';
 
     /**
      * 获取所有.
