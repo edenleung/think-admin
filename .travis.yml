@@ -21,7 +21,7 @@ before_deploy:
   - chmod -R 777 runtime
   - docker build -t xiaodi93/ant-design-admin:latest .
   - docker push xiaodi93/ant-design-admin:latest
-  - ssh -i ~/.ssh/travis root@47.56.158.125 "cd server;docker pull xiaodi93/ant-design-admin:latest;docker-compose -f app.yaml up -d"
+  # - ssh -i ~/.ssh/travis root@47.56.158.125 "cd server;docker pull xiaodi93/ant-design-admin:latest;docker-compose -f app.yaml up -d"
 addons:
   ssh_known_hosts: 47.56.158.125
 deploy:
