@@ -29,9 +29,9 @@ abstract class BaseService
         return $this->model->all();
     }
 
-    public function paginate()
+    public function paginate($limit)
     {
-        return $this->model->paginate();
+        return $this->model->paginate($limit);
     }
 
     public function add(array $input)

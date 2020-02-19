@@ -1,10 +1,14 @@
-version: '3.0'
+version: "2"
 
 services:
-  think:
-    image: xiaodi93/dcnmp-php71:latest
-    command: php -S 0.0.0.0:8000 -t public
-    ports:
-      - 8000:8000
-    volumes:
-      - .:/var/www/html
+  
+  ant-design-admin:
+    container_name: ant-design-admin
+    hostname: ant-design-admin
+    image: xiaodi93/ant-design-admin:latest
+    restart: always
+
+networks:
+  default:
+    external:
+      name: server
