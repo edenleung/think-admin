@@ -38,13 +38,13 @@ class Post extends Migrator
      */
     public function change()
     {
-        $table = $this->table('post', ['engine' => 'InnoDB', 'id' => 'postId']);
-        $table->addColumn('postName', 'string', ['limit' => 100, 'comment' => '岗位名称'])
-            ->addColumn('postCode', 'string', ['limit' => 50, 'comment' => '岗位标识'])
-            ->addColumn('postSort', 'integer', ['limit' => 11, 'comment' => '排序', 'default' => 0])
+        $table = $this->table('post', ['engine' => 'InnoDB', 'id' => 'post_id']);
+        $table->addColumn('post_name', 'string', ['limit' => 100, 'comment' => '岗位名称'])
+            ->addColumn('post_code', 'string', ['limit' => 50, 'comment' => '岗位标识'])
+            ->addColumn('post_sort', 'integer', ['limit' => 11, 'comment' => '排序', 'default' => 0])
             ->addColumn('status', 'integer', ['limit' => 11, 'comment' => '状态', 'default' => 1])
-            ->addColumn('createTime', 'integer', ['limit' => 11, 'comment' => '创建时间'])
-            ->addColumn('updateTime', 'integer', ['limit' => 11, 'comment' => '更新时间'])
+            ->addColumn('create_time', 'integer', ['limit' => 11, 'comment' => '创建时间'])
+            ->addColumn('update_time', 'integer', ['limit' => 11, 'comment' => '更新时间'])
             ->create();
     }
 }

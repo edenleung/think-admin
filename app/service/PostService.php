@@ -28,7 +28,7 @@ class PostService extends BaseService
      */
     public function getList()
     {
-        $data = $this->model->order('postSort desc')->select();
+        $data = $this->model->order('post_sort desc')->select();
 
         return [
             'data' => $data,
