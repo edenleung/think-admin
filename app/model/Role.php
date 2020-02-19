@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace app\model;
 
 use app\BaseModel;
+use app\traits\Log;
 use think\model\relation\BelongsToMany;
 use xiaodi\Permission\Contract\RoleContract;
 
 class Role extends BaseModel implements RoleContract
 {
-    use \xiaodi\Permission\Traits\Role;
+    use Log, \xiaodi\Permission\Traits\Role;
 
     /**
      * 获取角色下部门.

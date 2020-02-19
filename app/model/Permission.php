@@ -15,8 +15,9 @@ namespace app\model;
 
 use app\BaseModel;
 use xiaodi\Permission\Contract\PermissionContract;
+use app\traits\Log;
 
 class Permission extends BaseModel implements PermissionContract
 {
-    use \xiaodi\Permission\Traits\Permission;
+    use Log, \xiaodi\Permission\Traits\Permission;
 }

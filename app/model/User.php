@@ -16,10 +16,11 @@ namespace app\model;
 use app\BaseModel;
 use think\model\relation\BelongsToMany;
 use xiaodi\Permission\Contract\UserContract;
+use app\traits\Log;
 
 class User extends BaseModel implements UserContract
 {
-    use \xiaodi\Permission\Traits\User;
+    use Log, \xiaodi\Permission\Traits\User;
 
     /**
      * 获取用户所有岗位.

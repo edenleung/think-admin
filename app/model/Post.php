@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace app\model;
 
 use app\BaseModel;
+use app\traits\Log;
 
 class Post extends BaseModel
 {
     protected $pk = 'postId';
+    use Log;
 }

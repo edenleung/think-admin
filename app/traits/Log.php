@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace app\traits;
 
-use app\model\DbLog;
+use app\model\DataBaseLog;
 use think\Model;
 
 trait Log
@@ -23,7 +23,7 @@ trait Log
      */
     public static function onAfterInsert(Model $model)
     {
-        DbLog::create([
+        DataBaseLog::create([
             'user_id' => request()->user->id,
             'model' => $model->getName(),
             'url' => request()->url(),
@@ -37,7 +37,7 @@ trait Log
      */
     public static function onAfterUpdate(Model $model)
     {
-        DbLog::create([
+        DataBaseLog::create([
             'model' => $model->getName(),
             'url' => request()->url(),
             'action' => 'update',
@@ -50,7 +50,7 @@ trait Log
      */
     public static function onAfterDelete(Model $model)
     {
-        DbLog::create([
+        DataBaseLog::create([
             'model' => $model->getName(),
             'url' => request()->url(),
             'action' => 'delete',
