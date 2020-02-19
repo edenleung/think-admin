@@ -127,7 +127,7 @@ class CreateData extends Migrator
                                     'name' => 'LogDb', 'title' => '数据库日志', 'pid' => 33, 'status' => 1, 'type' => 'menu', 'path' => '/log/db', 'redirect' => '', 'component' => 'LogDb', 'icon' => '', 'permission' => 'LogDb', 'keepAlive' => 0,
                                     'children' => [
                                         ['name' => 'LogDbGet', 'title' => '详情', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
-                                        ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 33, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
+                                        ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0],
                                     ]
                                 ],
                             ]
