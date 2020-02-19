@@ -302,7 +302,7 @@ class UserService extends BaseService
     {
         $permissions = [];
         foreach ($data as $menu) {
-            if ($menu['type'] == 'menu' && $user->can($menu['name'])) {
+            if ($menu['type'] == 'menu') {
                 $permission = [];
                 $permission['permissionId'] = $menu['name'];
                 $permission['actionList'] = [];
@@ -310,7 +310,7 @@ class UserService extends BaseService
                 $actionEntity = [];
                 if (! empty($menu['children'])) {
                     foreach ($menu['children'] as $action) {
-                        if ($user->can($action['name'])) {
+                        if ($action['type'] === 'action' && $user->can($action['name'])) {
                             $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
                             $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
                             $permission['actionList'][] = $action['name'];
@@ -319,7 +319,10 @@ class UserService extends BaseService
                 }
 
                 $permission['actionEntitySet'] = $actionEntity;
-                $permissions[] = $permission;
+
+                if (! empty($actionEntity)) {
+                    $permissions[] = $permission;
+                }
             }
 
             if (! empty($menu['children'])) {
