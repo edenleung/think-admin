@@ -74,6 +74,8 @@ class PermissionService extends BaseService
 
         if (! empty($input['permission'])) {
             $input['permission'] = implode(',', $input['permission']);
+        } else {
+            $input['permission'] = '';
         }
 
         return $rule->save($input);
