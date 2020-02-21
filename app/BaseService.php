@@ -13,16 +13,13 @@ declare(strict_types=1);
 
 namespace app;
 
+use app\traits\Error;
+
 abstract class BaseService
 {
+    use Error;
+    
     public $model;
-
-    protected $error;
-
-    public function getError()
-    {
-        return $this->error;
-    }
 
     public function all()
     {
