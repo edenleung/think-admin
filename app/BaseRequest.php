@@ -17,9 +17,12 @@ use think\exception\ValidateException;
 use think\Request;
 use think\Response;
 use think\Validate;
+use app\traits\Error;
 
 abstract class BaseRequest extends Request
 {
+    use Error;
+
     /**
      * @var bool
      */
@@ -90,11 +93,8 @@ abstract class BaseRequest extends Request
             $data = $this->param();
             $validate->rule($this->rule)->message($this->message)->batch($this->batch)->failException(true)->check($data);
         } catch (ValidateException $e) {
-            // 验证失败 默认返回json
-            return Response::create([
-                'message' => $e->getError(),
-                'code' => 50015,
-            ], 'json', 200);
+            $this->error = $e->getError();
+            return false;
         }
 
         return true;
