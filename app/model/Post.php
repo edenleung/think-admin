@@ -18,6 +18,6 @@ use app\traits\Log;
 
 class Post extends BaseModel
 {
-    protected $pk = 'postId';
+    protected $pk = 'post_id';
     use Log;
 }
