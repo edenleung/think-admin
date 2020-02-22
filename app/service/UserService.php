@@ -281,7 +281,7 @@ class UserService extends BaseService
      */
     public function resetPassword(User $user, string $oldPassword, string $newPassword)
     {
-        if (! $user->verifyPassword($oldPassword)) {
+        if (!$this->verifyPassword($user, $oldPassword)) {
             $this->error = '原密码不正确';
             return false;
         }
