@@ -16,7 +16,7 @@ namespace Tant;
 use app\model\Dept;
 use app\model\User;
 
-class DataScope
+class Scope
 {
     const DATA_SCOPE_ALL = 1;
 
