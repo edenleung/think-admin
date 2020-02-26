@@ -11,6 +11,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
+use Tant\AppService;
+
 return [
-    '\Tant\AppService',
+    AppService::class,
 ];
