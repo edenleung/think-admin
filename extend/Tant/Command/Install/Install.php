@@ -8,6 +8,7 @@ use think\console\Command;
 use think\console\Input;
 use think\facade\Console;
 use think\console\Output;
+use Tant\TAnt;
 
 class Install extends Command
 {
@@ -22,6 +23,7 @@ class Install extends Command
 
     protected function execute(Input $input, Output $output)
     {
+        $this->output->highlight('TAnt version ' . TAnt::VERSION . "\n");
         $this->configSomething();
         $isStart = $this->output->ask($input, '> 是否开始安装 (Y/n)？') ?: 'y';
 
