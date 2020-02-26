@@ -93,7 +93,7 @@ class Install extends Command
     {
         $this->output->warning(' > 接下来配置 超级管理员信息');
 
-        $nickname = $this->output->ask($this->input, '> 用户昵称 默认(SeratiMa)') ?: 'SeratiMa';
+        $nickname = $this->output->ask($this->input, '> 用户昵称 默认(SeratiMa)') ?: 'Serati Ma';
         $loginName = $this->output->ask($this->input, '> 登录账号 默认(admin)') ?: 'admin';
 
         $defaultPassword = \randomKey();
@@ -286,7 +286,7 @@ class Install extends Command
             $this->connection['database'],
             'root',
             '根',
-            1,
+            0,
             0,
             1
         ));
