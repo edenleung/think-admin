@@ -43,7 +43,7 @@
         },
         "files": [
             "app/common.php",
-            "extend/tant/helper.php",
+            "extend/Tant/helper.php",
             "vendor/topthink/framework/src/helper.php"
         ]
     },
