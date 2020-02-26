@@ -12,5 +12,5 @@ declare(strict_types=1);
  */
 
 return [
-    // '\app\service\WechatService',
+    '\Tant\AppService',
 ];

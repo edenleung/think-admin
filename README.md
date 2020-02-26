@@ -35,18 +35,11 @@ git clone https://github.com/edenleung/think-admin.git
 ```sh
 composer i
 ```
-### 配置数据库
-```sh
-cp .env.example .env
-```
 
-### 迁移数据
+在终端执行以下命令进行安装
 ```
-php think migrate:run
+php think tant:install
 ```
-
-### 账号
-* 超级管理员 `admin, 1234` 
 
 ### 权限包
 https://github.com/xiaodit/think-permission
