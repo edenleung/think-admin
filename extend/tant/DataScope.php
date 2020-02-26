@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\dataScope;
+namespace Tant;
 
 use app\model\Dept;
 use app\model\User;
