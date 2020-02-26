@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace app;
 
-use app\service\BaseService;
 use think\annotation\Inject;
 use think\App;
 use think\exception\ValidateException;
