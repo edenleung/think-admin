@@ -142,6 +142,7 @@ class Install extends Command
      */
     protected function startInstall()
     {
+        $this->createEnvFile();
         $this->connectionDatabase();
         $this->createDatabase();
         $this->makeTokenSignerKey();
