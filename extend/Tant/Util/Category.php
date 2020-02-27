@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace extend;
+namespace Tant\Util;
 
 /**
  * Tree 分类扩展.

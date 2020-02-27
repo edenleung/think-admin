@@ -29,7 +29,7 @@ class PermissionService extends BaseService
     public function list(int $pageNo, int $pageSize)
     {
         $map = [];
-        $category = new \extend\Category();
+        $category = new \Tant\Util\Category();
 
         $map[] = ['type', '<>', 'action'];
         $total = $this->model->where($map)->count();
@@ -89,7 +89,7 @@ class PermissionService extends BaseService
         $actions = $this->model->where('type', 'action')->select();
         $menusIds = $this->model->where('type', 'action')->column('pid');
         $menus = $this->model->whereIn('id', $menusIds)->select();
-        $category = new \extend\Category();
+        $category = new \Tant\Util\Category();
 
         foreach ($menus as $menu) {
             $menu->actions = $category->getChild($menu->id, $actions);
@@ -103,7 +103,7 @@ class PermissionService extends BaseService
      */
     public function getTree()
     {
-        $category = new \extend\Category();
+        $category = new \Tant\Util\Category();
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->model->where($map)->select();
@@ -116,7 +116,7 @@ class PermissionService extends BaseService
     public function getMenu()
     {
         $data = $this->model->order('pid asc')->select()->toArray();
-        $category = new \extend\Category(['id', 'pid', 'title', 'cname']);
+        $category = new \Tant\Util\Category(['id', 'pid', 'title', 'cname']);
         return $category->formatTree($data); //获取分类数据树结构
     }
 

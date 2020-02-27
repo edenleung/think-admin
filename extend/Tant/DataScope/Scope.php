@@ -67,7 +67,7 @@ class Scope
                 // 本部门数据及以下部门数据
                 $depts[] = $user->dept_id;
                 $data = Dept::select()->toArray();
-                $category = new \extend\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
+                $category = new \Tant\Util\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
                 $children = array_column($category->getTree($data, $role->dept_id), 'dept_id');
                 if (! empty($children)) {
                     $depts = array_merge($depts, $children);
