@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace app;
 
 use think\Model;
-use Tant\DataScope;
+use Tant\DataScope\Scope;
 
 abstract class BaseModel extends Model
 {
@@ -92,7 +92,7 @@ abstract class BaseModel extends Model
      */
     public function scopeDataAccess($query, $alias)
     {
-        $dataScope = new DataScope();
+        $dataScope = new Scope();
         $sql = $dataScope->handle($alias);
 
         $query->where($sql);
