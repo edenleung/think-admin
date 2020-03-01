@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace app\subscribe;
 
 use app\event\UserLogin as Event;
-use app\model\DataBaseLog;
+use app\model\AccountLog;
 
 class User
 {
@@ -25,7 +25,7 @@ class User
      */
     public function onUserLogin(Event $event)
     {
-        DataBaseLog::create([
+        AccountLog::create([
             'user_id' => $event->user->id,
             'action' => '登录',
             'url' => request()->url(),
