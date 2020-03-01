@@ -2,10 +2,12 @@ language: php
 php:
   - "7.2"
 script:
-  - composer clearcache
+  - php -v
   - composer self-update
   - composer global require phpstan/phpstan
-  - composer install
+  - composer install --no-dev --no-interaction --ignore-platform-reqs
+  - composer analyze
+  
 cache:
   directories:
     - "$HOME/.composer/cache"
