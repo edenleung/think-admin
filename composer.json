@@ -40,7 +40,12 @@
         },
         "psr-0": {
             "": "extend/"
-        }
+        },
+        "files": [
+            "app/common.php",
+            "extend/Tant/helper.php",
+            "vendor/topthink/framework/src/helper.php"
+        ]
     },
     "config": {
         "preferred-install": "dist"
