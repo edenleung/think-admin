@@ -1,5 +1,5 @@
 ## T-Ant
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+
 [![Build Status](https://travis-ci.org/edenleung/think-admin.svg?branch=6.0)](https://travis-ci.org/edenleung/think-admin)
 
 ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
