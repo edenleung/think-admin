@@ -1,7 +1,7 @@
 version: "3.3"
 
 services:
-  php:
+  service:
     image: xiaodi93/ant-design-admin
     deploy:
       replicas: 1

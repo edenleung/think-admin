@@ -25,7 +25,7 @@ before_deploy:
   - docker build -t xiaodi93/ant-design-admin:latest .
   - docker push xiaodi93/ant-design-admin:latest
   - scp -i ~/.ssh/travis deploy.yml root@47.56.158.125:server/tant_admin_deploy.yml
-  - ssh -i ~/.ssh/travis root@47.56.158.125 "docker stack deploy -c server/tant_admin_deploy.yml"
+  - ssh -i ~/.ssh/travis root@47.56.158.125 "docker stack deploy -c server/tant_admin_deploy.yml tant_admin"
 addons:
   ssh_known_hosts: 47.56.158.125
 deploy:
