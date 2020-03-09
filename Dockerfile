@@ -17,4 +17,4 @@ RUN chmod -R 775 runtime
 
 EXPOSE 8000
 
-CMD ['php think run']
+CMD php think run
