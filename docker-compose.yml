@@ -1,14 +1,13 @@
-version: "2"
+version: "3.3"
 
 services:
-  
-  ant-design-admin:
-    container_name: ant-design-admin
-    hostname: ant-design-admin
-    image: xiaodi93/ant-design-admin:latest
-    restart: always
-
-networks:
-  default:
-    external:
-      name: server
+  php:
+    image: xiaodi93/dcnmp-php71
+    container_name: tant_php
+    ports:
+      - 9501:8000
+    command: ["php", "think", "run"]
+    volumes:
+      - .:/var/www/html/:rw
+    networks:
+      - default

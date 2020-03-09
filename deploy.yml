@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  php:
+    image: xiaodi93/ant-design-admin
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+      update_config:
+        parallelism: 2
+        delay: 5s
+    networks:
+      - default
+      
+networks:
+  default:
+    external:
+      name: custom-app

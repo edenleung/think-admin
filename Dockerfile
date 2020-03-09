@@ -10,3 +10,11 @@ RUN apk upgrade --update \
     && rm -rf /var/cache/apk/*
 
 COPY ./ /var/www/html
+
+RUN mv .env.example .env
+RUN chmod -R 775 public/storage
+RUN chmod -R 775 runtime
+
+EXPOSE 8000
+
+CMD ['php think run']
