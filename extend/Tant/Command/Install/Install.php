@@ -58,17 +58,15 @@ class Install extends Command
         $dataBase = $this->output->ask($this->input, '> 数据库名, 默认 (think)') ?: 'think';
         $userName = $this->output->ask($this->input, '> 数据库用户名, 默认 (root)') ?: 'root';
         $passWord = $this->output->ask($this->input, '> 数据库密码, 默认 (空)') ?: '';
-        if (!$passWord) {
-            $passWord = '空';
-        }
+
         $this->output->info('====== 数据库信息 ======');
         $this->output->writeln("数据库地址: $hostName");
         $this->output->writeln("数据库端口: $hostPort");
         $this->output->writeln("数据库编码: $charset");
         $this->output->writeln("数据库名称: $dataBase");
         $this->output->writeln("数据库用户名: $userName");
-        $this->output->writeln("数据库密码: $passWord");
-        $this->output->info('======================');
+        $this->output->writeln($passWord ? '数据库密码: ' . $passWord : '数据库密码: 空');
+        $this->output->info('========================');
         $this->output->writeln("");
 
         $connections = \config('database.connections');
@@ -165,7 +163,7 @@ class Install extends Command
     protected function connectionDatabase()
     {
         try {
-            $conn = new \mysqli($this->connection['hostname'], $this->connection['username'], $this->connection['password'], '', $this->connection['hostport']);
+            $conn = new \mysqli($this->connection['hostname'], $this->connection['username'], $this->connection['password'], '', (int)$this->connection['hostport']);
         } catch (\Exception $e) {
             throw new \Exception('连接数据库失败');
         }
