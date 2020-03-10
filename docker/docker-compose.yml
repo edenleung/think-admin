@@ -2,12 +2,11 @@ version: "3.3"
 
 services:
   php:
-    image: xiaodi93/dcnmp-php71
-    container_name: tant_php
+    image: xiaodi93/dcnmp-php71:debug
     ports:
       - 9501:8000
     command: ["php", "think", "run"]
     volumes:
-      - .:/var/www/html/:rw
+      - ../:/var/www/html/:rw
     networks:
       - default
