@@ -12,11 +12,11 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace Tant;
+namespace app;
 
+use think\Service;
 use Tant\Command\Backup\Backup;
 use Tant\Command\Install\Install;
-use think\Service;
 
 class AppService extends Service
 {

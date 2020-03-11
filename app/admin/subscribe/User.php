@@ -12,10 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\subscribe;
+namespace app\admin\subscribe;
 
-use app\event\UserLogin as Event;
-use app\model\AccountLog;
+use app\admin\event\UserLogin as Event;
+use app\common\model\AccountLog;
 
 class User
 {

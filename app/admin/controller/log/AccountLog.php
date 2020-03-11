@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace app\admin\controller\log;
 
 use app\BaseController;
-use app\service\AccountLogService;
+use app\admin\service\AccountLogService;
 
 class AccountLog extends BaseController
 {

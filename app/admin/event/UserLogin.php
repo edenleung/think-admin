@@ -12,11 +12,16 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\admin\event;
 
-use app\BaseModel;
+use app\common\model\User;
 
-class AccountLog extends BaseModel
+class UserLogin
 {
-    protected $table = 'log';
+    public $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 }

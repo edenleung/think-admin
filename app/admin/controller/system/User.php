@@ -14,14 +14,14 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\admin\request\UserRequest;
-use app\BaseController;
-use app\service\DeptService;
-use app\service\PermissionService;
-use app\service\PostService;
-use app\service\RoleService;
-use app\service\UserService;
 use think\Request;
+use app\BaseController;
+use app\admin\request\UserRequest;
+use app\admin\service\DeptService;
+use app\admin\service\PermissionService;
+use app\admin\service\PostService;
+use app\admin\service\RoleService;
+use app\admin\service\UserService;
 
 class User extends BaseController
 {

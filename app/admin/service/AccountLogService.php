@@ -12,14 +12,14 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\service;
+namespace app\admin\service;
 
 use app\BaseService;
-use app\model\DataBaseLog;
+use app\common\model\AccountLog;
 
-class DataBaseLogService extends BaseService
+class AccountLogService extends BaseService
 {
-    public function __construct(DataBaseLog $model)
+    public function __construct(AccountLog $model)
     {
         $this->model = $model;
     }
@@ -30,9 +30,11 @@ class DataBaseLogService extends BaseService
     public function list(int $pageNo, int $pageSize)
     {
         $total = $this->model->count();
-        $logs = $this->model->alias('d')->join('user u', 'd.user_id = u.id')
-            ->limit($pageSize)->page($pageNo)->order('d.create_time desc')
-            ->field('d.*, u.nickname')
+        $logs = $this->model->alias('l')->join('user u', 'u.id = l.user_id')
+            ->limit($pageSize)
+            ->page($pageNo)
+            ->field('l.*,u.nickname')
+            ->order('create_time desc')
             ->select();
 
         return [

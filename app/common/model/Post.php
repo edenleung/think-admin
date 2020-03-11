@@ -12,21 +12,13 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\traits;
+namespace app\common\model;
 
-trait SortTable
+use app\BaseModel;
+use app\common\traits\Log;
+
+class Post extends BaseModel
 {
-    public $sortBy = 'createTime';
-
-    public $sortOrder = 'asc';
-
-    public function setSortBy($sortBy = 'createTime')
-    {
-        $this->sortBy = $sortBy;
-    }
-
-    public function setSortOrder($sortOrder = 'desc')
-    {
-        $this->sortOrder = $sortOrder;
-    }
+    protected $pk = 'post_id';
+    use Log;
 }

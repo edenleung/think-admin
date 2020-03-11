@@ -12,10 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\traits;
+namespace app\common\traits;
 
-use app\model\DataBaseLog;
 use think\Model;
+use app\common\model\DataBaseLog;
 
 trait Log
 {

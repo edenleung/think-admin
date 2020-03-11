@@ -12,13 +12,11 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\common\model;
 
 use app\BaseModel;
-use app\traits\Log;
-use xiaodi\Permission\Contract\PermissionContract;
 
-class Permission extends BaseModel implements PermissionContract
+class AccountLog extends BaseModel
 {
-    use Log, \xiaodi\Permission\Traits\Permission;
+    protected $table = 'log';
 }

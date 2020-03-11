@@ -12,11 +12,11 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\common\model;
 
 use app\BaseModel;
 
-class DataBaseLog extends BaseModel
+class Dept extends BaseModel
 {
-    protected $table = 'db_log';
+    protected $pk = 'dept_id';
 }

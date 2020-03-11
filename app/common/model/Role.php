@@ -12,27 +12,27 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\common\model;
 
 use app\BaseModel;
-use app\traits\Log;
+use app\common\traits\Log;
 use think\model\relation\BelongsToMany;
-use xiaodi\Permission\Contract\UserContract;
+use xiaodi\Permission\Contract\RoleContract;
 
-class User extends BaseModel implements UserContract
+class Role extends BaseModel implements RoleContract
 {
-    use Log, \xiaodi\Permission\Traits\User;
+    use Log, \xiaodi\Permission\Traits\Role;
 
     /**
-     * 获取用户所有岗位.
+     * 获取角色下部门.
      */
-    public function posts(): BelongsToMany
+    public function depts(): BelongsToMany
     {
         return $this->belongsToMany(
-            Post::class,
-            UserPostAccess::class,
-            'post_id',
-            'user_id'
+            Dept::class,
+            RoleDeptAccess::class,
+            'dept_id',
+            'role_id'
         );
     }
 }
