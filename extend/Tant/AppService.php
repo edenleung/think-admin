@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -13,9 +15,9 @@ declare(strict_types=1);
 
 namespace Tant;
 
-use think\Service;
-use Tant\Command\Install\Install;
 use Tant\Command\Backup\Backup;
+use Tant\Command\Install\Install;
+use think\Service;
 
 class AppService extends Service
 {
@@ -25,7 +27,7 @@ class AppService extends Service
     }
 
     /**
-     * 注册命令行
+     * 注册命令行.
      *
      * @return void
      */
@@ -33,7 +35,7 @@ class AppService extends Service
     {
         $this->commands([
             Install::class,
-            Backup::class
+            Backup::class,
         ]);
     }
 }

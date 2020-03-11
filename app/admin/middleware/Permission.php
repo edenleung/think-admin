@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -24,11 +26,11 @@ class Permission extends BasePermission
      * 重写 handle.
      *
      * @param Request $request
-     * @param [type] $permission
+     * @param [type]  $permission
      */
     public function handle($request, \Closure $next, $permission)
     {
-        if (! $request->user) {
+        if (!$request->user) {
             return $this->handleNotLoggedIn($request);
         }
 

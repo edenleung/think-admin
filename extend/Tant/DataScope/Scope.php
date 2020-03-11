@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -37,7 +39,7 @@ class Scope
     {
         $user = request()->user;
         $sql = '';
-        if (! $user->isSuper()) {
+        if (!$user->isSuper()) {
             // 非超级管理员 则进行数据过滤
             $sql = $this->dataScopeFilter($tableAlias, $user);
         }
@@ -69,7 +71,7 @@ class Scope
                 $data = Dept::select()->toArray();
                 $category = new \Tant\Util\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
                 $children = array_column($category->getTree($data, $role->dept_id), 'dept_id');
-                if (! empty($children)) {
+                if (!empty($children)) {
                     $depts = array_merge($depts, $children);
                 }
 
@@ -79,7 +81,7 @@ class Scope
                 $sqls[] = sprintf(' %s.user_id = %s', $tableAlias, $user->id);
             }
 
-            ++$index;
+            $index++;
         }
 
         return implode('', $sqls);

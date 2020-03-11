@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -46,7 +48,8 @@ class User extends BaseController
      *
      * @param [type] $pageNo
      * @param [type] $pageSize
-     * @param int $deptPid
+     * @param int    $deptPid
+     *
      * @return \think\Response
      */
     public function list($pageNo, $pageSize, $deptPid = 0)
@@ -73,6 +76,7 @@ class User extends BaseController
 
         if ($this->service->add($request->param()) === false) {
             $error = $this->service->getError();
+
             return $this->sendError($error);
         }
 
@@ -83,6 +87,7 @@ class User extends BaseController
      * 更新用户.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, UserRequest $request)
@@ -102,6 +107,7 @@ class User extends BaseController
      * 删除用户.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)
@@ -122,13 +128,14 @@ class User extends BaseController
     {
         $user = $request->user;
         $result = $this->service->info($user);
+
         return $this->sendSuccess($result);
     }
 
     /**
      * 获取个人信息.
      */
-    public function current(User $user)
+    public function current(self $user)
     {
         return $this->sendSuccess($user);
     }

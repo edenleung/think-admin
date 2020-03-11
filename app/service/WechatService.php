@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -31,15 +33,15 @@ class WechatService extends \think\Service
     {
         $apps = [
             'official_account' => OfficialAccount::class,
-            'work' => Work::class,
-            'mini_program' => MiniProgram::class,
-            'payment' => Payment::class,
-            'open_platform' => OpenPlatform::class,
-            'open_work' => OpenWork::class,
+            'work'             => Work::class,
+            'mini_program'     => MiniProgram::class,
+            'payment'          => Payment::class,
+            'open_platform'    => OpenPlatform::class,
+            'open_work'        => OpenWork::class,
         ];
 
         foreach ($apps as $name => $class) {
-            if (empty(config('wechat.' . $name))) {
+            if (empty(config('wechat.'.$name))) {
                 continue;
             }
 

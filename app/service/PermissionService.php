@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -38,11 +40,11 @@ class PermissionService extends BaseService
         $data = $this->formatTreeAction($data);
 
         return [
-            'data' => $data,
-            'tree' => $this->getTree(),
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($data),
+            'data'       => $data,
+            'tree'       => $this->getTree(),
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($data),
             'totalCount' => $total,
         ];
     }
@@ -52,7 +54,7 @@ class PermissionService extends BaseService
      */
     public function add(array $data)
     {
-        if (! empty($data['permission'])) {
+        if (!empty($data['permission'])) {
             $data['permission'] = implode(',', $data['permission']);
         }
 
@@ -68,7 +70,7 @@ class PermissionService extends BaseService
     {
         $rule = $this->model->find($id);
 
-        if (! empty($input['permission'])) {
+        if (!empty($input['permission'])) {
             $input['permission'] = implode(',', $input['permission']);
         } else {
             $input['permission'] = '';
@@ -103,6 +105,7 @@ class PermissionService extends BaseService
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->model->where($map)->select();
+
         return $category->formatTree($data);
     }
 
@@ -113,6 +116,7 @@ class PermissionService extends BaseService
     {
         $data = $this->model->order('pid asc')->select()->toArray();
         $category = new \Tant\Util\Category(['id', 'pid', 'title', 'cname']);
+
         return $category->formatTree($data); //获取分类数据树结构
     }
 
@@ -128,6 +132,7 @@ class PermissionService extends BaseService
      * 递归菜单下的操作.
      *
      * @param [type] $data
+     *
      * @return array
      */
     protected function formatTreeAction($data)
@@ -137,7 +142,7 @@ class PermissionService extends BaseService
                 $item->actions = $this->getActions($item);
             }
 
-            if (! empty($item['children'])) {
+            if (!empty($item['children'])) {
                 $this->formatTreeAction($item['children']);
             }
         }

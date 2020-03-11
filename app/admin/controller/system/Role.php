@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -39,6 +41,7 @@ class Role extends BaseController
      *
      * @param mixed $pageNo
      * @param mixed $pageSize
+     *
      * @return \think\Response
      */
     public function list($pageNo = 1, $pageSize = 10)
@@ -53,6 +56,7 @@ class Role extends BaseController
 
     /**
      * 添加角色.
+     *
      * @return \think\Response
      */
     public function add(RoleRequest $request)
@@ -72,6 +76,7 @@ class Role extends BaseController
      * 更新角色.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, RoleRequest $request)
@@ -91,6 +96,7 @@ class Role extends BaseController
      * 删除角色.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)
@@ -106,6 +112,7 @@ class Role extends BaseController
      * 更新角色数据权限.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function mode($id)

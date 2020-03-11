@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -27,22 +29,25 @@ class Dept extends BaseController
 
     /**
      * 部门列表.
+     *
      * @return \think\Response
      */
     public function list()
     {
         $data = $this->service->getTree();
+
         return $this->sendSuccess([
-            'data' => $data,
-            'pageSize' => 10,
-            'pageNo' => 1,
-            'totalPage' => 1,
+            'data'       => $data,
+            'pageSize'   => 10,
+            'pageNo'     => 1,
+            'totalPage'  => 1,
             'totalCount' => count($data),
         ]);
     }
 
     /**
      * 添加部门.
+     *
      * @return \think\Response
      */
     public function add(DeptRequest $request)
@@ -62,6 +67,7 @@ class Dept extends BaseController
      * 更新部门.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, DeptRequest $request)
@@ -81,6 +87,7 @@ class Dept extends BaseController
      * 删除部门.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)

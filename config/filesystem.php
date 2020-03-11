@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -20,13 +22,13 @@ return [
     'disks' => [
         'local' => [
             'type' => 'local',
-            'root' => app()->getRuntimePath() . 'storage',
+            'root' => app()->getRuntimePath().'storage',
         ],
         'public' => [
             // 磁盘类型
             'type' => 'local',
             // 磁盘路径
-            'root' => app()->getRootPath() . 'public/storage',
+            'root' => app()->getRootPath().'public/storage',
             // 磁盘路径对应的外部URL路径
             'url' => '/storage',
             // 可见性

@@ -3,9 +3,11 @@
 declare(strict_types=1);
 /**
  * This file is part of TAnt.
+ *
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
  * @contact  QQ Group 996887666
+ *
  * @author   Eden Leung 758861884@qq.com
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
@@ -13,8 +15,8 @@ declare(strict_types=1);
 
 namespace app;
 
-use think\Model;
 use Tant\DataScope\Scope;
+use think\Model;
 
 abstract class BaseModel extends Model
 {
@@ -52,7 +54,7 @@ abstract class BaseModel extends Model
      * 添加一条记录.
      *
      * @param [type] $paginate
-     * @param mixed $input
+     * @param mixed  $input
      */
     public function add($input)
     {
