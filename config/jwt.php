@@ -5,7 +5,8 @@
  */
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -26,5 +27,5 @@ return [
     'injectUser'  => true,
     'userModel'   => \app\model\User::class,
     'hasLogged'   => 50401,
-    'tokenAlready' => 50402
+    'tokenAlready' => 50402,
 ];

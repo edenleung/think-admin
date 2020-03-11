@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -261,6 +262,7 @@ class UserService extends BaseService
     public function updateAvatar(User $user, string $path)
     {
         $user->avatar = 'storage' . \DIRECTORY_SEPARATOR . $path;
+
         return $user->save();
     }
 
@@ -281,8 +283,9 @@ class UserService extends BaseService
      */
     public function resetPassword(User $user, string $oldPassword, string $newPassword)
     {
-        if (!$this->verifyPassword($user, $oldPassword)) {
+        if (! $this->verifyPassword($user, $oldPassword)) {
             $this->error = '原密码不正确';
+
             return false;
         }
 

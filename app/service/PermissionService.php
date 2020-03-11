@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -103,6 +104,7 @@ class PermissionService extends BaseService
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->model->where($map)->select();
+
         return $category->formatTree($data);
     }
 
@@ -113,6 +115,7 @@ class PermissionService extends BaseService
     {
         $data = $this->model->order('pid asc')->select()->toArray();
         $category = new \Tant\Util\Category(['id', 'pid', 'title', 'cname']);
+
         return $category->formatTree($data); //获取分类数据树结构
     }
 

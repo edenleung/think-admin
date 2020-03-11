@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -79,7 +80,7 @@ class Scope
                 $sqls[] = sprintf(' %s.user_id = %s', $tableAlias, $user->id);
             }
 
-            ++$index;
+            $index++;
         }
 
         return implode('', $sqls);

@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -14,8 +15,8 @@ declare(strict_types=1);
 namespace app\model;
 
 use app\BaseModel;
-use xiaodi\Permission\Contract\PermissionContract;
 use app\traits\Log;
+use xiaodi\Permission\Contract\PermissionContract;
 
 class Permission extends BaseModel implements PermissionContract
 {
