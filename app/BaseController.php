@@ -22,9 +22,7 @@ use think\Validate;
 
 abstract class BaseController
 {
-    /**
-     * @var BaseService
-     */
+
     protected $service;
 
     /**
