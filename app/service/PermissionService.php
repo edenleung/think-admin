@@ -56,10 +56,6 @@ class PermissionService extends BaseService
             $data['permission'] = implode(',', $data['permission']);
         }
 
-        if (! empty($data['permission'])) {
-            $data['permission'] = implode(',', $data['permission']);
-        }
-
         return $this->model->save($data);
     }
 
