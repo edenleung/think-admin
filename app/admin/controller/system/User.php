@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -67,12 +68,13 @@ class User extends BaseController
      */
     public function add(UserRequest $request)
     {
-        if (!$request->scene('create')->validate()) {
+        if (! $request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
         if ($this->service->add($request->param()) === false) {
             $error = $this->service->getError();
+
             return $this->sendError($error);
         }
 
@@ -87,7 +89,7 @@ class User extends BaseController
      */
     public function update($id, UserRequest $request)
     {
-        if (!$request->scene('update')->validate()) {
+        if (! $request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -122,13 +124,14 @@ class User extends BaseController
     {
         $user = $request->user;
         $result = $this->service->info($user);
+
         return $this->sendSuccess($result);
     }
 
     /**
      * 获取个人信息.
      */
-    public function current(User $user)
+    public function current(self $user)
     {
         return $this->sendSuccess($user);
     }
@@ -145,7 +148,7 @@ class User extends BaseController
             return $this->sendError('数据出错');
         }
 
-        if (!$this->service->updateCurrent($request->user, $data)) {
+        if (! $this->service->updateCurrent($request->user, $data)) {
             return $this->sendError('更新失败');
         }
 
@@ -161,7 +164,7 @@ class User extends BaseController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$this->service->updateAvatar($request->user, $savename)) {
+        if (! $this->service->updateAvatar($request->user, $savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -178,11 +181,11 @@ class User extends BaseController
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (!$oldPassword || !$newPassword) {
+        if (! $oldPassword || ! $newPassword) {
             return $this->sendError('数据出错');
         }
 
-        if (!$this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
+        if (! $this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
             return $this->sendError($this->service->getError());
         }
 

@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -13,11 +14,11 @@ declare(strict_types=1);
 
 namespace app;
 
+use app\traits\Error;
 use think\exception\ValidateException;
 use think\Request;
 use think\Response;
 use think\Validate;
-use app\traits\Error;
 
 abstract class BaseRequest extends Request
 {
@@ -57,6 +58,7 @@ abstract class BaseRequest extends Request
     public function scene($scene)
     {
         $this->currentScene = $scene;
+
         return $this;
     }
 
@@ -94,6 +96,7 @@ abstract class BaseRequest extends Request
             $validate->rule($this->rule)->message($this->message)->batch($this->batch)->failException(true)->check($data);
         } catch (ValidateException $e) {
             $this->error = $e->getError();
+
             return false;
         }
 

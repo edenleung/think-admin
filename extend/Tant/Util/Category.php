@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -66,6 +67,7 @@ class Category
                 $childs[] = $Category;
             }
         }
+
         return $childs;
     }
 
@@ -80,6 +82,7 @@ class Category
         $this->formatList = [];
         $this->rawList = $data;
         $this->_searchList($id);
+
         return $this->formatList;
     }
 
@@ -93,6 +96,7 @@ class Category
                 break;
             }
         }
+
         return array_reverse($this->formatList);
     }
 
@@ -118,6 +122,7 @@ class Category
                 $tree[] = $item;
             }
         }
+
         return $tree;
     }
 
@@ -131,7 +136,7 @@ class Category
         }
         $cnt = 1;
         //循环所有的下级分类
-        for ($i = 0; $i < $n; ++$i) {
+        for ($i = 0; $i < $n; $i++) {
             $pre = '';
             $pad = '';
             if ($n == $cnt) {
@@ -144,7 +149,7 @@ class Category
             $this->formatList[] = $childs[$i];
             //递归下一级分类
             $this->_searchList($childs[$i][$this->field['id']], $space . $pad . '&nbsp;&nbsp;');
-            ++$cnt;
+            $cnt++;
         }
     }
 
@@ -154,9 +159,11 @@ class Category
         foreach ($this->rawList as $key => $value) {
             if ($id == $this->rawList[$key][$this->field['id']]) {
                 $this->formatList[] = $this->rawList[$key];
+
                 return $this->rawList[$key][$this->field['pid']];
             }
         }
+
         return 0;
     }
 }

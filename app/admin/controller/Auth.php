@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -49,6 +50,7 @@ class Auth extends BaseController
     public function refreshToken($token)
     {
         $token = Jwt::parse($token);
+
         return $this->sendSuccess([
             'token' => Jwt::refresh($token),
             'token_type' => Jwt::type(),

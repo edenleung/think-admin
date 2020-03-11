@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -33,6 +34,7 @@ class Post extends BaseController
     public function list()
     {
         $data = $this->service->getList();
+
         return $this->sendSuccess($data);
     }
 
@@ -43,7 +45,7 @@ class Post extends BaseController
      */
     public function add(PostRequest $request)
     {
-        if (!$request->scene('create')->validate()) {
+        if (! $request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -62,7 +64,7 @@ class Post extends BaseController
      */
     public function update($id, PostRequest $request)
     {
-        if (!$request->scene('update')->validate()) {
+        if (! $request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 
