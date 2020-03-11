@@ -67,7 +67,9 @@ class User extends BaseController
      */
     public function add(UserRequest $request)
     {
-        $request->scene('create')->validate();
+        if (!$request->scene('create')->validate()) {
+            return $this->sendError($request->getError());
+        }
 
         if ($this->service->add($request->param()) === false) {
             $error = $this->service->getError();
@@ -85,7 +87,9 @@ class User extends BaseController
      */
     public function update($id, UserRequest $request)
     {
-        $request->scene('update')->validate();
+        if (!$request->scene('update')->validate()) {
+            return $this->sendError($request->getError());
+        }
 
         if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError($this->service->getError());
@@ -141,7 +145,7 @@ class User extends BaseController
             return $this->sendError('数据出错');
         }
 
-        if (! $this->service->updateCurrent($request->user, $data)) {
+        if (!$this->service->updateCurrent($request->user, $data)) {
             return $this->sendError('更新失败');
         }
 
@@ -157,7 +161,7 @@ class User extends BaseController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (! $this->service->updateAvatar($request->user, $savename)) {
+        if (!$this->service->updateAvatar($request->user, $savename)) {
             return $this->sendError('更新失败');
         }
 
@@ -174,11 +178,11 @@ class User extends BaseController
         $oldPassword = $this->request->param('oldPassword');
         $newPassword = $this->request->param('newPassword');
 
-        if (! $oldPassword || ! $newPassword) {
+        if (!$oldPassword || !$newPassword) {
             return $this->sendError('数据出错');
         }
 
-        if (! $this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
+        if (!$this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
             return $this->sendError($this->service->getError());
         }
 

@@ -44,7 +44,9 @@ class Permission extends BaseController
      */
     public function add(PermissionRequest $request)
     {
-        $request->scene('create')->validate();
+        if (!$request->scene('create')->validate()) {
+            return $this->sendError($request->getError());
+        }
 
         if ($this->service->add($request->param()) === false) {
             return $this->sendError();
@@ -61,7 +63,9 @@ class Permission extends BaseController
      */
     public function renew($id, PermissionRequest $request)
     {
-        $request->scene('update')->validate();
+        if (!$request->scene('update')->validate()) {
+            return $this->sendError($request->getError());
+        }
 
         if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError();

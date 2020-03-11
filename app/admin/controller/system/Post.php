@@ -43,7 +43,10 @@ class Post extends BaseController
      */
     public function add(PostRequest $request)
     {
-        $request->scene('create')->validate();
+        if (!$request->scene('create')->validate()) {
+            return $this->sendError($request->getError());
+        }
+
         if ($this->service->add($request->param()) === false) {
             return $this->sendError();
         }
@@ -59,7 +62,9 @@ class Post extends BaseController
      */
     public function update($id, PostRequest $request)
     {
-        $request->scene('update')->validate();
+        if (!$request->scene('update')->validate()) {
+            return $this->sendError($request->getError());
+        }
 
         if ($this->service->renew($id, $request->param()) === false) {
             return $this->sendError();
