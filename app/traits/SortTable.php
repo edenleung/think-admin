@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -13,7 +14,7 @@ declare(strict_types=1);
 
 namespace app\traits;
 
-trait Sortable
+trait SortTable
 {
     public $sortBy = 'createTime';
 

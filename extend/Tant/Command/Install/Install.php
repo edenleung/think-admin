@@ -2,13 +2,23 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace Tant\Command\Install;
 
+use Tant\TAnt;
 use think\console\Command;
 use think\console\Input;
-use think\facade\Console;
 use think\console\Output;
-use Tant\TAnt;
+use think\facade\Console;
 
 class Install extends Command
 {
@@ -35,7 +45,6 @@ class Install extends Command
     }
 
     /**
-     *
      * @return void
      */
     protected function configSomething()
@@ -45,7 +54,7 @@ class Install extends Command
     }
 
     /**
-     * 配置数据库
+     * 配置数据库.
      *
      * @return void
      */
@@ -67,7 +76,7 @@ class Install extends Command
         $this->output->writeln("数据库用户名: $userName");
         $this->output->writeln($passWord ? '数据库密码: ' . $passWord : '数据库密码: 空');
         $this->output->info('========================');
-        $this->output->writeln("");
+        $this->output->writeln('');
 
         $connections = \config('database.connections');
         $connections['mysql']['hostname'] = $hostName;
@@ -85,7 +94,7 @@ class Install extends Command
     }
 
     /**
-     * 配置超级管理员信息
+     * 配置超级管理员信息.
      *
      * @return void
      */
@@ -98,7 +107,7 @@ class Install extends Command
 
         $defaultPassword = \randomKey();
         $loginPassword = $this->output->ask($this->input, "> 登录密码 默认自动生成({$defaultPassword})") ?: $defaultPassword;
-        $email = $this->output->ask($this->input, "> 用户邮箱 默认(SeratiMa@aliyun.com)") ?: 'SeratiMa@aliyun.com';
+        $email = $this->output->ask($this->input, '> 用户邮箱 默认(SeratiMa@aliyun.com)') ?: 'SeratiMa@aliyun.com';
 
         $this->output->info('====== 超级管理员信息 ======');
         $this->output->writeln("昵称: $nickname");
@@ -106,7 +115,7 @@ class Install extends Command
         $this->output->writeln("登录密码: $loginPassword");
         $this->output->writeln("邮箱地址: $email");
         $this->output->info('======================');
-        $this->output->writeln("");
+        $this->output->writeln('');
 
         $user['nickname'] = $nickname;
         $user['loginName'] = $loginName;
@@ -117,7 +126,7 @@ class Install extends Command
     }
 
     /**
-     * 生成 Env 文件
+     * 生成 Env 文件.
      *
      * @return void
      */
@@ -136,7 +145,7 @@ class Install extends Command
     }
 
     /**
-     * 执行安装
+     * 执行安装.
      *
      * @return void
      */
@@ -156,14 +165,14 @@ class Install extends Command
     }
 
     /**
-     * 连接数据库
+     * 连接数据库.
      *
      * @return void
      */
     protected function connectionDatabase()
     {
         try {
-            $conn = new \mysqli($this->connection['hostname'], $this->connection['username'], $this->connection['password'], '', (int)$this->connection['hostport']);
+            $conn = new \mysqli($this->connection['hostname'], $this->connection['username'], $this->connection['password'], '', (int) $this->connection['hostport']);
         } catch (\Exception $e) {
             throw new \Exception('连接数据库失败');
         }
@@ -173,7 +182,7 @@ class Install extends Command
     }
 
     /**
-     * 创建数据库
+     * 创建数据库.
      *
      * @return void
      */
@@ -190,7 +199,7 @@ class Install extends Command
     }
 
     /**
-     * 生成 JWT Token 私钥
+     * 生成 JWT Token 私钥.
      *
      * @return void
      */
@@ -201,7 +210,7 @@ class Install extends Command
     }
 
     /**
-     * 数据库迁移
+     * 数据库迁移.
      *
      * @return void
      */
@@ -213,13 +222,12 @@ class Install extends Command
     }
 
     /**
-     * 创建超级管理账号
+     * 创建超级管理账号.
      *
      * @return void
      */
     protected function createUser()
     {
-
         $default_password = $this->user['loginPassword'];
         $hash = \randomKey();
         $time = time();
@@ -252,7 +260,6 @@ class Install extends Command
                 unset($row['children']);
             }
 
-
             $this->conn->query(sprintf(
                 "INSERT INTO `%s`.`permission` (`name`, `title`, `pid`, `type`, `status`, `path`, `redirect`, `component`, `icon`, `permission`, `keepAlive`, `hidden`, `hideChildrenInMenu`)
                     VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
@@ -272,7 +279,7 @@ class Install extends Command
                 $row['hideChildrenInMenu']
             ));
 
-            if (!empty($children)) {
+            if (! empty($children)) {
                 $this->createPermission($children);
             }
         }
@@ -298,8 +305,7 @@ class Install extends Command
     {
         $depts = Data::Dept;
 
-        foreach($depts as $dept)
-        {
+        foreach ($depts as $dept) {
             $this->conn->query(sprintf(
                 "INSERT INTO `%s`.`dept` (`dept_name`, `dept_pid`, `dept_status`)
                     VALUES ('%s', '%s', '%s');",
@@ -308,7 +314,6 @@ class Install extends Command
                 $dept['dept_pid'],
                 1
             ));
-
         }
 
         $this->output->info('成功执行 创建部门');

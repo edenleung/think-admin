@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -34,6 +35,7 @@ class Permission extends BaseController
     public function list($pageSize, $pageNo)
     {
         $result = $this->service->list((int) $pageNo, (int) $pageSize);
+
         return $this->sendSuccess($result);
     }
 
@@ -44,7 +46,7 @@ class Permission extends BaseController
      */
     public function add(PermissionRequest $request)
     {
-        if (!$request->scene('create')->validate()) {
+        if (! $request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -63,7 +65,7 @@ class Permission extends BaseController
      */
     public function renew($id, PermissionRequest $request)
     {
-        if (!$request->scene('update')->validate()) {
+        if (! $request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 

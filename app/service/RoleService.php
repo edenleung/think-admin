@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
+
+/*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
  * @document https://www.kancloud.cn/manual/thinkphp6_0
@@ -56,6 +57,7 @@ class RoleService extends BaseService
         $roles = $category->getTree($data);
 
         $tree = $this->getSelectTree();
+
         return [
             'data' => $data,
             'tree' => $tree,
@@ -127,15 +129,18 @@ class RoleService extends BaseService
 
         if ($this->hasChildrenRole($role)) {
             $this->error = '请先删除子角色';
+
             return false;
         }
 
         if (count($role->users) > 0) {
             $this->error = '当前角色下存在使用中的用户，请为用户更换其它角色后，再执行删除操作';
+
             return false;
         }
 
         $role->removeAllPermission();
+
         return $role->delete();
     }
 
@@ -157,6 +162,7 @@ class RoleService extends BaseService
         $data = Role::where($map)->select()->toArray();
         $tree = $category->formatTree($data);
         $tree[0]['selectable'] = $user->isSuper();
+
         return $tree;
     }
 
@@ -196,6 +202,7 @@ class RoleService extends BaseService
     {
         $roles = Role::select();
         $category = new \Tant\Util\Category();
+
         return $category->getTree($roles, $role->id);
     }
 
