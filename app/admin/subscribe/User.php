@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace app\admin\subscribe;
 
-use app\admin\event\UserLogin as Event;
 use app\common\model\AccountLog;
+use app\admin\event\UserLogin as Event;
 
 class User
 {
