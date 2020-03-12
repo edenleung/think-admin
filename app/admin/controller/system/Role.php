@@ -17,8 +17,8 @@ namespace app\admin\controller\system;
 use app\BaseController;
 use app\admin\request\RoleRequest;
 use app\admin\service\DeptService;
-use app\admin\service\PermissionService;
 use app\admin\service\RoleService;
+use app\admin\service\PermissionService;
 
 class Role extends BaseController
 {

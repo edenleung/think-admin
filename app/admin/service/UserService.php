@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace app\admin\service;
 
 use app\BaseService;
-use app\admin\event\UserLogin;
-use app\common\model\Permission;
 use app\common\model\Role;
 use app\common\model\User;
+use app\admin\event\UserLogin;
+use app\common\model\Permission;
 
 class UserService extends BaseService
 {
