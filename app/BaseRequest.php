@@ -14,15 +14,7 @@ declare(strict_types=1);
 
 namespace app;
 
-<<<<<<< HEAD
-use think\Request;
-use think\Response;
-use think\Validate;
-use app\common\traits\Error;
-use think\exception\ValidateException;
-=======
 use Tant\Abstracts\AbstractRequest;
->>>>>>> upstream/6.0
 
 class BaseRequest extends AbstractRequest
 {
