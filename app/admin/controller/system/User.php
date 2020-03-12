@@ -18,10 +18,10 @@ use think\Request;
 use app\BaseController;
 use app\admin\request\UserRequest;
 use app\admin\service\DeptService;
-use app\admin\service\PermissionService;
 use app\admin\service\PostService;
 use app\admin\service\RoleService;
 use app\admin\service\UserService;
+use app\admin\service\PermissionService;
 
 class User extends BaseController
 {

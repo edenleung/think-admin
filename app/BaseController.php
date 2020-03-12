@@ -14,12 +14,12 @@ declare(strict_types=1);
 
 namespace app;
 
-use think\annotation\Inject;
 use think\App;
-use think\exception\ValidateException;
 use think\Request;
 use think\Response;
 use think\Validate;
+use think\annotation\Inject;
+use think\exception\ValidateException;
 
 abstract class BaseController
 {
