@@ -12,9 +12,9 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use app\admin\middleware\Permission;
 use think\facade\Route;
 use xiaodi\Middleware\Jwt;
+use app\admin\middleware\Permission;
 
 Route::get('/', function () {
     return 'Hello,ThinkPHP6!';

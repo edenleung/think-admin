@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace app;
 
-use Tant\DataScope\Scope;
 use think\Model;
+use Tant\DataScope\Scope;
 
 abstract class BaseModel extends Model
 {
