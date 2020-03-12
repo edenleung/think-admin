@@ -12,18 +12,14 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app;
+namespace Tant\Traits;
 
-<<<<<<< HEAD
-use think\Request;
-use think\Response;
-use think\Validate;
-use app\common\traits\Error;
-use think\exception\ValidateException;
-=======
-use Tant\Abstracts\AbstractRequest;
->>>>>>> upstream/6.0
-
-class BaseRequest extends AbstractRequest
+trait Error
 {
+    protected $error;
+
+    public function getError()
+    {
+        return $this->error;
+    }
 }

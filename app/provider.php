@@ -12,8 +12,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use app\ExceptionHandle;
 use app\Request;
+use app\ExceptionHandle;
 
 // 容器Provider定义文件
 return [

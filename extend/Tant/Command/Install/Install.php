@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Tant\Command\Install;
 
 use Tant\TAnt;
-use think\console\Command;
 use think\console\Input;
 use think\console\Output;
 use think\facade\Console;
+use think\console\Command;
 
 class Install extends Command
 {

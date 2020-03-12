@@ -325,7 +325,7 @@ class UserService extends BaseService
                             $actionEntity[] = [
                                 'action' => $action['name'],
                                 'describe' => $action['title'],
-                                'defaultCheck' => false
+                                'defaultCheck' => false,
                             ];
                             $permission['actionList'][] = $action['name'];
                         }
