@@ -12,10 +12,14 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app;
+namespace Tant\Traits;
 
-use Tant\Abstracts\AbstractService;
-
-class BaseService extends AbstractService
+trait Error
 {
+    protected $error;
+
+    public function getError()
+    {
+        return $this->error;
+    }
 }
