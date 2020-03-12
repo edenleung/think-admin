@@ -12,13 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\common\model;
 
-use app\BaseModel;
-use app\traits\Log;
+use think\model\Pivot;
 
-class Post extends BaseModel
+class RoleDeptAccess extends Pivot
 {
-    protected $pk = 'post_id';
-    use Log;
 }

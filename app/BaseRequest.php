@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace app;
 
-use app\traits\Error;
+use app\common\traits\Error;
 use think\exception\ValidateException;
 use think\Request;
 use think\Response;
@@ -93,7 +93,11 @@ abstract class BaseRequest extends Request
             }
 
             $data = $this->param();
-            $validate->rule($this->rule)->message($this->message)->batch($this->batch)->failException(true)->check($data);
+            $validate->rule($this->rule)
+                ->message($this->message)
+                ->batch($this->batch)
+                ->failException(true)
+                ->check($data);
         } catch (ValidateException $e) {
             $this->error = $e->getError();
 

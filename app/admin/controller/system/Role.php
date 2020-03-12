@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\admin\request\RoleRequest;
 use app\BaseController;
-use app\service\DeptService;
-use app\service\PermissionService;
-use app\service\RoleService;
+use app\admin\request\RoleRequest;
+use app\admin\service\DeptService;
+use app\admin\service\PermissionService;
+use app\admin\service\RoleService;
 
 class Role extends BaseController
 {

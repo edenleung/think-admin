@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\admin\request\DeptRequest;
 use app\BaseController;
-use app\service\DeptService;
+use app\admin\request\DeptRequest;
+use app\admin\service\DeptService;
 
 class Dept extends BaseController
 {

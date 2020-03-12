@@ -12,14 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\traits;
+namespace app\common\model;
 
-trait Error
+use think\model\Pivot;
+
+class UserPostAccess extends Pivot
 {
-    protected $error;
-
-    public function getError()
-    {
-        return $this->error;
-    }
 }

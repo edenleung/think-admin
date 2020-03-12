@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\admin\request\PermissionRequest;
 use app\BaseController;
-use app\service\PermissionService;
+use app\admin\request\PermissionRequest;
+use app\admin\service\PermissionService;
 
 class Permission extends BaseController
 {

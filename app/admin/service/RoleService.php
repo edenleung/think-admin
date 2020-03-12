@@ -12,12 +12,12 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\service;
+namespace app\admin\service;
 
 use app\BaseService;
-use app\model\Permission;
-use app\model\Role;
-use app\model\User;
+use app\common\model\Permission;
+use app\common\model\Role;
+use app\common\model\User;
 
 class RoleService extends BaseService
 {

@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\admin\request\PostRequest;
 use app\BaseController;
-use app\service\PostService;
+use app\admin\request\PostRequest;
+use app\admin\service\PostService;
 
 class Post extends BaseController
 {

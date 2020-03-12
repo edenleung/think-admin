@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\middleware;
 
-use app\model\User;
 use think\Request;
 use think\Response;
+use app\common\model\User;
 use xiaodi\Permission\Middleware\Permission as BasePermission;
 
 class Permission extends BasePermission

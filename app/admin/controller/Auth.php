@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use app\BaseController;
-use app\service\UserService;
 use think\Response;
 use xiaodi\Facade\Jwt;
+use app\BaseController;
+use app\admin\service\UserService;
 
 class Auth extends BaseController
 {

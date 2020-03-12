@@ -12,10 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\service;
+namespace app\admin\service;
 
 use app\BaseService;
-use app\model\Dept;
+use app\common\model\Dept;
 
 class DeptService extends BaseService
 {

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 return [
     'bind' => [
-        'UserLogin' => 'app\event\UserLogin',
+        'UserLogin' => 'app\admin\event\UserLogin',
     ],
 
     'listen' => [
@@ -26,6 +26,6 @@ return [
     ],
 
     'subscribe' => [
-        'app\subscribe\User',
+        'app\admin\subscribe\User',
     ],
 ];

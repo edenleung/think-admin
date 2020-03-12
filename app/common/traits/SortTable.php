@@ -12,10 +12,21 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\model;
+namespace app\common\traits;
 
-use think\model\Pivot;
-
-class RoleDeptAccess extends Pivot
+trait SortTable
 {
+    public $sortBy = 'createTime';
+
+    public $sortOrder = 'asc';
+
+    public function setSortBy($sortBy = 'createTime')
+    {
+        $this->sortBy = $sortBy;
+    }
+
+    public function setSortOrder($sortOrder = 'desc')
+    {
+        $this->sortOrder = $sortOrder;
+    }
 }

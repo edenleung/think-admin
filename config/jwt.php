@@ -25,7 +25,7 @@ return [
     'expiresAt'   => 3600,
     'signer'      => 'Lcobucci\JWT\Signer\Hmac\Sha256',
     'injectUser'  => true,
-    'userModel'   => \app\model\User::class,
+    'userModel'   => \app\common\model\User::class,
     'hasLogged'   => 50401,
     'tokenAlready' => 50402,
 ];

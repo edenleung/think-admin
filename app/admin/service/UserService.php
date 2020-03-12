@@ -12,13 +12,13 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\service;
+namespace app\admin\service;
 
 use app\BaseService;
-use app\event\UserLogin;
-use app\model\Permission;
-use app\model\Role;
-use app\model\User;
+use app\admin\event\UserLogin;
+use app\common\model\Permission;
+use app\common\model\Role;
+use app\common\model\User;
 
 class UserService extends BaseService
 {
@@ -141,7 +141,14 @@ class UserService extends BaseService
         }
 
         $total = $this->model->alias('u')->where($map)->scope('dataAccess', 'u')->count();
-        $users = $this->model->alias('u')->where($map)->scope('dataAccess', 'u')->limit($pageSize)->page($pageNo)->join('dept d', 'd.dept_id=u.dept_id')->field('u.*,d.dept_name')->select();
+        $users = $this->model->alias('u')
+            ->where($map)
+            ->scope('dataAccess', 'u')
+            ->limit($pageSize)
+            ->page($pageNo)
+            ->join('dept d', 'd.dept_id=u.dept_id')
+            ->field('u.*,d.dept_name')
+            ->select();
 
         foreach ($users as $user) {
             $user->posts = $user->posts->column('postId');
@@ -315,7 +322,11 @@ class UserService extends BaseService
                     foreach ($menu['children'] as $action) {
                         if ($action['type'] === 'action' && $user->can($action['name'])) {
                             $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
-                            $actionEntity[] = ['action' => $action['name'], 'describe' => $action['title'], 'defaultCheck' => false];
+                            $actionEntity[] = [
+                                'action' => $action['name'],
+                                'describe' => $action['title'],
+                                'defaultCheck' => false
+                            ];
                             $permission['actionList'][] = $action['name'];
                         }
                     }
