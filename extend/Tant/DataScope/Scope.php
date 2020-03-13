@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Tant\DataScope;
 
-use app\model\Dept;
-use app\model\User;
+use app\common\model\Dept;
+use app\common\model\User;
 
 class Scope
 {
