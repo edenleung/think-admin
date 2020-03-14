@@ -19,18 +19,18 @@ use app\BaseRequest;
 class PostRequest extends BaseRequest
 {
     protected $rule = [
-        'postName' => 'require',
-        'postCode' => 'require|unique:post',
+        'post_name' => 'require',
+        'post_code' => 'require|unique:post',
     ];
 
     protected $message = [
-        'postName.require' => '名称必须',
-        'postCode.require' => '标识必须',
-        'postCode.unique' => '标识重复',
+        'post_name.require' => '名称必须',
+        'post_code.require' => '标识必须',
+        'post_code.unique' => '标识重复',
     ];
 
     protected $scene = [
-        'create' => ['postName', 'postCode'],
-        'update' => ['postCode'],
+        'create' => ['post_name', 'post_code'],
+        'update' => ['post_code'],
     ];
 }
