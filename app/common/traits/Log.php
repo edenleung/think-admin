@@ -39,6 +39,7 @@ trait Log
     public static function onAfterUpdate(Model $model)
     {
         DataBaseLog::create([
+            'user_id' => request()->user->id,
             'model' => $model->getName(),
             'url' => request()->url(),
             'action' => 'update',
@@ -52,6 +53,7 @@ trait Log
     public static function onAfterDelete(Model $model)
     {
         DataBaseLog::create([
+            'user_id' => request()->user->id,
             'model' => $model->getName(),
             'url' => request()->url(),
             'action' => 'delete',
