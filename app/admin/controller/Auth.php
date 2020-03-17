@@ -52,7 +52,7 @@ class Auth extends BaseController
         $token = Jwt::parse($token);
 
         return $this->sendSuccess([
-            'token' => Jwt::refresh($token),
+            'token' => (string) Jwt::refresh($token),
             'token_type' => Jwt::type(),
             'expires_in' => Jwt::ttl(),
         ]);
