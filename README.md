@@ -20,24 +20,18 @@ QQ 群 `996887666` 暗号 `Tant`
 没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
 
 ## 安装
-### 测试版本
-```sh
-composer create-project xiaodi/tant
-```
-
-### 开发版本
-- 拉取最新源码
-```sh
+根据情况选取适合自己版本，安装后端项目
+```bash
+# 最新源码
 git clone https://github.com/edenleung/think-admin.git
-```
 
-- 依赖安装
-```sh
-composer i
-```
+# 稳定版
+composer create-project xiaodi/tant
 
-在终端执行以下命令进行安装
-```
+# 安装依赖
+cd think-admin && composer install
+
+# 执行安装
 php think tant:install
 ```
 
