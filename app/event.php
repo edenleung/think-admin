@@ -18,9 +18,9 @@ return [
     ],
 
     'listen' => [
-        'AppInit' => [],
-        'HttpRun' => [],
-        'HttpEnd' => [],
+        'AppInit'  => [],
+        'HttpRun'  => [],
+        'HttpEnd'  => [],
         'LogLevel' => [],
         'LogWrite' => [],
     ],

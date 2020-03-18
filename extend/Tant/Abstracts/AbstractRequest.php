@@ -53,6 +53,7 @@ abstract class AbstractRequest extends Request
      * 指定场景验证
      *
      * @param string $scene
+     *
      * @return $this
      */
     public function scene($scene)
@@ -66,6 +67,7 @@ abstract class AbstractRequest extends Request
      * 批量验证
      *
      * @param [type] $batch
+     *
      * @return $this
      */
     public function batch($batch)

@@ -45,7 +45,7 @@ class Category
         $field = $this->field;
         foreach ($data as $item) {
             $children = $this->getChild($item[$field['id']], $data);
-            if (! empty($chilren)) {
+            if (!empty($chilren)) {
                 $this->getChildTree($children);
                 $item['children'] = $children;
             }
@@ -103,10 +103,10 @@ class Category
     /**
      * 格式化.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $child_key
-     * @param int $pid
-     * @param mixed $id
+     * @param int    $pid
+     * @param mixed  $id
      */
     public function formatTree($data, $child_key = 'children', $id = 0)
     {
@@ -131,7 +131,7 @@ class Category
         //下级分类的数组
         $childs = $this->getChild($id);
         //如果没下级分类，结束递归
-        if (! ($n = count($childs))) {
+        if (!($n = count($childs))) {
             return;
         }
         $cnt = 1;

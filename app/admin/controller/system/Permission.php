@@ -30,6 +30,7 @@ class Permission extends BaseController
      *
      * @param [type] $pageSize
      * @param [type] $pageNo
+     *
      * @return \think\Response
      */
     public function list($pageSize, $pageNo)
@@ -46,7 +47,7 @@ class Permission extends BaseController
      */
     public function add(PermissionRequest $request)
     {
-        if (! $request->scene('create')->validate()) {
+        if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -61,11 +62,12 @@ class Permission extends BaseController
      * 更新规则.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function renew($id, PermissionRequest $request)
     {
-        if (! $request->scene('update')->validate()) {
+        if (!$request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -80,6 +82,7 @@ class Permission extends BaseController
      * 删除规则.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function remove($id)

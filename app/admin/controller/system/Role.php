@@ -40,6 +40,7 @@ class Role extends BaseController
      *
      * @param mixed $pageNo
      * @param mixed $pageSize
+     *
      * @return \think\Response
      */
     public function list($pageNo = 1, $pageSize = 10)
@@ -54,11 +55,12 @@ class Role extends BaseController
 
     /**
      * 添加角色.
+     *
      * @return \think\Response
      */
     public function add(RoleRequest $request)
     {
-        if (! $request->scene('create')->validate()) {
+        if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -73,11 +75,12 @@ class Role extends BaseController
      * 更新角色.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, RoleRequest $request)
     {
-        if (! $request->scene('update')->validate()) {
+        if (!$request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -92,6 +95,7 @@ class Role extends BaseController
      * 删除角色.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)
@@ -107,6 +111,7 @@ class Role extends BaseController
      * 更新角色数据权限.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function mode($id)

@@ -53,7 +53,7 @@ abstract class AbstractModel extends Model
      * 添加一条记录.
      *
      * @param [type] $paginate
-     * @param mixed $input
+     * @param mixed  $input
      */
     public function add($input)
     {

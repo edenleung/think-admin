@@ -21,7 +21,8 @@ use xiaodi\Permission\Contract\UserContract;
 
 class User extends BaseModel implements UserContract
 {
-    use Log, \xiaodi\Permission\Traits\User;
+    use Log;
+    use \xiaodi\Permission\Traits\User;
 
     /**
      * 获取用户所有岗位.

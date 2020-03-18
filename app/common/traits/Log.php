@@ -26,10 +26,10 @@ trait Log
     {
         DataBaseLog::create([
             'user_id' => request()->user->id,
-            'model' => $model->getName(),
-            'url' => request()->url(),
-            'action' => 'insert',
-            'sql' => $model->getLastSql(),
+            'model'   => $model->getName(),
+            'url'     => request()->url(),
+            'action'  => 'insert',
+            'sql'     => $model->getLastSql(),
         ]);
     }
 
@@ -40,10 +40,10 @@ trait Log
     {
         DataBaseLog::create([
             'user_id' => request()->user->id,
-            'model' => $model->getName(),
-            'url' => request()->url(),
-            'action' => 'update',
-            'sql' => $model->getLastSql(),
+            'model'   => $model->getName(),
+            'url'     => request()->url(),
+            'action'  => 'update',
+            'sql'     => $model->getLastSql(),
         ]);
     }
 
@@ -54,10 +54,10 @@ trait Log
     {
         DataBaseLog::create([
             'user_id' => request()->user->id,
-            'model' => $model->getName(),
-            'url' => request()->url(),
-            'action' => 'delete',
-            'sql' => $model->getLastSql(),
+            'model'   => $model->getName(),
+            'url'     => request()->url(),
+            'action'  => 'delete',
+            'sql'     => $model->getLastSql(),
         ]);
     }
 }

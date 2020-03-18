@@ -45,7 +45,7 @@ class Post extends BaseController
      */
     public function add(PostRequest $request)
     {
-        if (! $request->scene('create')->validate()) {
+        if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -60,11 +60,12 @@ class Post extends BaseController
      * 更新岗位.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, PostRequest $request)
     {
-        if (! $request->scene('update')->validate()) {
+        if (!$request->scene('update')->validate()) {
             return $this->sendError($request->getError());
         }
 
@@ -79,6 +80,7 @@ class Post extends BaseController
      * 删除岗位.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)

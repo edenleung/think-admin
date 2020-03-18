@@ -39,11 +39,11 @@ class PermissionService extends BaseService
         $data = $this->formatTreeAction($data);
 
         return [
-            'data' => $data,
-            'tree' => $this->getTree(),
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($data),
+            'data'       => $data,
+            'tree'       => $this->getTree(),
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($data),
             'totalCount' => $total,
         ];
     }
@@ -53,7 +53,7 @@ class PermissionService extends BaseService
      */
     public function add(array $data)
     {
-        if (! empty($data['permission'])) {
+        if (!empty($data['permission'])) {
             $data['permission'] = implode(',', $data['permission']);
         }
 
@@ -69,7 +69,7 @@ class PermissionService extends BaseService
     {
         $rule = $this->model->find($id);
 
-        if (! empty($input['permission'])) {
+        if (!empty($input['permission'])) {
             $input['permission'] = implode(',', $input['permission']);
         } else {
             $input['permission'] = '';
@@ -131,6 +131,7 @@ class PermissionService extends BaseService
      * 递归菜单下的操作.
      *
      * @param [type] $data
+     *
      * @return array
      */
     protected function formatTreeAction($data)
@@ -140,7 +141,7 @@ class PermissionService extends BaseService
                 $item->actions = $this->getActions($item);
             }
 
-            if (! empty($item['children'])) {
+            if (!empty($item['children'])) {
                 $this->formatTreeAction($item['children']);
             }
         }

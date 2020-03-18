@@ -18,19 +18,19 @@ return [
 
     // 用户模型
     'user' => [
-        'model' => \app\common\model\User::class,
+        'model'       => \app\common\model\User::class,
         'froeign_key' => 'user_id',
     ],
 
     // 规则模型
     'permission' => [
-        'model' => \app\common\model\Permission::class,
+        'model'       => \app\common\model\Permission::class,
         'froeign_key' => 'permission_id',
     ],
 
     // 角色模型
     'role' => [
-        'model' => \app\common\model\Role::class,
+        'model'       => \app\common\model\Role::class,
         'froeign_key' => 'role_id',
     ],
 

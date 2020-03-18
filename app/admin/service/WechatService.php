@@ -32,11 +32,11 @@ class WechatService extends \think\Service
     {
         $apps = [
             'official_account' => OfficialAccount::class,
-            'work' => Work::class,
-            'mini_program' => MiniProgram::class,
-            'payment' => Payment::class,
-            'open_platform' => OpenPlatform::class,
-            'open_work' => OpenWork::class,
+            'work'             => Work::class,
+            'mini_program'     => MiniProgram::class,
+            'payment'          => Payment::class,
+            'open_platform'    => OpenPlatform::class,
+            'open_work'        => OpenWork::class,
         ];
 
         foreach ($apps as $name => $class) {

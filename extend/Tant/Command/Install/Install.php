@@ -279,7 +279,7 @@ class Install extends Command
                 $row['hideChildrenInMenu']
             ));
 
-            if (! empty($children)) {
+            if (!empty($children)) {
                 $this->createPermission($children);
             }
         }

@@ -36,16 +36,17 @@ class DataBaseLogService extends BaseService
             ->select();
 
         return [
-            'data' => $logs,
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($logs),
+            'data'       => $logs,
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($logs),
             'totalCount' => $total,
         ];
     }
 
     /**
      * 删除日志.
+     *
      * @param mixed $id
      */
     public function remove($id)
