@@ -33,6 +33,6 @@ class PermissionRequest extends BaseRequest
 
     protected $scene = [
         'create' => ['name', 'title', 'pid'],
-        'update' => ['name', 'title', 'pid'],
+        'update' => ['title', 'pid'],
     ];
 }
