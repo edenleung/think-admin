@@ -21,7 +21,8 @@ use xiaodi\Permission\Contract\RoleContract;
 
 class Role extends BaseModel implements RoleContract
 {
-    use Log, \xiaodi\Permission\Traits\Role;
+    use Log;
+    use \xiaodi\Permission\Traits\Role;
 
     /**
      * 获取角色下部门.

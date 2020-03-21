@@ -28,6 +28,7 @@ class Dept extends BaseController
 
     /**
      * 部门列表.
+     *
      * @return \think\Response
      */
     public function list()
@@ -35,25 +36,26 @@ class Dept extends BaseController
         $data = $this->service->getTree();
 
         return $this->sendSuccess([
-            'data' => $data,
-            'pageSize' => 10,
-            'pageNo' => 1,
-            'totalPage' => 1,
+            'data'       => $data,
+            'pageSize'   => 10,
+            'pageNo'     => 1,
+            'totalPage'  => 1,
             'totalCount' => count($data),
         ]);
     }
 
     /**
      * 添加部门.
+     *
      * @return \think\Response
      */
     public function add(DeptRequest $request)
     {
-        if (! $request->validate()) {
+        if (!$request->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if (! $this->service->add($request->param())) {
+        if (!$this->service->add($request->param())) {
             return $this->sendError($this->service->getError());
         }
 
@@ -64,15 +66,16 @@ class Dept extends BaseController
      * 更新部门.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function update($id, DeptRequest $request)
     {
-        if (! $request->validate()) {
+        if (!$request->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if (! $this->service->renew($id, $request->param())) {
+        if (!$this->service->renew($id, $request->param())) {
             return $this->sendError($this->service->getError());
         }
 
@@ -83,6 +86,7 @@ class Dept extends BaseController
      * 删除部门.
      *
      * @param [type] $id
+     *
      * @return \think\Response
      */
     public function delete($id)

@@ -32,10 +32,10 @@ class PostService extends BaseService
         $data = $this->model->order('post_sort desc')->select();
 
         return [
-            'data' => $data,
-            'pageSize' => 10,
-            'pageNo' => 1,
-            'totalPage' => 1,
+            'data'       => $data,
+            'pageSize'   => 10,
+            'pageNo'     => 1,
+            'totalPage'  => 1,
             'totalCount' => count($data),
         ];
     }

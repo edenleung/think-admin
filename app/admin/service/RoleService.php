@@ -39,7 +39,7 @@ class RoleService extends BaseService
         if ($user->isSuper() === false) {
             $childrenRoleIds = $this->getChildrenRoleIds($user);
 
-            if (! empty($childrenRoleIds)) {
+            if (!empty($childrenRoleIds)) {
                 $map[] = ['id', 'in', $childrenRoleIds];
             }
         }
@@ -59,10 +59,10 @@ class RoleService extends BaseService
         $tree = $this->getSelectTree();
 
         return [
-            'data' => $data,
-            'tree' => $tree,
+            'data'     => $data,
+            'tree'     => $tree,
             'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
+            'pageNo'   => $pageNo,
             // 'totalPage' => count($roles),
             'totalCount' => $total,
         ];
@@ -78,7 +78,7 @@ class RoleService extends BaseService
         $this->model->save($data);
 
         // 绑定关系
-        if (! empty($data['rules'])) {
+        if (!empty($data['rules'])) {
             $this->assignPermissions($this->model, $data['rules']);
         }
 
@@ -89,6 +89,7 @@ class RoleService extends BaseService
      * 更新角色.
      *
      * @param int $id
+     *
      * @return bool
      */
     public function renew($id, array $input)
@@ -104,7 +105,7 @@ class RoleService extends BaseService
         $role->removeAllPermission();
 
         // 绑定关系
-        if (! empty($input['rules'])) {
+        if (!empty($input['rules'])) {
             $this->assignPermissions($role, $input['rules']);
 
             // 如当前角色有删除一些权限并且有子角色时，子角色也一并删除权限
@@ -118,6 +119,7 @@ class RoleService extends BaseService
      * 删除角色.
      *
      * @param mixed $id
+     *
      * @return bool
      */
     public function remove($id)
@@ -154,7 +156,7 @@ class RoleService extends BaseService
         if ($user->isSuper() === false) {
             $childrenRoleIds = $this->getChildrenRoleIds($user);
 
-            if (! empty($childrenRoleIds)) {
+            if (!empty($childrenRoleIds)) {
                 $map[] = ['id', 'in', $childrenRoleIds];
             }
         }
@@ -180,7 +182,7 @@ class RoleService extends BaseService
         if ($user->isSuper() === false) {
             $childrenRoleIds = $this->getChildrenRoleIds($user);
 
-            if (! empty($childrenRoleIds)) {
+            if (!empty($childrenRoleIds)) {
                 $map[] = ['id', 'in', $childrenRoleIds];
             }
         }
@@ -218,7 +220,7 @@ class RoleService extends BaseService
         $category = new \Tant\Util\Category();
         $children = $category->getChild($role->id, $roles);
 
-        return ! empty($children);
+        return !empty($children);
     }
 
     /**
@@ -251,7 +253,7 @@ class RoleService extends BaseService
         // 自定义数据权限
         if ($mode === 2) {
             $depts = $data['deptIds'];
-            if (! empty($depts)) {
+            if (!empty($depts)) {
                 $role->depts()->attach($depts);
             }
         }
@@ -273,7 +275,7 @@ class RoleService extends BaseService
 
         foreach ($user->roles as $role) {
             $roles = array_column($category->getTree($all, $role->id), 'id');
-            if (! empty($roles)) {
+            if (!empty($roles)) {
                 $ids = array_merge($ids, $roles);
             }
         }
@@ -289,7 +291,7 @@ class RoleService extends BaseService
         // 对比差异 获取子角色要删除的权限
         $delete_rules = array_diff($role->permissions->column('id'), $rules);
 
-        if (! empty($delete_rules)) {
+        if (!empty($delete_rules)) {
             $permissions = Permission::whereIn('id', $delete_rules)->select();
 
             $roles = $this->childrenRole($role);

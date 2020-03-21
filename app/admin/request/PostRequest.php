@@ -26,7 +26,7 @@ class PostRequest extends BaseRequest
     protected $message = [
         'post_name.require' => '名称必须',
         'post_code.require' => '标识必须',
-        'post_code.unique' => '标识重复',
+        'post_code.unique'  => '标识重复',
     ];
 
     protected $scene = [

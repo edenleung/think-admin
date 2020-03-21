@@ -38,7 +38,7 @@ class Scope
     {
         $user = request()->user;
         $sql = '';
-        if (! $user->isSuper()) {
+        if (!$user->isSuper()) {
             // 非超级管理员 则进行数据过滤
             $sql = $this->dataScopeFilter($tableAlias, $user);
         }
@@ -70,7 +70,7 @@ class Scope
                 $data = Dept::select()->toArray();
                 $category = new \Tant\Util\Category(['dept_id', 'dept_pid', 'dept_name', 'cname']);
                 $children = array_column($category->getTree($data, $role->dept_id), 'dept_id');
-                if (! empty($children)) {
+                if (!empty($children)) {
                     $depts = array_merge($depts, $children);
                 }
 

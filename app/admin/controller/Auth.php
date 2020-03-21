@@ -45,6 +45,7 @@ class Auth extends BaseController
      * 刷新Token.
      *
      * @param string $token
+     *
      * @return Response
      */
     public function refreshToken($token)
@@ -52,7 +53,7 @@ class Auth extends BaseController
         $token = Jwt::parse($token);
 
         return $this->sendSuccess([
-            'token' => (string) Jwt::refresh($token),
+            'token'      => (string) Jwt::refresh($token),
             'token_type' => Jwt::type(),
             'expires_in' => Jwt::ttl(),
         ]);

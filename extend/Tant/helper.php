@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-if (! function_exists('randomKey')) {
+if (!function_exists('randomKey')) {
     /**
      * 随机生成指定长度字符串.
      *

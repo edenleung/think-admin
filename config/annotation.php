@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 return [
     'inject' => [
-        'enable' => true,
+        'enable'     => true,
         'namespaces' => [],
     ],
     'route' => [
-        'enable' => true,
+        'enable'      => true,
         'controllers' => [],
     ],
     'ignore' => [],

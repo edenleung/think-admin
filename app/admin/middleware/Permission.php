@@ -25,11 +25,11 @@ class Permission extends BasePermission
      * 重写 handle.
      *
      * @param Request $request
-     * @param [type] $permission
+     * @param [type]  $permission
      */
     public function handle($request, \Closure $next, $permission)
     {
-        if (! $request->user) {
+        if (!$request->user) {
             return $this->handleNotLoggedIn($request);
         }
 

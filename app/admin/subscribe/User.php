@@ -27,10 +27,10 @@ class User
     public function onUserLogin(Event $event)
     {
         AccountLog::create([
-            'user_id' => $event->user->id,
-            'action' => '登录',
-            'url' => request()->url(),
-            'ip' => request()->ip(),
+            'user_id'    => $event->user->id,
+            'action'     => '登录',
+            'url'        => request()->url(),
+            'ip'         => request()->ip(),
             'user_agent' => request()->header('USER_AGENT'),
         ]);
     }

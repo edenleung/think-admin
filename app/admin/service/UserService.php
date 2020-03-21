@@ -44,7 +44,7 @@ class UserService extends BaseService
             return false;
         }
 
-        if (! $this->verifyPassword($user, $password)) {
+        if (!$this->verifyPassword($user, $password)) {
             return false;
         }
 
@@ -102,6 +102,7 @@ class UserService extends BaseService
      * 路由列表.
      *
      * @param array $data
+     *
      * @return array
      */
     public function formatRoute($data)
@@ -121,7 +122,7 @@ class UserService extends BaseService
             $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
             $item['hidden'] === 1 && $route['hidden'] = true;
 
-            if (! empty($item['children'])) {
+            if (!empty($item['children'])) {
                 $route['children'] = $this->formatRoute($item['children']);
             }
             $routes[] = $route;
@@ -156,10 +157,10 @@ class UserService extends BaseService
         }
 
         return [
-            'data' => $users,
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($users),
+            'data'       => $users,
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($users),
             'totalCount' => $total,
         ];
     }
@@ -173,18 +174,18 @@ class UserService extends BaseService
     {
         $hash = randomKey();
         $user = User::create([
-            'name' => $input['name'],
+            'name'     => $input['name'],
             'nickname' => $input['nickname'],
-            'status' => $input['status'],
-            'dept_id' => $input['dept_id'],
-            'hash' => $hash,
+            'status'   => $input['status'],
+            'dept_id'  => $input['dept_id'],
+            'hash'     => $hash,
             'password' => $this->makePassword($input['password'], $hash),
         ]);
 
         //绑定角色
         $this->bindRole($user, $input['roles']);
 
-        if (! empty($input['posts'])) {
+        if (!empty($input['posts'])) {
             //绑定岗位
             $this->bindPost($user, $input['posts']);
         }
@@ -195,7 +196,7 @@ class UserService extends BaseService
     /**
      * 更新角色.
      *
-     * @param int $id
+     * @param int   $id
      * @param array $data
      */
     public function renew($id, array $input)
@@ -210,21 +211,21 @@ class UserService extends BaseService
         }
 
         $user->save([
-            'name' => $input['name'],
+            'name'     => $input['name'],
             'nickname' => $input['nickname'],
-            'dept_id' => $input['dept_id'],
-            'status' => $input['status'],
+            'dept_id'  => $input['dept_id'],
+            'status'   => $input['status'],
         ]);
 
         // 解除所有已绑定角色
         $user->removeAllRole();
 
         // 重新绑定角色
-        if (! empty($input['roles'])) {
+        if (!empty($input['roles'])) {
             $this->bindRole($user, $input['roles']);
         }
 
-        if (! empty($input['posts'])) {
+        if (!empty($input['posts'])) {
             $this->removeAllPost($user);
             //绑定岗位
             $this->bindPost($user, $input['posts']);
@@ -235,6 +236,7 @@ class UserService extends BaseService
      * 删除用户.
      *
      * @param [type] $id
+     *
      * @return bool
      */
     public function remove($id)
@@ -290,7 +292,7 @@ class UserService extends BaseService
      */
     public function resetPassword(User $user, string $oldPassword, string $newPassword)
     {
-        if (! $this->verifyPassword($user, $oldPassword)) {
+        if (!$this->verifyPassword($user, $oldPassword)) {
             $this->error = '原密码不正确';
 
             return false;
@@ -306,7 +308,7 @@ class UserService extends BaseService
      * 过滤用户可操作按钮跟查看权限.
      *
      * @param array $data
-     * @param User $user
+     * @param User  $user
      */
     protected function filterPermissionMenu($data, $user)
     {
@@ -318,13 +320,13 @@ class UserService extends BaseService
                 $permission['actionList'] = [];
                 $permission['dataAccess'] = null;
                 $actionEntity = [];
-                if (! empty($menu['children'])) {
+                if (!empty($menu['children'])) {
                     foreach ($menu['children'] as $action) {
                         if ($action['type'] === 'action' && $user->can($action['name'])) {
                             $permission['actions'][] = ['action' => $action['name'], 'describe' => $action['title']];
                             $actionEntity[] = [
-                                'action' => $action['name'],
-                                'describe' => $action['title'],
+                                'action'       => $action['name'],
+                                'describe'     => $action['title'],
                                 'defaultCheck' => false,
                             ];
                             $permission['actionList'][] = $action['name'];
@@ -334,12 +336,12 @@ class UserService extends BaseService
 
                 $permission['actionEntitySet'] = $actionEntity;
 
-                if (! empty($actionEntity)) {
+                if (!empty($actionEntity)) {
                     $permissions[] = $permission;
                 }
             }
 
-            if (! empty($menu['children'])) {
+            if (!empty($menu['children'])) {
                 $permissions = array_merge($permissions, $this->filterPermissionMenu($menu['children'], $user));
             }
         }
