@@ -24,7 +24,7 @@
         "xiaodi/think-whoops": "1.1.*",
         "xiaodi/think-jwt": "0.8.*",
         "topthink/think-migration": "^3.0",
-        "topthink/think-multi-app": "1.0.11",
+        "topthink/think-multi-app": "^1.0",
         "overtrue/wechat": "~4.0",
         "xiaodi/think-permission": "v0.6.1"
     },

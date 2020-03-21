@@ -13,7 +13,7 @@ declare(strict_types=1);
  */
 
 use think\facade\Route;
-use xiaodi\Middleware\Jwt;
+use xiaodi\JWTAuth\Middleware\Jwt;
 use app\admin\middleware\Permission;
 
 Route::get('/', function () {
