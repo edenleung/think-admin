@@ -13,7 +13,7 @@
 return [
     'default' => [
         'uniqidKey'    => 'uid',
-        'signerKey'    => '',
+        'signerKey'    => 'RvAjzUhtJs',
         'notBefore'    => 0,
         'expiresAt'    => 3600,
         'refreshTTL'   => 7200,
