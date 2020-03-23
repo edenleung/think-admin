@@ -22,6 +22,7 @@ use think\console\Command;
 
 class Install extends Command
 {
+    private $conn;
     private $user;
     private $connection;
 

@@ -41,7 +41,7 @@ class Data
                         [
                             'name'     => 'Permission', 'title' => '菜单管理', 'pid' => 7, 'status' => 1, 'type' => 'menu', 'path' => '/system/permission', 'redirect' => '', 'component' => 'Permission', 'icon' => '', 'permission' => 'Permission', 'keepAlive' => 0,  'hidden' => 0, 'hideChildrenInMenu' => 0,
                             'children' => [
-                                ['name' => 'PermissionGet', 'title' => '详情', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
+                                ['name' => 'PermissionGet', 'title' => '详情', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                 ['name' => 'PermissionAdd', 'title' => '添加', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                 ['name' => 'PermissionUpdate', 'title' => '更新', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                 ['name' => 'PermissionDelete', 'title' => '删除', 'pid' => 8, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
@@ -72,7 +72,7 @@ class Data
                                 ['name' => 'DeptAdd', 'title' => '添加', 'pid' => 23, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                 ['name' => 'DeptUpdate', 'title' => '更新', 'pid' => 23, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                 ['name' => 'DeptDelete', 'title' => '删除', 'pid' => 23, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
-                            ], 'hidden' => 0,
+                            ],
                         ],
                         [
                             'name'     => 'Post', 'title' => '岗位管理', 'status' => 1, 'pid' => 7, 'type' => 'menu', 'path' => '/system/post', 'redirect' => '', 'component' => 'Post', 'icon' => '', 'permission' => 'Post', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0,
@@ -98,8 +98,8 @@ class Data
                         [
                             'name'     => 'LogDb', 'title' => '数据库日志', 'pid' => 33, 'status' => 1, 'type' => 'menu', 'path' => '/log/db', 'redirect' => '', 'component' => 'LogDb', 'icon' => '', 'permission' => 'LogDb', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0,
                             'children' => [
-                                ['name' => 'LogDbGet', 'title' => '详情', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
-                                ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
+                                ['name' => 'LogDbGet', 'title' => '详情', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
+                                ['name' => 'LogDbDelete', 'title' => '删除', 'pid' => 37, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                             ],
                         ],
                     ],
