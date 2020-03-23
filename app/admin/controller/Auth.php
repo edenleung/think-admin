@@ -49,11 +49,9 @@ class Auth extends BaseController
     /**
      * 刷新Token.
      *
-     * @param string $token
-     *
      * @return Response
      */
-    public function refreshToken($token)
+    public function refreshToken()
     {
         return $this->sendSuccess([
             'token'      => (string) Jwt::refresh(),
@@ -65,10 +63,13 @@ class Auth extends BaseController
 
     /**
      * 退出登录.
+     *
+     * @return Response
      */
     public function logout()
     {
-        // TODO
+        Jwt::logout();
+        
         return $this->sendSuccess();
     }
 }
