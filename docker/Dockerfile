@@ -9,7 +9,7 @@ RUN apk upgrade --update \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /var/cache/apk/*
 
-COPY ../ /var/www/html
+COPY . /var/www/html
 
 RUN mv .env.example .env
 RUN chmod -R 775 public/storage
