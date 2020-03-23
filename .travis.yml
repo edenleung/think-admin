@@ -24,8 +24,8 @@ before_deploy:
   - chmod -R 777 runtime
   - docker build -t xiaodi93/ant-design-admin:latest ./docker
   - docker push xiaodi93/ant-design-admin:latest
-  - scp -i ~/.ssh/travis deploy.yml root@47.56.158.125:server/tant_admin_deploy.yml
-  - ssh -i ~/.ssh/travis root@47.56.158.125 "docker stack deploy -c server/tant_admin_deploy.yml tant_admin"
+  #- scp -i ~/.ssh/travis deploy.yml root@47.56.158.125:server/tant_admin_deploy.yml
+  #- ssh -i ~/.ssh/travis root@47.56.158.125 "docker stack deploy -c server/tant_admin_deploy.yml tant_admin"
 addons:
   ssh_known_hosts: 47.56.158.125
 deploy:
