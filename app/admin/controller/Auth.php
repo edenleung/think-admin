@@ -69,7 +69,7 @@ class Auth extends BaseController
     public function logout()
     {
         Jwt::logout();
-        
+
         return $this->sendSuccess();
     }
 }
