@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ant-design-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ant-design-admin
+  template:
+    metadata:
+      labels:
+        app: ant-design-admin
+    spec:
+      containers:
+      - image: xiaodi93/ant-design-admin
+        name: ant-design-admin
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ant-design-admin
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: "ant-design-admin"
+    port: 8000
+  selector:
+    app: ant-design-admin
