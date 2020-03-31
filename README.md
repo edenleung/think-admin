@@ -4,6 +4,10 @@
 
 ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
+预览地址: 
+ * https://preview.wfunc.com
+ * https://ant-design-vue-edenleung.cloud.okteto.net
+
 **目前为止，它还是一个开发版本**
 
 前端: 
@@ -18,6 +22,8 @@ QQ 群 `996887666` 暗号 `Tant`
 [最新版本](https://github.com/edenleung/think-admin/releases/latest)
 
 没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
+
+服务器提供：[okteto](https://okteto.com)
 
 ## 安装
 根据情况选取适合自己版本，安装后端项目
