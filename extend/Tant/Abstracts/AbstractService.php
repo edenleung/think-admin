@@ -15,12 +15,19 @@ declare(strict_types=1);
 namespace Tant\Abstracts;
 
 use Tant\Traits\Error;
+use think\Model;
+use think\Facade\Db;
 
 abstract class AbstractService
 {
     use Error;
 
     public $model;
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
 
     public function all()
     {
@@ -50,5 +57,10 @@ abstract class AbstractService
     public function remove($id)
     {
         return $this->model->remove($id);
+    }
+
+    public function transaction ($callback)
+    {
+        Db::transaction($callback);
     }
 }
