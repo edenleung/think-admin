@@ -119,7 +119,7 @@ class Data
                                     ],
                                 ],
                                 [
-                                    'name'     => 'SecuritySettings', 'title' => '安全设置', 'pid' => 42, 'status' => 1, 'type' => 'menu', 'path' => '', 'redirect' => '', 'component' => 'SecuritySettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0,
+                                    'name'     => 'SecuritySettings', 'title' => '安全设置', 'pid' => 42, 'status' => 1, 'type' => 'menu', 'path' => '/account/settings/security', 'redirect' => '', 'component' => 'SecuritySettings', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0,
                                     'children' => [
                                         ['name' => 'UpdateSecurityPassword', 'title' => '更新密码', 'pid' => 46, 'status' => 1, 'type' => 'action', 'path' => '', 'redirect' => '', 'component' => '', 'icon' => '', 'permission' => '', 'keepAlive' => 0, 'hidden' => 0, 'hideChildrenInMenu' => 0],
                                     ],
