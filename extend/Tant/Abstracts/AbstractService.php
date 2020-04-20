@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Tant\Abstracts;
 
-use Tant\Traits\Error;
 use think\Model;
 use think\facade\Db;
+use Tant\Traits\Error;
 
 abstract class AbstractService
 {
@@ -59,7 +59,7 @@ abstract class AbstractService
         return $this->model->remove($id);
     }
 
-    public function transaction ($callback)
+    public function transaction($callback)
     {
         Db::transaction($callback);
     }
