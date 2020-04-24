@@ -61,6 +61,6 @@ abstract class AbstractService
 
     public function transaction($callback)
     {
-        Db::transaction($callback);
+        return Db::transaction($callback);
     }
 }
