@@ -31,9 +31,9 @@ class Post extends BaseController
      *
      * @return \think\Response
      */
-    public function list()
+    public function all()
     {
-        $data = $this->service->getList();
+        $data = $this->service->all();
 
         return $this->sendSuccess($data);
     }

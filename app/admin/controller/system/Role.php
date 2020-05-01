@@ -53,6 +53,13 @@ class Role extends BaseController
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts, 'menu' => $menu]);
     }
 
+    public function all()
+    {
+        return $this->sendSuccess(
+            $this->service->all()
+        );
+    }
+
     /**
      * 添加角色.
      *
