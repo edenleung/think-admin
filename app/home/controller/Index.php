@@ -26,6 +26,7 @@ class Index extends BaseController
         $data = Role::order('pid', 'asc')->select();
 
         $roles = $category->getTree($data);
+
         return $data;
     }
 
