@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of TAnt.
@@ -31,15 +31,15 @@ class ArticleService extends BaseService
         ->field('a.*, c.name as category_name')
         ->paginate([
             'list_rows' => $pageSize,
-            'page' => $pageNo
+            'page'      => $pageNo,
         ]);
 
         return [
-            'data' => $data->items(),
+            'data'       => $data->items(),
             'pageSize'   => $pageSize,
             'pageNo'     => $pageNo,
             'totalPage'  => count($data->items()),
-            'totalCount' => $data->total()
+            'totalCount' => $data->total(),
         ];
     }
 
@@ -62,5 +62,4 @@ class ArticleService extends BaseService
     {
         return $this->model->find($id);
     }
-
 }
