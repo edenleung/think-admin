@@ -18,4 +18,7 @@ use Tant\Abstracts\AbstractModel;
 
 class BaseModel extends AbstractModel
 {
+    use SoftDelete;
+    protected $deleteTime = 'delete_time';
+    protected $defaultSoftDelete = 0;
 }
