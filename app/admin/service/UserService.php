@@ -172,7 +172,7 @@ class UserService extends BaseService
      */
     public function add(array $input)
     {
-        return $this->transaction(function() use ($input){
+        return $this->transaction(function () use ($input) {
             $hash = randomKey();
             $user = User::create([
                 'name'     => $input['name'],
@@ -182,15 +182,15 @@ class UserService extends BaseService
                 'hash'     => $hash,
                 'password' => $this->makePassword($input['password'], $hash),
             ]);
-    
+
             //绑定角色
             $this->bindRole($user, $input['roles']);
-    
+
             if (!empty($input['posts'])) {
                 //绑定岗位
                 $this->bindPost($user, $input['posts']);
             }
-            
+
             return true;
         });
     }
@@ -203,7 +203,7 @@ class UserService extends BaseService
      */
     public function renew($id, array $input)
     {
-        return $this->transaction(function() use($id, $input){
+        return $this->transaction(function () use ($id, $input) {
             $user = $this->find($id);
 
             // 重置密码
@@ -247,18 +247,18 @@ class UserService extends BaseService
      */
     public function remove($id)
     {
-        return $this->transaction(function() use($id) {
+        return $this->transaction(function () use ($id) {
             $user = $this->find($id);
             if (empty($user)) {
                 return false;
             }
-    
+
             // 解除所有已绑定角色
             $user->removeAllRole();
-    
+
             // 删除所有已绑定岗位
             $this->removeAllPost($user);
-    
+
             return $user->delete();
         });
     }
@@ -393,7 +393,7 @@ class UserService extends BaseService
     }
 
     /**
-     * 获取所有维保人员（下拉）
+     * 获取所有维保人员（下拉）.
      */
     public function maintenancePersonnel()
     {
@@ -406,7 +406,7 @@ class UserService extends BaseService
     }
 
     /**
-     * 获取所有项目负责人（下拉）
+     * 获取所有项目负责人（下拉）.
      */
     public function leader()
     {
