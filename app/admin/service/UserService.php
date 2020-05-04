@@ -172,25 +172,27 @@ class UserService extends BaseService
      */
     public function add(array $input)
     {
-        $hash = randomKey();
-        $user = User::create([
-            'name'     => $input['name'],
-            'nickname' => $input['nickname'],
-            'status'   => $input['status'],
-            'dept_id'  => $input['dept_id'],
-            'hash'     => $hash,
-            'password' => $this->makePassword($input['password'], $hash),
-        ]);
-
-        //绑定角色
-        $this->bindRole($user, $input['roles']);
-
-        if (!empty($input['posts'])) {
-            //绑定岗位
-            $this->bindPost($user, $input['posts']);
-        }
-
-        return true;
+        return $this->transaction(function() use ($input){
+            $hash = randomKey();
+            $user = User::create([
+                'name'     => $input['name'],
+                'nickname' => $input['nickname'],
+                'status'   => $input['status'],
+                'dept_id'  => $input['dept_id'],
+                'hash'     => $hash,
+                'password' => $this->makePassword($input['password'], $hash),
+            ]);
+    
+            //绑定角色
+            $this->bindRole($user, $input['roles']);
+    
+            if (!empty($input['posts'])) {
+                //绑定岗位
+                $this->bindPost($user, $input['posts']);
+            }
+            
+            return true;
+        });
     }
 
     /**
@@ -201,35 +203,39 @@ class UserService extends BaseService
      */
     public function renew($id, array $input)
     {
-        $user = $this->find($id);
+        return $this->transaction(function() use($id, $input){
+            $user = $this->find($id);
 
-        // 重置密码
-        if (isset($input['password'])) {
-            $hash = randomKey();
-            $user->hash = $hash;
-            $user->password = $this->makePassword($input['password'], $hash);
-        }
+            // 重置密码
+            if (isset($input['password'])) {
+                $hash = randomKey();
+                $user->hash = $hash;
+                $user->password = $this->makePassword($input['password'], $hash);
+            }
 
-        $user->save([
-            'name'     => $input['name'],
-            'nickname' => $input['nickname'],
-            'dept_id'  => $input['dept_id'],
-            'status'   => $input['status'],
-        ]);
+            $user->save([
+                'name'     => $input['name'],
+                'nickname' => $input['nickname'],
+                'dept_id'  => $input['dept_id'],
+                'status'   => $input['status'],
+            ]);
 
-        // 解除所有已绑定角色
-        $user->removeAllRole();
+            // 解除所有已绑定角色
+            $user->removeAllRole();
 
-        // 重新绑定角色
-        if (!empty($input['roles'])) {
-            $this->bindRole($user, $input['roles']);
-        }
+            // 重新绑定角色
+            if (!empty($input['roles'])) {
+                $this->bindRole($user, $input['roles']);
+            }
 
-        if (!empty($input['posts'])) {
-            $this->removeAllPost($user);
-            //绑定岗位
-            $this->bindPost($user, $input['posts']);
-        }
+            if (!empty($input['posts'])) {
+                $this->removeAllPost($user);
+                //绑定岗位
+                $this->bindPost($user, $input['posts']);
+            }
+
+            return  true;
+        });
     }
 
     /**
@@ -241,18 +247,20 @@ class UserService extends BaseService
      */
     public function remove($id)
     {
-        $user = $this->find($id);
-        if (empty($user)) {
-            return false;
-        }
-
-        // 解除所有已绑定角色
-        $user->removeAllRole();
-
-        // 删除所有已绑定岗位
-        $this->removeAllPost($user);
-
-        return $user->delete();
+        return $this->transaction(function() use($id) {
+            $user = $this->find($id);
+            if (empty($user)) {
+                return false;
+            }
+    
+            // 解除所有已绑定角色
+            $user->removeAllRole();
+    
+            // 删除所有已绑定岗位
+            $this->removeAllPost($user);
+    
+            return $user->delete();
+        });
     }
 
     /**
@@ -379,8 +387,34 @@ class UserService extends BaseService
     /**
      * 绑定岗位.
      */
-    protected function bindPost(User $user, array $postIds)
+    protected function bindPost(User $user, $post)
     {
-        $user->posts()->saveAll($postIds);
+        $user->posts()->saveAll([$post]);
+    }
+
+    /**
+     * 获取所有维保人员（下拉）
+     */
+    public function maintenancePersonnel()
+    {
+        $data = User::alias('u')
+            ->join('user_post_access upa', 'u.id = upa.user_id')
+            ->where('upa.post_id', 2)->field('u.*')
+            ->select();
+
+        return $data;
+    }
+
+    /**
+     * 获取所有项目负责人（下拉）
+     */
+    public function leader()
+    {
+        $data = User::alias('u')
+            ->join('user_post_access upa', 'u.id = upa.user_id')
+            ->where('upa.post_id', 1)->field('u.*')
+            ->select();
+
+        return $data;
     }
 }
