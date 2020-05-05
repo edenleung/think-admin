@@ -123,7 +123,7 @@ class Category
                     $item[$child_key] = [];
                     $item[$child_key] = array_merge($item[$child_key], $this->formatTree($data, $child_key, $item[$field['id']]));
                 }
-                
+
                 $tree[] = $item;
             }
         }
