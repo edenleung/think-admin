@@ -24,15 +24,11 @@ Route::get('/hello', function () {
     return 'Hello,ThinkPHP6!';
 });
 
-Route::miss(function () {
-    return 'Miss Route!';
-});
-
 Route::group('/auth', function () {
     Route::post('/login', 'auth/login');
     Route::post('/logout', 'auth/logout');
     Route::get('/refresh_token', 'auth/refreshToken');
-})->allowCrossDomain();
+});
 
 // 规则
 Route::group('/permission', function () {
@@ -40,7 +36,7 @@ Route::group('/permission', function () {
     Route::rule('/', 'system.permission/add', 'POST')->middleware(Permission::class, 'PermissionAdd');
     Route::rule('/:id', 'system.permission/renew', 'PUT')->middleware(Permission::class, 'PermissionUpdate');
     Route::rule('/:id', 'system.permission/remove', 'DELETE')->middleware(Permission::class, 'PermissionDelete');
-})->allowCrossDomain()->middleware(Jwt::class);
+})->middleware(Jwt::class);
 
 // 角色
 Route::group('/role', function () {
@@ -50,7 +46,7 @@ Route::group('/role', function () {
     Route::rule('/:id$', 'system.role/update', 'PUT')->middleware(Permission::class, 'RoleUpdate');
     Route::rule('/:id$', 'system.role/delete', 'DELETE')->middleware(Permission::class, 'RoleDelete');
     Route::rule('/:id/mode', 'system.role/mode', 'PUT');
-})->allowCrossDomain()->middleware(Jwt::class);
+})->middleware(Jwt::class);
 
 // 用户
 Route::group('/user', function () {
@@ -67,7 +63,7 @@ Route::group('/user', function () {
     Route::rule('/info$', 'system.user/info', 'GET');
     Route::rule('/:id', 'system.user/update', 'PUT')->middleware(Permission::class, 'AccountUpdate');
     Route::rule('/:id', 'system.user/delete', 'DELETE')->middleware(Permission::class, 'AccountDelete');
-})->allowCrossDomain()->middleware(Jwt::class);
+})->middleware(Jwt::class);
 
 // 日志
 Route::group('/log', function () {
@@ -75,7 +71,7 @@ Route::group('/log', function () {
     Route::rule('/acount', 'log.AccountLog/delete', 'DELETE')->middleware(Permission::class, 'LogAccountDelete');
     Route::rule('/db', 'log.DataBaseLog/list', 'GET')->middleware(Permission::class, 'LogDbGet');
     Route::rule('/db', 'log.DataBaseLog/delete', 'DELETE')->middleware(Permission::class, 'LogDbDelete');
-})->allowCrossDomain()->middleware(Jwt::class);
+})->middleware(Jwt::class);
 
 Route::group('/system', function () {
     Route::rule('/dept', 'system.dept/list', 'GET')->middleware(Permission::class, 'DeptGet');
@@ -87,7 +83,20 @@ Route::group('/system', function () {
     Route::rule('/post', 'system.post/add', 'POST')->middleware(Permission::class, 'PostAdd');
     Route::rule('/post/:id', 'system.post/update', 'PUT')->middleware(Permission::class, 'PostUpdate');
     Route::rule('/post/:id', 'system.post/delete', 'DELETE')->middleware(Permission::class, 'PostDelete');
-})->allowCrossDomain()->middleware(Jwt::class);
+})->middleware(Jwt::class);
+
+Route::group('/article', function () {
+    Route::get('/', 'system.article/list');
+    Route::get('/:id$', 'system.article/info');
+    Route::post('/', 'system.article/create');
+    Route::put('/:id', 'system.article/update');
+    Route::delete('/:id', 'system.article/delete');
+
+    Route::get('/category$', 'system.articleCategory/list');
+    Route::post('/category$', 'system.articleCategory/create');
+    Route::put('/category/:id$', 'system.articleCategory/update');
+    Route::delete('/category/:id$', 'system.articleCategory/delete');
+})->middleware(Jwt::class);
 
 // 模拟数据（可删除）
 Route::group('/mock', function () {
@@ -95,4 +104,4 @@ Route::group('/mock', function () {
     Route::rule('/workplace/activity', 'mock/activity', 'GET');
     Route::rule('/workplace/radar', 'mock/radar', 'GET');
     Route::rule('/workplace/teams', 'mock/teams', 'GET');
-})->allowCrossDomain();
+});

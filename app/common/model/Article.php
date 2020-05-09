@@ -12,14 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app;
+namespace app\common\model;
 
-use Tant\Abstracts\AbstractModel;
-use think\model\concern\SoftDelete;
+use app\BaseModel;
 
-class BaseModel extends AbstractModel
+class Article extends BaseModel
 {
-    use SoftDelete;
-    protected $deleteTime = 'delete_time';
-    protected $defaultSoftDelete = 0;
 }
