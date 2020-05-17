@@ -42,7 +42,7 @@ class Log extends Migrator
      */
     public function change()
     {
-        $table = $this->table('log', ['engine' => 'InnoDB']);
+        $table = $this->table('log', ['engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci']);
         $table->addColumn('user_id', 'integer', ['limit' => 11, 'comment' => '用户标识'])
             ->addColumn('action', 'string', ['limit' => 255, 'comment' => '操作'])
             ->addColumn('url', 'string', ['limit' => 255, 'comment' => '访问地址'])

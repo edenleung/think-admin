@@ -39,7 +39,7 @@ class RoleDeptAccess extends Migrator
      */
     public function change()
     {
-        $table = $this->table('role_dept_access', ['id' => false, 'engine' => 'InnoDB', 'primary_key' => ['role_id', 'dept_id']]);
+        $table = $this->table('role_dept_access', ['id' => false, 'engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci', 'primary_key' => ['role_id', 'dept_id']]);
         $table->addColumn('role_id', 'integer', ['limit' => 11, 'comment' => '角色主键'])
             ->addColumn('dept_id', 'integer', ['limit' => 11, 'comment' => '部门主键'])
             ->create();

@@ -42,7 +42,7 @@ class UserRoleAccess extends Migrator
      */
     public function change()
     {
-        $table = $this->table('user_role_access', ['id' => false, 'engine' => 'InnoDB', 'primary_key' => ['user_id', 'role_id']]);
+        $table = $this->table('user_role_access', ['id' => false, 'engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci', 'primary_key' => ['user_id', 'role_id']]);
         $table->addColumn('user_id', 'integer', ['limit' => 11, 'comment' => '用户主键'])
             ->addColumn('role_id', 'integer', ['limit' => 11, 'comment' => '角色主键'])
             ->create();

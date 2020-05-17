@@ -42,7 +42,7 @@ class Role extends Migrator
      */
     public function change()
     {
-        $table = $this->table('role', ['engine' => 'InnoDB']);
+        $table = $this->table('role', ['engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci']);
         $table->addColumn('name', 'string', ['limit' => 100, 'comment' => '角色唯一标识'])
             ->addColumn('title', 'string', ['limit' => 100, 'comment' => '角色名称'])
             ->addColumn('pid', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '父级标识'])

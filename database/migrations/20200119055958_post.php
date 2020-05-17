@@ -39,7 +39,7 @@ class Post extends Migrator
      */
     public function change()
     {
-        $table = $this->table('post', ['engine' => 'InnoDB', 'id' => 'post_id']);
+        $table = $this->table('post', ['engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci', 'id' => 'post_id']);
         $table->addColumn('post_name', 'string', ['limit' => 100, 'comment' => '岗位名称'])
             ->addColumn('post_code', 'string', ['limit' => 50, 'comment' => '岗位标识'])
             ->addColumn('post_sort', 'integer', ['limit' => 11, 'comment' => '排序', 'default' => 0])

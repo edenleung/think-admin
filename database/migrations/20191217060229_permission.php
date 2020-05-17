@@ -42,7 +42,7 @@ class Permission extends Migrator
      */
     public function change()
     {
-        $table = $this->table('permission', ['engine' => 'InnoDB']);
+        $table = $this->table('permission', ['engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci']);
         $table->addColumn('name', 'string', ['limit' => 100, 'comment' => '规则名称'])
             ->addColumn('title', 'string', ['limit' => 100, 'comment' => '名称'])
             ->addColumn('pid', 'integer', ['limit' => 11, 'default' => 0, 'comment' => '父级标识'])

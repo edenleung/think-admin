@@ -39,7 +39,7 @@ class Dept extends Migrator
      */
     public function change()
     {
-        $table = $this->table('dept', ['engine' => 'InnoDB', 'id' => 'dept_id']);
+        $table = $this->table('dept', ['engine' => 'InnoDB', 'id' => 'dept_id', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci']);
         $table->addColumn('dept_name', 'string', ['limit' => 100, 'comment' => '部门名称'])
             ->addColumn('dept_pid', 'integer', ['limit' => 11, 'comment' => '上级部门'])
             ->addColumn('dept_status', 'integer', ['limit' => 11, 'comment' => '状态', 'default' => 1])

@@ -64,7 +64,7 @@ class Install extends Command
         $this->output->warning(' > 开始配置 数据库信息');
         $hostName = $this->output->ask($this->input, '> 数据库地址, 默认 (127.0.0.1)') ?: '127.0.0.1';
         $hostPort = $this->output->ask($this->input, '> 数据库端口, 默认 (3306)') ?: 3306;
-        $charset = $this->output->ask($this->input, '> 数据库编码, 默认 (utf8)') ?: 'utf8';
+        $charset = $this->output->ask($this->input, '> 数据库编码, 默认 (utf8mb4) 支持Emoji') ?: 'utf8mb4';
         $dataBase = $this->output->ask($this->input, '> 数据库名, 默认 (think)') ?: 'think';
         $userName = $this->output->ask($this->input, '> 数据库用户名, 默认 (root)') ?: 'root';
         $passWord = $this->output->ask($this->input, '> 数据库密码, 默认 (空)') ?: '';
@@ -174,6 +174,7 @@ class Install extends Command
     {
         try {
             $conn = new \mysqli($this->connection['hostname'], $this->connection['username'], $this->connection['password'], '', (int) $this->connection['hostport']);
+            $conn->query('SET NAMES UTF8MB4');
         } catch (\Exception $e) {
             throw new \Exception('连接数据库失败');
         }
@@ -190,7 +191,7 @@ class Install extends Command
     protected function createDatabase()
     {
         $this->conn->query(sprintf(
-            'CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARSET %s COLLATE %s_general_ci;',
+            'CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARSET %s COLLATE %s_unicode_ci;',
             $this->connection['database'],
             $this->connection['charset'],
             $this->connection['charset']
@@ -293,13 +294,13 @@ class Install extends Command
                 VALUES ('%s', '%s', '%s', '%s', '%s');",
             $this->connection['database'],
             'root',
-            '根',
+            '顶级角色',
             0,
             0,
             1
         ));
 
-        $this->output->info('成功执行 创建根角色');
+        $this->output->info('成功执行 创建角色');
     }
 
     protected function createDept()

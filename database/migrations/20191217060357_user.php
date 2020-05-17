@@ -42,7 +42,7 @@ class User extends Migrator
      */
     public function change()
     {
-        $table = $this->table('user', ['engine' => 'InnoDB']);
+        $table = $this->table('user', ['engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci']);
         $table->addColumn('name', 'string', ['limit' => 50, 'comment' => '用户唯一标识（登录名）'])
             ->addColumn('password', 'string', ['limit' => 255, 'comment' => '登录密码'])
             ->addColumn('hash', 'string', ['limit' => 11, 'comment' => '加密hash'])

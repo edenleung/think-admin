@@ -42,7 +42,7 @@ class RolePermissionAccess extends Migrator
      */
     public function change()
     {
-        $table = $this->table('role_permission_access', ['id' => false, 'engine' => 'InnoDB', 'primary_key' => ['role_id', 'permission_id']]);
+        $table = $this->table('role_permission_access', ['id' => false, 'engine' => 'InnoDB', 'collation' => config('database.connections.mysql.charset') . '_unicode_ci', 'primary_key' => ['role_id', 'permission_id']]);
         $table->addColumn('role_id', 'integer', ['limit' => 11, 'comment' => '角色主键'])
             ->addColumn('permission_id', 'integer', ['limit' => 11, 'comment' => '规则主键'])
             ->create();
