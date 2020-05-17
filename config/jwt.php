@@ -22,7 +22,8 @@ return [
         'refresh'      => 50001,
         'relogin'      => 50002,
         'iss'          => '',
-        'aud'          => '',
+		'aud'          => '',
+		'automaticRenewal' => true
     ],
     'user' => [
         'inject' => true,
