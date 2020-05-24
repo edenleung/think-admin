@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of TAnt.
@@ -14,8 +14,8 @@ declare (strict_types = 1);
 
 namespace app\admin\controller\system;
 
-use app\admin\service\ArticleCategoryService;
 use app\BaseController;
+use app\admin\service\ArticleCategoryService;
 
 class ArticleCategory extends BaseController
 {

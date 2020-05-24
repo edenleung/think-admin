@@ -95,7 +95,6 @@ Route::group('/article', function () {
     Route::post('/category$', 'system.articleCategory/create');
     Route::put('/category/:id$', 'system.articleCategory/update');
     Route::delete('/category/:id$', 'system.articleCategory/delete');
-
 })->middleware(Jwt::class);
 
 // 模拟数据（可删除）

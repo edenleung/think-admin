@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of TAnt.
@@ -15,8 +15,8 @@ declare (strict_types = 1);
 namespace app\admin\service;
 
 use app\BaseService;
-use app\common\model\ArticleCategory;
 use Tant\Util\Category;
+use app\common\model\ArticleCategory;
 
 class ArticleCategoryService extends BaseService
 {
@@ -29,15 +29,15 @@ class ArticleCategoryService extends BaseService
     {
         $data = $this->model->paginate([
             'list_rows' => $pageSize,
-            'page' => $pageNo
+            'page'      => $pageNo,
         ]);
 
         return [
-            'data' => $data->items(),
+            'data'       => $data->items(),
             'pageSize'   => $pageSize,
             'pageNo'     => $pageNo,
             'totalPage'  => count($data->items()),
-            'totalCount' => $data->total()
+            'totalCount' => $data->total(),
         ];
     }
 
@@ -45,6 +45,7 @@ class ArticleCategoryService extends BaseService
     {
         $data = $this->model->order('pid asc')->select()->toArray();
         $category = new Category(['id', 'pid', 'name']);
+
         return $category->getTree($data);
     }
 
@@ -53,11 +54,13 @@ class ArticleCategoryService extends BaseService
         return $this->model->save($data);
     }
 
-    public function update($id, array $data){
+    public function update($id, array $data)
+    {
         return $this->model->find($id)->save($data);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         return $this->model->find($id)->delete();
     }
 }
