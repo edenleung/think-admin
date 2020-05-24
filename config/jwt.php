@@ -12,7 +12,7 @@
 
 return [
     'default' => 'admin',
-    'apps' => [
+    'apps'    => [
         'admin' => [
             'token' => [
                 'uniqidKey'        => 'uid',
@@ -29,12 +29,12 @@ return [
                 'automaticRenewal' => true,
             ],
             'user' => [
-                'bind' => true,
+                'bind'   => true,
                 'model'  => 'app\common\model\User',
             ],
             'blacklist' => [
                 'cacheKey' => 'blacklist',
             ],
-        ]
-    ]
+        ],
+    ],
 ];
