@@ -134,7 +134,7 @@ class UserService extends BaseService
     /**
      * 获取用户列表.
      */
-    public function getList(int $pageNo, int $pageSize, int $deptId = 0)
+    public function list(int $pageNo, int $pageSize, int $deptId = 0)
     {
         $map = [];
         if ($deptId) {
@@ -170,7 +170,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function add(array $input)
+    public function create(array $input)
     {
         $hash = randomKey();
         $user = User::create([
@@ -199,7 +199,7 @@ class UserService extends BaseService
      * @param int   $id
      * @param array $data
      */
-    public function renew($id, array $input)
+    public function update($id, array $input)
     {
         $user = $this->find($id);
 
@@ -239,7 +239,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function remove($id)
+    public function delete($id)
     {
         $user = $this->find($id);
         if (empty($user)) {
