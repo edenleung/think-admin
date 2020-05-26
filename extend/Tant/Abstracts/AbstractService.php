@@ -33,15 +33,27 @@ abstract class AbstractService
     {
         return $this->model->all();
     }
-
-    public function paginate($limit)
+    
+    public function paginate($pageNo, $pageSize)
     {
-        return $this->model->paginate($limit);
+        $data = $this->model
+            ->paginate([
+                'list_rows' => $pageSize,
+                'page'      => $pageNo,
+            ]);
+
+        return [
+            'data'       => $data->items(),
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($data->items()),
+            'totalCount' => $data->total(),
+        ];
     }
 
-    public function add(array $input)
+    public function create(array $data)
     {
-        return $this->model->add($input);
+        return $this->model->save($data);
     }
 
     public function find($id)
@@ -49,14 +61,14 @@ abstract class AbstractService
         return $this->model->find($id);
     }
 
-    public function renew($id, array $input)
+    public function update($id, array $data)
     {
-        return $this->model->renew($id, $input);
+        return $this->model->find($id)->save($data);
     }
 
-    public function remove($id)
+    public function delete($id)
     {
-        return $this->model->remove($id);
+        return $this->model->find($id)->delete();
     }
 
     public function transaction($callback)

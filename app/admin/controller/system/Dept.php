@@ -49,13 +49,13 @@ class Dept extends BaseController
      *
      * @return \think\Response
      */
-    public function add(DeptRequest $request)
+    public function create(DeptRequest $request)
     {
         if (!$request->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if (!$this->service->add($request->param())) {
+        if (!$this->service->create($request->param())) {
             return $this->sendError($this->service->getError());
         }
 
@@ -75,7 +75,7 @@ class Dept extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if (!$this->service->renew($id, $request->param())) {
+        if (!$this->service->update($id, $request->param())) {
             return $this->sendError($this->service->getError());
         }
 
@@ -91,7 +91,7 @@ class Dept extends BaseController
      */
     public function delete($id)
     {
-        if ($this->service->remove($id) === false) {
+        if ($this->service->delete($id) === false) {
             return $this->sendError($this->service->getError());
         }
 

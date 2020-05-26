@@ -29,20 +29,21 @@ class AccountLogService extends BaseService
      */
     public function list(int $pageNo, int $pageSize)
     {
-        $total = $this->model->count();
-        $logs = $this->model->alias('l')->join('user u', 'u.id = l.user_id')
-            ->limit($pageSize)
-            ->page($pageNo)
+        $data = $this->model->alias('l')
+            ->join('user u', 'u.id = l.user_id')
             ->field('l.*,u.nickname')
             ->order('create_time desc')
-            ->select();
+            ->paginate([
+                'list_rows' => $pageSize,
+                'page' => $pageNo,
+            ]);
 
         return [
-            'data'       => $logs,
-            'pageSize'   => $pageSize,
-            'pageNo'     => $pageNo,
-            'totalPage'  => count($logs),
-            'totalCount' => $total,
+            'data' => $data->items(),
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($data->items()),
+            'totalCount' => $data->total(),
         ];
     }
 

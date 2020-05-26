@@ -53,7 +53,7 @@ class User extends BaseController
      */
     public function list($pageNo, $pageSize, $deptPid = 0)
     {
-        $res['users'] = $this->service->getList((int) $pageNo, (int) $pageSize, (int) $deptPid);
+        $res['users'] = $this->service->list((int) $pageNo, (int) $pageSize, (int) $deptPid);
         $res['rules'] = $this->permission->getMenuPermission();
         $res['roles'] = $this->role->getSelectTree();
         $res['depts'] = $this->dept->getTree();

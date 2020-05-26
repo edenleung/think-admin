@@ -27,7 +27,7 @@ class PostService extends BaseService
     /**
      * 岗位列表.
      */
-    public function getList()
+    public function list()
     {
         $data = $this->model->order('post_sort desc')->select();
 

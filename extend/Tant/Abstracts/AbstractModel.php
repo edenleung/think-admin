@@ -39,53 +39,6 @@ abstract class AbstractModel extends Model
     }
 
     /**
-     * 获取分页.
-     *
-     * @param [type] $paginate
-     */
-    public function paginate($paginate)
-    {
-        return $this->order($this->sortBy, $this->sortOrder)
-            ->paginate($paginate);
-    }
-
-    /**
-     * 添加一条记录.
-     *
-     * @param [type] $paginate
-     * @param mixed  $input
-     */
-    public function add($input)
-    {
-        $this->save($input);
-
-        return $this;
-    }
-
-    /**
-     * 删除一条记录.
-     *
-     * @param [type] $id
-     */
-    public function remove($id)
-    {
-        return $this->find($id)->delete();
-    }
-
-    /**
-     * 更新一条记录.
-     *
-     * @param [type] $id
-     */
-    public function renew($id, array $input)
-    {
-        $model = $this->find($id);
-        $model->save($input);
-
-        return $model;
-    }
-
-    /**
      * 数据权限 (数据范围).
      *
      * @param [type] $query

@@ -29,7 +29,7 @@ class RoleService extends BaseService
     /**
      * 获取角色列表.
      */
-    public function getList(int $pageNo, int $pageSize)
+    public function list(int $pageNo, int $pageSize)
     {
         $map = [];
         $user = request()->user;
@@ -73,16 +73,18 @@ class RoleService extends BaseService
      *
      * @return bool
      */
-    public function add(array $data)
+    public function create(array $data)
     {
-        $this->model->save($data);
+        return $this->transaction(function () use ($data) {
+            $this->model->save($data);
 
-        // 绑定关系
-        if (!empty($data['rules'])) {
-            $this->assignPermissions($this->model, $data['rules']);
-        }
+            // 绑定关系
+            if (!empty($data['rules'])) {
+                $this->assignPermissions($this->model, $data['rules']);
+            }
 
-        return true;
+            return true;
+        });
     }
 
     /**
@@ -92,27 +94,29 @@ class RoleService extends BaseService
      *
      * @return bool
      */
-    public function renew($id, array $input)
+    public function update($id, array $data)
     {
-        $role = $this->model->find($id);
-        if (empty($role)) {
-            return false;
-        }
+        return $this->transaction(function () use ($id, $data) {
+            $role = $this->model->find($id);
+            if (empty($role)) {
+                return false;
+            }
 
-        $role->save($input);
+            $role->save($data);
 
-        // 解除关系
-        $role->removeAllPermission();
+            // 解除关系
+            $role->removeAllPermission();
 
-        // 绑定关系
-        if (!empty($input['rules'])) {
-            $this->assignPermissions($role, $input['rules']);
+            // 绑定关系
+            if (!empty($data['rules'])) {
+                $this->assignPermissions($role, $data['rules']);
 
-            // 如当前角色有删除一些权限并且有子角色时，子角色也一并删除权限
-            $this->updateChildrenRole($role, $input['rules']);
-        }
+                // 如当前角色有删除一些权限并且有子角色时，子角色也一并删除权限
+                $this->updateChildrenRole($role, $data['rules']);
+            }
 
-        return true;
+            return true;
+        });
     }
 
     /**
@@ -122,28 +126,30 @@ class RoleService extends BaseService
      *
      * @return bool
      */
-    public function remove($id)
+    public function delete($id)
     {
-        $role = $this->find($id);
-        if (empty($role)) {
-            return false;
-        }
+        return $this->transaction(function () use ($id) {
+            $role = $this->find($id);
+            if (empty($role)) {
+                return false;
+            }
 
-        if ($this->hasChildrenRole($role)) {
-            $this->error = '请先删除子角色';
+            if ($this->hasChildrenRole($role)) {
+                $this->error = '请先删除子角色';
 
-            return false;
-        }
+                return false;
+            }
 
-        if (count($role->users) > 0) {
-            $this->error = '当前角色下存在使用中的用户，请为用户更换其它角色后，再执行删除操作';
+            if (count($role->users) > 0) {
+                $this->error = '当前角色下存在使用中的用户，请为用户更换其它角色后，再执行删除操作';
 
-            return false;
-        }
+                return false;
+            }
 
-        $role->removeAllPermission();
+            $role->removeAllPermission();
 
-        return $role->delete();
+            return $role->delete();
+        });
     }
 
     public function getSelectTree()

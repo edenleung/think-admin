@@ -33,7 +33,7 @@ class Post extends BaseController
      */
     public function list()
     {
-        $data = $this->service->getList();
+        $data = $this->service->list();
 
         return $this->sendSuccess($data);
     }
@@ -43,13 +43,13 @@ class Post extends BaseController
      *
      * @return \think\Response
      */
-    public function add(PostRequest $request)
+    public function create(PostRequest $request)
     {
         if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->add($request->param()) === false) {
+        if ($this->service->create($request->param()) === false) {
             return $this->sendError();
         }
 
@@ -69,7 +69,7 @@ class Post extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->renew($id, $request->param()) === false) {
+        if ($this->service->update($id, $request->param()) === false) {
             return $this->sendError();
         }
 
@@ -85,7 +85,7 @@ class Post extends BaseController
      */
     public function delete($id)
     {
-        if ($this->service->remove($id) === false) {
+        if ($this->service->delete($id) === false) {
             return $this->sendError();
         }
 

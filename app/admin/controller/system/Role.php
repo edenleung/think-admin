@@ -45,7 +45,7 @@ class Role extends BaseController
      */
     public function list($pageNo = 1, $pageSize = 10)
     {
-        $data = $this->service->getList((int) $pageNo, (int) $pageSize);
+        $data = $this->service->list((int) $pageNo, (int) $pageSize);
         $rules = $this->permission->getMenuPermission();
         $depts = $this->dept->getTree();
         $menu = $this->permission->getTree();
@@ -58,13 +58,13 @@ class Role extends BaseController
      *
      * @return \think\Response
      */
-    public function add(RoleRequest $request)
+    public function create(RoleRequest $request)
     {
         if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->add($request->param()) === false) {
+        if ($this->service->create($request->param()) === false) {
             return $this->sendError($this->service->getError());
         }
 
@@ -84,7 +84,7 @@ class Role extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->renew($id, $request->param()) === false) {
+        if ($this->service->update($id, $request->param()) === false) {
             return $this->sendError($this->service->getError());
         }
 
