@@ -35,14 +35,14 @@ class AccountLogService extends BaseService
             ->order('create_time desc')
             ->paginate([
                 'list_rows' => $pageSize,
-                'page' => $pageNo,
+                'page'      => $pageNo,
             ]);
 
         return [
-            'data' => $data->items(),
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($data->items()),
+            'data'       => $data->items(),
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($data->items()),
             'totalCount' => $data->total(),
         ];
     }

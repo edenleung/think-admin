@@ -33,7 +33,7 @@ abstract class AbstractService
     {
         return $this->model->all();
     }
-    
+
     public function paginate($pageNo, $pageSize)
     {
         $data = $this->model
