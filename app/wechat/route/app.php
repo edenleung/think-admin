@@ -12,11 +12,6 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\common\model;
+use think\facade\Route;
 
-use app\BaseModel;
-use app\common\traits\Log;
-
-class Post extends BaseModel
-{
-}
+Route::get('/', 'wechat/index');

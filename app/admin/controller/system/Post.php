@@ -31,9 +31,9 @@ class Post extends BaseController
      *
      * @return \think\Response
      */
-    public function list()
+    public function all()
     {
-        $data = $this->service->list();
+        $data = $this->service->all();
 
         return $this->sendSuccess($data);
     }
@@ -49,7 +49,7 @@ class Post extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->create($request->param()) === false) {
+        if ($this->service->create($request->post()) === false) {
             return $this->sendError();
         }
 
@@ -69,7 +69,7 @@ class Post extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->update($id, $request->param()) === false) {
+        if ($this->service->update($id, $request->put()) === false) {
             return $this->sendError();
         }
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\admin\service;
+namespace app\wechat\service;
 
 use EasyWeChat\Work\Application as Work;
 use EasyWeChat\Payment\Application as Payment;

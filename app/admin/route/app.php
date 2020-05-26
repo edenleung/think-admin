@@ -42,6 +42,7 @@ Route::group('/permission', function () {
 Route::group('/role', function () {
     Route::rule('/', 'system.role/list', 'GET')->middleware(Permission::class, 'RoleGet');
     Route::rule('/', 'system.role/create', 'POST')->middleware(Permission::class, 'RoleAdd');
+    Route::rule('/all$', 'system.role/all', 'GET');
     Route::rule('/:id$', 'system.role/update', 'PUT')->middleware(Permission::class, 'RoleUpdate');
     Route::rule('/:id$', 'system.role/delete', 'DELETE')->middleware(Permission::class, 'RoleDelete');
     Route::rule('/:id/mode', 'system.role/mode', 'PUT');
@@ -78,8 +79,8 @@ Route::group('/system', function () {
     Route::rule('/dept/:id', 'system.dept/update', 'PUT')->middleware(Permission::class, 'DeptUpdate');
     Route::rule('/dept/:id', 'system.dept/delete', 'DELETE')->middleware(Permission::class, 'DeptDelete');
 
-    Route::rule('/post', 'system.post/list', 'GET')->middleware(Permission::class, 'PostGet');
     Route::rule('/post', 'system.post/create', 'POST')->middleware(Permission::class, 'PostAdd');
+    Route::rule('/post', 'system.post/all', 'GET')->middleware(Permission::class, 'PostGet');
     Route::rule('/post/:id', 'system.post/update', 'PUT')->middleware(Permission::class, 'PostUpdate');
     Route::rule('/post/:id', 'system.post/delete', 'DELETE')->middleware(Permission::class, 'PostDelete');
 })->middleware(Jwt::class);

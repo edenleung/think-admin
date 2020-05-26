@@ -53,6 +53,13 @@ class Role extends BaseController
         return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts, 'menu' => $menu]);
     }
 
+    public function all()
+    {
+        return $this->sendSuccess(
+            $this->service->all()
+        );
+    }
+
     /**
      * 添加角色.
      *
@@ -100,7 +107,7 @@ class Role extends BaseController
      */
     public function delete($id)
     {
-        if ($this->service->remove($id) === false) {
+        if ($this->service->delete($id) === false) {
             return $this->sendError($this->service->getError());
         }
 

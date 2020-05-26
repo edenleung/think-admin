@@ -27,4 +27,6 @@ return [
             ],
         ],
     ],
+    'user'      => ['inject' => true, 'model' => 'app\common\model\User'],
+    'blacklist' => ['cacheName' => 'blacklist'],
 ];

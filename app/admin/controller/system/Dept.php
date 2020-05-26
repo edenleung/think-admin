@@ -35,13 +35,7 @@ class Dept extends BaseController
     {
         $data = $this->service->getTree();
 
-        return $this->sendSuccess([
-            'data'       => $data,
-            'pageSize'   => 10,
-            'pageNo'     => 1,
-            'totalPage'  => 1,
-            'totalCount' => count($data),
-        ]);
+        return $this->sendSuccess($data);
     }
 
     /**

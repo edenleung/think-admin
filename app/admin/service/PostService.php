@@ -27,16 +27,10 @@ class PostService extends BaseService
     /**
      * 岗位列表.
      */
-    public function list()
+    public function all()
     {
-        $data = $this->model->order('post_sort desc')->select();
+        $data = $this->model->order('sort desc')->select();
 
-        return [
-            'data'       => $data,
-            'pageSize'   => 10,
-            'pageNo'     => 1,
-            'totalPage'  => 1,
-            'totalCount' => count($data),
-        ];
+        return $data;
     }
 }

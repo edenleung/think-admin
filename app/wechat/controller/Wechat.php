@@ -12,11 +12,18 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\common\model;
+namespace app\wechat\controller;
 
-use app\BaseModel;
-use app\common\traits\Log;
+use app\BaseController;
 
-class Post extends BaseModel
+class Wechat extends BaseController
 {
+    public function index()
+    {
+        $response = app('wechat.official_account')->server->serve();
+
+        $response->send();
+
+        exit;
+    }
 }
