@@ -2,20 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
-
 namespace app\admin\controller\system;
 
-use app\BaseController;
 use app\admin\service\ArticleCategoryService;
+use app\BaseController;
 
 class ArticleCategory extends BaseController
 {
@@ -41,7 +31,7 @@ class ArticleCategory extends BaseController
     public function create()
     {
         $result = $this->service->create(request()->post());
-        if (!$result) {
+        if (! $result) {
             return $this->sendError($this->service->getError());
         }
 
@@ -51,7 +41,7 @@ class ArticleCategory extends BaseController
     public function update($id)
     {
         $result = $this->service->update($id, request()->put());
-        if (!$result) {
+        if (! $result) {
             return $this->sendError($this->service->getError());
         }
 
@@ -61,7 +51,7 @@ class ArticleCategory extends BaseController
     public function delete($id)
     {
         $result = $this->service->delete($id);
-        if (!$result) {
+        if (! $result) {
             return $this->sendError($this->service->getError());
         }
 

@@ -2,21 +2,11 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
-
 namespace app\admin\service;
 
 use app\BaseService;
-use Tant\Util\Category;
 use app\common\model\ArticleCategory;
+use Tant\Util\Category;
 
 class ArticleCategoryService extends BaseService
 {
@@ -29,14 +19,14 @@ class ArticleCategoryService extends BaseService
     {
         $data = $this->model->paginate([
             'list_rows' => $pageSize,
-            'page'      => $pageNo,
+            'page' => $pageNo,
         ]);
 
         return [
-            'data'       => $data->items(),
-            'pageSize'   => $pageSize,
-            'pageNo'     => $pageNo,
-            'totalPage'  => count($data->items()),
+            'data' => $data->items(),
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($data->items()),
             'totalCount' => $data->total(),
         ];
     }
@@ -45,8 +35,12 @@ class ArticleCategoryService extends BaseService
     {
         $data = $this->model->order('pid asc')->select()->toArray();
         $category = new Category(['id', 'pid', 'name']);
-
         return $category->getTree($data);
+    }
+
+    public function categorys($pid)
+    {
+        return $this->model->where('pid', $pid)->where('disable', 0)->select();
     }
 
     public function create(array $data)

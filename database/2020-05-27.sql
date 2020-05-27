@@ -11,6 +11,46 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for table think.article
+CREATE TABLE IF NOT EXISTS `article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `top` int(11) DEFAULT '0' COMMENT '是否置顶',
+  `sort` int(11) DEFAULT '0',
+  `create_time` int(11) NOT NULL,
+  `update_time` int(11) NOT NULL,
+  `delete_time` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文章表';
+
+-- Dumping data for table think.article: ~0 rows (大约)
+/*!40000 ALTER TABLE `article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `article` ENABLE KEYS */;
+
+-- Dumping structure for table think.article_category
+CREATE TABLE IF NOT EXISTS `article_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pid` int(11) NOT NULL,
+  `disable` int(11) NOT NULL,
+  `create_time` int(11) NOT NULL,
+  `update_time` int(11) NOT NULL,
+  `delete_time` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table think.article_category: ~3 rows (大约)
+/*!40000 ALTER TABLE `article_category` DISABLE KEYS */;
+INSERT INTO `article_category` (`id`, `name`, `pid`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES
+	(1, '顶级分类', 0, 0, 1590593923, 1590593923, 0),
+	(2, '测试', 1, 0, 1590593923, 1590593923, 0),
+	(3, 'test', 2, 0, 1590595630, 1590595636, 1590595636);
+/*!40000 ALTER TABLE `article_category` ENABLE KEYS */;
+
 -- Dumping structure for table think.db_log
 CREATE TABLE IF NOT EXISTS `db_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,10 +63,18 @@ CREATE TABLE IF NOT EXISTS `db_log` (
   `update_time` int(11) NOT NULL,
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.db_log: ~0 rows (大约)
+-- Dumping data for table think.db_log: ~7 rows (大约)
 /*!40000 ALTER TABLE `db_log` DISABLE KEYS */;
+INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_time`, `update_time`, `delete_time`) VALUES
+	(1, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `type` = \'path\' , `pid` = 1 , `title` = \'文章管理\' , `name` = \'Article\' , `component` = \'PageView\' , `path` = \'/article\' , `redirect` = \'/article/list\' , `status` = 1 , `keepAlive` = 0 , `hidden` = 0 , `hideChildrenInMenu` = 0 , `create_time` = 1590593923 , `update_time` = 1590593923', 1, 1590593923, 1590593923, 0),
+	(2, 'Permission', '/admin/permission/50', 'update', 'UPDATE `permission`  SET `icon` = \'smile-o\' , `update_time` = 1590593975  WHERE (  `id` = 50 ) AND `permission`.`delete_time` = 0', 1, 1590593975, 1590593975, 0),
+	(3, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `type` = \'menu\' , `pid` = 1 , `title` = \'文章列表\' , `name` = \'ArticleGet\' , `component` = \'Article\' , `path` = \'/article/list\' , `status` = 1 , `keepAlive` = 0 , `hidden` = 0 , `hideChildrenInMenu` = 0 , `create_time` = 1590594018 , `update_time` = 1590594018', 1, 1590594018, 1590594018, 0),
+	(4, 'Permission', '/admin/permission/51', 'update', 'UPDATE `permission`  SET `pid` = 50 , `update_time` = 1590594034  WHERE (  `id` = 51 ) AND `permission`.`delete_time` = 0', 1, 1590594034, 1590594034, 0),
+	(5, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `type` = \'menu\' , `pid` = 50 , `title` = \'创建文章\' , `name` = \'CreateArticle\' , `component` = \'ArticleForm\' , `path` = \'/article/create\' , `status` = 1 , `keepAlive` = 0 , `hidden` = 1 , `hideChildrenInMenu` = 0 , `create_time` = 1590594348 , `update_time` = 1590594348', 1, 1590594348, 1590594348, 0),
+	(6, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `type` = \'menu\' , `pid` = 50 , `title` = \'更新文章\' , `name` = \'UpdateArticle\' , `component` = \'ArticleForm\' , `path` = \'/article/:id/update\' , `status` = 1 , `keepAlive` = 0 , `hidden` = 1 , `hideChildrenInMenu` = 0 , `create_time` = 1590594384 , `update_time` = 1590594384', 1, 1590594384, 1590594384, 0),
+	(7, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `type` = \'menu\' , `pid` = 50 , `title` = \'文章分类\' , `name` = \'ArticeCategory\' , `component` = \'ArticleCategory\' , `path` = \'/article/category\' , `status` = 1 , `keepAlive` = 0 , `hidden` = 0 , `hideChildrenInMenu` = 0 , `create_time` = 1590594754 , `update_time` = 1590594754', 1, 1590594754, 1590594754, 0);
 /*!40000 ALTER TABLE `db_log` ENABLE KEYS */;
 
 -- Dumping structure for table think.dept
@@ -118,9 +166,9 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.permission: ~49 rows (大约)
+-- Dumping data for table think.permission: ~54 rows (大约)
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
 INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`, `redirect`, `component`, `icon`, `permission`, `keepAlive`, `hidden`, `hideChildrenInMenu`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'Index', '首页', 0, 'path', 1, '/', '/dashboard/workplace', 'BasicLayout', '', '', 0, 0, 0, 0, 0, 0),
@@ -171,7 +219,12 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', '', 0, 0, 0, 0, 1590511221, 1590511221),
 	(47, 'UpdateSecurityPassword', '更新密码', 46, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, 0, 0),
 	(48, 'CreateAccount', '创建用户', 18, 'menu', 1, '/user/create', '', 'AccountForm', '', '', 0, 1, 0, 1590589427, 1590592715, 0),
-	(49, 'UpdateAccount', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', '', 0, 1, 0, 1590590048, 1590592730, 0);
+	(49, 'UpdateAccount', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', '', 0, 1, 0, 1590590048, 1590592730, 0),
+	(50, 'Article', '文章管理', 1, 'path', 1, '/article', '/article/list', 'PageView', 'smile-o', '', 0, 0, 0, 1590593923, 1590593975, 0),
+	(51, 'ArticleGet', '文章列表', 50, 'menu', 1, '/article/list', '', 'Article', '', '', 0, 0, 0, 1590594018, 1590594034, 0),
+	(52, 'CreateArticle', '创建文章', 50, 'menu', 1, '/article/create', '', 'ArticleForm', '', '', 0, 1, 0, 1590594348, 1590594348, 0),
+	(53, 'UpdateArticle', '更新文章', 50, 'menu', 1, '/article/:id/update', '', 'ArticleForm', '', '', 0, 1, 0, 1590594384, 1590594384, 0),
+	(54, 'ArticeCategory', '分类列表', 50, 'menu', 1, '/article/category', '', 'ArticleCategory', '', '', 0, 0, 0, 1590594754, 1590594754, 0);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 
 -- Dumping structure for table think.post

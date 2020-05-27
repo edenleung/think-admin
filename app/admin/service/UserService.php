@@ -147,8 +147,8 @@ class UserService extends BaseService
             ->scope('dataAccess', 'u')
             ->limit($pageSize)
             ->page($pageNo)
-            ->join('dept d', 'd.dept_id=u.dept_id')
-            ->field('u.*,d.dept_name')
+            ->join('dept d', 'd.id=u.dept_id')
+            ->field('u.*,d.name')
             ->select();
 
         foreach ($users as $user) {

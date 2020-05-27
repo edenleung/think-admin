@@ -88,16 +88,16 @@ Route::group('/system', function () {
 })->middleware(Jwt::class);
 
 Route::group('/article', function () {
+    Route::get('/category$', 'system.articleCategory/list');
+    Route::post('/category$', 'system.articleCategory/create');
+    Route::put('/category/:id$', 'system.articleCategory/update');
+    Route::delete('/category/:id$', 'system.articleCategory/delete');
+
     Route::get('/', 'system.article/list');
     Route::get('/:id$', 'system.article/info');
     Route::post('/', 'system.article/create');
     Route::put('/:id', 'system.article/update');
     Route::delete('/:id', 'system.article/delete');
-
-    Route::get('/category$', 'system.articleCategory/list');
-    Route::post('/category$', 'system.articleCategory/create');
-    Route::put('/category/:id$', 'system.articleCategory/update');
-    Route::delete('/category/:id$', 'system.articleCategory/delete');
 })->middleware(Jwt::class);
 
 // 模拟数据（可删除）

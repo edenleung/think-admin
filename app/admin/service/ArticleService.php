@@ -2,16 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
-
 namespace app\admin\service;
 
 use app\BaseService;
@@ -24,21 +14,27 @@ class ArticleService extends BaseService
         $this->model = $model;
     }
 
-    public function list($pageNo, $pageSize)
+    public function list($pageNo, $pageSize, $params = [])
     {
-        $data = $this->model->alias('a')
-        ->join('article_category c', 'a.category_id = c.id')
-        ->field('a.*, c.name as category_name')
-        ->paginate([
+        $query = $this->model->alias('a')
+            ->join('article_category c', 'a.category_id = c.id')
+            ->order('top desc, a.id desc')
+            ->field('a.id, a.image, a.title, a.top, a.sort, a.create_time, a.update_time, c.name as category_name');
+
+        if (! empty($params['cid'])) {
+            $query->where('c.id', $params['cid']);
+        }
+
+        $data = $query->paginate([
             'list_rows' => $pageSize,
-            'page'      => $pageNo,
+            'page' => $pageNo,
         ]);
 
         return [
-            'data'       => $data->items(),
-            'pageSize'   => $pageSize,
-            'pageNo'     => $pageNo,
-            'totalPage'  => count($data->items()),
+            'data' => $data->items(),
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($data->items()),
             'totalCount' => $data->total(),
         ];
     }
@@ -60,6 +56,9 @@ class ArticleService extends BaseService
 
     public function info($id)
     {
-        return $this->model->find($id);
+        return $this->model->alias('a')
+            ->join('article_category c', 'c.id = a.category_id')
+            ->field('a.*, c.name as category_name')
+            ->find($id);
     }
 }
