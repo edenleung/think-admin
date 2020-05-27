@@ -19,7 +19,7 @@ use app\BaseRequest;
 class UserRequest extends BaseRequest
 {
     protected $rule = [
-        'name'     => 'require|unique:user',
+        'name'     => 'require',
         'nickname' => 'require',
         'password' => 'require',
         'roles'    => 'require',
@@ -27,7 +27,6 @@ class UserRequest extends BaseRequest
 
     protected $message = [
         'name.require'     => '登录账号必须',
-        'name.unique'      => '登录账号重复',
         'nickname.require' => '名称必须',
         'password.require' => '密码必须',
         'roles.require'    => '角色必须',

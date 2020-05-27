@@ -49,8 +49,8 @@ class RoleService extends BaseService
 
         $roles = Role::where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($roles as $role) {
-            $role->permissions = $role->permissions->column('id');
-            $role->deptIds = $role->depts->column('dept_id');
+            $role->permissions = $role->permissions()->select()->column('id');
+            $role->deptIds = $role->depts()->select()->column('dept_id');
         }
 
         $data = $roles->toArray();

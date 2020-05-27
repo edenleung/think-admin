@@ -50,6 +50,7 @@ Route::group('/role', function () {
 
 // 用户
 Route::group('/user', function () {
+    Route::rule('/data', 'system.user/data', 'GET');
     //获取 个人信息
     Route::rule('/current$', 'system.user/current', 'GET');
     //更新 个人信息
@@ -63,6 +64,7 @@ Route::group('/user', function () {
     Route::rule('/info$', 'system.user/info', 'GET');
     Route::rule('/:id', 'system.user/update', 'PUT')->middleware(Permission::class, 'AccountUpdate');
     Route::rule('/:id', 'system.user/delete', 'DELETE')->middleware(Permission::class, 'AccountDelete');
+    Route::rule('/:id', 'system.user/getInfo', 'GET');
 })->middleware(Jwt::class);
 
 // 日志

@@ -67,13 +67,13 @@ class User extends BaseController
      *
      * @return \think\Response
      */
-    public function add(UserRequest $request)
+    public function create(UserRequest $request)
     {
         if (!$request->scene('create')->validate()) {
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->add($request->param()) === false) {
+        if ($this->service->create($request->param()) === false) {
             $error = $this->service->getError();
 
             return $this->sendError($error);
@@ -95,7 +95,7 @@ class User extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->renew($id, $request->param()) === false) {
+        if ($this->service->update($id, $request->param()) === false) {
             return $this->sendError($this->service->getError());
         }
 
@@ -111,7 +111,7 @@ class User extends BaseController
      */
     public function delete($id)
     {
-        if ($this->service->remove($id) === false) {
+        if ($this->service->delete($id) === false) {
             return $this->sendError($this->service->getError());
         }
 
@@ -193,5 +193,22 @@ class User extends BaseController
         }
 
         return $this->sendSuccess(null, '修改成功');
+    }
+
+    public function data()
+    {
+        $res = [];
+        $res['roles'] = $this->role->all();
+        $res['depts'] = $this->dept->getTree();
+        $res['posts'] = $this->post->all();
+
+        return $this->sendSuccess($res);
+    }
+
+    public function getInfo($id)
+    {
+        return $this->sendSuccess(
+            $this->service->get($id)
+        );
     }
 }

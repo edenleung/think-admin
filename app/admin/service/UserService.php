@@ -392,29 +392,8 @@ class UserService extends BaseService
         $user->posts()->saveAll([$post]);
     }
 
-    /**
-     * 获取所有维保人员（下拉）.
-     */
-    public function maintenancePersonnel()
+    public function get($id)
     {
-        $data = User::alias('u')
-            ->join('user_post_access upa', 'u.id = upa.user_id')
-            ->where('upa.post_id', 2)->field('u.*')
-            ->select();
-
-        return $data;
-    }
-
-    /**
-     * 获取所有项目负责人（下拉）.
-     */
-    public function leader()
-    {
-        $data = User::alias('u')
-            ->join('user_post_access upa', 'u.id = upa.user_id')
-            ->where('upa.post_id', 1)->field('u.*')
-            ->select();
-
-        return $data;
+        return $this->model->with(['roles', 'posts'])->find($id);
     }
 }
