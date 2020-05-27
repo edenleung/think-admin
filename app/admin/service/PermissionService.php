@@ -104,6 +104,7 @@ class PermissionService extends BaseService
 
         $map[] = ['type', '<>', 'action'];
         $data = $this->model->where($map)->select();
+
         return $category->formatTree($data);
     }
 
@@ -114,6 +115,7 @@ class PermissionService extends BaseService
     {
         $data = $this->model->order('pid asc')->select()->toArray();
         $category = new \Tant\Util\Category(['id', 'pid', 'title', 'cname']);
+
         return $category->formatTree($data); //获取分类数据树结构
     }
 
