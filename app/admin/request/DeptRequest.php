@@ -19,13 +19,12 @@ use app\BaseRequest;
 class DeptRequest extends BaseRequest
 {
     protected $rule = [
-        'dept_name' => 'require|unique:dept',
-        'dept_pid'  => 'require',
+        'name' => 'require',
+        'pid'  => 'require',
     ];
 
     protected $message = [
-        'dept_pid.require'  => '父级必须',
-        'dept_name.require' => '名称必须',
-        'dept_name.unique'  => '规则重复',
+        'pid.require'  => '父级必须',
+        'name.require' => '名称必须'
     ];
 }
