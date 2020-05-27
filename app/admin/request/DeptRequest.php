@@ -25,6 +25,6 @@ class DeptRequest extends BaseRequest
 
     protected $message = [
         'pid.require'  => '父级必须',
-        'name.require' => '名称必须'
+        'name.require' => '名称必须',
     ];
 }
