@@ -9,6 +9,9 @@ use app\common\service\MemberService;
 
 class Wechat extends BaseController
 {
+    // 信任域名
+    private $access_domain = 'domain.com';
+
     /**
      * 微信公众平台通信
      *
@@ -30,9 +33,15 @@ class Wechat extends BaseController
      */
     public function oauth()
     {
-        $callback = 'http://www.domain.com/wechat/callback';
+        $target = request()->get('target') ?? request()->server('HTTP_REFERER');
+        if ($target && !strpos($target, $this->access_domain)) {
+            exit('非法请求');
+        }
+
+        $callback_url = request()->domain() . '/wechat/callback?target='.$target;
         $response = app('wechat.official_account')->oauth->scopes(['snsapi_userinfo'])
-            ->redirect($callback);
+            ->redirect($callback_url);
+
         $response->send();
     }
 
@@ -52,7 +61,10 @@ class Wechat extends BaseController
         // unset($user['original']);
         // $member = $member->handleWechatCallback($user);
 
-        // $token = app('jwt')->store('app')->token(['uid' => $member->id, 'nickname' => $user->name, 'type' => 'wechat']);
-        // return redirect("http://localhost:8080?token={$token}");
+        // 分配 jwt token
+        // $token = app('jwt')->store('app')->token(['uid' => $member->id, 'nickname' => $member->name, 'type' => 'wechat']);
+
+        // $target = request()->get('target') ?? "http://{$this->access_domain}";
+        // return redirect("$target?token={$token}");
     }
 }
