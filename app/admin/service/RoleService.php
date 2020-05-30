@@ -50,7 +50,7 @@ class RoleService extends BaseService
         $roles = Role::where($map)->limit($pageSize)->page($pageNo)->select();
         foreach ($roles as $role) {
             $role->permissions = $role->permissions()->select()->column('id');
-            $role->deptIds = $role->depts()->select()->column('dept_id');
+            $role->deptIds = $role->depts()->select()->column('id');
         }
 
         $data = $roles->toArray();

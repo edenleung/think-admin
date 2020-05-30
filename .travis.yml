@@ -6,7 +6,7 @@ script:
   - composer self-update
   - composer global require phpstan/phpstan
   - composer install
-  - composer analyze
+  # - composer analyze
 
 cache:
   directories:

@@ -2,6 +2,16 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace app\wechat\controller;
 
 use app\BaseController;
@@ -27,7 +37,7 @@ class Wechat extends BaseController
     }
 
     /**
-     * 微信公众号授权
+     * 微信公众号授权.
      *
      * @return void
      */
@@ -46,9 +56,10 @@ class Wechat extends BaseController
     }
 
     /**
-     * 微信授权回调
+     * 微信授权回调.
      *
      * @param MemberService $member
+     *
      * @return void
      */
     public function callback(MemberService $member)
