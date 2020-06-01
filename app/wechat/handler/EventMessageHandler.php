@@ -58,9 +58,10 @@ class EventMessageHandler implements EventHandlerInterface
     }
 
     /**
-     * 上报地理位置事件
+     * 上报地理位置事件.
      *
      * @param [type] $payload
+     *
      * @return void
      */
     protected function LOCATION($payload = null)
@@ -68,9 +69,10 @@ class EventMessageHandler implements EventHandlerInterface
     }
 
     /**
-     * 自定义菜单事件
+     * 自定义菜单事件.
      *
      * @param [type] $payload
+     *
      * @return void
      */
     protected function CLICK($payload)
@@ -81,6 +83,7 @@ class EventMessageHandler implements EventHandlerInterface
      * 点击菜单跳转链接时的事件推送
      *
      * @param [type] $payload
+     *
      * @return void
      */
     protected function VIEW($payload)
