@@ -54,7 +54,7 @@ class Wechat extends BaseController
             exit('非法请求');
         }
 
-        $callback_url = request()->domain() . '/wechat/callback?target='.$target;
+        $callback_url = request()->domain() . '/wechat/callback?target=' . $target;
         $response = app('wechat.official_account')->oauth->scopes(['snsapi_userinfo'])
             ->redirect($callback_url);
 

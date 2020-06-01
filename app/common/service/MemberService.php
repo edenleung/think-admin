@@ -25,9 +25,10 @@ class MemberService extends BaseService
     }
 
     /**
-     * 处理用户信息更新与创建
+     * 处理用户信息更新与创建.
      *
      * @param [type] $user
+     *
      * @return void
      */
     public function handleWechatCallback($user)
