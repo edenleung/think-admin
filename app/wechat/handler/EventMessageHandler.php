@@ -73,7 +73,7 @@ class EventMessageHandler implements EventHandlerInterface
      * @param [type] $payload
      * @return void
      */
-    protected function CLICK($payload)
+    protected function CLICK($payload = null)
     {
     }
 
@@ -83,7 +83,7 @@ class EventMessageHandler implements EventHandlerInterface
      * @param [type] $payload
      * @return void
      */
-    protected function VIEW($payload)
+    protected function VIEW($payload = null)
     {
     }
 }
