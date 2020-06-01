@@ -14,4 +14,4 @@ declare(strict_types=1);
 
 use think\facade\Route;
 
-Route::get('/', 'wechat/index');
+Route::rule('/', 'wechat/index', 'GET|POST');

@@ -16,6 +16,8 @@ namespace app\wechat\controller;
 
 use app\BaseController;
 use app\common\service\MemberService;
+use EasyWeChat\Kernel\Messages\Message;
+use app\wechat\handler\EventMessageHandler;
 
 class Wechat extends BaseController
 {
@@ -29,7 +31,11 @@ class Wechat extends BaseController
      */
     public function index()
     {
-        $response = app('wechat.official_account')->server->serve();
+        $app = app('wechat.official_account');
+
+        $app->server->push(EventMessageHandler::class, Message::EVENT);
+
+        $response = $app->server->serve();
 
         $response->send();
 
@@ -73,7 +79,7 @@ class Wechat extends BaseController
         // $member = $member->handleWechatCallback($user);
 
         // 分配 jwt token
-        // $token = app('jwt')->store('app')->token(['uid' => $member->id, 'nickname' => $member->name, 'type' => 'wechat']);
+        // $token = app('jwt')->store('wechat')->token(['uid' => $member->id, 'nickname' => $member->name, 'type' => 'wechat']);
 
         // $target = request()->get('target') ?? "http://{$this->access_domain}";
         // return redirect("$target?token={$token}");
