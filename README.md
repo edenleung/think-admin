@@ -15,7 +15,7 @@ Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](h
 
 QQ 群 `996887666` 暗号 `Tant`
 
-[开发文档](https://doc.wfunc.com)
+[开发文档](http://muaawn.coding-pages.com)
 
 [开发计划](https://github.com/edenleung/think-admin/projects/1)
 
