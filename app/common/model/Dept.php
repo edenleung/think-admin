@@ -18,5 +18,4 @@ use app\BaseModel;
 
 class Dept extends BaseModel
 {
-    protected $pk = 'dept_id';
 }
