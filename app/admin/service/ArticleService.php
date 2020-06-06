@@ -54,7 +54,7 @@ class ArticleService extends BaseService
         return $this->model->save($data);
     }
 
-    public function update($id, $data)
+    public function update($id, array $data)
     {
         return $this->model->find($id)->save($data);
     }
