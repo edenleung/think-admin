@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace app\home\controller;
 
 use app\BaseController;
-use app\common\model\Role;
 
 class Index extends BaseController
 {
