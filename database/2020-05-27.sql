@@ -216,7 +216,7 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(43, 'BaseSettings', '基本设置', 42, 'menu', 1, '/account/settings/base', '', 'BaseSettings', '', '', 0, 0, 0, 0, 1590511227, 0),
 	(44, 'SaveProfile', '更新信息', 43, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, 0, 0),
 	(45, 'SaveAvatar', '更新头像', 43, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, 0, 0),
-	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', '', 0, 0, 0, 0, 1590511221, 1590511221),
+	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', '', 0, 0, 0, 1590511221, 1590511221, 0),
 	(47, 'UpdateSecurityPassword', '更新密码', 46, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, 0, 0),
 	(48, 'CreateAccount', '创建用户', 18, 'menu', 1, '/user/create', '', 'AccountForm', '', '', 0, 1, 0, 1590589427, 1590592715, 0),
 	(49, 'UpdateAccount', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', '', 0, 1, 0, 1590590048, 1590592730, 0),
