@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `top` int(11) DEFAULT '0' COMMENT '是否置顶',
   `sort` int(11) DEFAULT '0',
+  `status` int(11) DEFAULT '1' COMMENT '状态 0 隐藏 1 显示',
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   `delete_time` int(11) NOT NULL DEFAULT '0',
