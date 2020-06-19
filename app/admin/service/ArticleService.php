@@ -24,7 +24,7 @@ class ArticleService extends BaseService
         $this->model = $model;
     }
 
-    public function list($pageNo, $pageSize, $params = [])
+    public function list(int $pageNo, int $pageSize, $params = [])
     {
         $query = $this->model->alias('a')
             ->join('article_category c', 'a.category_id = c.id')
