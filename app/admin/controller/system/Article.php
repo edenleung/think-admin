@@ -26,7 +26,7 @@ class Article extends BaseController
 
     public function list($pageNo = 1, $pageSize = 10)
     {
-        return $this->sendSuccess($this->service->list((int)$pageNo, (int)$pageSize, request()->get()));
+        return $this->sendSuccess($this->service->list((int) $pageNo, (int) $pageSize, request()->get()));
     }
 
     public function create()

@@ -33,7 +33,7 @@ class ArticleService extends BaseService
         }
 
         if (isset($params['title']) && !empty($params['title'])) {
-            $query->whereLike('a.title', '%'. $params['title'] .'%');
+            $query->whereLike('a.title', '%' . $params['title'] . '%');
         }
 
         if (!empty($params['cid'])) {
