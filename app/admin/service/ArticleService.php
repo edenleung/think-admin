@@ -26,14 +26,23 @@ class ArticleService extends BaseService
 
     public function list(int $pageNo, int $pageSize, $params = [])
     {
-        $query = $this->model->alias('a')
-            ->join('article_category c', 'a.category_id = c.id')
-            ->order('top desc, a.id desc')
-            ->field('a.id, a.image, a.title, a.top, a.sort, a.create_time, a.update_time, c.name as category_name');
+        $query = $this->model->alias('a');
+
+        if (isset($params['status'])) {
+            $query->where('a.status', $params['status']);
+        }
+
+        if (isset($params['title']) && !empty($params['title'])) {
+            $query->whereLike('a.title', '%'. $params['title'] .'%');
+        }
 
         if (!empty($params['cid'])) {
             $query->where('c.id', $params['cid']);
         }
+
+        $query->join('article_category c', 'a.category_id = c.id')
+            ->order('top desc, a.id desc')
+            ->field('a.id, a.image, a.title, a.top, a.sort, a.create_time, a.update_time, a.status, c.name as category_name');
 
         $data = $query->paginate([
             'list_rows' => $pageSize,
