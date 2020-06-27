@@ -5,5 +5,4 @@
 *.log
 thinkphp
 .env
-composer.lock
 node_modules
