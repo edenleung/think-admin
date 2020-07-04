@@ -33,7 +33,7 @@ class Permission extends BasePermission
         if ($request->isOptions()) {
             return $next($request);
         }
-        
+
         if (!$request->user) {
             return $this->handleNotLoggedIn($request);
         }
