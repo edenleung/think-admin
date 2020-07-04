@@ -51,9 +51,11 @@ class PermissionService extends BaseService
     /**
      * 添加菜单.
      */
-    public function add(array $data)
+    public function create(array $data)
     {
-        if (!empty($data['permission'])) {
+        if (empty($data['permission'])) {
+            $data['permission'] = [$data['name']];
+        } else {
             $data['permission'] = implode(',', $data['permission']);
         }
 
@@ -72,7 +74,7 @@ class PermissionService extends BaseService
         if (!empty($input['permission'])) {
             $input['permission'] = implode(',', $input['permission']);
         } else {
-            $input['permission'] = '';
+            $input['permission'] = [$rule->name];
         }
 
         return $rule->save($input);

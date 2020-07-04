@@ -51,7 +51,7 @@ class Permission extends BaseController
             return $this->sendError($request->getError());
         }
 
-        if ($this->service->add($request->param()) === false) {
+        if ($this->service->create($request->param()) === false) {
             return $this->sendError();
         }
 
