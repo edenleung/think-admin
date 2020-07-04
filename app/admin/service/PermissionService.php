@@ -65,7 +65,7 @@ class PermissionService extends BaseService
      *
      * @param [type] $id
      */
-    public function renew($id, array $input)
+    public function update($id, array $input)
     {
         $rule = $this->model->find($id);
 
