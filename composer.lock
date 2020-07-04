@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddefebe980c73cbee462036a916df438",
+    "content-hash": "eaf62822c16f2119c66440a214d9a23b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -198,73 +198,6 @@
             ],
             "description": "The composer plugin for EasyWeChat",
             "time": "2020-04-10T15:22:45+00:00"
-        },
-        {
-            "name": "filp/whoops",
-            "version": "2.7.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/filp/whoops.git",
-                "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
-                "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": "^5.5.9 || ^7.0",
-                "psr/log": "^1.0.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9 || ^1.0",
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0",
-                "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
-            },
-            "suggest": {
-                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
-                "whoops/soap": "Formats errors as SOAP responses"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.6-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Whoops\\": "src/Whoops/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
-                }
-            ],
-            "description": "php error handling for cool kids",
-            "homepage": "https://filp.github.io/whoops/",
-            "keywords": [
-                "error",
-                "exception",
-                "handling",
-                "library",
-                "throwable",
-                "whoops"
-            ],
-            "time": "2020-06-14T09:00:00+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2748,16 +2681,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v6.0.2",
+            "version": "v6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "1444cce94b40a836958380b160a5fb7bfc165daf"
+                "reference": "b4046fb21e6163ba23a792b694162693dbe71b4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/1444cce94b40a836958380b160a5fb7bfc165daf",
-                "reference": "1444cce94b40a836958380b160a5fb7bfc165daf",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/b4046fb21e6163ba23a792b694162693dbe71b4b",
+                "reference": "b4046fb21e6163ba23a792b694162693dbe71b4b",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2812,7 +2745,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2020-01-13T05:48:05+00:00"
+            "time": "2020-06-26T16:03:10+00:00"
         },
         {
             "name": "topthink/think-annotation",
@@ -3072,16 +3005,16 @@
         },
         {
             "name": "xiaodi/think-jwt",
-            "version": "v1.0.0-beta.12",
+            "version": "v1.0.0-beta.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friendsofthinkphp/think-jwt.git",
-                "reference": "0d95c40cde92b09b7afd7b8483c28ec7e907c13b"
+                "reference": "f786554dfd15063690ec6db710172f8b30690118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/0d95c40cde92b09b7afd7b8483c28ec7e907c13b",
-                "reference": "0d95c40cde92b09b7afd7b8483c28ec7e907c13b",
+                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/f786554dfd15063690ec6db710172f8b30690118",
+                "reference": "f786554dfd15063690ec6db710172f8b30690118",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3138,20 +3071,20 @@
                 "php",
                 "thinkphp"
             ],
-            "time": "2020-06-27T15:33:37+00:00"
+            "time": "2020-07-03T16:30:05+00:00"
         },
         {
             "name": "xiaodi/think-permission",
-            "version": "v0.6.1",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/edenleung/think-permission.git",
-                "reference": "ab9ee24607aabac924c19bbf67df25ae8f3c611a"
+                "url": "https://github.com/friendsofthinkphp/think-permission.git",
+                "reference": "43072e3c4732ebef42b2e4dc5164ee2ac0b057bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/edenleung/think-permission/zipball/ab9ee24607aabac924c19bbf67df25ae8f3c611a",
-                "reference": "ab9ee24607aabac924c19bbf67df25ae8f3c611a",
+                "url": "https://api.github.com/repos/friendsofthinkphp/think-permission/zipball/43072e3c4732ebef42b2e4dc5164ee2ac0b057bd",
+                "reference": "43072e3c4732ebef42b2e4dc5164ee2ac0b057bd",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3162,7 +3095,7 @@
             },
             "require": {
                 "lcobucci/jwt": "^3.3",
-                "php": ">=7.0"
+                "php": ">=7.1"
             },
             "type": "library",
             "extra": {
@@ -3196,66 +3129,7 @@
                 "thinkphp",
                 "thinkphp-auth"
             ],
-            "time": "2020-03-01T15:21:27+00:00"
-        },
-        {
-            "name": "xiaodi/think-whoops",
-            "version": "v1.1.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/edenleung/think-whoops.git",
-                "reference": "acf381f5ca2c4bfea42775694ac36259a6d6868b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/edenleung/think-whoops/zipball/acf381f5ca2c4bfea42775694ac36259a6d6868b",
-                "reference": "acf381f5ca2c4bfea42775694ac36259a6d6868b",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "filp/whoops": "^2.4",
-                "php": ">=7.1.0",
-                "topthink/framework": "6.0.*"
-            },
-            "type": "library",
-            "extra": {
-                "think": {
-                    "services": [
-                        "think\\Whoops\\WhoopsService"
-                    ],
-                    "config": {
-                        "whoops": "config/config.php"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "think\\Whoops\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "xiaodi",
-                    "email": "liangjinbiao@live.com"
-                }
-            ],
-            "description": "A debug service for ThinkPHP.",
-            "keywords": [
-                "php",
-                "thinkphp",
-                "whoops"
-            ],
-            "time": "2019-12-08T03:31:55+00:00"
+            "time": "2020-07-04T03:24:41+00:00"
         }
     ],
     "packages-dev": [
@@ -4506,59 +4380,6 @@
                 "dump"
             ],
             "time": "2020-05-30T20:06:45+00:00"
-        },
-        {
-            "name": "topthink/think-trace",
-            "version": "v1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/top-think/think-trace.git",
-                "reference": "d8da2e39df268ab8775013de699f0c3012e51318"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-trace/zipball/d8da2e39df268ab8775013de699f0c3012e51318",
-                "reference": "d8da2e39df268ab8775013de699f0c3012e51318",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": ">=7.1.0",
-                "topthink/framework": "^6.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "think": {
-                    "services": [
-                        "think\\trace\\Service"
-                    ],
-                    "config": {
-                        "trace": "src/config.php"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "think\\trace\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "liu21st",
-                    "email": "liu21st@gmail.com"
-                }
-            ],
-            "description": "thinkphp debug trace",
-            "time": "2020-03-18T07:59:53+00:00"
         }
     ],
     "aliases": [],
@@ -4571,5 +4392,6 @@
     "platform": {
         "php": ">=7.1.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

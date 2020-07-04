@@ -18,21 +18,19 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "topthink/framework": "^6.0.2",
+        "topthink/framework": "6.0.3",
         "topthink/think-orm": "^2.0",
         "topthink/think-annotation": "1.1.0",
-        "xiaodi/think-whoops": "1.1.*",
         "topthink/think-migration": "^3.0",
         "topthink/think-multi-app": "^1.0",
         "overtrue/wechat": "~4.0",
-        "xiaodi/think-permission": "0.6.1",
-        "xiaodi/think-jwt": "1.0.0-beta.12",
-        "phpoffice/phpspreadsheet": "1.12.0"
+        "xiaodi/think-permission": "0.6.2",
+        "phpoffice/phpspreadsheet": "1.12.0",
+        "xiaodi/think-jwt": "v1.0.0-beta.15"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "topthink/think-trace":"^1.0",
         "phpstan/phpstan": "0.12.*"
     },
     "autoload": {

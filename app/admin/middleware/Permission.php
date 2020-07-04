@@ -29,6 +29,11 @@ class Permission extends BasePermission
      */
     public function handle($request, \Closure $next, $permission)
     {
+        // 暂时修复 6.0.3 options 问题
+        if ($request->isOptions()) {
+            return $next($request);
+        }
+        
         if (!$request->user) {
             return $this->handleNotLoggedIn($request);
         }
