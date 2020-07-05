@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `db_log` (
   `update_time` int(11) NOT NULL,
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.db_log: ~3 rows (大约)
+-- Dumping data for table think.db_log: ~21 rows (大约)
 /*!40000 ALTER TABLE `db_log` DISABLE KEYS */;
 INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'Permission', '/admin/permission/31', 'update', 'UPDATE `permission`  SET `name` = \'UpdatePost\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929051  WHERE (  `id` = 31 ) AND `permission`.`delete_time` = 0', 1, 1593929051, 1593929051, 0),
@@ -86,7 +86,9 @@ INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_
 	(16, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `update_time` = 1593930643  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930643, 1593930643, 0),
 	(17, 'Permission', '/admin/permission/49', 'update', 'UPDATE `permission`  SET `permission` = \'UpdateAccountView\' , `update_time` = 1593930651  WHERE (  `id` = 49 ) AND `permission`.`delete_time` = 0', 1, 1593930651, 1593930651, 0),
 	(18, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `permission` = \'CreateAccountView\' , `update_time` = 1593930974  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930974, 1593930974, 0),
-	(19, 'User', '/admin/user', 'insert', 'INSERT INTO `user` SET `name` = \'test\' , `nickname` = \'测试\' , `status` = 1 , `dept_id` = 4 , `hash` = \'8anGvp7hT30\' , `password` = \'$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m\' , `create_time` = 1593931035 , `update_time` = 1593931035', 1, 1593931035, 1593931035, 0);
+	(19, 'User', '/admin/user', 'insert', 'INSERT INTO `user` SET `name` = \'test\' , `nickname` = \'测试\' , `status` = 1 , `dept_id` = 4 , `hash` = \'8anGvp7hT30\' , `password` = \'$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m\' , `create_time` = 1593931035 , `update_time` = 1593931035', 1, 1593931035, 1593931035, 0),
+	(20, 'Permission', '/admin/permission/43', 'update', 'UPDATE `permission`  SET `permission` = \'BaseSettings\' , `update_time` = 1593932353  WHERE (  `id` = 43 ) AND `permission`.`delete_time` = 0', 1, 1593932353, 1593932353, 0),
+	(21, 'Permission', '/admin/permission/46', 'update', 'UPDATE `permission`  SET `permission` = \'BaseSettings\' , `update_time` = 1593932359  WHERE (  `id` = 46 ) AND `permission`.`delete_time` = 0', 1, 1593932359, 1593932359, 0);
 /*!40000 ALTER TABLE `db_log` ENABLE KEYS */;
 
 -- Dumping structure for table think.dept
@@ -125,12 +127,13 @@ CREATE TABLE IF NOT EXISTS `log` (
   `update_time` int(11) NOT NULL COMMENT '更新时间',
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.log: ~0 rows (大约)
+-- Dumping data for table think.log: ~2 rows (大约)
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
 INSERT INTO `log` (`id`, `user_id`, `action`, `url`, `ip`, `user_agent`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 3, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 1593931059, 1593931059, 0);
+	(1, 3, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 1593931059, 1593931059, 0),
+	(2, 1, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 1593931867, 1593931867, 0);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 
 -- Dumping structure for table think.migrations
@@ -229,10 +232,10 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(40, 'Profile', '个人页', 1, 'path', 1, '/account', '/account/center', 'RouteView', 'user', 'BaseSettings,SecuritySettings', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(41, 'ProfileAccount', '个人中心', 40, 'menu', 1, '/account/center', '', 'Center', '', '', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(42, 'ProfileSetting', '个人设置', 40, 'menu', 1, '/account/settings', '/account/settings/base', 'Settings', '', 'BaseSettings,SecuritySettings', 0, 0, 1, 0, NULL, 0, 0, 0),
-	(43, 'BaseSettings', '基本设置', 42, 'menu', 1, '/account/settings/base', '', 'BaseSettings', '', '', 0, 0, 0, 0, NULL, 0, 1590511227, 0),
+	(43, 'BaseSettings', '基本设置', 42, 'menu', 1, '/account/settings/base', '', 'BaseSettings', '', 'BaseSettings', 0, 0, 0, 0, NULL, 0, 1593932353, 0),
 	(44, 'SaveProfile', '更新信息', 43, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593928517, 0),
 	(45, 'SaveAvatar', '更新头像', 43, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593928524, 0),
-	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', '', 0, 0, 0, 0, NULL, 1590511221, 1590511221, 0),
+	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', 'BaseSettings', 0, 0, 0, 0, NULL, 1590511221, 1593932359, 0),
 	(47, 'UpdateSecurityPassword', '更新密码', 46, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593928532, 0),
 	(48, 'CreateAccountView', '创建用户', 18, 'menu', 1, '/user/create', '', 'AccountForm', '', 'CreateAccountView', 0, 1, 0, 0, NULL, 1590589427, 1593930974, 0),
 	(49, 'UpdateAccountView', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', 'UpdateAccountView', 0, 1, 0, 0, NULL, 1590590048, 1593930651, 0),
@@ -289,9 +292,9 @@ CREATE TABLE IF NOT EXISTS `role` (
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.role: ~1 rows (大约)
+-- Dumping data for table think.role: ~2 rows (大约)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `role` (`id`, `name`, `title`, `pid`, `mode`, `status`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'root', '顶级角色', 0, 0, 1, 0, 0, 0),
@@ -316,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `role_permission_access` (
   PRIMARY KEY (`role_id`,`permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.role_permission_access: ~0 rows (大约)
+-- Dumping data for table think.role_permission_access: ~11 rows (大约)
 /*!40000 ALTER TABLE `role_permission_access` DISABLE KEYS */;
 INSERT INTO `role_permission_access` (`role_id`, `permission_id`) VALUES
 	(3, 4),
@@ -348,9 +351,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.user: ~1 rows (大约)
+-- Dumping data for table think.user: ~2 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `hash`, `nickname`, `dept_id`, `status`, `avatar`, `email`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'admin', '$2y$10$NivWBgBTy8f/Sfghr3Bch.38kDb/WL7cncBF7iLG4f8KumkGQeo56', 'US%qMfOqun4', 'Serati Ma', 0, 1, 'storage/topic/avatar.png', 'SeratiMa@aliyun.com', 1589699902, 1589699902, 0),
@@ -375,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `user_role_access` (
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.user_role_access: ~0 rows (大约)
+-- Dumping data for table think.user_role_access: ~1 rows (大约)
 /*!40000 ALTER TABLE `user_role_access` DISABLE KEYS */;
 INSERT INTO `user_role_access` (`user_id`, `role_id`) VALUES
 	(3, 3);
