@@ -341,17 +341,15 @@ class UserService extends BaseService
                         }
                     }
                     $permission['actionEntitySet'] = $actionEntity;
-
                 } else {
                     $permission['actionList'][] = $menu['name'];
                     $permission['actions'][] = ['action' => $menu['name'], 'describe' => $menu['title']];
-                    $permission['actionEntitySet'][] =  [
+                    $permission['actionEntitySet'][] = [
                         'action'       => $menu['name'],
                         'describe'     => $menu['title'],
                         'defaultCheck' => false,
                     ];
                 }
-                
 
                 if (!empty($actionEntity)) {
                     $permissions[] = $permission;
