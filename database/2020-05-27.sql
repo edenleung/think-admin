@@ -70,7 +70,23 @@ CREATE TABLE IF NOT EXISTS `db_log` (
 INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'Permission', '/admin/permission/31', 'update', 'UPDATE `permission`  SET `name` = \'UpdatePost\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929051  WHERE (  `id` = 31 ) AND `permission`.`delete_time` = 0', 1, 1593929051, 1593929051, 0),
 	(2, 'Permission', '/admin/permission/26', 'update', 'UPDATE `permission`  SET `name` = \'UpdateDept\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929061  WHERE (  `id` = 26 ) AND `permission`.`delete_time` = 0', 1, 1593929061, 1593929061, 0),
-	(3, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `pid` = 13 , `type` = \'action\' , `action_type` = 2 , `title` = \'编辑数据权限\' , `name` = \'UpdateRoleAccess\' , `status` = 1 , `create_time` = 1593929218 , `update_time` = 1593929218', 1, 1593929218, 1593929218, 0);
+	(3, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `pid` = 13 , `type` = \'action\' , `action_type` = 2 , `title` = \'编辑数据权限\' , `name` = \'UpdateRoleAccess\' , `status` = 1 , `create_time` = 1593929218 , `update_time` = 1593929218', 1, 1593929218, 1593929218, 0),
+	(4, 'Role', '/admin/role', 'insert', 'INSERT INTO `role` SET `pid` = 1 , `name` = \'test\' , `title` = \'普通分组 只有查看权限\' , `status` = 1 , `create_time` = 1593930146 , `update_time` = 1593930146', 1, 1593930146, 1593930146, 0),
+	(5, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `title` = \'列表2\' , `update_time` = 1593930180  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930180, 1593930180, 0),
+	(6, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `name` = \'FetchAccount2\' , `update_time` = 1593930188  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930188, 1593930188, 0),
+	(7, 'Permission', '/admin/permission/20', 'update', 'UPDATE `permission`  SET `name` = \'FetchAccount\' , `title` = \'列表\' , `button_type` = \'Fetch\' , `update_time` = 1593930200  WHERE (  `id` = 20 ) AND `permission`.`delete_time` = 0', 1, 1593930200, 1593930200, 0),
+	(8, 'Permission', '/admin/permission/21', 'update', 'UPDATE `permission`  SET `name` = \'AccountUpdate2\' , `update_time` = 1593930224  WHERE (  `id` = 21 ) AND `permission`.`delete_time` = 0', 1, 1593930224, 1593930224, 0),
+	(9, 'Permission', '/admin/permission/22', 'update', 'UPDATE `permission`  SET `name` = \'AccountDelete2\' , `update_time` = 1593930232  WHERE (  `id` = 22 ) AND `permission`.`delete_time` = 0', 1, 1593930232, 1593930232, 0),
+	(10, 'Permission', '/admin/permission/21', 'update', 'UPDATE `permission`  SET `name` = \'CreateAccount\' , `title` = \'新增\' , `action_type` = 1 , `button_type` = \'Create\' , `update_time` = 1593930241  WHERE (  `id` = 21 ) AND `permission`.`delete_time` = 0', 1, 1593930241, 1593930241, 0),
+	(11, 'Permission', '/admin/permission/22', 'update', 'UPDATE `permission`  SET `name` = \'UpdateAccount\' , `title` = \'修改\' , `action_type` = 1 , `button_type` = \'Update\' , `update_time` = 1593930249  WHERE (  `id` = 22 ) AND `permission`.`delete_time` = 0', 1, 1593930249, 1593930249, 0),
+	(12, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `name` = \'DeleteAccount\' , `title` = \'删除\' , `button_type` = \'Delete\' , `update_time` = 1593930257  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930257, 1593930257, 0),
+	(13, 'Role', '/admin/role/3', 'update', 'UPDATE `role`  SET `update_time` = 1593930275  WHERE (  `id` = 3 ) AND `role`.`delete_time` = 0', 1, 1593930275, 1593930275, 0),
+	(14, 'Permission', '/admin/permission/19', 'update', 'UPDATE `permission`  SET `permission` = \'Account\' , `update_time` = 1593930375  WHERE (  `id` = 19 ) AND `permission`.`delete_time` = 0', 1, 1593930375, 1593930375, 0),
+	(15, 'Permission', '/admin/permission/17', 'update', 'UPDATE `permission`  SET `name` = \'DeleteRole\' , `action_type` = 1 , `button_type` = \'Delete\' , `update_time` = 1593930465  WHERE (  `id` = 17 ) AND `permission`.`delete_time` = 0', 1, 1593930465, 1593930465, 0),
+	(16, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `update_time` = 1593930643  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930643, 1593930643, 0),
+	(17, 'Permission', '/admin/permission/49', 'update', 'UPDATE `permission`  SET `permission` = \'UpdateAccountView\' , `update_time` = 1593930651  WHERE (  `id` = 49 ) AND `permission`.`delete_time` = 0', 1, 1593930651, 1593930651, 0),
+	(18, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `permission` = \'CreateAccountView\' , `update_time` = 1593930974  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930974, 1593930974, 0),
+	(19, 'User', '/admin/user', 'insert', 'INSERT INTO `user` SET `name` = \'test\' , `nickname` = \'测试\' , `status` = 1 , `dept_id` = 4 , `hash` = \'8anGvp7hT30\' , `password` = \'$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m\' , `create_time` = 1593931035 , `update_time` = 1593931035', 1, 1593931035, 1593931035, 0);
 /*!40000 ALTER TABLE `db_log` ENABLE KEYS */;
 
 -- Dumping structure for table think.dept
@@ -113,6 +129,8 @@ CREATE TABLE IF NOT EXISTS `log` (
 
 -- Dumping data for table think.log: ~0 rows (大约)
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
+INSERT INTO `log` (`id`, `user_id`, `action`, `url`, `ip`, `user_agent`, `create_time`, `update_time`, `delete_time`) VALUES
+	(1, 3, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 1593931059, 1593931059, 0);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 
 -- Dumping structure for table think.migrations
@@ -185,12 +203,12 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(14, 'FetchRole', '列表', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593876522, 0),
 	(15, 'CreateRole', '新增', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593876533, 0),
 	(16, 'UpdateRole', '修改', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Update', 0, 1593876552, 0),
-	(17, 'RoleDelete', '删除', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 0, 0, 0),
+	(17, 'DeleteRole', '删除', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593930465, 0),
 	(18, 'AccountManager', '管理员管理', 7, 'path', 1, '/system/user', '/system/user/list', 'RouteView', '', '', 0, 0, 1, 0, NULL, 0, 1593927984, 0),
-	(19, 'Account', '管理员列表', 18, 'menu', 1, '/system/user/list', '', 'Account', '', '', 0, 0, 0, 0, NULL, 0, 1593927992, 0),
-	(20, 'CreateAccountGet', '新增', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593876609, 0),
-	(21, 'AccountUpdate', '更新', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 0, 0, 0),
-	(22, 'AccountDelete', '删除', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 0, 0, 0),
+	(19, 'Account', '管理员列表', 18, 'menu', 1, '/system/user/list', '', 'Account', '', 'Account', 0, 0, 0, 0, NULL, 0, 1593930375, 0),
+	(20, 'FetchAccount', '列表', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593930200, 0),
+	(21, 'CreateAccount', '新增', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593930241, 0),
+	(22, 'UpdateAccount', '修改', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Update', 0, 1593930249, 0),
 	(23, 'Dept', '部门管理', 7, 'menu', 1, '/system/Dept', '', 'Dept', '', 'Dept', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(24, 'FetchDept', '列表', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593928144, 0),
 	(25, 'CreateDept', '新增', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593928222, 0),
@@ -216,8 +234,8 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(45, 'SaveAvatar', '更新头像', 43, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593928524, 0),
 	(46, 'SecuritySettings', '安全设置', 42, 'menu', 1, '/account/settings/security', '', 'SecuritySettings', '', '', 0, 0, 0, 0, NULL, 1590511221, 1590511221, 0),
 	(47, 'UpdateSecurityPassword', '更新密码', 46, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593928532, 0),
-	(48, 'CreateAccountView', '创建用户', 18, 'menu', 1, '/user/create', '', 'AccountForm', '', '', 0, 1, 0, 0, NULL, 1590589427, 1593928061, 0),
-	(49, 'UpdateAccountView', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', '', 0, 1, 0, 0, NULL, 1590590048, 1593928078, 0),
+	(48, 'CreateAccountView', '创建用户', 18, 'menu', 1, '/user/create', '', 'AccountForm', '', 'CreateAccountView', 0, 1, 0, 0, NULL, 1590589427, 1593930974, 0),
+	(49, 'UpdateAccountView', '更新用户', 18, 'menu', 1, '/user/:id/update', '', 'AccountForm', '', 'UpdateAccountView', 0, 1, 0, 0, NULL, 1590590048, 1593930651, 0),
 	(50, 'ArticleManager', '文章管理', 1, 'path', 1, '/article', '/article/list', 'PageView', 'smile-o', '', 0, 0, 0, 0, NULL, 1590593923, 1590593975, 0),
 	(51, 'Article', '文章列表', 50, 'menu', 1, '/article/list', '', 'Article', '', 'Article', 0, 0, 1, 0, NULL, 1590594018, 1593875062, 0),
 	(52, 'CreateArticleView', '创建文章', 50, 'menu', 1, '/article/create', '', 'ArticleForm', '', 'CreateArticleView', 0, 1, 0, 0, NULL, 1590594348, 1593854847, 0),
@@ -231,7 +249,7 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(72, 'DeleteArticle', '删除', 51, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 1593873673, 1593873673, 0),
 	(73, 'SaveCreateArticleView', '保存', 52, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 1593873696, 1593873696, 0),
 	(74, 'SaveUpdateArticleView', '保存', 53, 'action', 1, '', '', '', '', '', 0, 0, 0, 0, NULL, 1593873734, 1593873734, 0),
-	(75, 'FetchAccount', '列表', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 1593928021, 1593928021, 0),
+	(75, 'DeleteAccount', '删除', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 1593928021, 1593930257, 0),
 	(76, 'SaveCreateAccountView', '保存', 48, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 1593928100, 1593928100, 0),
 	(77, 'SaveUpdateAccountView', '保存', 49, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 1593928120, 1593928120, 0),
 	(78, 'FetchArticeCategory', '列表', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 1593928570, 1593928601, 0),
@@ -273,10 +291,11 @@ CREATE TABLE IF NOT EXISTS `role` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.role: ~0 rows (大约)
+-- Dumping data for table think.role: ~1 rows (大约)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 INSERT INTO `role` (`id`, `name`, `title`, `pid`, `mode`, `status`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'root', '顶级角色', 0, 0, 1, 0, 0, 0);
+	(1, 'root', '顶级角色', 0, 0, 1, 0, 0, 0),
+	(3, 'test', '普通分组 只有查看权限', 1, 3, 1, 1593930146, 1593930275, 0);
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 
 -- Dumping structure for table think.role_dept_access
@@ -299,6 +318,18 @@ CREATE TABLE IF NOT EXISTS `role_permission_access` (
 
 -- Dumping data for table think.role_permission_access: ~0 rows (大约)
 /*!40000 ALTER TABLE `role_permission_access` DISABLE KEYS */;
+INSERT INTO `role_permission_access` (`role_id`, `permission_id`) VALUES
+	(3, 4),
+	(3, 6),
+	(3, 9),
+	(3, 14),
+	(3, 20),
+	(3, 24),
+	(3, 29),
+	(3, 35),
+	(3, 38),
+	(3, 69),
+	(3, 78);
 /*!40000 ALTER TABLE `role_permission_access` ENABLE KEYS */;
 
 -- Dumping structure for table think.user
@@ -319,10 +350,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.user: ~0 rows (大约)
+-- Dumping data for table think.user: ~1 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `hash`, `nickname`, `dept_id`, `status`, `avatar`, `email`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'admin', '$2y$10$NivWBgBTy8f/Sfghr3Bch.38kDb/WL7cncBF7iLG4f8KumkGQeo56', 'US%qMfOqun4', 'Serati Ma', 0, 1, 'storage/topic/avatar.png', 'SeratiMa@aliyun.com', 1589699902, 1589699902, 0);
+	(1, 'admin', '$2y$10$NivWBgBTy8f/Sfghr3Bch.38kDb/WL7cncBF7iLG4f8KumkGQeo56', 'US%qMfOqun4', 'Serati Ma', 0, 1, 'storage/topic/avatar.png', 'SeratiMa@aliyun.com', 1589699902, 1589699902, 0),
+	(3, 'test', '$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m', '8anGvp7hT30', '测试', 4, 1, '', '', 1593931035, 1593931035, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table think.user_post_access
@@ -345,6 +377,8 @@ CREATE TABLE IF NOT EXISTS `user_role_access` (
 
 -- Dumping data for table think.user_role_access: ~0 rows (大约)
 /*!40000 ALTER TABLE `user_role_access` DISABLE KEYS */;
+INSERT INTO `user_role_access` (`user_id`, `role_id`) VALUES
+	(3, 3);
 /*!40000 ALTER TABLE `user_role_access` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
