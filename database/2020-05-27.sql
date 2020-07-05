@@ -63,10 +63,14 @@ CREATE TABLE IF NOT EXISTS `db_log` (
   `update_time` int(11) NOT NULL,
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.db_log: ~0 rows (大约)
+-- Dumping data for table think.db_log: ~3 rows (大约)
 /*!40000 ALTER TABLE `db_log` DISABLE KEYS */;
+INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_time`, `update_time`, `delete_time`) VALUES
+	(1, 'Permission', '/admin/permission/31', 'update', 'UPDATE `permission`  SET `name` = \'UpdatePost\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929051  WHERE (  `id` = 31 ) AND `permission`.`delete_time` = 0', 1, 1593929051, 1593929051, 0),
+	(2, 'Permission', '/admin/permission/26', 'update', 'UPDATE `permission`  SET `name` = \'UpdateDept\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929061  WHERE (  `id` = 26 ) AND `permission`.`delete_time` = 0', 1, 1593929061, 1593929061, 0),
+	(3, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `pid` = 13 , `type` = \'action\' , `action_type` = 2 , `title` = \'编辑数据权限\' , `name` = \'UpdateRoleAccess\' , `status` = 1 , `create_time` = 1593929218 , `update_time` = 1593929218', 1, 1593929218, 1593929218, 0);
 /*!40000 ALTER TABLE `db_log` ENABLE KEYS */;
 
 -- Dumping structure for table think.dept
@@ -160,9 +164,9 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.permission: ~69 rows (大约)
+-- Dumping data for table think.permission: ~70 rows (大约)
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
 INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`, `redirect`, `component`, `icon`, `permission`, `keepAlive`, `hidden`, `hideChildrenInMenu`, `action_type`, `button_type`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'Index', '首页', 0, 'path', 1, '/', '/dashboard/workplace', 'BasicLayout', '', '', 0, 0, 0, 0, NULL, 0, 1593875048, 0),
@@ -190,12 +194,12 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(23, 'Dept', '部门管理', 7, 'menu', 1, '/system/Dept', '', 'Dept', '', 'Dept', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(24, 'FetchDept', '列表', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593928144, 0),
 	(25, 'CreateDept', '新增', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593928222, 0),
-	(26, 'SaveDept', '保存', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928294, 0),
+	(26, 'UpdateDept', '修改', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Update', 0, 1593929061, 0),
 	(27, 'DeleteDept', '删除', 23, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593928304, 0),
 	(28, 'Post', '岗位管理', 7, 'menu', 1, '/system/post', '', 'Post', '', 'Post', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(29, 'FetchPost', '列表', 28, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593928260, 0),
 	(30, 'CreatePost', '新增', 28, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593928268, 0),
-	(31, 'SavePost', '保存', 28, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928327, 0),
+	(31, 'UpdatePost', '修改', 28, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Update', 0, 1593929051, 0),
 	(32, 'DeletePost', '删除', 28, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593928341, 0),
 	(33, 'Log', '日志管理', 1, 'path', 1, '/log', '/log/account', 'PageView', 'file-text', 'LogAccount,LogDb', 0, 0, 0, 0, NULL, 0, 0, 0),
 	(34, 'LogAccount', '管理员日志', 33, 'menu', 1, '/log/account', '', 'LogAccount', '', 'LogAccount', 0, 0, 0, 0, NULL, 0, 0, 0),
@@ -233,7 +237,8 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(78, 'FetchArticeCategory', '列表', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 1593928570, 1593928601, 0),
 	(79, 'CreateArticeCategory', '新增', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 1593928623, 1593928623, 0),
 	(80, 'SaveArticeCategory', '保存', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 1593928635, 1593928635, 0),
-	(81, 'DeleteArticeCategory', '删除', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 1593928665, 1593928665, 0);
+	(81, 'DeleteArticeCategory', '删除', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 1593928665, 1593928665, 0),
+	(82, 'UpdateRoleAccess', '编辑数据权限', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 1593929218, 1593929218, 0);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 
 -- Dumping structure for table think.post
