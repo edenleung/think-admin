@@ -45,6 +45,9 @@ https://github.com/xiaodit/think-permission
 ### JWT包
 https://github.com/xiaodit/think-jwt
 
+### h5 模板
+https://github.com/edenleung/vue-h5-template
+
 ## 打赏
 如果此项目对你有帮助的，不忘给我打赏哦。
 
