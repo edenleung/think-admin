@@ -12,10 +12,9 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use TAnt\AppService;
-use app\wechat\service\WechatService;
+namespace TAnt;
 
-return [
-    AppService::class,
-    // WechatService::class
-];
+class TAnt
+{
+    const VERSION = '0.8.0';
+}

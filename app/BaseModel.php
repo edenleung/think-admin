@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace app;
 
-use Tant\Abstracts\AbstractModel;
+use TAnt\Abstracts\AbstractModel;
 use think\model\concern\SoftDelete;
 
 class BaseModel extends AbstractModel

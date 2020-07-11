@@ -30,7 +30,7 @@ class DeptService extends BaseService
     public function getTree()
     {
         $data = $this->model->select();
-        $category = new \Tant\Util\Category(['id', 'pid', 'name', 'cname']);
+        $category = new \TAnt\Util\Category(['id', 'pid', 'name', 'cname']);
 
         return $category->formatTree($data->toArray());
     }
@@ -43,7 +43,7 @@ class DeptService extends BaseService
     public function getChildrenDepts($deptPid)
     {
         $data = $this->model->select();
-        $category = new \Tant\Util\Category(['id', 'pid', 'name', 'cname']);
+        $category = new \TAnt\Util\Category(['id', 'pid', 'name', 'cname']);
 
         return $category->getTree($data->toArray(), $deptPid);
     }

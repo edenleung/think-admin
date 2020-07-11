@@ -12,10 +12,14 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use TAnt\AppService;
-use app\wechat\service\WechatService;
+namespace TAnt\Traits;
 
-return [
-    AppService::class,
-    // WechatService::class
-];
+trait Error
+{
+    protected $error;
+
+    public function getError()
+    {
+        return $this->error;
+    }
+}

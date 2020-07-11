@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace app;
 
-use Tant\Abstracts\AbstractController;
+use TAnt\Abstracts\AbstractController;
 
 class BaseController extends AbstractController
 {
