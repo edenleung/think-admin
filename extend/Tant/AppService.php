@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Tant;
 
 use think\Service;
+use Tant\Command\Create;
 use Tant\Command\Backup\Backup;
 use Tant\Command\Install\Install;
-use Tant\Command\Create;
 
 class AppService extends Service
 {
