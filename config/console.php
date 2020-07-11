@@ -16,6 +16,5 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 return [
     'commands' => [
-        'create' => 'app\command\Create',
     ],
 ];

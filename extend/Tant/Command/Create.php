@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\command;
+namespace Tant\Command;
 
 use think\console\Input;
 use think\console\Output;
@@ -24,7 +24,7 @@ class Create extends Command
     protected function configure()
     {
         // 指令配置
-        $this->setName('create')
+        $this->setName('tant:crud')
             ->addArgument('resource', Argument::OPTIONAL, 'your name')
             ->setDescription('create crud ');
     }
@@ -212,7 +212,7 @@ class Create extends Command
         $apiService = $serviceStr .= "}\n";
         //admin模块下的路由
         $rname = strtolower($name);
-        $routeStr = '';
+        $routeStr = "\n";
         $routeStr .= '/*' . $rname . "*/\n";
         $routeStr .= "Route::group('/" . $rname . "', function () {\n";
         $routeStr .= "      Route::get('/', '" . $rname . "/list');\n";

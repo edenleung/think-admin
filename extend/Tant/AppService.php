@@ -17,6 +17,7 @@ namespace Tant;
 use think\Service;
 use Tant\Command\Backup\Backup;
 use Tant\Command\Install\Install;
+use Tant\Command\Create;
 
 class AppService extends Service
 {
@@ -35,6 +36,7 @@ class AppService extends Service
         $this->commands([
             Install::class,
             Backup::class,
+            Create::class,
         ]);
     }
 }
