@@ -37,6 +37,8 @@ cd think-admin && composer install
 
 # 执行安装
 php think tant:install
+
+# 最新数据库 可以从 database/2020-05-27.sql 导入
 ```
 
 ### 权限包
