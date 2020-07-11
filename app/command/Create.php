@@ -266,6 +266,10 @@ class Create extends Command
         fwrite($serviceFile, $serviceStr);
         fclose($serviceFile);
         //写入api模块下的服务
+             $aexist=is_dir($rootPath.'/app/api/service/');
+        if($aexist==false){
+            mkdir($rootPath.'/app/api/service/',0777);
+        }
         $apiServiceFilepath = $rootPath.'/app/api/service/'.$name.'Service.php';
         $exist=file_exists($apiServiceFilepath);
         if($exist){
