@@ -16,7 +16,6 @@ namespace app\common\model;
 
 use app\BaseModel;
 use app\common\traits\Log;
-use xiaodi\Permission\Contract\PermissionContract;
 
 class Member extends BaseModel
 {
