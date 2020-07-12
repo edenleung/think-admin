@@ -1,4 +1,4 @@
-## T-Ant
+## TAnt
 
 [![Build Status](https://travis-ci.org/edenleung/think-admin.svg?branch=6.0)](https://travis-ci.org/edenleung/think-admin)
 
