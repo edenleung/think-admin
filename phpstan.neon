@@ -5,4 +5,5 @@
 #
 parameters:
   ignoreErrors:
-#     - '#Call to an undefined method think\\[a-zA-Z0-9\]::[a-zA-Z0-9\\_]+\(\)#'
+     - '#Static call to instance method think\\[a-zA-Z0-9\]::[a-zA-Z0-9\\_]+\(\)#'
+     - '#Static call to instance method xiaodi\\JWTAuth\\Jwt::[a-zA-Z0-9\\_]+\(\)#'

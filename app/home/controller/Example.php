@@ -21,11 +21,11 @@ class Example extends BaseController
     public function orderExport()
     {
         // 导出 Demo
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
+        // $spreadsheet = new Spreadsheet();
+        // $sheet = $spreadsheet->getActiveSheet();
+        // $sheet->setCellValue('A1', 'Hello World !');
 
-        $writer = new Xlsx($spreadsheet);
-        $writer->save('php://output');
+        // $writer = new Xlsx($spreadsheet);
+        // $writer->save('php://output');
     }
 }
