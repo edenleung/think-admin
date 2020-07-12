@@ -37,6 +37,8 @@ cd think-admin && composer install
 
 # 执行安装
 php think tant:install
+
+# 最新数据库 可以从 database/2020-05-27.sql 导入
 ```
 
 ### 权限包
@@ -51,7 +53,7 @@ https://github.com/edenleung/vue-h5-template
 ## 打赏
 如果此项目对你有帮助的，不忘给我打赏哦。
 
-<div align=center>
+<div>
     <img src="https://s1.ax1x.com/2020/07/11/U194AA.png" width="250" />
 </div>
 
