@@ -19,7 +19,7 @@ Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](h
 
 [最新版本](https://github.com/edenleung/think-admin/releases/latest)
 
-没安装Composer？ 请在最新版本链接下找到`Tant_Full.zip`下载
+没安装Composer？ 请在最新版本链接下找到`TAnt_Full.zip`下载
 
 ~~服务器提供：[okteto](https://okteto.com)~~
 
