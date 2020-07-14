@@ -1,4 +1,4 @@
-FROM xiaodi93/dcnmp-php71:latest
+FROM xiaodi93/dcnmp-php73:latest
 
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
