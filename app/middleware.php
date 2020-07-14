@@ -21,4 +21,8 @@ return [
     // \think\middleware\SessionInit::class,
     // 全局跨域请求
     \think\middleware\AllowCrossDomain::class,
+
+    // 接口（访问）请求日志
+    // \TAnt\Middleware\Log\Request::class,
+    // \TAnt\Middleware\Log\Response::class,
 ];
