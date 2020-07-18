@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace TAnt;
 
 use think\Service;
-use TAnt\Command\Create;
 use TAnt\Command\Backup\Backup;
+use TAnt\Command\Crud\Crud;
 use TAnt\Command\Install\Install;
 
 class AppService extends Service
@@ -35,8 +35,7 @@ class AppService extends Service
     {
         $this->commands([
             Install::class,
-            Backup::class,
-            Create::class,
+            Crud::class,
         ]);
     }
 }

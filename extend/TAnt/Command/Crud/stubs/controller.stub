@@ -1,0 +1,78 @@
+<?php
+declare (strict_types = 1);
+
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
+namespace {%namespace%};
+
+use app\BaseController;
+use app\common\service\{%service%};
+
+class {%className%} extends BaseController
+{
+    public function __construct({%service%} $service)
+    {
+        $this->service = $service;
+    }
+
+    public function list($pageNo = 1, $pageSize = 10)
+    {
+        return $this->sendSuccess(
+            $this->service->list((int) $pageNo, (int) $pageSize, request()->get())
+        );
+    }
+
+    public function all()
+    {
+        return $this->sendSuccess(
+            $this->service->all()
+        );
+    }
+
+    public function create()
+    {
+        $result = $this->service->create(request()->post());
+
+        if (!$result) {
+            return $this->sendError($this->service->getError());
+        }
+
+        return $this->sendSuccess();
+    }
+
+    public function update($id)
+    {
+        $result = $this->service->update($id, request()->put());
+
+        if (!$result) {
+            return $this->sendError($this->service->getError());
+        }
+
+        return $this->sendSuccess();
+    }
+
+    public function delete($id)
+    {
+        $result = $this->service->delete($id);
+
+        if (!$result) {
+            return $this->sendError($this->service->getError());
+        }
+
+        return $this->sendSuccess();
+    }
+
+    public function info($id)
+    {
+        return $this->sendSuccess(
+            $this->service->info($id)
+        );
+    }
+}
