@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace TAnt;
 
 use think\Service;
-use TAnt\Command\Backup\Backup;
 use TAnt\Command\Crud\Crud;
 use TAnt\Command\Install\Install;
 
