@@ -191,8 +191,7 @@ class Crud extends Command
             $this->makeRoute($app, $name);
         }
 
-        // todo
-        // $this->makeTable();
+        $this->makeTable($name);
 
         $output->writeln('一键生成成功');
     }
