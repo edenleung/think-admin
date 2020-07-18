@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of TAnt.
@@ -14,10 +14,10 @@ declare (strict_types = 1);
 
 namespace TAnt\Command\Crud;
 
-use think\console\Command;
 use think\console\Input;
-use think\console\input\Argument;
 use think\console\Output;
+use think\console\Command;
+use think\console\input\Argument;
 
 class Crud extends Command
 {
@@ -39,9 +39,10 @@ class Crud extends Command
     }
 
     /**
-     * 模型类
+     * 模型类.
      *
      * @param [type] $name
+     *
      * @return void
      */
     protected function makeModel($name)
@@ -62,9 +63,10 @@ class Crud extends Command
     }
 
     /**
-     * 控制器类
+     * 控制器类.
      *
      * @param [type] $name
+     *
      * @return void
      */
     protected function makeController($app, $name)
@@ -85,9 +87,10 @@ class Crud extends Command
     }
 
     /**
-     * 服务类
+     * 服务类.
      *
      * @param [type] $name
+     *
      * @return void
      */
     protected function makeService($name)
@@ -108,9 +111,10 @@ class Crud extends Command
     }
 
     /**
-     * 服务类
+     * 服务类.
      *
      * @param [type] $name
+     *
      * @return void
      */
     protected function makeRoute($app, $name)
@@ -133,9 +137,9 @@ class Crud extends Command
     }
 
     /**
-     *
      * @param [type] $path
      * @param [type] $content
+     *
      * @return void
      */
     protected function write($path, $content)
@@ -151,9 +155,10 @@ class Crud extends Command
     }
 
     /**
-     * 数据表
+     * 数据表.
      *
      * @param [type] $name
+     *
      * @return void
      */
     protected function makeTable($name)
