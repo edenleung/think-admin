@@ -54,7 +54,7 @@ https://github.com/edenleung/vue-h5-template
 如果此项目对你有帮助的，不忘给我打赏哦。
 
 <div>
-    <img src="https://s1.ax1x.com/2020/07/11/U194AA.png" width="250" />
+    <img src="./static/author.png" width="250" />
 </div>
 
 # License
