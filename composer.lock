@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eaf62822c16f2119c66440a214d9a23b",
+    "content-hash": "3038678ea9b4d1b57dbfc64752ef818c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3005,16 +3005,16 @@
         },
         {
             "name": "xiaodi/think-jwt",
-            "version": "v1.0.0-beta.15",
+            "version": "v1.0.0-beta.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friendsofthinkphp/think-jwt.git",
-                "reference": "f786554dfd15063690ec6db710172f8b30690118"
+                "reference": "207c22efeac09c0352e156ca23a5d6c81952cbee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/f786554dfd15063690ec6db710172f8b30690118",
-                "reference": "f786554dfd15063690ec6db710172f8b30690118",
+                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/207c22efeac09c0352e156ca23a5d6c81952cbee",
+                "reference": "207c22efeac09c0352e156ca23a5d6c81952cbee",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3071,7 +3071,7 @@
                 "php",
                 "thinkphp"
             ],
-            "time": "2020-07-03T16:30:05+00:00"
+            "time": "2020-07-18T00:57:45+00:00"
         },
         {
             "name": "xiaodi/think-permission",
@@ -3763,16 +3763,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.17.1",
+            "version": "v1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
+                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
-                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
+                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3790,7 +3790,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-master": "1.18-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -3827,7 +3827,21 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-06-06T08:46:27+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-14T12:35:20+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
