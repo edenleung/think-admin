@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3038678ea9b4d1b57dbfc64752ef818c",
+    "content-hash": "77b4dfa6fdaa1c5800ce196bd2b50e72",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3005,16 +3005,16 @@
         },
         {
             "name": "xiaodi/think-jwt",
-            "version": "v1.0.0-beta.16",
+            "version": "v1.0.0-beta.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friendsofthinkphp/think-jwt.git",
-                "reference": "207c22efeac09c0352e156ca23a5d6c81952cbee"
+                "reference": "18c6e402e78eb84d6937ae3e9a0037b1bdd08979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/207c22efeac09c0352e156ca23a5d6c81952cbee",
-                "reference": "207c22efeac09c0352e156ca23a5d6c81952cbee",
+                "url": "https://api.github.com/repos/friendsofthinkphp/think-jwt/zipball/18c6e402e78eb84d6937ae3e9a0037b1bdd08979",
+                "reference": "18c6e402e78eb84d6937ae3e9a0037b1bdd08979",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3071,7 +3071,7 @@
                 "php",
                 "thinkphp"
             ],
-            "time": "2020-07-18T00:57:45+00:00"
+            "time": "2020-07-19T03:36:41+00:00"
         },
         {
             "name": "xiaodi/think-permission",
