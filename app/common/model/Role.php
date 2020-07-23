@@ -32,7 +32,7 @@ class Role extends BaseModel implements RoleContract
         return $this->belongsToMany(
             Dept::class,
             RoleDeptAccess::class,
-            'dept_id',
+            'id',
             'role_id'
         );
     }
