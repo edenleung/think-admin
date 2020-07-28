@@ -24,9 +24,9 @@ class Response
         $url = request()->url();
 
         \think\facade\Log::debug([
-            'method' => $method,
-            'url' => $url,
-            'response' => $response->getContent()
+            'method'   => $method,
+            'url'      => $url,
+            'response' => $response->getContent(),
         ]);
 
         return $response;

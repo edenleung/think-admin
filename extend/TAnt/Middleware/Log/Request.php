@@ -23,8 +23,8 @@ class Request
 
         \think\facade\Log::debug([
             'method' => $method,
-            'url' => $url,
-            'param' => $request->getInput()
+            'url'    => $url,
+            'param'  => $request->getInput(),
         ]);
 
         return $next($request);
