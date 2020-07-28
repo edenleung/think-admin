@@ -20,8 +20,14 @@ class Response
     {
         $response = $next($request);
 
-        \think\facade\Log::record($request->url() . '接口返回' . $request->method(), 'info');
-        \think\facade\Log::record($response->getData(), 'info');
+        $method = request()->method();
+        $url = request()->url();
+
+        \think\facade\Log::debug([
+            'method' => $method,
+            'url' => $url,
+            'response' => $response->getContent()
+        ]);
 
         return $response;
     }
