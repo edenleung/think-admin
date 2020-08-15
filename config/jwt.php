@@ -33,6 +33,26 @@ return [
                 'model'  => 'app\\common\\model\\User',
             ],
         ],
+        'wechat' => [
+            'token' => [
+                'uniqidKey'        => 'uid',
+                'signerKey'        => 'AYIB8IVcwSE',
+                'notBefore'        => 0,
+                'expiresAt'        => 36000,
+                'refreshTTL'       => 72000,
+                'signer'           => 'Lcobucci\JWT\Signer\Hmac\Sha256',
+                'type'             => 'Header',
+                'refresh'          => 50001,
+                'relogin'          => 50002,
+                'iss'              => 'client.tant',
+                'aud'              => 'server.tant',
+                'automaticRenewal' => false,
+            ],
+            'user' => [
+                'bind'   => true,
+                'model'  => 'app\\common\\model\\Member',
+            ],
+        ],
     ],
     'manager' => [
         // 缓存前缀

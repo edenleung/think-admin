@@ -29,7 +29,7 @@ class MemberService extends BaseService
      *
      * @param [type] $user
      *
-     * @return void
+     * @return Member
      */
     public function handleWechatCallback($user)
     {
@@ -37,6 +37,7 @@ class MemberService extends BaseService
         $user = $user->toArray();
         $user['openid'] = $user['id'];
         unset($user['id']);
+        unset($user['name']);
 
         if (!$member) {
             $this->model->save($user);

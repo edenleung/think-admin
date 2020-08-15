@@ -19,5 +19,4 @@ use app\common\traits\Log;
 
 class Member extends BaseModel
 {
-    use Log;
 }
