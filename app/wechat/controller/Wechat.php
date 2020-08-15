@@ -72,7 +72,7 @@ class Wechat extends BaseController
     {
         $target = request()->get('target');
         if ($target && !strpos($target, $this->access_domain)) {
-            exit('非法请求'. $target . $this->access_domain);
+            exit('非法请求' . $target . $this->access_domain);
         }
 
         $oauth = app('wechat.official_account')->oauth;
@@ -88,7 +88,8 @@ class Wechat extends BaseController
 
         $target = $target ?? "http://{$this->access_domain}";
 
-        $query = http_build_query(['token' => urlencode((string)$token)]);
+        $query = http_build_query(['token' => urlencode((string) $token)]);
+
         return redirect("$target?${query}");
     }
 }
