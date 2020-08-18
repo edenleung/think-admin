@@ -17,5 +17,5 @@ use app\wechat\service\WechatService;
 
 return [
     AppService::class,
-    // WechatService::class
+    WechatService::class,
 ];

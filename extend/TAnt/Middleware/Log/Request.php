@@ -18,8 +18,14 @@ class Request
 {
     public function handle($request, \Closure $next)
     {
-        \think\facade\Log::record($request->url() . '接口请求:' . $request->method(), 'info');
-        \think\facade\Log::record($request->param(), 'info');
+        $method = request()->method();
+        $url = request()->url();
+
+        \think\facade\Log::debug([
+            'method' => $method,
+            'url'    => $url,
+            'param'  => $request->getInput(),
+        ]);
 
         return $next($request);
     }

@@ -65,30 +65,8 @@ CREATE TABLE IF NOT EXISTS `db_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.db_log: ~21 rows (大约)
+-- Dumping data for table think.db_log: ~0 rows (大约)
 /*!40000 ALTER TABLE `db_log` DISABLE KEYS */;
-INSERT INTO `db_log` (`id`, `model`, `url`, `action`, `sql`, `user_id`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'Permission', '/admin/permission/31', 'update', 'UPDATE `permission`  SET `name` = \'UpdatePost\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929051  WHERE (  `id` = 31 ) AND `permission`.`delete_time` = 0', 1, 1593929051, 1593929051, 0),
-	(2, 'Permission', '/admin/permission/26', 'update', 'UPDATE `permission`  SET `name` = \'UpdateDept\' , `title` = \'修改\' , `button_type` = \'Update\' , `update_time` = 1593929061  WHERE (  `id` = 26 ) AND `permission`.`delete_time` = 0', 1, 1593929061, 1593929061, 0),
-	(3, 'Permission', '/admin/permission', 'insert', 'INSERT INTO `permission` SET `pid` = 13 , `type` = \'action\' , `action_type` = 2 , `title` = \'编辑数据权限\' , `name` = \'UpdateRoleAccess\' , `status` = 1 , `create_time` = 1593929218 , `update_time` = 1593929218', 1, 1593929218, 1593929218, 0),
-	(4, 'Role', '/admin/role', 'insert', 'INSERT INTO `role` SET `pid` = 1 , `name` = \'test\' , `title` = \'普通分组 只有查看权限\' , `status` = 1 , `create_time` = 1593930146 , `update_time` = 1593930146', 1, 1593930146, 1593930146, 0),
-	(5, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `title` = \'列表2\' , `update_time` = 1593930180  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930180, 1593930180, 0),
-	(6, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `name` = \'FetchAccount2\' , `update_time` = 1593930188  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930188, 1593930188, 0),
-	(7, 'Permission', '/admin/permission/20', 'update', 'UPDATE `permission`  SET `name` = \'FetchAccount\' , `title` = \'列表\' , `button_type` = \'Fetch\' , `update_time` = 1593930200  WHERE (  `id` = 20 ) AND `permission`.`delete_time` = 0', 1, 1593930200, 1593930200, 0),
-	(8, 'Permission', '/admin/permission/21', 'update', 'UPDATE `permission`  SET `name` = \'AccountUpdate2\' , `update_time` = 1593930224  WHERE (  `id` = 21 ) AND `permission`.`delete_time` = 0', 1, 1593930224, 1593930224, 0),
-	(9, 'Permission', '/admin/permission/22', 'update', 'UPDATE `permission`  SET `name` = \'AccountDelete2\' , `update_time` = 1593930232  WHERE (  `id` = 22 ) AND `permission`.`delete_time` = 0', 1, 1593930232, 1593930232, 0),
-	(10, 'Permission', '/admin/permission/21', 'update', 'UPDATE `permission`  SET `name` = \'CreateAccount\' , `title` = \'新增\' , `action_type` = 1 , `button_type` = \'Create\' , `update_time` = 1593930241  WHERE (  `id` = 21 ) AND `permission`.`delete_time` = 0', 1, 1593930241, 1593930241, 0),
-	(11, 'Permission', '/admin/permission/22', 'update', 'UPDATE `permission`  SET `name` = \'UpdateAccount\' , `title` = \'修改\' , `action_type` = 1 , `button_type` = \'Update\' , `update_time` = 1593930249  WHERE (  `id` = 22 ) AND `permission`.`delete_time` = 0', 1, 1593930249, 1593930249, 0),
-	(12, 'Permission', '/admin/permission/75', 'update', 'UPDATE `permission`  SET `name` = \'DeleteAccount\' , `title` = \'删除\' , `button_type` = \'Delete\' , `update_time` = 1593930257  WHERE (  `id` = 75 ) AND `permission`.`delete_time` = 0', 1, 1593930257, 1593930257, 0),
-	(13, 'Role', '/admin/role/3', 'update', 'UPDATE `role`  SET `update_time` = 1593930275  WHERE (  `id` = 3 ) AND `role`.`delete_time` = 0', 1, 1593930275, 1593930275, 0),
-	(14, 'Permission', '/admin/permission/19', 'update', 'UPDATE `permission`  SET `permission` = \'Account\' , `update_time` = 1593930375  WHERE (  `id` = 19 ) AND `permission`.`delete_time` = 0', 1, 1593930375, 1593930375, 0),
-	(15, 'Permission', '/admin/permission/17', 'update', 'UPDATE `permission`  SET `name` = \'DeleteRole\' , `action_type` = 1 , `button_type` = \'Delete\' , `update_time` = 1593930465  WHERE (  `id` = 17 ) AND `permission`.`delete_time` = 0', 1, 1593930465, 1593930465, 0),
-	(16, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `update_time` = 1593930643  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930643, 1593930643, 0),
-	(17, 'Permission', '/admin/permission/49', 'update', 'UPDATE `permission`  SET `permission` = \'UpdateAccountView\' , `update_time` = 1593930651  WHERE (  `id` = 49 ) AND `permission`.`delete_time` = 0', 1, 1593930651, 1593930651, 0),
-	(18, 'Permission', '/admin/permission/48', 'update', 'UPDATE `permission`  SET `permission` = \'CreateAccountView\' , `update_time` = 1593930974  WHERE (  `id` = 48 ) AND `permission`.`delete_time` = 0', 1, 1593930974, 1593930974, 0),
-	(19, 'User', '/admin/user', 'insert', 'INSERT INTO `user` SET `name` = \'test\' , `nickname` = \'测试\' , `status` = 1 , `dept_id` = 4 , `hash` = \'8anGvp7hT30\' , `password` = \'$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m\' , `create_time` = 1593931035 , `update_time` = 1593931035', 1, 1593931035, 1593931035, 0),
-	(20, 'Permission', '/admin/permission/43', 'update', 'UPDATE `permission`  SET `permission` = \'BaseSettings\' , `update_time` = 1593932353  WHERE (  `id` = 43 ) AND `permission`.`delete_time` = 0', 1, 1593932353, 1593932353, 0),
-	(21, 'Permission', '/admin/permission/46', 'update', 'UPDATE `permission`  SET `permission` = \'BaseSettings\' , `update_time` = 1593932359  WHERE (  `id` = 46 ) AND `permission`.`delete_time` = 0', 1, 1593932359, 1593932359, 0);
 /*!40000 ALTER TABLE `db_log` ENABLE KEYS */;
 
 -- Dumping structure for table think.dept
@@ -136,6 +114,24 @@ INSERT INTO `log` (`id`, `user_id`, `action`, `url`, `ip`, `user_agent`, `create
 	(2, 1, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 1593931867, 1593931867, 0),
 	(3, 1, '登录', '/admin/auth/login', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36', 1597729649, 1597729649, 0);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
+
+-- Dumping structure for table think.member
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `openid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_time` int(11) NOT NULL DEFAULT '0',
+  `update_time` int(11) NOT NULL DEFAULT '0',
+  `delete_time` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid` (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table think.member: ~0 rows (大约)
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 -- Dumping structure for table think.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (

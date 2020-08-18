@@ -68,20 +68,28 @@ class Wechat extends BaseController
      *
      * @return void
      */
-    public function callback(MemberService $member)
+    public function callback(MemberService $service)
     {
-        // $oauth = app('wechat.official_account')->oauth;
+        $target = request()->get('target');
+        if ($target && !strpos($target, $this->access_domain)) {
+            exit('非法请求' . $target . $this->access_domain);
+        }
 
-        // // 获取 OAuth 授权结果用户信息
-        // $user = $oauth->user();
+        $oauth = app('wechat.official_account')->oauth;
 
-        // unset($user['original']);
-        // $member = $member->handleWechatCallback($user);
+        // 获取 OAuth 授权结果用户信息
+        $user = $oauth->user();
+
+        unset($user['original']);
+        $member = $service->handleWechatCallback($user);
 
         // 分配 jwt token
-        // $token = app('jwt')->store('wechat')->token(['uid' => $member->id, 'nickname' => $member->name, 'type' => 'wechat']);
+        $token = app('jwt')->store('wechat')->token(['uid' => $member->id, 'nickname' => $member->nickname]);
 
-        // $target = request()->get('target') ?? "http://{$this->access_domain}";
-        // return redirect("$target?token={$token}");
+        $target = $target ?? "http://{$this->access_domain}";
+
+        $query = http_build_query(['token' => urlencode((string) $token)]);
+
+        return redirect("$target?${query}");
     }
 }
