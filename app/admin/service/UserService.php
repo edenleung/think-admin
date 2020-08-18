@@ -121,6 +121,7 @@ class UserService extends BaseService
             $item['redirect'] && $route['redirect'] = $item['redirect'];
             $item['hideChildrenInMenu'] === 1 && $route['hideChildrenInMenu'] = true;
             $item['hidden'] === 1 && $route['hidden'] = true;
+            $item['blank'] === 1 && $route['meta']['target'] = '_blank';
 
             if (!empty($item['children'])) {
                 $route['children'] = $this->formatRoute($item['children']);
