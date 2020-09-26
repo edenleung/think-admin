@@ -67,17 +67,17 @@ class PermissionService extends BaseService
      *
      * @param [type] $id
      */
-    public function update($id, array $input)
+    public function update($id, array $data)
     {
         $rule = $this->model->find($id);
 
-        if (!empty($input['permission'])) {
-            $input['permission'] = implode(',', $input['permission']);
+        if (!empty($data['permission'])) {
+            $data['permission'] = implode(',', $data['permission']);
         } else {
-            $input['permission'] = [$rule->name];
+            $data['permission'] = '';
         }
 
-        return $rule->save($input);
+        return $rule->save($data);
     }
 
     /**
@@ -105,7 +105,7 @@ class PermissionService extends BaseService
         $category = new \TAnt\Util\Category();
 
         $map[] = ['type', '<>', 'action'];
-        $data = $this->model->where('status', 1)->where($map)->select();
+        $data = $this->model->where($map)->select();
 
         return $category->formatTree($data);
     }
@@ -115,7 +115,7 @@ class PermissionService extends BaseService
      */
     public function getMenu()
     {
-        $data = $this->model->where('status', 1)->order('pid asc')->select()->toArray();
+        $data = $this->model->order('pid asc')->select()->toArray();
         $category = new \TAnt\Util\Category(['id', 'pid', 'title', 'cname']);
 
         return $category->formatTree($data); //获取分类数据树结构
