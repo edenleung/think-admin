@@ -85,7 +85,7 @@ class PermissionService extends BaseService
      */
     public function getMenuPermission()
     {
-        $actions = $this->model->where('type', 'action')->select();
+        $actions = $this->model->where('type', 'action')->order('pid asc')->select();
         $menusIds = $this->model->where('type', 'action')->column('pid');
         $menus = $this->model->whereIn('id', $menusIds)->select();
         $category = new \TAnt\Util\Category();
