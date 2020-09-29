@@ -95,7 +95,6 @@ class Wechat extends BaseController
 
     /**
      * 前端发起 微信公众号授权.
-     * 
      */
     public function wxlogin()
     {
@@ -105,7 +104,7 @@ class Wechat extends BaseController
         $user = $oauth->user();
 
         return $this->sendSuccess([
-            'wxuser' => $user
+            'wxuser' => $user,
         ]);
     }
 }
