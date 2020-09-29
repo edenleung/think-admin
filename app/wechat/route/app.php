@@ -16,3 +16,4 @@ use think\facade\Route;
 
 Route::rule('/', 'wechat/index', 'GET|POST');
 Route::rule('/callback', 'wechat/callback', 'GET');
+Route::rule('/wxlogin', 'wechat/callback', 'GET|POST');

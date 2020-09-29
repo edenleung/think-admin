@@ -43,7 +43,7 @@ class Wechat extends BaseController
     }
 
     /**
-     * 微信公众号授权.
+     * 后端发起 微信公众号授权.
      *
      * @return void
      */
@@ -91,5 +91,21 @@ class Wechat extends BaseController
         $query = http_build_query(['token' => urlencode((string) $token)]);
 
         return redirect("$target?${query}");
+    }
+
+    /**
+     * 前端发起 微信公众号授权.
+     * 
+     */
+    public function wxlogin()
+    {
+        $oauth = app('wechat.official_account')->oauth;
+
+        // 获取 OAuth 授权结果用户信息
+        $user = $oauth->user();
+
+        return $this->sendSuccess([
+            'wxuser' => $user
+        ]);
     }
 }
