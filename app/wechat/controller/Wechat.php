@@ -104,7 +104,7 @@ class Wechat extends BaseController
         $user = $oauth->user();
 
         return $this->sendSuccess([
-            'wxuser' => $user,
+            'user' => $user,
         ]);
     }
 }
