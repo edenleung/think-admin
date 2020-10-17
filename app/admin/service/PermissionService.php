@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of TAnt.
@@ -27,7 +27,8 @@ class PermissionService extends BaseService
     /**
      * 获取列表.
      */
-    public function list(int $pageNo, int $pageSize) {
+    public function list(int $pageNo, int $pageSize)
+    {
         $map = [];
         $category = new \TAnt\Util\Category();
 
@@ -38,11 +39,11 @@ class PermissionService extends BaseService
         $data = $this->formatTreeAction($data);
 
         return [
-            'data' => $data,
-            'tree' => $this->getTree(),
-            'pageSize' => $pageSize,
-            'pageNo' => $pageNo,
-            'totalPage' => count($data),
+            'data'       => $data,
+            'tree'       => $this->getTree(),
+            'pageSize'   => $pageSize,
+            'pageNo'     => $pageNo,
+            'totalPage'  => count($data),
             'totalCount' => $total,
         ];
     }
@@ -106,8 +107,8 @@ class PermissionService extends BaseService
                 }
             }
         }
-        return $data;
 
+        return $data;
     }
 
     /**
