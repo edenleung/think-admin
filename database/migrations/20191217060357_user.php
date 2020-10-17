@@ -53,6 +53,7 @@ class User extends Migrator
             ->addColumn('email', 'string', ['limit' => 50, 'default' => '', 'comment' => '邮箱'])
             ->addColumn('create_time', 'integer', ['limit' => 11, 'comment' => '创建时间'])
             ->addColumn('update_time', 'integer', ['limit' => 11, 'comment' => '更新时间'])
+            ->addColumn('delete_time', 'integer', ['limit' => 11, 'comment' => '删除时间'])
             ->addIndex(['name'], ['unique' => true])
             ->create();
     }
