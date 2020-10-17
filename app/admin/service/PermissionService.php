@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 /*
  * This file is part of TAnt.
@@ -27,8 +27,7 @@ class PermissionService extends BaseService
     /**
      * 获取列表.
      */
-    public function list(int $pageNo, int $pageSize)
-    {
+    public function list(int $pageNo, int $pageSize) {
         $map = [];
         $category = new \TAnt\Util\Category();
 
@@ -39,11 +38,11 @@ class PermissionService extends BaseService
         $data = $this->formatTreeAction($data);
 
         return [
-            'data'       => $data,
-            'tree'       => $this->getTree(),
-            'pageSize'   => $pageSize,
-            'pageNo'     => $pageNo,
-            'totalPage'  => count($data),
+            'data' => $data,
+            'tree' => $this->getTree(),
+            'pageSize' => $pageSize,
+            'pageNo' => $pageNo,
+            'totalPage' => count($data),
             'totalCount' => $total,
         ];
     }
@@ -85,16 +84,30 @@ class PermissionService extends BaseService
      */
     public function getMenuPermission()
     {
-        $actions = $this->model->where('type', 'action')->order('pid asc')->select();
-        $menusIds = $this->model->where('type', 'action')->column('pid');
-        $menus = $this->model->whereIn('id', $menusIds)->select();
+        $menus = $this->model->order('pid asc')->field('id, title, pid, type')->select()->toArray();
         $category = new \TAnt\Util\Category();
+        $data = $category->formatTree($menus);
 
-        foreach ($menus as $menu) {
-            $menu->actions = $category->getChild($menu->id, $actions);
+        $result = $this->makeMenu($data);
+
+        return $result;
+    }
+
+    protected function makeMenu($data)
+    {
+        foreach ($data as $key=>$item) {
+            $data[$key]['actions'] = [];
+            if (!empty($item['children'])) {
+                if ($item['type'] == 'menu') {
+                    $data[$key]['actions'] = $item['children'];
+                    unset($data[$key]['children']);
+                } else {
+                    $data[$key]['children'] = array_merge($this->makeMenu($item['children']));
+                }
+            }
         }
+        return $data;
 
-        return $menus;
     }
 
     /**
