@@ -131,7 +131,7 @@ abstract class AbstractController
         $res['result'] = $data;
         $res['code'] = $code;
 
-        return Response::create($res, 'json', 200, $header);
+        return Response::create($res, 'json', 200)->header($header);
     }
 
     /**
@@ -147,6 +147,6 @@ abstract class AbstractController
         $res['message'] = $msg ?? '操作失败';
         $res['code'] = $code;
 
-        return Response::create($res, 'json', 200, $header);
+        return Response::create($res, 'json', 200)->header($header);
     }
 }
