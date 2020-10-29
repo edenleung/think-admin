@@ -24,23 +24,15 @@ Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](h
 ~~服务器提供：[okteto](https://okteto.com)~~
 
 ## 安装
-根据情况选取适合自己版本，安装后端项目
+### 拉取代码
 ```bash
-# 最新源码
 git clone https://github.com/edenleung/think-admin.git
-
-# 稳定版
-composer create-project xiaodi/tant
-
-# 安装依赖
-cd think-admin && composer install
-
-# 执行安装
-php think tant:install
-
-# 最新数据库 可以从 database/2020-05-27.sql 导入
 ```
 
+### 导入数据表
+> database/2020-05-27.sql
+
+## 其它包
 ### 权限包
 https://github.com/xiaodit/think-permission
 
