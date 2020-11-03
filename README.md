@@ -19,9 +19,8 @@ Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](h
 没安装Composer？ 请在最新版本链接下找到`TAnt_Full.zip`下载
 
 ## 安装
-根据情况选取适合自己版本，安装后端项目
+### 拉取代码
 ```bash
-# 最新源码
 git clone https://github.com/edenleung/think-admin.git
 
 # 稳定版
@@ -30,6 +29,10 @@ composer create-project xiaodi/tant
 # 数据库从 database/2020-05-27.sql 导入
 ```
 
+### 导入数据表
+> database/2020-05-27.sql
+
+## 其它包
 ### 权限包
 https://github.com/xiaodit/think-permission
 
