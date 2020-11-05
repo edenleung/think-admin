@@ -1,7 +1,11 @@
 <?php
 
-/**
- * Here is the serverless function entry
- * for deployment with Vercel.
- */
-require __DIR__ . '/../public/index.php';
+namespace think;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+// 执行HTTP应用并响应
+$http = (new  App())->http;
+$response = $http->run();
+$response->send();
+$http->end($response);
