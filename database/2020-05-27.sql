@@ -241,7 +241,7 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(51, 'Article', '文章列表', 50, 'menu', 1, '/article/list', '', 'Article', '', 'Article', 0, 0, 1, 0, NULL, 0, 1590594018, 1593875062, 0),
 	(52, 'CreateArticleView', '创建文章', 50, 'menu', 1, '/article/create', '', 'ArticleForm', '', 'CreateArticleView', 0, 1, 0, 0, NULL, 0, 1590594348, 1593854847, 0),
 	(53, 'UpdateArticleView', '更新文章', 50, 'menu', 1, '/article/:id/update', '', 'ArticleForm', '', 'UpdateArticleView', 0, 1, 0, 0, NULL, 0, 1590594384, 1593854857, 0),
-	(54, 'ArticeCategory', '分类列表', 50, 'menu', 1, '/article/category', '', 'ArticleCategory', '', '', 0, 0, 0, 0, NULL, 0, 1590594754, 1593928587, 0),
+	(54, 'ArticleCategory', '分类列表', 50, 'menu', 1, '/article/category', '', 'ArticleCategory', '', '', 0, 0, 0, 0, NULL, 0, 1590594754, 1593928587, 0),
 	(55, 'Picture', '图片管理', 1, 'path', 1, '/picture', '/picture/folder', 'RouteView', 'smile-o', '', 0, 0, 0, 0, NULL, 0, 1593834567, 1593928681, 1593928681),
 	(56, 'Folder', '文件夹', 55, 'menu', 1, '/picture/floder', '', 'Article', '', '', 0, 0, 0, 0, NULL, 0, 1593834647, 1593928676, 1593928676),
 	(69, 'FetchArticle', '列表', 51, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593873606, 1593875445, 0),
@@ -253,10 +253,10 @@ INSERT INTO `permission` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`
 	(75, 'DeleteAccount', '删除', 19, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593928021, 1593930257, 0),
 	(76, 'SaveCreateAccountView', '保存', 48, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928100, 1593928100, 0),
 	(77, 'SaveUpdateAccountView', '保存', 49, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928120, 1593928120, 0),
-	(78, 'FetchArticeCategory', '列表', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593928570, 1593928601, 0),
-	(79, 'CreateArticeCategory', '新增', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593928623, 1593928623, 0),
-	(80, 'SaveArticeCategory', '保存', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928635, 1593928635, 0),
-	(81, 'DeleteArticeCategory', '删除', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593928665, 1593928665, 0),
+	(78, 'FetchArticleCategory', '列表', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Fetch', 0, 1593928570, 1593928601, 0),
+	(79, 'CreateArticleCategory', '新增', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Create', 0, 1593928623, 1593928623, 0),
+	(80, 'SaveArticleCategory', '保存', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Save', 0, 1593928635, 1593928635, 0),
+	(81, 'DeleteArticleCategory', '删除', 54, 'action', 1, '', '', '', '', '', 0, 0, 0, 1, 'Delete', 0, 1593928665, 1593928665, 0),
 	(82, 'UpdateRoleAccess', '编辑数据权限', 13, 'action', 1, '', '', '', '', '', 0, 0, 0, 2, NULL, 0, 1593929218, 1593929218, 0);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 
