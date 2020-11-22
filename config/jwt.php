@@ -14,21 +14,21 @@ return [
     'stores'    => [
         'admin' => [
             'sso' => [
-                'enable' => false
+                'enable' => false,
             ],
             'token' => [
-                'unique_id_key'        => 'uid',
-                'signer_key'        => 'RvAjzUshtJs',
-                'not_before'        => 0,
-                'expires_at'        => 3600,
-                'refresh_ttL'       => 7200,
-                'signer'           => 'Lcobucci\JWT\Signer\Hmac\Sha256',
-                'type'             => 'Header|Url',
+                'unique_id_key'         => 'uid',
+                'signer_key'            => 'RvAjzUshtJs',
+                'not_before'            => 0,
+                'expires_at'            => 3600,
+                'refresh_ttL'           => 7200,
+                'signer'                => 'Lcobucci\JWT\Signer\Hmac\Sha256',
+                'type'                  => 'Header|Url',
                 'relogin_code'          => 50001,
                 'refresh_code'          => 50002,
-                'iss'              => 'client.tant',
-                'aud'              => 'server.tant',
-                'automatic_renewal' => false,
+                'iss'                   => 'client.tant',
+                'aud'                   => 'server.tant',
+                'automatic_renewal'     => false,
             ],
             'user' => [
                 'bind'   => true,
@@ -37,21 +37,21 @@ return [
         ],
         'wechat' => [
             'sso' => [
-                'enable' => false
+                'enable' => false,
             ],
             'token' => [
-                'unique_id_key'        => 'uid',
-                'signer_key'        => 'Dide36Tmm',
-                'not_before'        => 0,
-                'expires_at'        => 86400 * 15,
-                'refresh_ttL'       => 86400 * 30,
-                'signer'           => 'Lcobucci\JWT\Signer\Hmac\Sha256',
-                'type'             => 'Header',
+                'unique_id_key'         => 'uid',
+                'signer_key'            => 'Dide36Tmm',
+                'not_before'            => 0,
+                'expires_at'            => 86400 * 15,
+                'refresh_ttL'           => 86400 * 30,
+                'signer'                => 'Lcobucci\JWT\Signer\Hmac\Sha256',
+                'type'                  => 'Header',
                 'relogin_code'          => 50001,
                 'refresh_code'          => 50002,
-                'iss'              => 'client.tant',
-                'aud'              => 'server.tant',
-                'automatic_renewal' => false,
+                'iss'                   => 'client.tant',
+                'aud'                   => 'server.tant',
+                'automatic_renewal'     => false,
             ],
             'user' => [
                 'bind'   => true,

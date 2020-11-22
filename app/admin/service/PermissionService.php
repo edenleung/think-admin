@@ -156,7 +156,7 @@ class PermissionService extends BaseService
         foreach ($data as $item) {
             if ($item['type'] === 'menu') {
                 $temp = [];
-                foreach($actions as $action) {
+                foreach ($actions as $action) {
                     if ($action->pid === $item->id) {
                         $temp[] = $action;
                     }
