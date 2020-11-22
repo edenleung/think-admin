@@ -34,9 +34,10 @@ class PermissionService extends BaseService
 
         $map[] = ['type', '<>', 'action'];
         $total = $this->model->where($map)->count();
-        $data = $this->model->where($map)->select();
+        $actions = $this->model->where('type', 'action')->select();
+        $data = $this->model->alias('m')->where($map)->select();
         $data = $category->formatTree($data);
-        $data = $this->formatTreeAction($data);
+        $data = $this->formatTreeAction($data, $actions);
 
         return [
             'data'       => $data,
@@ -150,15 +151,22 @@ class PermissionService extends BaseService
      *
      * @return array
      */
-    protected function formatTreeAction($data)
+    protected function formatTreeAction($data, $actions)
     {
         foreach ($data as $item) {
-            if ($item['type'] == 'menu') {
-                $item->actions = $this->getActions($item);
+            if ($item['type'] === 'menu') {
+                $temp = [];
+                foreach($actions as $action) {
+                    if ($action->pid === $item->id) {
+                        $temp[] = $action;
+                    }
+                }
+
+                $item->actions = $temp;
             }
 
             if (!empty($item['children'])) {
-                $this->formatTreeAction($item['children']);
+                $this->formatTreeAction($item['children'], $actions);
             }
         }
 
