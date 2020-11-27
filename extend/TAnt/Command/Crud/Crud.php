@@ -111,32 +111,6 @@ class Crud extends Command
     }
 
     /**
-     * 服务类.
-     *
-     * @param [type] $name
-     *
-     * @return void
-     */
-    protected function makeRoute($app, $name)
-    {
-        $stub = file_get_contents($this->getStub('route'));
-
-        $route = strtolower($name);
-        $content = str_replace(['{%name%}'], [
-            $route,
-        ], $stub);
-
-        $dir = $this->rootPath . '/app/' . $app . '/route';
-        $path = $dir . '/' . $name . '.php';
-        $is_exist = is_dir($dir);
-        if ($is_exist == false) {
-            mkdir($dir, 0777);
-        }
-
-        $this->write($path, $content);
-    }
-
-    /**
      * @param [type] $path
      * @param [type] $content
      *
@@ -188,7 +162,6 @@ class Crud extends Command
 
         foreach ($apps as $app) {
             $this->makeController($app, $name);
-            $this->makeRoute($app, $name);
         }
 
         $this->makeTable($name);
