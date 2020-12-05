@@ -6,8 +6,12 @@
   ],
   "routes": [
     {
-      "src": "/(css|js)/(.*)",
-      "dest": "public/$1/$2"
+      "src": "/static/(css|js)/(.*)",
+      "dest": "public/static/$1/$2"
+    },
+    {
+      "src": "/storage/(.*)",
+      "dest": "public/storage/$1"
     },
     {
       "src": "/(.*)",
