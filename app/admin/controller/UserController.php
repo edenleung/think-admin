@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use TAnt\Abstracts\AbstractController;
 use app\common\model\User;
 use think\annotation\Inject;
+use TAnt\Abstracts\AbstractController;
 
 class UserController extends AbstractController
 {
