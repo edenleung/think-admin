@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\api\controller;
 
-use TAnt\Abstracts\AbstractController;
 use app\common\model\Member;
 use think\annotation\Inject;
+use TAnt\Abstracts\AbstractController;
 
 class MemberController extends AbstractController
 {
