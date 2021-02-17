@@ -14,7 +14,7 @@ return [
     'stores'    => [
         'admin' => [
             'sso' => [
-                'enable' => false,
+                'enable' => true,
             ],
             'token' => [
                 'unique_id_key'         => 'uid',

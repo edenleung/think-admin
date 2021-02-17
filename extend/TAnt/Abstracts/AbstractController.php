@@ -25,6 +25,10 @@ abstract class AbstractController
 {
     protected $service;
 
+    protected $validates;
+
+    protected $data_validate = true;
+
     /**
      * App应用.
      *
@@ -148,5 +152,12 @@ abstract class AbstractController
         $res['code'] = $code;
 
         return Response::create($res, 'json', 200)->header($header);
+    }
+
+    protected function validteData($data, $scene)
+    {
+        if ($this->data_validate === true) {
+            $this->validate($data, $this->validates[$scene]);
+        }
     }
 }

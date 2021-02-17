@@ -14,120 +14,56 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\BaseController;
-use app\admin\request\RoleRequest;
-use app\admin\service\DeptService;
-use app\admin\service\RoleService;
-use app\admin\service\PermissionService;
 
-class Role extends BaseController
+use app\common\service\RoleService;
+use app\common\service\MenuService;
+use think\annotation\Inject;
+
+class Role extends \Crud\CrudController
 {
-    protected $permission;
-
-    protected $dept;
-
-    public function __construct(RoleService $service, PermissionService $permission, DeptService $dept)
-    {
-        parent::__construct();
-
-        $this->service = $service;
-        $this->permission = $permission;
-        $this->dept = $dept;
-    }
+    protected $validates = [
+        'create' => [
+            'title' => 'require',
+            'actions' => 'require',
+        ],
+        'update' => [
+            'title' => 'require',
+            'actions' => 'require',
+        ]
+    ];
 
     /**
-     * 角色列表.
      *
-     * @param mixed $pageNo
-     * @param mixed $pageSize
+     * @Inject
      *
-     * @return \think\Response
+     * @var RoleService
      */
-    public function list($pageNo = 1, $pageSize = 10)
-    {
-        $data = $this->service->list((int) $pageNo, (int) $pageSize);
-        $rules = $this->permission->getMenuPermission();
-        $depts = $this->dept->getTree();
-        $menu = $this->permission->getTree();
+    protected $service;
 
-        return $this->sendSuccess(['roles' => $data, 'rules' => $rules, 'depts' => $depts, 'menu' => $menu]);
-    }
 
-    public function all()
+    /**
+     *
+     * @Inject
+     *
+     * @var MenuService
+     */
+    protected $menu;
+
+    public function info($id)
     {
+        $info = $this->service->info($id);
         return $this->sendSuccess(
-            $this->service->all()
+            [
+                'info' => $info,
+                'actions' => $info->actions->column('menu_action_id')
+            ]
         );
     }
 
-    /**
-     * 添加角色.
-     *
-     * @return \think\Response
-     */
-    public function create(RoleRequest $request)
+    public function config()
     {
-        if (!$request->scene('create')->validate()) {
-            return $this->sendError($request->getError());
-        }
-
-        if ($this->service->create($request->param()) === false) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess();
-    }
-
-    /**
-     * 更新角色.
-     *
-     * @param [type] $id
-     *
-     * @return \think\Response
-     */
-    public function update($id, RoleRequest $request)
-    {
-        if (!$request->scene('update')->validate()) {
-            return $this->sendError($request->getError());
-        }
-
-        if ($this->service->update($id, $request->param()) === false) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess();
-    }
-
-    /**
-     * 删除角色.
-     *
-     * @param [type] $id
-     *
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        if ($this->service->delete($id) === false) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess();
-    }
-
-    /**
-     * 更新角色数据权限.
-     *
-     * @param [type] $id
-     *
-     * @return \think\Response
-     */
-    public function mode($id)
-    {
-        $params = $this->request->param();
-        if ($this->service->updateMode($id, $params) === false) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess();
+        return $this->sendSuccess(
+            $this->menu->getRoleRuleTree()
+        );
     }
 }

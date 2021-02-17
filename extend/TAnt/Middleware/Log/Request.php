@@ -25,6 +25,7 @@ class Request
             'method' => $method,
             'url'    => $url,
             'param'  => $request->getInput(),
+            'request' => request()->header()
         ]);
 
         return $next($request);

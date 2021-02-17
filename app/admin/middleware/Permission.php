@@ -22,33 +22,6 @@ use xiaodi\Permission\Middleware\Permission as BasePermission;
 class Permission extends BasePermission
 {
     /**
-     * 重写 handle.
-     *
-     * @param Request $request
-     * @param [type]  $permission
-     */
-    public function handle($request, \Closure $next, $permission)
-    {
-        // 暂时修复 6.0.3 options 问题
-        if ($request->isOptions()) {
-            return $next($request);
-        }
-
-        if (!$request->user) {
-            return $this->handleNotLoggedIn($request);
-        }
-
-        if ($this->requestHasPermission($request, $request->user, $permission) === false) {
-            return $this->handleNoAuthority($request);
-        }
-
-        // 绑定已登录用户的模型类
-        app()->bind(User::class, $request->user);
-
-        return $next($request);
-    }
-
-    /**
      * 用户未登录.
      */
     public function handleNotLoggedIn(Request $request): Response

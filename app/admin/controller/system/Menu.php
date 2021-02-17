@@ -14,19 +14,30 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\DeptService;
+
+use app\common\service\MenuService;
 use think\annotation\Inject;
 
-class Dept extends \Crud\CrudController
+class Menu extends \Crud\CrudController
 {
     protected $validates = [
         'create' => [
+            'name' => 'require',
             'title' => 'require',
             'pid' => 'require',
+            'type' => 'require',
+            'path' => 'require',
+            'redirect' => 'requireIf:type,1',
+            'component' => 'requireIf:type,1|requireIf:type,2'
         ],
         'update' => [
+            'name' => 'require',
             'title' => 'require',
             'pid' => 'require',
+            'type' => 'require',
+            'path' => 'require',
+            'redirect' => 'requireIf:type,1',
+            'component' => 'requireIf:type,1|requireIf:type,2'
         ]
     ];
 
@@ -34,7 +45,7 @@ class Dept extends \Crud\CrudController
      *
      * @Inject
      *
-     * @var DeptService
+     * @var MenuService
      */
     protected $service;
 

@@ -12,10 +12,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use TAnt\AppService;
-use app\wechat\service\WechatService;
+use tauthz\TauthzService;
 
 return [
-    AppService::class,
-    WechatService::class,
+    TauthzService::class,
 ];

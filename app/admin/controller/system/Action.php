@@ -14,19 +14,21 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\DeptService;
+use app\common\service\MenuActionService;
 use think\annotation\Inject;
 
-class Dept extends \Crud\CrudController
+class Action extends \Crud\CrudController
 {
     protected $validates = [
         'create' => [
+            'name' => 'require',
             'title' => 'require',
-            'pid' => 'require',
+            'menu_id' => 'require',
         ],
         'update' => [
+            'name' => 'require',
             'title' => 'require',
-            'pid' => 'require',
+            'menu_id' => 'require',
         ]
     ];
 
@@ -34,12 +36,7 @@ class Dept extends \Crud\CrudController
      *
      * @Inject
      *
-     * @var DeptService
+     * @var MenuActionService
      */
     protected $service;
-
-    public function tree()
-    {
-        return $this->sendSuccess(['data' => $this->service->getTree()]);
-    }
 }

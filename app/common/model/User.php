@@ -1,39 +1,36 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
-
 namespace app\common\model;
 
 use app\BaseModel;
-use app\common\traits\Log;
-use think\model\relation\BelongsToMany;
-use xiaodi\Permission\Contract\UserContract;
+use tauthz\facade\Enforcer;
 
-class User extends BaseModel implements UserContract
+class User extends BaseModel
 {
-    use Log;
-    use \xiaodi\Permission\Traits\User;
-
-    /**
-     * 获取用户所有岗位.
-     */
-    public function posts(): BelongsToMany
+    public function can($source, $action)
     {
-        return $this->belongsToMany(
-            Post::class,
-            UserPostAccess::class,
-            'post_id',
-            'user_id'
-        );
+        if ($this->id !== 1) {
+            return Enforcer::enforce($this->username, $source, $action);
+        }
+
+        return true;
+    }
+
+    public function roles()
+    {
+        return $this->hasMany(Rule::class, 'v0', 'username')->where('ptype', 'g');
+
+    }
+
+    public function dept()
+    {
+        return $this->belongsTo(Dept::class);
+    }
+
+    public function setPasswordAttr($value)
+    {
+        if ($value) {
+            return password_hash($value, PASSWORD_DEFAULT);
+        }
     }
 }

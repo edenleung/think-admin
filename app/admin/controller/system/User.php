@@ -14,201 +14,110 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use think\Request;
 use app\BaseController;
-use app\admin\request\UserRequest;
-use app\admin\service\DeptService;
-use app\admin\service\PostService;
-use app\admin\service\RoleService;
-use app\admin\service\UserService;
-use app\admin\service\PermissionService;
+use app\common\service\UserService;
+use app\common\service\DeptService;
+use app\common\service\RoleService;
+use think\annotation\Inject;
 
 class User extends BaseController
 {
-    protected $permission;
+    protected $validates = [
+        'create' => [
+            'username' => 'require',
+            'nickname' => 'require',
+            'password' => 'require',
+            'roles' => 'require',
+            'dept_id' => 'require',
+        ],
+        'update' => [
+            'nickname' => 'require',
+            'roles' => 'require',
+            'dept_id' => 'require',
+        ]
+    ];
 
-    protected $role;
+    /**
+     *
+     * @Inject
+     *
+     * @var UserService
+     */
+    protected $service;
 
-    protected $post;
-
+    /**
+     *
+     * @Inject
+     *
+     * @var DeptService
+     */
     protected $dept;
 
-    public function __construct(UserService $service, PermissionService $permission, RoleService $role, PostService $post, DeptService $dept)
+    public function index()
     {
-        $this->service = $service;
-        $this->permission = $permission;
-        $this->role = $role;
-        $this->post = $post;
-        $this->dept = $dept;
+        $params = $this->request->get();
+
+        return $this->sendSuccess([
+            'data' => $this->service->list($params),
+            'depts' => $this->dept->getTree()
+        ]);
     }
 
-    /**
-     * 用户列表.
-     *
-     * @param [type] $pageNo
-     * @param [type] $pageSize
-     * @param int    $deptPid
-     *
-     * @return \think\Response
-     */
-    public function list($pageNo, $pageSize, $deptPid = 0)
+    public function create()
     {
-        $res['users'] = $this->service->list((int) $pageNo, (int) $pageSize, (int) $deptPid);
-        $res['rules'] = $this->permission->getMenuPermission();
-        $res['roles'] = $this->role->getSelectTree();
-        $res['depts'] = $this->dept->getTree();
-        $res['posts'] = $this->post->all();
+        $data = $this->request->post();
+        $this->validteData($data, 'create');
+        $result = $this->service->create($data);
 
-        return $this->sendSuccess($res);
+        if ($result !== false) {
+            return $this->sendSuccess();
+        }
+
+        return $this->sendError($this->service->getError());
     }
 
-    /**
-     * 添加用户.
-     *
-     * @return \think\Response
-     */
-    public function create(UserRequest $request)
+    public function update($id)
     {
-        if (!$request->scene('create')->validate()) {
-            return $this->sendError($request->getError());
+        $data = $this->request->put();
+        $this->validteData($data, 'update');
+        $result = $this->service->update($id, $data);
+
+        if ($result !== false) {
+            return $this->sendSuccess();
         }
 
-        if ($this->service->create($request->param()) === false) {
-            $error = $this->service->getError();
-
-            return $this->sendError($error);
-        }
-
-        return $this->sendSuccess();
+        return $this->sendError($this->service->getError());
     }
 
-    /**
-     * 更新用户.
-     *
-     * @param [type] $id
-     *
-     * @return \think\Response
-     */
-    public function update($id, UserRequest $request)
-    {
-        if (!$request->scene('update')->validate()) {
-            return $this->sendError($request->getError());
-        }
-
-        if ($this->service->update($id, $request->param()) === false) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess();
-    }
-
-    /**
-     * 删除用户.
-     *
-     * @param [type] $id
-     *
-     * @return \think\Response
-     */
     public function delete($id)
     {
-        if ($this->service->delete($id) === false) {
-            return $this->sendError($this->service->getError());
+        $result = $this->service->delete($id);
+        if ($result !== false) {
+            return $this->sendSuccess();
         }
 
-        return $this->sendSuccess();
+        return $this->sendError($this->service->getError());
     }
 
-    /**
-     * 获取用户信息与菜单列表.
-     *
-     * @return \think\Response
-     */
-    public function info(Request $request)
+    public function info()
     {
-        $user = $request->user;
-        $result = $this->service->info($user);
-
-        return $this->sendSuccess($result);
+        $info = $this->service->info();
+        return $this->sendSuccess($info);
     }
 
-    /**
-     * 获取个人信息.
-     */
-    public function current(self $user)
+    public function view($id)
     {
-        return $this->sendSuccess($user);
+        $info = $this->service->view($id);
+        return $this->sendSuccess($info);
     }
 
-    /**
-     * 更新个人信息.
-     *
-     * @return \think\Response
-     */
-    public function updateCurrent(Request $request)
-    {
-        $data = $this->request->param();
-        if (empty($data)) {
-            return $this->sendError('数据出错');
-        }
-
-        if (!$this->service->updateCurrent($request->user, $data)) {
-            return $this->sendError('更新失败');
-        }
-
-        return $this->sendSuccess(null, '已更新个人信息');
-    }
-
-    /**
-     * 更新头像.
-     *
-     * @return \think\Response
-     */
-    public function avatar(Request $request)
-    {
-        $file = $this->request->file('file');
-        $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$this->service->updateAvatar($request->user, $savename)) {
-            return $this->sendError('更新失败');
-        }
-
-        return $this->sendSuccess($request->user->avatar, '已成功更换头像');
-    }
-
-    /**
-     * 修改密码
-     *
-     * @return \think\Response
-     */
-    public function resetPassword(Request $request)
-    {
-        $oldPassword = $this->request->param('oldPassword');
-        $newPassword = $this->request->param('newPassword');
-
-        if (!$oldPassword || !$newPassword) {
-            return $this->sendError('数据出错');
-        }
-
-        if (!$this->service->resetPassword($request->user, $oldPassword, $newPassword)) {
-            return $this->sendError($this->service->getError());
-        }
-
-        return $this->sendSuccess(null, '修改成功');
-    }
-
-    public function data()
-    {
-        $res = [];
-        $res['roles'] = $this->role->all();
-        $res['depts'] = $this->dept->getTree();
-        $res['posts'] = $this->post->all();
-
-        return $this->sendSuccess($res);
-    }
-
-    public function getInfo($id)
+    public function data(RoleService $role, DeptService $dept)
     {
         return $this->sendSuccess(
-            $this->service->get($id)
+            [
+                'roles' => $role->all(),
+                'depts' => $dept->getTree()
+            ]
         );
     }
 }

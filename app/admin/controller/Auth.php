@@ -17,7 +17,7 @@ namespace app\admin\controller;
 use think\Response;
 use app\BaseController;
 use xiaodi\JWTAuth\Facade\Jwt;
-use app\admin\service\UserService;
+use app\common\service\UserService;
 
 class Auth extends BaseController
 {
@@ -28,10 +28,15 @@ class Auth extends BaseController
      */
     public function login(UserService $service)
     {
-        $username = $this->request->param('username');
-        $password = $this->request->param('password');
+        $data = $this->request->post();
 
-        $user = $service->login($username, $password);
+        $this->validate($data, [
+            'username' => 'require',
+            'password' => 'require',
+        ]);
+
+
+        $user = $service->login($data['username'], $data['password']);
         if ($user === false) {
             return $this->sendError('登录失败');
         }

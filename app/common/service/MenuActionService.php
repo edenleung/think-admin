@@ -12,29 +12,25 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace TAnt\Abstracts;
+namespace app\common\service;
 
-use think\Model;
-use think\facade\Db;
-use TAnt\Traits\Error;
+use app\common\model\MenuAction;
 
-abstract class AbstractService
+class MenuActionService extends \Crud\CrudService
 {
-    use Error;
-    
     /**
-     * @var Model
+     * @var MenuAction
      */
     protected $model;
 
+    protected $pageSize = 10;
 
-    public function __construct(Model $model)
+    public function __construct(MenuAction $model)
     {
-        $this->model = $model;
+        parent::__construct($model);
     }
 
-    public function transaction($callback)
+    public function filter($q, $query)
     {
-        return Db::transaction($callback);
     }
 }
