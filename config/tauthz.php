@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 return [
     /*
      *Default Tauthz enforcer
@@ -20,9 +30,9 @@ return [
             */
             'model' => [
                 // 可选值: "file", "text"
-                'config_type' => 'file',
-                'config_file_path' => config_path().'tauthz-rbac-model.conf',
-                'config_text' => '',
+                'config_type'      => 'file',
+                'config_file_path' => config_path() . 'tauthz-rbac-model.conf',
+                'config_text'      => '',
             ],
 
             // 适配器 .

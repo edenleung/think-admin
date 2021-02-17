@@ -14,11 +14,10 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
-use app\common\model\MenuAction;
+use think\facade\Db;
 use app\common\model\Role;
 use app\common\model\Rule;
-use tauthz\facade\Enforcer;
-use think\facade\Db;
+use app\common\model\MenuAction;
 
 class RoleService extends \Crud\CrudService
 {
@@ -38,7 +37,7 @@ class RoleService extends \Crud\CrudService
     {
         Db::transaction(function () use ($data) {
             $this->model->save([
-                'title' => $data['title']
+                'title' => $data['title'],
             ]);
 
             $ids = array_map(function ($item) {
@@ -58,8 +57,8 @@ class RoleService extends \Crud\CrudService
             Rule::where('ptype', 'p')->where('v0', $row->id)->delete();
 
             $row->save([
-                'title' => $data['title'],
-                'status' => $data['status']
+                'title'  => $data['title'],
+                'status' => $data['status'],
             ]);
 
             $ids = array_map(function ($item) {
@@ -75,12 +74,12 @@ class RoleService extends \Crud\CrudService
     {
         $actions = MenuAction::whereIn('id', $actions)->with('menu')->select();
         foreach ($actions as $item) {
-            var_dump($item->menu->name . '-'. $item->name);
+            var_dump($item->menu->name . '-' . $item->name);
             Rule::insert([
                 'ptype' => 'p',
-                'v0' => $id,
-                'v1' => $item->menu->name,
-                'v2' => $item->name,
+                'v0'    => $id,
+                'v1'    => $item->menu->name,
+                'v2'    => $item->name,
             ]);
         }
     }

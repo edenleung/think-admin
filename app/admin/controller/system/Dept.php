@@ -14,24 +14,23 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\DeptService;
 use think\annotation\Inject;
+use app\common\service\DeptService;
 
 class Dept extends \Crud\CrudController
 {
     protected $validates = [
         'create' => [
             'title' => 'require',
-            'pid' => 'require',
+            'pid'   => 'require',
         ],
         'update' => [
             'title' => 'require',
-            'pid' => 'require',
-        ]
+            'pid'   => 'require',
+        ],
     ];
 
     /**
-     *
      * @Inject
      *
      * @var DeptService

@@ -33,7 +33,7 @@ return [
             // 序列化机制 例如 ['serialize', 'unserialize']
             'serialize'  => [],
         ],
-        'redis'   =>  [
+        'redis'   => [
             // 驱动方式
             'type'   => 'redis',
             // 服务器地址

@@ -12,12 +12,10 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use app\common\model\Menu;
-use app\common\model\User;
 use think\facade\Route;
-use app\common\service\MenuService;
-use app\common\service\UserService;
+use app\common\model\User;
 use tauthz\facade\Enforcer;
+use app\common\service\UserService;
 
 Route::get('/2$', function () {
 
@@ -33,5 +31,5 @@ Route::get('/2$', function () {
     // Enforcer::deleteRolesForUser('admin');
     // Enforcer::addRoleForUser('admin', '管理员');
 
-    dump(Enforcer::enforce("1234", "UpdateAccount", "Save"));
+    dump(Enforcer::enforce('1234', 'UpdateAccount', 'Save'));
 });

@@ -14,26 +14,25 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\MenuActionService;
 use think\annotation\Inject;
+use app\common\service\MenuActionService;
 
 class Action extends \Crud\CrudController
 {
     protected $validates = [
         'create' => [
-            'name' => 'require',
-            'title' => 'require',
+            'name'    => 'require',
+            'title'   => 'require',
             'menu_id' => 'require',
         ],
         'update' => [
-            'name' => 'require',
-            'title' => 'require',
+            'name'    => 'require',
+            'title'   => 'require',
             'menu_id' => 'require',
-        ]
+        ],
     ];
 
     /**
-     *
      * @Inject
      *
      * @var MenuActionService

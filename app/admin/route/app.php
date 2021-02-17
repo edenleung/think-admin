@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 use think\facade\Route;
 use xiaodi\JWTAuth\Middleware\Jwt;
-use app\admin\middleware\Permission;
 
 Route::pattern([
     'id'   => '\d+',
@@ -82,7 +81,6 @@ Route::group('/user', function () {
     Route::delete('/:id', 'system.user/delete');
     Route::get('/:id', 'system.user/view');
 })->middleware(Jwt::class);
-
 
 // 模拟数据（可删除）
 Route::group('/mock', function () {

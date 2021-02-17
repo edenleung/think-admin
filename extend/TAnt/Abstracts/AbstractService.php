@@ -21,12 +21,11 @@ use TAnt\Traits\Error;
 abstract class AbstractService
 {
     use Error;
-    
+
     /**
      * @var Model
      */
     protected $model;
-
 
     public function __construct(Model $model)
     {

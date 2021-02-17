@@ -35,7 +35,6 @@ class Auth extends BaseController
             'password' => 'require',
         ]);
 
-
         $user = $service->login($data['username'], $data['password']);
         if ($user === false) {
             return $this->sendError('登录失败');

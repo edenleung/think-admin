@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace app\admin\controller\system;
 
 use app\BaseController;
-use app\common\service\UserService;
+use think\annotation\Inject;
 use app\common\service\DeptService;
 use app\common\service\RoleService;
-use think\annotation\Inject;
+use app\common\service\UserService;
 
 class User extends BaseController
 {
@@ -27,18 +27,17 @@ class User extends BaseController
             'username' => 'require',
             'nickname' => 'require',
             'password' => 'require',
-            'roles' => 'require',
-            'dept_id' => 'require',
+            'roles'    => 'require',
+            'dept_id'  => 'require',
         ],
         'update' => [
             'nickname' => 'require',
-            'roles' => 'require',
-            'dept_id' => 'require',
-        ]
+            'roles'    => 'require',
+            'dept_id'  => 'require',
+        ],
     ];
 
     /**
-     *
      * @Inject
      *
      * @var UserService
@@ -46,7 +45,6 @@ class User extends BaseController
     protected $service;
 
     /**
-     *
      * @Inject
      *
      * @var DeptService
@@ -58,8 +56,8 @@ class User extends BaseController
         $params = $this->request->get();
 
         return $this->sendSuccess([
-            'data' => $this->service->list($params),
-            'depts' => $this->dept->getTree()
+            'data'  => $this->service->list($params),
+            'depts' => $this->dept->getTree(),
         ]);
     }
 
@@ -102,12 +100,14 @@ class User extends BaseController
     public function info()
     {
         $info = $this->service->info();
+
         return $this->sendSuccess($info);
     }
 
     public function view($id)
     {
         $info = $this->service->view($id);
+
         return $this->sendSuccess($info);
     }
 
@@ -116,7 +116,7 @@ class User extends BaseController
         return $this->sendSuccess(
             [
                 'roles' => $role->all(),
-                'depts' => $dept->getTree()
+                'depts' => $dept->getTree(),
             ]
         );
     }

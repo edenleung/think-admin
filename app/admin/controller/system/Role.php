@@ -14,35 +14,31 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-
-use app\common\service\RoleService;
-use app\common\service\MenuService;
 use think\annotation\Inject;
+use app\common\service\MenuService;
+use app\common\service\RoleService;
 
 class Role extends \Crud\CrudController
 {
     protected $validates = [
         'create' => [
-            'title' => 'require',
+            'title'   => 'require',
             'actions' => 'require',
         ],
         'update' => [
-            'title' => 'require',
+            'title'   => 'require',
             'actions' => 'require',
-        ]
+        ],
     ];
 
     /**
-     *
      * @Inject
      *
      * @var RoleService
      */
     protected $service;
 
-
     /**
-     *
      * @Inject
      *
      * @var MenuService
@@ -52,10 +48,11 @@ class Role extends \Crud\CrudController
     public function info($id)
     {
         $info = $this->service->info($id);
+
         return $this->sendSuccess(
             [
-                'info' => $info,
-                'actions' => $info->actions->column('menu_action_id')
+                'info'    => $info,
+                'actions' => $info->actions->column('menu_action_id'),
             ]
         );
     }

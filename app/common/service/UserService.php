@@ -16,7 +16,6 @@ namespace app\common\service;
 
 use app\BaseService;
 use app\common\model\Menu;
-use app\common\model\Role;
 use app\common\model\User;
 use tauthz\facade\Enforcer;
 
@@ -73,7 +72,6 @@ class UserService extends BaseService
         unset($this->model->password);
 
         $this->model->role = ['permissions' => $permissions];
-
 
         $this->model->menus = $this->formatRoute($menus);
 
@@ -165,7 +163,7 @@ class UserService extends BaseService
         $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
         $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
 
-        $data = $this->model->alias('a')->with(['dept'])->where('a.id', '<>', 1)->where(function ($q) use ($query) {
+        $data = $this->model->alias('a')->with(['dept'])->where('a.id', '<>', 1)->where(function ($q) {
         })->paginate([
             'list_rows' => $pageSize,
             'page'      => $pageNo,
@@ -173,8 +171,8 @@ class UserService extends BaseService
 
         return [
             'data'       => $data->items(),
-            'pageSize'   => (int)$pageSize,
-            'pageNo'     => (int)$pageNo,
+            'pageSize'   => (int) $pageSize,
+            'pageNo'     => (int) $pageNo,
             'totalPage'  => count($data->items()),
             'totalCount' => $data->total(),
         ];
@@ -183,11 +181,11 @@ class UserService extends BaseService
     public function create(array $data)
     {
         $this->transaction(function () use ($data) {
-            $user = new User;
+            $user = new User();
             $user->save($data);
 
             foreach ($data['roles'] as $role) {
-                Enforcer::addRoleForUser($user->username, (string)$role);
+                Enforcer::addRoleForUser($user->username, (string) $role);
             }
         });
     }
@@ -195,7 +193,7 @@ class UserService extends BaseService
     public function update($id, array $data)
     {
         $this->transaction(function () use ($id, $data) {
-            $user = new User;
+            $user = new User();
             $user = $user->find($id);
 
             Enforcer::deleteRolesForUser($user->username);
@@ -203,14 +201,14 @@ class UserService extends BaseService
             $user->save($data);
 
             foreach ($data['roles'] as $role) {
-                Enforcer::addRoleForUser($user->username, (string)$role);
+                Enforcer::addRoleForUser($user->username, (string) $role);
             }
         });
     }
 
     public function view($id)
     {
-        $user = new User;
+        $user = new User();
         $user = $user->with(['roles'])->find($id);
 
         return $user;

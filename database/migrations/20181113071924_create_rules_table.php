@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 use think\migration\Migrator;
 use Phinx\Db\Adapter\AdapterFactory;
 
@@ -13,18 +23,19 @@ class CreateRulesTable extends Migrator
     protected function init()
     {
         $options = $this->getDbConfig();
-    
+
         $adapter = AdapterFactory::instance()->getAdapter($options['adapter'], $options);
-    
+
         if ($adapter->hasOption('table_prefix') || $adapter->hasOption('table_suffix')) {
             $adapter = AdapterFactory::instance()->getWrapper('prefix', $adapter);
         }
-    
-        $this->setAdapter( $adapter);    
+
+        $this->setAdapter($adapter);
     }
-    
+
     /**
-     * 获取数据库配置
+     * 获取数据库配置.
+     *
      * @return array
      */
     protected function getDbConfig(): array
@@ -88,7 +99,7 @@ class CreateRulesTable extends Migrator
     public function up()
     {
         $default = config('tauthz.default');
-        $table = $this->table(config('tauthz.enforcers.'.$default.'.database.rules_name'));
+        $table = $this->table(config('tauthz.enforcers.' . $default . '.database.rules_name'));
         $table->addColumn('ptype', 'string', ['null' => true])
             ->addColumn('v0', 'string', ['null' => true])
             ->addColumn('v1', 'string', ['null' => true])
@@ -102,7 +113,7 @@ class CreateRulesTable extends Migrator
     public function down()
     {
         $default = config('tauthz.default');
-        $table = $this->table(config('tauthz.enforcers.'.$default.'.database.rules_name'));
+        $table = $this->table(config('tauthz.enforcers.' . $default . '.database.rules_name'));
         $table->drop();
     }
 }

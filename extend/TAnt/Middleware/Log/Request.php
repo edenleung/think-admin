@@ -22,10 +22,10 @@ class Request
         $url = request()->url();
 
         \think\facade\Log::debug([
-            'method' => $method,
-            'url'    => $url,
-            'param'  => $request->getInput(),
-            'request' => request()->header()
+            'method'  => $method,
+            'url'     => $url,
+            'param'   => $request->getInput(),
+            'request' => request()->header(),
         ]);
 
         return $next($request);

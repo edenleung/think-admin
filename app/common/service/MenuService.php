@@ -55,10 +55,10 @@ class MenuService extends \Crud\CrudService
     protected function formatRoleRuleTree($data, $selected = [], &$actionIds = [])
     {
         $init = [
-            'selected' => [],
+            'selected'      => [],
             'indeterminate' => false,
-            'checkedAll' => false,
-            'disabled' => false
+            'checkedAll'    => false,
+            'disabled'      => false,
         ];
 
         foreach ($data as $key => $item) {
@@ -66,6 +66,7 @@ class MenuService extends \Crud\CrudService
                 $actionIds = array_merge(array_column($item['actions'], 'id'), $actionIds);
                 $item['actions'] = array_map(function ($a) {
                     $a['disabled'] = false;
+
                     return $a;
                 }, $item['actions']);
             }
