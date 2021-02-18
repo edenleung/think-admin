@@ -13,7 +13,9 @@ declare(strict_types=1);
  */
 
 use tauthz\TauthzService;
+use Oauth2\Oauth2Service;
 
 return [
     TauthzService::class,
+    Oauth2Service::class,
 ];
