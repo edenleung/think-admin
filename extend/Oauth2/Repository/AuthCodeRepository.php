@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace Oauth2\Repository;
 
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
@@ -13,7 +23,7 @@ class AuthCodeRepository implements AuthCodeRepositoryInterface
     }
 
     /**
-     * Creates a new AuthCode
+     * Creates a new AuthCode.
      *
      * @return AuthCodeEntityInterface
      */
@@ -36,14 +46,14 @@ class AuthCodeRepository implements AuthCodeRepositoryInterface
         foreach ($scopes as $scope) {
             $allScopes[] = $scope->getIdentifier();
         }
-        $scopes = implode(" ", $allScopes);
+        $scopes = implode(' ', $allScopes);
 
         $this->db::table('oauth_auth_codes')->insert([
             'auth_code' => $authCodeEntity->getIdentifier(),
             'client_id' => $authCodeEntity->getClient()->getIdentifier(),
-            'user_id' => $authCodeEntity->getUserIdentifier(),
-            'expires' => $authCodeEntity->getExpiryDateTime()->getTimestamp(),
-            'scope' => $scopes,
+            'user_id'   => $authCodeEntity->getUserIdentifier(),
+            'expires'   => $authCodeEntity->getExpiryDateTime()->getTimestamp(),
+            'scope'     => $scopes,
         ]);
     }
 
@@ -54,7 +64,7 @@ class AuthCodeRepository implements AuthCodeRepositoryInterface
      */
     public function revokeAuthCode($codeId)
     {
-        $this->db::table("oauth_auth_codes")->where('auth_code', $codeId)->update(['revoked' => true]);
+        $this->db::table('oauth_auth_codes')->where('auth_code', $codeId)->update(['revoked' => true]);
     }
 
     /**
@@ -66,7 +76,8 @@ class AuthCodeRepository implements AuthCodeRepositoryInterface
      */
     public function isAuthCodeRevoked($codeId)
     {
-        $row = $this->db::table("oauth_auth_codes")->where('auth_code', $codeId)->find();
-        return $row ? $row["revoked"] : true;
+        $row = $this->db::table('oauth_auth_codes')->where('auth_code', $codeId)->find();
+
+        return $row ? $row['revoked'] : true;
     }
 }

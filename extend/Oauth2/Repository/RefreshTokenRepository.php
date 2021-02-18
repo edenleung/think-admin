@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace Oauth2\Repository;
 
-use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
@@ -14,7 +23,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
     }
 
     /**
-     * Creates a new refresh token
+     * Creates a new refresh token.
      *
      * @return RefreshTokenEntityInterface|null
      */
@@ -34,8 +43,8 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
     {
         $this->db::table('oauth_refresh_tokens')->insert([
             'refresh_token' => $refreshTokenEntity->getIdentifier(),
-            'expires' => $refreshTokenEntity->getExpiryDateTime()->getTimestamp(),
-            'access_token' => $refreshTokenEntity->getAccessToken()->getIdentifier(),
+            'expires'       => $refreshTokenEntity->getExpiryDateTime()->getTimestamp(),
+            'access_token'  => $refreshTokenEntity->getAccessToken()->getIdentifier(),
         ]);
     }
 
@@ -46,7 +55,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function revokeRefreshToken($tokenId)
     {
-        $this->db::table("oauth_refresh_tokens")->where('refresh_token', $tokenId)->update(['revoked' => true]);
+        $this->db::table('oauth_refresh_tokens')->where('refresh_token', $tokenId)->update(['revoked' => true]);
     }
 
     /**
@@ -59,6 +68,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
     public function isRefreshTokenRevoked($tokenId)
     {
         $row = $this->db::table('oauth_refresh_tokens')->where('refresh_token', $tokenId)->field('revoked')->find();
-        return $row ? $row["revoked"] : true;
+
+        return $row ? $row['revoked'] : true;
     }
 }

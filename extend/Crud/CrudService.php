@@ -1,9 +1,18 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace Crud;
 
 use TAnt\Abstracts\AbstractService;
-use think\Model;
 
 abstract class CrudService extends AbstractService
 {
@@ -27,14 +36,14 @@ abstract class CrudService extends AbstractService
 
         return [
             'data'       => $data->items(),
-            'pageSize'   => (int)$pageSize,
-            'pageNo'     => (int)$pageNo,
+            'pageSize'   => (int) $pageSize,
+            'pageNo'     => (int) $pageNo,
             'totalPage'  => count($data->items()),
             'totalCount' => $data->total(),
         ];
     }
 
-    abstract function filter($q, $query);
+    abstract public function filter($q, $query);
 
     public function with($with)
     {
@@ -77,6 +86,7 @@ abstract class CrudService extends AbstractService
         }
 
         $this->error = '没有此记录';
+
         return false;
     }
 

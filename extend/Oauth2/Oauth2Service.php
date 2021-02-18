@@ -14,19 +14,19 @@ declare(strict_types=1);
 
 namespace Oauth2;
 
+use think\Route;
 use think\Service;
-use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\Exception\OAuthServerException;
-use Oauth2\Repository\ClientRepository;
-use Oauth2\Repository\ScopeRepository;
-use Oauth2\Repository\AccessTokenRepository;
-use Oauth2\Repository\AuthCodeRepository;
-use Oauth2\Repository\RefreshTokenRepository;
-use Oauth2\Repository\UserEntity;
 use think\facade\Db;
 use think\Psr7\Response;
 use think\Psr7\ServerRequest;
-use think\Route;
+use Oauth2\Repository\UserEntity;
+use Oauth2\Repository\ScopeRepository;
+use Oauth2\Repository\ClientRepository;
+use Oauth2\Repository\AuthCodeRepository;
+use Oauth2\Repository\AccessTokenRepository;
+use League\OAuth2\Server\AuthorizationServer;
+use Oauth2\Repository\RefreshTokenRepository;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 class Oauth2Service extends Service
 {
@@ -75,7 +75,6 @@ class Oauth2Service extends Service
             // 发起授权
             $route->get('oauth/authorize', function (ServerRequest $request, Response $response) {
                 try {
-
                     $authRequest = $this->app->oauth->validateAuthorizationRequest($request);
 
                     // The auth request object can be serialized and saved into a user's session.
