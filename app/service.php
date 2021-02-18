@@ -12,8 +12,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use tauthz\TauthzService;
 use Oauth2\Oauth2Service;
+use tauthz\TauthzService;
 
 return [
     TauthzService::class,
