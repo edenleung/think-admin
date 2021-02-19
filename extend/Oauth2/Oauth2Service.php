@@ -99,7 +99,6 @@ class Oauth2Service extends Service
                 }
             });
 
-
             $route->post('oauth/access_token', function (ServerRequest $request, Response $response) {
                 try {
                     return $this->app->oauth->respondToAccessTokenRequest($request, $response);
@@ -108,7 +107,6 @@ class Oauth2Service extends Service
                     // All instances of OAuthServerException can be formatted into a HTTP response
                     return $exception->generateHttpResponse($response);
                 } catch (\Exception $exception) {
-
                     return $exception->getMessage();
                 }
             });
