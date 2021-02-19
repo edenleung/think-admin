@@ -91,11 +91,25 @@ class Oauth2Service extends Service
                     $authRequest->setAuthorizationApproved(true);
 
                     // Return the HTTP redirect response
-                    return $this->app->oauth->completeAuthorizationRequest($authRequest, $response)->send();
+                    return $this->app->oauth->completeAuthorizationRequest($authRequest, $response);
                 } catch (OAuthServerException $exception) {
 
                     // All instances of OAuthServerException can be formatted into a HTTP response
-                    return $exception->generateHttpResponse($response)->send();
+                    return $exception->generateHttpResponse($response);
+                }
+            });
+
+
+            $route->post('oauth/access_token', function (ServerRequest $request, Response $response) {
+                try {
+                    return $this->app->oauth->respondToAccessTokenRequest($request, $response);
+                } catch (\League\OAuth2\Server\Exception\OAuthServerException $exception) {
+
+                    // All instances of OAuthServerException can be formatted into a HTTP response
+                    return $exception->generateHttpResponse($response);
+                } catch (\Exception $exception) {
+
+                    return $exception->getMessage();
                 }
             });
         });
