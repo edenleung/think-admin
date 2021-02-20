@@ -109,7 +109,6 @@ class Oauth2Service extends Service
                 }
             });
 
-
             $route->post('oauth/access_token', function (ServerRequest $request, Response $response) {
                 try {
                     return Message::make($this->app->oauth->respondToAccessTokenRequest($request, $response));

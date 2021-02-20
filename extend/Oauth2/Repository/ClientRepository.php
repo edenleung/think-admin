@@ -55,7 +55,7 @@ class ClientRepository implements ClientRepositoryInterface
     public function validateClient($clientIdentifier, $clientSecret, $grantType)
     {
         $row = $this->db::table('oauth_clients')->where('client_id', $clientIdentifier)->field('client_secret')->find();
-        
+
         return $row && $clientSecret === $row['client_secret'];
     }
 }
