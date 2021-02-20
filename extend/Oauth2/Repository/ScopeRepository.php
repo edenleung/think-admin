@@ -33,7 +33,7 @@ class ScopeRepository implements ScopeRepositoryInterface
     {
         $row = $this->db::table('oauth_scopes')->where('scope_id', $identifier)->find();
 
-        return $row !== false ? new ScopeEntity($identifier) : null;
+        return $row ? new ScopeEntity($row['scope_id'], $row['description']) : null;
     }
 
     /**

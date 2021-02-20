@@ -19,9 +19,10 @@ class ScopeEntity implements ScopeEntityInterface
 {
     use ScopeTrait;
 
-    public function __construct($identifier)
+    public function __construct($id, $description = null)
     {
-        $this->identifier = $identifier;
+        $this->identifier = $id;
+        $this->description = $description;
     }
 
     public function getIdentifier()

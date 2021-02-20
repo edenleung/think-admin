@@ -27,6 +27,9 @@ use Oauth2\Repository\AccessTokenRepository;
 use League\OAuth2\Server\AuthorizationServer;
 use Oauth2\Repository\RefreshTokenRepository;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use think\Psr7\Message;
 
 class Oauth2Service extends Service
 {
@@ -67,13 +70,18 @@ class Oauth2Service extends Service
 
             return $server;
         });
+
+        bind('Psr\Http\Message\ResponseInterface', 'think\Psr7\Response');
+        bind('Psr\Http\Message\ServerRequestInterface', 'think\Psr7\ServerRequest');
     }
 
     public function boot()
     {
+
         $this->registerRoutes(function (Route $route) {
             // 发起授权
-            $route->get('oauth/authorize', function (ServerRequest $request, Response $response) {
+            $route->get('oauth/authorize', function (ServerRequestInterface $request, ResponseInterface $response) {
+
                 try {
                     $authRequest = $this->app->oauth->validateAuthorizationRequest($request);
 
@@ -81,7 +89,10 @@ class Oauth2Service extends Service
                     // You will probably want to redirect the user at this point to a login endpoint.
 
                     // Once the user has logged in set the user on the AuthorizationRequest
-                    $authRequest->setUser(new UserEntity()); // an instance of UserEntityInterface
+
+                    $user = new UserEntity();
+                    $user->setIdentifier(1);
+                    $authRequest->setUser($user); // an instance of UserEntityInterface
 
                     // At this point you should redirect the user to an authorization page.
                     // This form will ask the user to approve the client and the scopes requested.
@@ -91,25 +102,24 @@ class Oauth2Service extends Service
                     $authRequest->setAuthorizationApproved(true);
 
                     // Return the HTTP redirect response
-                    return $this->app->oauth->completeAuthorizationRequest($authRequest, $response);
+                    return Message::make($this->app->oauth->completeAuthorizationRequest($authRequest, $response));
                 } catch (OAuthServerException $exception) {
-
                     // All instances of OAuthServerException can be formatted into a HTTP response
-                    return $exception->generateHttpResponse($response);
+                    return Message::make($exception->generateHttpResponse($response));
                 }
             });
 
 
             $route->post('oauth/access_token', function (ServerRequest $request, Response $response) {
                 try {
-                    return $this->app->oauth->respondToAccessTokenRequest($request, $response);
+                    return Message::make($this->app->oauth->respondToAccessTokenRequest($request, $response));
                 } catch (\League\OAuth2\Server\Exception\OAuthServerException $exception) {
 
                     // All instances of OAuthServerException can be formatted into a HTTP response
-                    return $exception->generateHttpResponse($response);
+                    return Message::make($exception->generateHttpResponse($response));
                 } catch (\Exception $exception) {
-
-                    return $exception->getMessage();
+                    $response->getBody()->write($exception->getMessage());
+                    return Message::make($response->withStatus(500));
                 }
             });
         });
