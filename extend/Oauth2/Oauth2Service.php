@@ -17,19 +17,19 @@ namespace Oauth2;
 use think\Route;
 use think\Service;
 use think\facade\Db;
+use think\Psr7\Message;
 use think\Psr7\Response;
 use think\Psr7\ServerRequest;
 use Oauth2\Repository\UserEntity;
 use Oauth2\Repository\ScopeRepository;
 use Oauth2\Repository\ClientRepository;
+use Psr\Http\Message\ResponseInterface;
 use Oauth2\Repository\AuthCodeRepository;
 use Oauth2\Repository\AccessTokenRepository;
+use Psr\Http\Message\ServerRequestInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use Oauth2\Repository\RefreshTokenRepository;
 use League\OAuth2\Server\Exception\OAuthServerException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use think\Psr7\Message;
 
 class Oauth2Service extends Service
 {
@@ -77,11 +77,9 @@ class Oauth2Service extends Service
 
     public function boot()
     {
-
         $this->registerRoutes(function (Route $route) {
             // 发起授权
             $route->get('oauth/authorize', function (ServerRequestInterface $request, ResponseInterface $response) {
-
                 try {
                     $authRequest = $this->app->oauth->validateAuthorizationRequest($request);
 
@@ -118,6 +116,7 @@ class Oauth2Service extends Service
                     return Message::make($exception->generateHttpResponse($response));
                 } catch (\Exception $exception) {
                     $response->getBody()->write($exception->getMessage());
+
                     return Message::make($response->withStatus(500));
                 }
             });
