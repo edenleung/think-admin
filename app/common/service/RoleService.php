@@ -74,7 +74,6 @@ class RoleService extends \Crud\CrudService
     {
         $actions = MenuAction::whereIn('id', $actions)->with('menu')->select();
         foreach ($actions as $item) {
-            var_dump($item->menu->name . '-' . $item->name);
             Rule::insert([
                 'ptype' => 'p',
                 'v0'    => $id,
