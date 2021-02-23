@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88ff87c13c39a3ca4f4138e1d837bf97",
+    "content-hash": "581d8124d71e86be0190273374affb65",
     "packages": [
         {
             "name": "casbin/casbin",
