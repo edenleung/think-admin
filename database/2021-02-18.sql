@@ -48,32 +48,28 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `hidden` int(11) NOT NULL DEFAULT '0' COMMENT 'hidden',
   `hideChildrenInMenu` int(11) NOT NULL DEFAULT '0' COMMENT 'hideChildrenInMenu',
   `blank` int(11) NOT NULL DEFAULT '0' COMMENT 'blank 1 外部链接 0 默认内部',
-  `create_time` int(11) NOT NULL DEFAULT '0',
-  `update_time` int(11) NOT NULL DEFAULT '0',
-  `delete_time` int(11) NOT NULL DEFAULT '0',
+  `delete_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Dumping data for table think.menu: ~17 rows (大约)
+-- Dumping data for table think.menu: ~15 rows (大约)
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`, `redirect`, `component`, `icon`, `permission`, `keepAlive`, `hidden`, `hideChildrenInMenu`, `blank`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'Index', '首页', 0, 'path', 1, '/', '/dashboard', 'BasicLayout', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(2, 'Dashboard', '仪表盘', 1, 'path', 1, '/dashboard', '/dashboard/workplace', 'RouteView', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(3, 'Analysis', '分析页', 2, 'menu', 1, '/dashboard/analysis', '', 'Analysis', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(4, 'Workspace', '工作台', 2, 'menu', 1, '/dashboard/workplace', '', 'Workplace', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(5, 'System', '系统管理', 1, 'path', 1, '/system', '/system/menu', 'PageView', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(6, 'Menu', '菜单管理', 5, 'menu', 1, '/system/menu', '', 'Menu', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(7, 'Role', '角色列表', 13, 'menu', 1, '/system/role/list', '', 'Role', 'smile-o', '', 0, 0, 0, 0, 0, 1612859426, 0),
-	(8, 'Account', '管理员列表', 17, 'menu', 1, '/system/account/list', '', 'Account', '', '', 0, 0, 0, 0, 0, 1613542292, 0),
-	(9, 'Dept', '部门管理', 5, 'menu', 1, '/system/dept', '', 'Dept', 'smile-o', '', 0, 0, 0, 0, 0, 0, 0),
-	(11, 'test', 'test', 1, 'menu', 1, '/test', '', 'Analysis', 'smile-o', '', 0, 0, 0, 0, 1612857539, 1612858652, 1612858652),
-	(12, 'UpdateRole', '更新角色', 13, 'menu', 1, '/system/role/:id', '', 'RoleForm', '', '', 0, 1, 0, 0, 1612859191, 1612859554, 1612859554),
-	(13, 'RoleManage', '角色管理', 5, 'path', 1, '/system/role', '/system/role/list', 'RouteView', 'smile-o', '', 0, 0, 1, 0, 1612859346, 1612859505, 0),
-	(14, 'UpdateRole', '更新角色', 13, 'menu', 1, '/system/role/:id/update', '', 'RoleForm', '', '', 0, 1, 0, 0, 1612859649, 1612933655, 0),
-	(15, 'CreateRole', '创建角色', 13, 'menu', 1, '/system/role/create', '', 'RoleForm', '', '', 0, 1, 0, 0, 1612889407, 1612889407, 0),
-	(16, 'CreateAccount', '创建管理员', 17, 'menu', 1, '/system/account/create', '', 'AccountForm', '', '', 0, 1, 0, 0, 1613542028, 1613542206, 0),
-	(17, 'AccountManage', '管理员管理', 5, 'path', 1, '/system/account', '/system/account/list', 'RouteView', 'smile-o', '', 0, 0, 1, 0, 1613542117, 1613542320, 0),
-	(18, 'UpdateAccount', '更新管理员', 17, 'menu', 1, '/system/account/:id/update', '', 'AccountForm', '', '', 0, 0, 0, 0, 1613544796, 1613544796, 0);
+INSERT INTO `menu` (`id`, `name`, `title`, `pid`, `type`, `status`, `path`, `redirect`, `component`, `icon`, `permission`, `keepAlive`, `hidden`, `hideChildrenInMenu`, `blank`, `delete_time`) VALUES
+	(1, 'Index', '首页', 0, 'path', 1, '/', '/dashboard', 'BasicLayout', 'smile-o', '', 0, 0, 0, 0, 0),
+	(2, 'Dashboard', '仪表盘', 1, 'path', 1, '/dashboard', '/dashboard/workplace', 'RouteView', 'smile-o', 'Analysis,Workspace', 0, 0, 0, 0, 0),
+	(3, 'Analysis', '分析页', 2, 'menu', 1, '/dashboard/analysis', '', 'Analysis', 'smile-o', 'Analysis', 0, 0, 0, 0, 0),
+	(4, 'Workspace', '工作台', 2, 'menu', 1, '/dashboard/workplace', '', 'Workplace', 'smile-o', 'Workspace', 0, 0, 0, 0, 0),
+	(5, 'System', '系统管理', 1, 'path', 1, '/system', '/system/menu', 'PageView', 'smile-o', 'Menu,Dept,RoleManage', 0, 0, 0, 0, 0),
+	(6, 'Menu', '菜单管理', 5, 'menu', 1, '/system/menu', '', 'Menu', 'smile-o', 'Menu', 0, 0, 0, 0, 0),
+	(7, 'Role', '角色列表', 13, 'menu', 1, '/system/role/list', '', 'Role', 'smile-o', 'Role', 0, 0, 0, 0, 0),
+	(8, 'Account', '管理员列表', 17, 'menu', 1, '/system/account/list', '', 'Account', '', '', 0, 0, 0, 0, 0),
+	(9, 'Dept', '部门管理', 5, 'menu', 1, '/system/dept', '', 'Dept', 'smile-o', 'Dept', 0, 0, 0, 0, 0),
+	(13, 'RoleManage', '角色管理', 5, 'path', 1, '/system/role', '/system/role/list', 'RouteView', 'smile-o', 'Role,UpdateRole', 0, 0, 1, 0, 0),
+	(14, 'UpdateRole', '更新角色', 13, 'menu', 1, '/system/role/:id/update', '', 'RoleForm', '', 'UpdateRole', 0, 1, 0, 0, 0),
+	(15, 'CreateRole', '创建角色', 13, 'menu', 1, '/system/role/create', '', 'RoleForm', '', 'CreateRole', 0, 1, 0, 0, 0),
+	(16, 'CreateAccount', '创建管理员', 17, 'menu', 1, '/system/account/create', '', 'AccountForm', '', '', 0, 1, 0, 0, 0),
+	(17, 'AccountManage', '管理员管理', 5, 'path', 1, '/system/account', '/system/account/list', 'RouteView', 'smile-o', 'Account,CreateAccount,UpdateAccount', 0, 0, 1, 0, 0),
+	(18, 'UpdateAccount', '更新管理员', 17, 'menu', 1, '/system/account/:id/update', '', 'AccountForm', '', '', 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 -- Dumping structure for table think.menu_action
@@ -86,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `menu_action` (
   `update_time` int(11) NOT NULL DEFAULT '0',
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.menu_action: ~16 rows (大约)
+-- Dumping data for table think.menu_action: ~24 rows (大约)
 /*!40000 ALTER TABLE `menu_action` DISABLE KEYS */;
 INSERT INTO `menu_action` (`id`, `name`, `title`, `menu_id`, `create_time`, `update_time`, `delete_time`) VALUES
 	(1, 'View', '详情', 3, 0, 0, 0),
@@ -106,7 +102,15 @@ INSERT INTO `menu_action` (`id`, `name`, `title`, `menu_id`, `create_time`, `upd
 	(13, 'List', '列表', 8, 1613542183, 1613542183, 0),
 	(14, 'Save', '保存', 15, 1613546258, 1613546258, 0),
 	(15, 'Save', '保存', 14, 1613546271, 1613546271, 0),
-	(16, 'Save', '保存', 18, 1613546286, 1613546286, 0);
+	(16, 'Save', '保存', 18, 1613546286, 1613546286, 0),
+	(17, 'Create', '新增', 6, 1614093171, 1614093171, 0),
+	(18, 'List', '列表', 9, 1614093198, 1614093198, 0),
+	(19, 'Update', '修改', 9, 1614093212, 1614093212, 0),
+	(20, 'Delete', '删除', 9, 1614093223, 1614093223, 0),
+	(21, 'Create', '新增', 9, 1614093245, 1614093245, 0),
+	(22, 'Create', '新增', 8, 1614093276, 1614093276, 0),
+	(23, 'Update', '修改', 8, 1614093293, 1614093293, 0),
+	(24, 'Delete', '删除', 8, 1614093308, 1614093308, 0);
 /*!40000 ALTER TABLE `menu_action` ENABLE KEYS */;
 
 -- Dumping structure for table think.oauth_access_tokens
@@ -135,6 +139,8 @@ CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
 
 -- Dumping data for table think.oauth_auth_codes: ~0 rows (大约)
 /*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
+INSERT INTO `oauth_auth_codes` (`client_id`, `user_id`, `scope`, `revoked`, `auth_code`, `expires`) VALUES
+	('123456', NULL, '1234', 0, 'ca0df06d97f319e43714952d0ebb50bac4d5d883dfeb2d1cb5a97a2ebad1063276ff09f6a4a19906', 1613663429);
 /*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
 
 -- Dumping structure for table think.oauth_clients
@@ -146,10 +152,8 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `client_secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.oauth_clients: ~1 rows (大约)
+-- Dumping data for table think.oauth_clients: ~0 rows (大约)
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
-INSERT INTO `oauth_clients` (`client_id`, `grant_types`, `name`, `redirect_uri`, `client_secret`) VALUES
-	('123456', NULL, 'xiaodi app', 'http://xiaodim.com', NULL);
 /*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 
 -- Dumping structure for table think.oauth_refresh_tokens
@@ -179,16 +183,15 @@ CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
-  `create_time` int(11) DEFAULT '0',
-  `update_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.role: ~1 rows (大约)
+-- Dumping data for table think.role: ~3 rows (大约)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` (`id`, `title`, `status`, `create_time`, `update_time`) VALUES
-	(7, '普通超管组', 1, 1612939329, 1613547896),
-	(8, '高级管理员', 1, 1613546245, 1613546245);
+INSERT INTO `role` (`id`, `title`, `status`) VALUES
+	(7, '普通超管组', 1),
+	(8, '高级管理员', 1),
+	(9, '游客', 1);
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 
 -- Dumping structure for table think.role_action
@@ -197,9 +200,9 @@ CREATE TABLE IF NOT EXISTS `role_action` (
   `role_id` int(11) NOT NULL,
   `menu_action_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.role_action: ~23 rows (大约)
+-- Dumping data for table think.role_action: ~27 rows (大约)
 /*!40000 ALTER TABLE `role_action` DISABLE KEYS */;
 INSERT INTO `role_action` (`id`, `role_id`, `menu_action_id`) VALUES
 	(43, 7, 1),
@@ -224,7 +227,11 @@ INSERT INTO `role_action` (`id`, `role_id`, `menu_action_id`) VALUES
 	(93, 8, 14),
 	(94, 8, 13),
 	(95, 8, 12),
-	(96, 8, 16);
+	(96, 8, 16),
+	(99, 9, 1),
+	(100, 9, 2),
+	(101, 9, 8),
+	(102, 9, 17);
 /*!40000 ALTER TABLE `role_action` ENABLE KEYS */;
 
 -- Dumping structure for table think.rules
@@ -238,36 +245,16 @@ CREATE TABLE IF NOT EXISTS `rules` (
   `v4` varchar(255) DEFAULT NULL,
   `v5` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table think.rules: ~25 rows (大约)
+-- Dumping data for table think.rules: ~4 rows (大约)
 /*!40000 ALTER TABLE `rules` DISABLE KEYS */;
 INSERT INTO `rules` (`id`, `ptype`, `v0`, `v1`, `v2`, `v3`, `v4`, `v5`) VALUES
-	(8, 'p', '7', 'Analysis', 'View', NULL, NULL, NULL),
-	(9, 'p', '7', 'Workspace', 'View', NULL, NULL, NULL),
-	(10, 'p', '7', 'Role', 'View', NULL, NULL, NULL),
-	(11, 'p', '7', 'Role', 'List', NULL, NULL, NULL),
-	(12, 'p', '7', 'Menu', 'List', NULL, NULL, NULL),
-	(13, 'p', '7', 'Menu', 'Info', NULL, NULL, NULL),
-	(14, 'p', '7', 'Account', 'List', NULL, NULL, NULL),
-	(32, 'g', '1234', '7', NULL, NULL, NULL, NULL),
-	(33, 'g', '1234', '8', NULL, NULL, NULL, NULL),
-	(49, 'p', '8', 'Analysis', 'View', NULL, NULL, NULL),
-	(50, 'p', '8', 'Workspace', 'View', NULL, NULL, NULL),
-	(51, 'p', '8', 'Role', 'View', NULL, NULL, NULL),
-	(52, 'p', '8', 'Role', 'List', NULL, NULL, NULL),
-	(53, 'p', '8', 'Role', 'Create', NULL, NULL, NULL),
-	(54, 'p', '8', 'Role', 'Update', NULL, NULL, NULL),
-	(55, 'p', '8', 'Role', 'Delete', NULL, NULL, NULL),
-	(56, 'p', '8', 'Menu', 'List', NULL, NULL, NULL),
-	(57, 'p', '8', 'Menu', 'Info', NULL, NULL, NULL),
-	(58, 'p', '8', 'Menu', 'Update', NULL, NULL, NULL),
-	(59, 'p', '8', 'Menu', 'Delete', NULL, NULL, NULL),
-	(60, 'p', '8', 'CreateAccount', 'Save', NULL, NULL, NULL),
-	(61, 'p', '8', 'Account', 'List', NULL, NULL, NULL),
-	(62, 'p', '8', 'CreateRole', 'Save', NULL, NULL, NULL),
-	(63, 'p', '8', 'UpdateRole', 'Save', NULL, NULL, NULL),
-	(64, 'p', '8', 'UpdateAccount', 'Save', NULL, NULL, NULL);
+	(4, 'p', '9', 'Analysis', 'View', NULL, NULL, NULL),
+	(5, 'p', '9', 'Workspace', 'View', NULL, NULL, NULL),
+	(6, 'p', '9', 'Menu', 'List', NULL, NULL, NULL),
+	(7, 'p', '9', 'Menu', 'Create', NULL, NULL, NULL),
+	(8, 'g', 'visitor', '9', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `rules` ENABLE KEYS */;
 
 -- Dumping structure for table think.user
@@ -281,19 +268,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '邮箱',
   `allowed_grant_types` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'authorization_code',
-  `create_time` int(11) NOT NULL COMMENT '创建时间',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
   `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table think.user: ~3 rows (大约)
+-- Dumping data for table think.user: ~2 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `username`, `password`, `nickname`, `dept_id`, `status`, `avatar`, `email`, `allowed_grant_types`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'admin', '$2y$10$sJD.370QlvbVOII6yNZrv.Rj44q1BICLVFF765U6P50gb079.GrXa', 'admin', 0, 1, 'storage/topic/avatar.png', 'SeratiMa@aliyun.com', 'authorization_code', 1589699902, 1613543684, 0),
-	(3, 'test', '$2y$10$QPI203ILGnMlCbC16hWUye8DJRJXIby7EDW2yJE5MrPw6IL3vEb/m', '测试', 4, 1, '', '', 'authorization_code', 1593931035, 1593931035, 0),
-	(10, '1234', '$2y$10$sJD.370QlvbVOII6yNZrv.Rj44q1BICLVFF765U6P50gb079.GrXa', '1234', 3, 1, '', '', 'authorization_code', 1613548328, 1613548372, 0);
+INSERT INTO `user` (`id`, `username`, `password`, `nickname`, `dept_id`, `status`, `avatar`, `email`, `allowed_grant_types`, `delete_time`) VALUES
+	(1, 'admin', '$2y$10$sJD.370QlvbVOII6yNZrv.Rj44q1BICLVFF765U6P50gb079.GrXa', 'admin', 0, 1, 'storage/topic/avatar.png', 'SeratiMa@aliyun.com', 'authorization_code', 0),
+	(11, 'visitor', '$2y$10$eLnM2CF/S1oRE.kUkBqWU.LFz0Srisb1tEey94o4Ad8HzRmOdZygO', 'visitor', 3, 1, '', '', 'authorization_code', 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
