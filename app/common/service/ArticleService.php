@@ -57,6 +57,7 @@ class ArticleService extends BaseService
             'totalCount' => $data->total(),
         ];
     }
+
     public function info($id)
     {
         return $this->model->with('category')->find($id);

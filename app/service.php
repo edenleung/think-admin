@@ -17,5 +17,5 @@ use tauthz\TauthzService;
 
 return [
     TauthzService::class,
-    AppService::class
+    AppService::class,
 ];
