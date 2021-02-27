@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
@@ -10,14 +12,15 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace Oauth2\Repository;
+namespace app\common\service;
 
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use League\OAuth2\Server\Entities\Traits\RefreshTokenTrait;
-use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
+use app\BaseService;
+use app\common\model\Article;
 
-class RefreshTokenEntity implements RefreshTokenEntityInterface
+class ArticleCategoryService extends BaseService
 {
-    use EntityTrait;
-    use RefreshTokenTrait;
+    public function __construct(Article $model)
+    {
+        $this->model = $model;
+    }
 }

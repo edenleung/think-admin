@@ -35,7 +35,7 @@ return [
                 'class'  => 'app\\common\\model\\User',
             ],
         ],
-        'wechat' => [
+        'web' => [
             'sso' => [
                 'enable' => false,
             ],
@@ -43,7 +43,7 @@ return [
                 'unique_id_key'         => 'uid',
                 'signer_key'            => 'Dide36Tmm',
                 'not_before'            => 0,
-                'expires_at'            => 86400 * 15,
+                'expires_at'            => 86400 * 30,
                 'refresh_ttL'           => 86400 * 30,
                 'signer'                => 'Lcobucci\JWT\Signer\Hmac\Sha256',
                 'type'                  => 'Header',

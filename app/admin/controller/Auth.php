@@ -40,13 +40,14 @@ class Auth extends BaseController
             return $this->sendError('登录失败');
         }
 
-        $token = (string) $service->makeToken($user);
+        $token = $service->makeToken($user);
+        $config = app('jwt.token')->getConfig();
 
         return $this->sendSuccess([
-            'token'      => $token,
-            'token_type' => Jwt::type(),
-            'expires_in' => Jwt::ttl(),
-            'refresh_in' => Jwt::refreshTTL(),
+            'token'      => $token->toString(),
+            'token_type' => $config->getType(),
+            'expires_in' => $config->getExpires(),
+            'refresh_in' => $config->getRefreshTTL(),
         ]);
     }
 
@@ -57,11 +58,13 @@ class Auth extends BaseController
      */
     public function refreshToken()
     {
+        $config = app('jwt.token')->getConfig();
+
         return $this->sendSuccess([
-            'token'      => (string) Jwt::refresh(),
-            'token_type' => Jwt::type(),
-            'expires_in' => Jwt::ttl(),
-            'refresh_in' => Jwt::refreshTTL(),
+            'token'      => Jwt::refresh()->toString(),
+            'token_type' => $config->getType(),
+            'expires_in' => $config->getExpires(),
+            'refresh_in' => $config->getRefreshTTL(),
         ]);
     }
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
@@ -12,10 +10,14 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use app\AppService;
-use tauthz\TauthzService;
+namespace app\common\model;
 
-return [
-    TauthzService::class,
-    AppService::class
-];
+use app\BaseModel;
+
+class Article extends BaseModel
+{
+    public function category()
+    {
+        return $this->belongsTo(ArticleCategory::class);
+    }
+}

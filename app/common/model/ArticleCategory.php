@@ -10,12 +10,10 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace Oauth2\Repository;
+namespace app\common\model;
 
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use League\OAuth2\Server\Entities\UserEntityInterface;
+use app\BaseModel;
 
-class UserEntity implements UserEntityInterface
+class ArticleCategory extends BaseModel
 {
-    use EntityTrait;
 }

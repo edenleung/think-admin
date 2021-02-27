@@ -58,7 +58,7 @@ class UserService extends BaseService
      */
     public function makeToken(User $user)
     {
-        return app('jwt')->token(['uid' => $user->id]);
+        return app('jwt')->token($user->id);
     }
 
     public function info()
