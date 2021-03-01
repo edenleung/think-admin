@@ -15,7 +15,4 @@ declare(strict_types=1);
 use think\facade\Route;
 
 Route::group('/', function () {
-    Route::group('/upload', function () {
-        Route::post('/file', 'upload/file');
-    });
 })->allowCrossDomain();

@@ -13,9 +13,7 @@ declare(strict_types=1);
  */
 
 use app\AppService;
-use tauthz\TauthzService;
 
 return [
-    TauthzService::class,
-    AppService::class
+    AppService::class,
 ];

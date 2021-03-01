@@ -26,6 +26,10 @@ Route::get('/hello', function () {
     return 'Hello,ThinkPHP6!';
 });
 
+Route::group('/upload', function () {
+    Route::post('/file', 'upload/file');
+})->middleware(Jwt::class);
+
 Route::group('auth', function () {
     Route::post('/login', 'auth/login');
     Route::post('/logout', 'auth/logout');
@@ -80,6 +84,19 @@ Route::group('/user', function () {
     Route::put('/:id', 'system.user/update');
     Route::delete('/:id', 'system.user/delete');
     Route::get('/:id', 'system.user/view');
+})->middleware(Jwt::class);
+
+Route::group('article', function () {
+    Route::get('/$', 'system.article/index');
+    Route::post('/$', 'system.article/create');
+    Route::get('/:id$', 'system.article/info');
+    Route::put('/:id$', 'system.article/update');
+    Route::delete('/:id$', 'system.article/delete');
+
+    Route::get('category$', 'system.articleCategory/tree');
+    Route::post('category$', 'system.articleCategory/create');
+    Route::put('category/:id', 'system.articleCategory/update');
+    Route::delete('category/:id', 'system.articleCategory/delete');
 })->middleware(Jwt::class);
 
 // 模拟数据（可删除）

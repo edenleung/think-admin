@@ -13,23 +13,3 @@ declare(strict_types=1);
  */
 
 use think\facade\Route;
-use app\common\model\User;
-use tauthz\facade\Enforcer;
-use app\common\service\UserService;
-
-Route::get('/2$', function () {
-
-    // $user = User::find(1);
-    // $service = new UserService($user);
-    // $info = $service->info();
-    // dump($info);
-
-    // $data = Enforcer::getPolicy();
-    // $roles = Enforcer::getPermissionsForUser('admin');
-    // Enforcer::addPolicy('中级管理员', 'articles', 'edit');
-
-    // Enforcer::deleteRolesForUser('admin');
-    // Enforcer::addRoleForUser('admin', '管理员');
-
-    dump(Enforcer::enforce('1234', 'UpdateAccount', 'Save'));
-});

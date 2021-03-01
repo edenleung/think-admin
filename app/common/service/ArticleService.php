@@ -14,51 +14,40 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
-use app\BaseService;
 use app\common\model\Article;
 
-class ArticleService extends BaseService
+class ArticleService extends \Crud\CrudService
 {
+    /**
+     * @var Article
+     */
+    protected $model;
+
     public function __construct(Article $model)
     {
         $this->model = $model;
     }
 
-    public function list(int $pageNo, int $pageSize, $params = [])
+    public function list(array $query)
     {
-        $query = $this->model->alias('a')->with('category');
+        $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
+        $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
 
-        if (isset($params['status'])) {
-            $query->where('a.status', $params['status']);
-        }
-
-        if (isset($params['title']) && !empty($params['title'])) {
-            $query->whereLike('a.title', '%' . $params['title'] . '%');
-        }
-
-        if (!empty($params['cid'])) {
-            $query->where('c.id', $params['cid']);
-        }
-
-        $query->join('article_category c', 'a.category_id = c.id')
-            ->field('a.*')
-            ->order('top desc, a.id desc');
-
-        $data = $query->paginate([
+        $data = $this->model->with('category')->where(function ($q) use ($query) {
+            if (isset($query['title'])) {
+                $q->whereLike('title', '%'. $query['title'] .'%');
+            }
+        })->paginate([
             'list_rows' => $pageSize,
             'page'      => $pageNo,
         ]);
 
         return [
             'data'       => $data->items(),
-            'pageSize'   => $pageSize,
-            'pageNo'     => $pageNo,
+            'pageSize'   => (int) $pageSize,
+            'pageNo'     => (int) $pageNo,
             'totalPage'  => count($data->items()),
             'totalCount' => $data->total(),
         ];
-    }
-    public function info($id)
-    {
-        return $this->model->with('category')->find($id);
     }
 }

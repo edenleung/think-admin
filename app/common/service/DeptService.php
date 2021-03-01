@@ -30,7 +30,7 @@ class DeptService extends \Crud\CrudService
         parent::__construct($model);
     }
 
-    public function filter($q, $query)
+    public function searchFilter($q, $query)
     {
     }
 

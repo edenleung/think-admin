@@ -14,13 +14,27 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
-use app\BaseService;
-use app\common\model\Article;
+use app\common\model\ArticleCategory;
+use TAnt\Util\Category;
 
-class ArticleCategoryService extends BaseService
+class ArticleCategoryService extends \Crud\CrudService
 {
-    public function __construct(Article $model)
+    /**
+     * @var ArticleCategory
+     */
+    protected $model;
+
+    public function __construct(ArticleCategory $model)
     {
         $this->model = $model;
+    }
+
+    public function getTree()
+    {
+        $data = $this->model->order('pid', 0)->select();
+
+        $category = new Category();
+        $tree = $category->getTree($data->toArray());
+        return $tree;
     }
 }
