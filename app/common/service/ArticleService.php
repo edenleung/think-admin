@@ -35,7 +35,7 @@ class ArticleService extends \Crud\CrudService
 
         $data = $this->model->with('category')->where(function ($q) use ($query) {
             if (isset($query['title'])) {
-                $q->whereLike('title', '%'. $query['title'] .'%');
+                $q->whereLike('title', '%' . $query['title'] . '%');
             }
         })->paginate([
             'list_rows' => $pageSize,

@@ -14,22 +14,22 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\ArticleService;
-use think\annotation\Inject;
 use Crud\CrudController;
+use think\annotation\Inject;
+use app\common\service\ArticleService;
 
 class Article extends CrudController
 {
     protected $validates = [
         'create' => [
-            'title' => 'require',
+            'title'                 => 'require',
             'article_category_id'   => 'require',
-            'content' => 'require'
+            'content'               => 'require',
         ],
         'update' => [
-            'title' => 'require',
+            'title'                 => 'require',
             'article_category_id'   => 'require',
-            'content' => 'require'
+            'content'               => 'require',
         ],
     ];
 

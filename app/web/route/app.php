@@ -11,5 +11,3 @@ declare(strict_types=1);
  * @copyright 2019 Eden Leung
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
-
-use think\facade\Route;

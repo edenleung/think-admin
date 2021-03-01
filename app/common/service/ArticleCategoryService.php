@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
-use app\common\model\ArticleCategory;
 use TAnt\Util\Category;
+use app\common\model\ArticleCategory;
 
 class ArticleCategoryService extends \Crud\CrudService
 {
@@ -35,6 +35,7 @@ class ArticleCategoryService extends \Crud\CrudService
 
         $category = new Category();
         $tree = $category->getTree($data->toArray());
+
         return $tree;
     }
 }

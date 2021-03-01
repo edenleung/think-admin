@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\common\service\ArticleCategoryService;
-use think\annotation\Inject;
 use Crud\CrudController;
+use think\annotation\Inject;
+use app\common\service\ArticleCategoryService;
 
 class ArticleCategory extends CrudController
 {
