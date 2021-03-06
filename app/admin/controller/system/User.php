@@ -120,4 +120,60 @@ class User extends BaseController
             ]
         );
     }
+
+    public function current()
+    {
+        return $this->sendSuccess(request()->user);
+    }
+
+    public function updateCurrent()
+    {
+        $data = $this->request->post();
+        if (empty($data)) {
+            return $this->sendError('数据出错');
+        }
+
+        if (!$this->service->updateCurrent($this->request->user, $data)) {
+            return $this->sendError('更新失败');
+        }
+
+        return $this->sendSuccess(null, '已更新个人信息');
+    }
+
+     /**
+     * 更新头像.
+     *
+     * @return \think\Response
+     */
+    public function avatar()
+    {
+        $file = $this->request->file('file');
+        $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
+        if (!$this->service->updateAvatar($this->request->user, $savename)) {
+            return $this->sendError('更新失败');
+        }
+
+        return $this->sendSuccess($this->request->user->avatar, '已成功更换头像');
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return \think\Response
+     */
+    public function resetPassword()
+    {
+        $oldPassword = $this->request->post('oldPassword');
+        $newPassword = $this->request->post('newPassword');
+
+        if (!$oldPassword || !$newPassword) {
+            return $this->sendError('数据出错');
+        }
+
+        if (!$this->service->resetPassword($this->request->user, $oldPassword, $newPassword)) {
+            return $this->sendError($this->service->getError());
+        }
+
+        return $this->sendSuccess(null, '修改成功');
+    }
 }

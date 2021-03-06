@@ -26,6 +26,11 @@ class User extends BaseModel
         return true;
     }
 
+    public function super()
+    {
+        return $this->id === 1;
+    }
+
     public function roles()
     {
         return $this->hasMany(Rule::class, 'v0', 'username')->where('ptype', 'g');

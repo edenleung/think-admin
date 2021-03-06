@@ -75,6 +75,8 @@ class UserService extends BaseService
 
         $this->model->menus = $this->formatRoute($menus);
 
+        $this->model->is_super = $this->model->super();
+
         return $this->model;
     }
 
@@ -212,5 +214,45 @@ class UserService extends BaseService
         $user = $user->with(['roles'])->find($id);
 
         return $user;
+    }
+
+    /**
+     * 更新个人信息.
+     *
+     * @return bool
+     */
+    public function updateCurrent(User $user, array $data)
+    {
+        return $user->save($data);
+    }
+
+    /**
+     * 更新头像.
+     *
+     * @return bool
+     */
+    public function updateAvatar(User $user, string $path)
+    {
+        $user->avatar = 'storage' . \DIRECTORY_SEPARATOR . $path;
+
+        return $user->save();
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return bool
+     */
+    public function resetPassword(User $user, string $oldPassword, string $newPassword)
+    {
+        if (password_verify($oldPassword, $user->password)) {
+            $this->error = '原密码不正确';
+
+            return false;
+        }
+
+        $user->password = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        return  $user->save();
     }
 }
