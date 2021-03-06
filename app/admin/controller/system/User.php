@@ -140,7 +140,7 @@ class User extends BaseController
         return $this->sendSuccess(null, '已更新个人信息');
     }
 
-     /**
+    /**
      * 更新头像.
      *
      * @return \think\Response
