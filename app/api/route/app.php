@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 use think\facade\Route;
 use xiaodi\JWTAuth\Middleware\Jwt;
+
 Route::group('/', function () {
     Route::group('auth', function () {
         Route::post('login', 'auth/login');

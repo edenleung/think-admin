@@ -18,8 +18,8 @@ use think\App;
 use think\Request;
 use think\Validate;
 use think\annotation\Inject;
-use think\exception\ValidateException;
 use TAnt\Traits\ResponseHelper;
+use think\exception\ValidateException;
 
 abstract class AbstractController
 {

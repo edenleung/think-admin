@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
-use app\auth\AuthorizationUserInterface;
 use app\BaseService;
 use app\common\model\Member;
+use app\auth\AuthorizationUserInterface;
 
 class MemberService extends BaseService
 {
@@ -59,9 +59,11 @@ class MemberService extends BaseService
     {
         if ($this->member->verifyPassword($old_password)) {
             $this->member->password = password_hash($new_password, PASSWORD_DEFAULT);
+
             return $this->member->save();
         } else {
             $this->error = '密码错误';
+
             return false;
         }
     }
