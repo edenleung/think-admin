@@ -13,10 +13,14 @@ declare(strict_types=1);
  */
 
 use think\facade\Route;
-
+use xiaodi\JWTAuth\Middleware\Jwt;
 Route::group('/', function () {
     Route::group('auth', function () {
         Route::post('login', 'auth/login');
         Route::post('register', 'auth/register');
     });
+
+    Route::group('member', function () {
+        Route::post('resetPassword', 'member/resetPassword');
+    })->middleware(Jwt::class);
 })->allowCrossDomain();

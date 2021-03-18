@@ -14,14 +14,20 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
+use app\auth\AuthorizationUserInterface;
 use app\BaseService;
 use app\common\model\Member;
 
 class MemberService extends BaseService
 {
-    public function __construct(Member $model)
+    /**
+     * @var AuthorizationUserInterface
+     */
+    protected $member;
+
+    public function __construct(AuthorizationUserInterface $member)
     {
-        $this->model = $model;
+        $this->member = $member;
     }
 
     /**
@@ -47,5 +53,16 @@ class MemberService extends BaseService
         }
 
         return $member;
+    }
+
+    public function resetPassword($old_password, $new_password)
+    {
+        if ($this->member->verifyPassword($old_password)) {
+            $this->member->password = password_hash($new_password, PASSWORD_DEFAULT);
+            return $this->member->save();
+        } else {
+            $this->error = '密码错误';
+            return false;
+        }
     }
 }

@@ -16,14 +16,14 @@ namespace TAnt\Abstracts;
 
 use think\App;
 use think\Request;
-use think\Response;
 use think\Validate;
 use think\annotation\Inject;
 use think\exception\ValidateException;
+use TAnt\Traits\ResponseHelper;
 
 abstract class AbstractController
 {
-    protected $service;
+    use ResponseHelper;
 
     protected $validates;
 
@@ -118,46 +118,5 @@ abstract class AbstractController
         }
 
         return $this->validate->failException(true)->check($data);
-    }
-
-    /**
-     * sendSuccess.
-     *
-     * @param array  $data
-     * @param [type] $msg
-     * @param int    $code
-     * @param array  $header
-     */
-    protected function sendSuccess($data = [], $msg = null, $code = 20000, $header = []): Response
-    {
-        $res = [];
-        $res['message'] = $msg ?? '操作成功';
-        $res['result'] = $data;
-        $res['code'] = $code;
-
-        return Response::create($res, 'json', 200)->header($header);
-    }
-
-    /**
-     * sendError.
-     *
-     * @param [type] $msg
-     * @param int    $code
-     * @param array  $header
-     */
-    protected function sendError($msg = null, $code = 50015, $header = []): Response
-    {
-        $res = [];
-        $res['message'] = $msg ?? '操作失败';
-        $res['code'] = $code;
-
-        return Response::create($res, 'json', 200)->header($header);
-    }
-
-    protected function validteData($data, $scene)
-    {
-        if ($this->data_validate === true) {
-            $this->validate($data, $this->validates[$scene]);
-        }
     }
 }

@@ -27,6 +27,11 @@ class Member extends Model implements AuthorizationUserInterface
         return 'password';
     }
 
+    public function verifyPassword(string $password)
+    {
+        return password_verify($password, $this->getPassword());
+    }
+
     public function getPassword()
     {
         return $this->getData($this->password());

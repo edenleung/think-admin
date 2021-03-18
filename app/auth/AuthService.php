@@ -1,18 +1,9 @@
 <?php
 
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
-
 namespace app\auth;
 
 use app\BaseService;
+use app\auth\AuthorizationUserInterface;
 
 class AuthService extends BaseService
 {
@@ -34,7 +25,6 @@ class AuthService extends BaseService
             $user = $this->member->getUser($username);
             if (!password_verify($password, $user->getPassword())) {
                 $this->error = '账号密码错误';
-
                 return false;
             }
 
@@ -42,7 +32,6 @@ class AuthService extends BaseService
         }
 
         $this->error = '没有此账号';
-
         return false;
     }
 
@@ -53,7 +42,6 @@ class AuthService extends BaseService
             return $this->member->createAccount($data);
         } else {
             $this->error = '此账号已注册';
-
             return false;
         }
     }
