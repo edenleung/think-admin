@@ -15,4 +15,8 @@ declare(strict_types=1);
 use think\facade\Route;
 
 Route::group('/', function () {
+    Route::group('auth', function () {
+        Route::post('login', 'auth/login');
+        Route::post('register', 'auth/register');
+    });
 })->allowCrossDomain();

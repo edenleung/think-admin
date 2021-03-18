@@ -35,7 +35,7 @@ return [
                 'class'  => 'app\\common\\model\\User',
             ],
         ],
-        'web' => [
+        'api' => [
             'sso' => [
                 'enable' => false,
             ],
