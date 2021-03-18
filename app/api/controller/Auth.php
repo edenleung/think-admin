@@ -1,11 +1,21 @@
 <?php
 
+/*
+ * This file is part of TAnt.
+ * @link     https://github.com/edenleung/think-admin
+ * @document https://www.kancloud.cn/manual/thinkphp6_0
+ * @contact  QQ Group 996887666
+ * @author   Eden Leung 758861884@qq.com
+ * @copyright 2019 Eden Leung
+ * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
+ */
+
 namespace app\api\controller;
 
-use app\auth\AuthorizationUserInterface;
 use app\BaseController;
 use app\auth\AuthService;
 use app\common\model\Member;
+use app\auth\AuthorizationUserInterface;
 
 class Auth extends BaseController
 {
@@ -16,17 +26,17 @@ class Auth extends BaseController
 
     public function __construct()
     {
-        $this->service = new AuthService(new Member);
+        $this->service = new AuthService(new Member());
     }
 
     protected $validates = [
         'login' => [
             'username'   => 'require',
-            'password' => 'require',
+            'password'   => 'require',
         ],
         'register' => [
             'username'   => 'require',
-            'password' => 'require',
+            'password'   => 'require',
         ],
         'code' => [
             'phone'   => 'require',
@@ -69,7 +79,7 @@ class Auth extends BaseController
     public function login_after(AuthorizationUserInterface $user)
     {
         return $this->sendSuccess([
-            'token' => $user->makeToken()
+            'token' => $user->makeToken(),
         ]);
     }
 }
