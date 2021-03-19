@@ -119,4 +119,11 @@ abstract class AbstractController
 
         return $this->validate->failException(true)->check($data);
     }
+    
+    protected function validteData($data, $scene)
+    {
+        if ($this->data_validate === true) {
+            $this->validate($data, $this->validates[$scene]);
+        }
+    }
 }
