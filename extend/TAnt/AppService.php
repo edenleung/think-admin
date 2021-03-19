@@ -16,7 +16,6 @@ namespace TAnt;
 
 use think\Service;
 use TAnt\Command\Crud\Crud;
-use TAnt\Command\Install\Install;
 
 class AppService extends Service
 {
@@ -33,7 +32,6 @@ class AppService extends Service
     protected function registerCommand()
     {
         $this->commands([
-            Install::class,
             Crud::class,
         ]);
     }

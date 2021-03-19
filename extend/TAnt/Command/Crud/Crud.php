@@ -86,6 +86,19 @@ class Crud extends Command
         $this->write($path, $content);
     }
 
+    protected function makeRoute($app, $name)
+    {
+        $stub = file_get_contents($this->getStub('route'));
+
+        $content = str_replace(['{%name%}', '{%class%}'], [
+            strtolower($name),
+            $name,
+        ], $stub);
+
+        $path = $this->rootPath . '/app/' . $app . '/route/' . 'app.php';
+        $this->write($path, $content);
+    }
+
     /**
      * 服务类.
      *
@@ -118,11 +131,6 @@ class Crud extends Command
      */
     protected function write($path, $content)
     {
-        $exist = file_exists($path);
-        if ($exist) {
-            unlink($path);
-        }
-
         $file = fopen($path, 'a');
         fwrite($file, $content);
         fclose($file);
@@ -162,6 +170,7 @@ class Crud extends Command
 
         foreach ($apps as $app) {
             $this->makeController($app, $name);
+            $this->makeRoute($app, $name);
         }
 
         $this->makeTable($name);

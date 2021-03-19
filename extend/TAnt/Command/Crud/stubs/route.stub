@@ -1,0 +1,10 @@
+
+/* {%class%} */
+Route::group('{%name%}', function () {
+    Route::get('', '{%class%}/index');
+    Route::post('', '{%class%}/create');
+    Route::put(':id', '{%class%}/update');
+    Route::delete(':id', '{%class%}/delete');
+    Route::get('all', '{%class%}/all');
+    Route::get(':id', '{%class%}/info');
+})->middleware(Jwt::class);
