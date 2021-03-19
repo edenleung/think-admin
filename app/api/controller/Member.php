@@ -41,6 +41,6 @@ class Member extends AuthorizationController
             return $this->sendSuccess();
         }
 
-        return $this->sendError($this->service->getError());
+        return $this->sendError($service->getError());
     }
 }
