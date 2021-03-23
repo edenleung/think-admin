@@ -16,8 +16,10 @@ use Crud\CrudController;
 use think\annotation\Inject;
 use app\common\service\{%service%};
 
-class {%className%} extends CrudController
+class {%className%} 
 {
+    use CrudController;
+
     /**
      * @Inject
      * @var {%service%}
@@ -25,9 +27,7 @@ class {%className%} extends CrudController
     protected $service;
 
     protected $validates  = [
-        'create' => [
-        ],
-        'update' => [
-        ]
+        'create' => [],
+        'update' => []
     ];
 }

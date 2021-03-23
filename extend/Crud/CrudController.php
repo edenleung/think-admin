@@ -12,9 +12,7 @@
 
 namespace Crud;
 
-use TAnt\Abstracts\AbstractController;
-
-abstract class CrudController extends AbstractController
+trait CrudController
 {
     public function index()
     {
