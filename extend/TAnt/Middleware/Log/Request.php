@@ -21,7 +21,7 @@ class Request
     {
         if (env('APP_DEBUG')) {
             \think\facade\Log::debug([
-                'type'    => ''
+                'type'    => 'request',
                 'method'  => $request->method(),
                 'url'     => $request->url(),
                 'params'  => $request->getInput(),
