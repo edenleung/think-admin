@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace TAnt;
 
+use TAnt\Util\Sms;
 use think\Service;
 use TAnt\Command\Crud\Crud;
-use TAnt\Util\Sms;
 
 class AppService extends Service
 {
@@ -39,7 +39,7 @@ class AppService extends Service
     }
 
     /**
-     * 注册助手
+     * 注册助手.
      *
      * @return void
      */
