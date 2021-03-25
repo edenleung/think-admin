@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 
 namespace TAnt\Middleware\Log;
+
 use app\common\model\RequestLog;
 
 class Request
@@ -37,7 +38,6 @@ class Request
 //                 'params'  => json_encode(file_get_contents('php://input')),
 //                 'request' => $request->header(),
 //             ]);
-
         }
 
         return $next($request);
