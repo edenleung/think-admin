@@ -14,9 +14,10 @@ namespace {%namespace%};
 
 use Crud\CrudController;
 use think\annotation\Inject;
+use TAnt\Abstracts\AbstractController;
 use app\common\service\{%service%};
 
-class {%className%} 
+class {%className%} extends AbstractController
 {
     use CrudController;
 
