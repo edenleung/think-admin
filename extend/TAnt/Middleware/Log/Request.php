@@ -13,20 +13,32 @@ declare(strict_types=1);
  */
 
 namespace TAnt\Middleware\Log;
+use app\common\model\RequestLog;
 
 class Request
 {
     public function handle($request, \Closure $next)
     {
-        $method = request()->method();
-        $url = request()->url();
+        if (env('APP_DEBUG')) {
+            \think\facade\Log::debug([
+                'type'    => ''
+                'method'  => $request->method(),
+                'url'     => $request->url(),
+                'params'  => $request->getInput(),
+                'request' => $request->header(),
+            ]);
 
-        \think\facade\Log::debug([
-            'method'  => $method,
-            'url'     => $url,
-            'param'   => $request->getInput(),
-            'request' => request()->header(),
-        ]);
+            // 数据库
+//             $log = new RequestLog;
+//             $log->save([
+//                 'type'     => 'request',
+//                 'method'   => request()->method(),
+//                 'url'      => $url,
+//                 'params'  => json_encode(file_get_contents('php://input')),
+//                 'request' => $request->header(),
+//             ]);
+
+        }
 
         return $next($request);
     }
