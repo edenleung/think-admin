@@ -16,12 +16,14 @@ namespace TAnt;
 
 use think\Service;
 use TAnt\Command\Crud\Crud;
+use TAnt\Util\Sms;
 
 class AppService extends Service
 {
     public function register()
     {
         $this->registerCommand();
+        $this->registerUntil();
     }
 
     /**
@@ -34,5 +36,15 @@ class AppService extends Service
         $this->commands([
             Crud::class,
         ]);
+    }
+
+    /**
+     * 注册助手
+     *
+     * @return void
+     */
+    protected function registerUntil()
+    {
+        $this->app->bind('tant.sms', Sms::class);
     }
 }
