@@ -36,10 +36,6 @@ class Auth extends BaseController
         ]);
 
         $user = $service->login($data['username'], $data['password']);
-        if ($user === false) {
-            return $this->sendError('登录失败');
-        }
-
         $token = $service->makeToken($user);
         $config = app('jwt.token')->getConfig();
 

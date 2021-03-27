@@ -14,12 +14,16 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
+use app\BaseController;
 use think\annotation\Inject;
 use app\common\service\MenuService;
 use app\common\service\RoleService;
+use Crud\CrudController;
 
-class Role extends \Crud\CrudController
+class Role extends BaseController
 {
+    use CrudController;
+    
     protected $validates = [
         'create' => [
             'title'   => 'require',

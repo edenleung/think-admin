@@ -25,46 +25,30 @@ trait CrudController
     {
         $data = $this->request->post();
         $this->validteData($data, 'create');
-        $result = $this->service->create($data);
+        $this->service->create($data);
 
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        return $this->sendSuccess();
     }
 
     public function update($id)
     {
         $data = $this->request->put();
         $this->validteData($data, 'update');
-        $result = $this->service->update($id, $data);
+        $this->service->update($id, $data);
 
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        return $this->sendSuccess();
     }
 
     public function delete($id)
     {
-        $result = $this->service->delete($id);
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        $this->service->delete($id);
+        return $this->sendSuccess();
     }
 
     public function view($id)
     {
         $result = $this->service->view($id);
-        if ($result !== false) {
-            return $this->sendSuccess($result);
-        }
-
-        return $this->sendError($this->service->getError());
+        return $this->sendSuccess($result);
     }
 
     public function all()

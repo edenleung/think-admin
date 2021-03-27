@@ -62,21 +62,13 @@ abstract class CrudService extends AbstractService
     public function update($id, array $data)
     {
         $row = $this->info($id);
-        if ($row) {
-            return $row->save($data);
-        }
-
-        return false;
+        return $row->save($data);
     }
 
     public function delete($id)
     {
         $row = $this->info($id);
-        if ($row) {
-            return $row->delete();
-        }
-
-        return false;
+        return $row->delete();
     }
 
     public function info($id)
@@ -87,9 +79,7 @@ abstract class CrudService extends AbstractService
             return $row;
         }
 
-        $this->error = '没有此记录';
-
-        return false;
+        exception('没有此记录');
     }
 
     public function all()

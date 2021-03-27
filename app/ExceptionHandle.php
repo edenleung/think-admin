@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace app;
 
+use TAnt\Exception\SystemException;
 use Throwable;
 use think\Response;
 use think\exception\Handle;
@@ -61,6 +62,10 @@ class ExceptionHandle extends Handle
 
         if ($e instanceof ValidateException) {
             return Response::create(['message' => $e->getMessage(), 'code' => 50015], 'json', 200);
+        }
+
+        if ($e instanceof SystemException) {
+            return Response::create(['message' => $e->getMessage(), 'code' => $e->getCode()], 'json', 200);
         }
 
         // 其他错误交给系统处理

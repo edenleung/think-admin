@@ -62,9 +62,7 @@ class MemberService extends BaseService
 
             return $this->member->save();
         } else {
-            $this->error = '密码错误';
-
-            return false;
+            exception('密码错误')
         }
     }
 }

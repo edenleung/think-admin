@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use TAnt\Exception\SystemException;
+
 /*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
@@ -32,23 +34,9 @@ if (!function_exists('randomKey')) {
     }
 }
 
-function write_php_ini($array, $file)
-{
-    $res = [];
-    foreach ($array as $key => $val) {
-        if (is_array($val)) {
-            $res[] = "[$key]";
-            foreach ($val as $skey => $sval) {
-                $res[] = "$skey = $sval";
-            }
-        } else {
-            $res[] = "$key = $val";
-        }
+if (!function_exists('exception')) {
+    function exception($message, $code = 50015)
+    {
+        throw new SystemException($message, $code);
     }
-    safefilerewrite($file, implode("\r\n", $res));
-}
-
-function safefilerewrite($fileName, $dataToSave)
-{
-    file_put_contents($fileName, $dataToSave);
 }

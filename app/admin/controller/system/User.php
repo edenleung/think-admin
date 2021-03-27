@@ -163,17 +163,13 @@ class User extends BaseController
      */
     public function resetPassword()
     {
-        $oldPassword = $this->request->post('oldPassword');
-        $newPassword = $this->request->post('newPassword');
+        $data = $this->request->post();
+        $this->validate($data, [
+            'oldPassword' => 'require',
+            'newPassword' => 'require',
+        ]);
 
-        if (!$oldPassword || !$newPassword) {
-            return $this->sendError('数据出错');
-        }
-
-        if (!$this->service->resetPassword($this->request->user, $oldPassword, $newPassword)) {
-            return $this->sendError($this->service->getError());
-        }
-
+        $this->service->resetPassword($this->request->user, $data['oldPassword'], $data['newPassword']);
         return $this->sendSuccess(null, '修改成功');
     }
 }
