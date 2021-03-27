@@ -15,14 +15,14 @@ declare(strict_types=1);
 namespace app\admin\controller\system;
 
 use app\BaseController;
+use Crud\CrudController;
 use think\annotation\Inject;
 use app\common\service\MenuActionService;
-use Crud\CrudController;
 
 class Action extends BaseController
 {
     use CrudController;
-    
+
     protected $validates = [
         'create' => [
             'name'    => 'require',

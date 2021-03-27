@@ -21,7 +21,7 @@ use app\common\service\DeptService;
 class Dept extends BaseController
 {
     use \Crud\CrudController;
-    
+
     protected $validates = [
         'create' => [
             'title' => 'require',

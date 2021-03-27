@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace app;
 
-use TAnt\Exception\SystemException;
 use Throwable;
 use think\Response;
 use think\exception\Handle;
 use think\exception\HttpException;
+use TAnt\Exception\SystemException;
 use think\exception\ValidateException;
 use think\exception\HttpResponseException;
 use think\db\exception\DataNotFoundException;

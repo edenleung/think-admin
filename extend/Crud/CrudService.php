@@ -62,12 +62,14 @@ abstract class CrudService extends AbstractService
     public function update($id, array $data)
     {
         $row = $this->info($id);
+
         return $row->save($data);
     }
 
     public function delete($id)
     {
         $row = $this->info($id);
+
         return $row->delete();
     }
 

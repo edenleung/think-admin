@@ -42,12 +42,14 @@ trait CrudController
     public function delete($id)
     {
         $this->service->delete($id);
+
         return $this->sendSuccess();
     }
 
     public function view($id)
     {
         $result = $this->service->view($id);
+
         return $this->sendSuccess($result);
     }
 

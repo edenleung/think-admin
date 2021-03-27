@@ -170,6 +170,7 @@ class User extends BaseController
         ]);
 
         $this->service->resetPassword($this->request->user, $data['oldPassword'], $data['newPassword']);
+
         return $this->sendSuccess(null, '修改成功');
     }
 }
