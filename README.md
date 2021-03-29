@@ -4,6 +4,8 @@
 
 ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 
+#### 警告： 不授权 hexianqi1959 使用
+
 预览地址: 
  * http://ant.wfunc.com
 
