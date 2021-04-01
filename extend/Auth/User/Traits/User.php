@@ -1,22 +1,8 @@
 <?php
 
-/*
- * This file is part of TAnt.
- * @link     https://github.com/edenleung/think-admin
- * @document https://www.kancloud.cn/manual/thinkphp6_0
- * @contact  QQ Group 996887666
- * @author   Eden Leung 758861884@qq.com
- * @copyright 2019 Eden Leung
- * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
- */
+namespace Auth\User\Traits;
 
-namespace app\common\model;
-
-use think\Model;
-use Auth\User\AuthorizationUserInterface;
-
-
-class Member extends Model implements AuthorizationUserInterface
+trait User
 {
     public function username()
     {
@@ -46,15 +32,6 @@ class Member extends Model implements AuthorizationUserInterface
     public function getUser(string $username)
     {
         return $this->where($this->username(), $username)->find();
-    }
-
-    public function createAccount(array $data)
-    {
-        $this->username = $data['username'];
-        $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
-        $this->save();
-
-        return $this;
     }
 
     public function makeToken()

@@ -10,11 +10,12 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\auth;
+namespace Auth\User;
 
-use app\BaseService;
+use Auth\User\Exception\Unauthorized;
+use TAnt\Abstracts\AbstractService;
 
-class AuthService extends BaseService
+class AuthService extends AbstractService
 {
     /**
      * @var AuthorizationUserInterface
@@ -33,17 +34,13 @@ class AuthService extends BaseService
         if ($row) {
             $user = $this->member->getUser($username);
             if (!password_verify($password, $user->getPassword())) {
-                $this->error = '账号密码错误';
-
-                return false;
+                throw new Unauthorized('账号密码错误');
             }
 
             return $user;
         }
 
-        $this->error = '没有此账号';
-
-        return false;
+        throw new Unauthorized('没有此账号');
     }
 
     public function register(array $data)
@@ -51,10 +48,8 @@ class AuthService extends BaseService
         $row = $this->member->hasUser($data[$this->member->username()]);
         if (!$row) {
             return $this->member->createAccount($data);
-        } else {
-            $this->error = '此账号已注册';
-
-            return false;
         }
+
+        throw new Unauthorized('此账号已注册');
     }
 }

@@ -10,9 +10,9 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\auth;
+namespace Auth\User;
 
-use app\auth\exception\Unauthorized;
+use Auth\User\Exception\Unauthorized;
 use TAnt\Abstracts\AbstractController;
 
 class AuthorizationController extends AbstractController

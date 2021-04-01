@@ -13,10 +13,17 @@
 namespace app\common\model;
 
 use app\BaseModel;
+use Auth\User\AuthorizationUserInterface;
 use tauthz\facade\Enforcer;
 
-class User extends BaseModel
+class User extends BaseModel implements AuthorizationUserInterface
 {
+    use \Auth\User\Traits\User;
+
+    public function createAccount(array $data)
+    {
+    }
+
     public function can($source, $action)
     {
         if ($this->id !== 1) {

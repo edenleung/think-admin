@@ -14,12 +14,12 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\BaseController;
 use Crud\CrudController;
 use think\annotation\Inject;
 use app\common\service\MenuService;
+use Auth\User\AuthorizationController;
 
-class Menu extends BaseController
+class Menu extends AuthorizationController
 {
     use CrudController;
 

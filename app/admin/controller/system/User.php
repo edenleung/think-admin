@@ -14,13 +14,13 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\BaseController;
 use think\annotation\Inject;
 use app\common\service\DeptService;
 use app\common\service\RoleService;
 use app\common\service\UserService;
+use Auth\User\AuthorizationController;
 
-class User extends BaseController
+class User extends AuthorizationController
 {
     protected $validates = [
         'create' => [
@@ -65,36 +65,24 @@ class User extends BaseController
     {
         $data = $this->request->post();
         $this->validteData($data, 'create');
-        $result = $this->service->create($data);
+        $this->service->create($data);
 
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        return $this->sendSuccess();
     }
 
     public function update($id)
     {
         $data = $this->request->put();
         $this->validteData($data, 'update');
-        $result = $this->service->update($id, $data);
+        $this->service->update($id, $data);
 
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        return $this->sendSuccess();
     }
 
     public function delete($id)
     {
-        $result = $this->service->delete($id);
-        if ($result !== false) {
-            return $this->sendSuccess();
-        }
-
-        return $this->sendError($this->service->getError());
+        $this->service->delete($id);
+        return $this->sendSuccess();
     }
 
     public function info()
@@ -133,7 +121,7 @@ class User extends BaseController
             return $this->sendError('数据出错');
         }
 
-        if (!$this->service->updateCurrent($this->request->user, $data)) {
+        if (!$this->service->updateCurrent($this->user, $data)) {
             return $this->sendError('更新失败');
         }
 
@@ -149,11 +137,11 @@ class User extends BaseController
     {
         $file = $this->request->file('file');
         $savename = \think\facade\Filesystem::disk('public')->putFile('topic', $file);
-        if (!$this->service->updateAvatar($this->request->user, $savename)) {
+        if (!$this->service->updateAvatar($this->user, $savename)) {
             return $this->sendError('更新失败');
         }
 
-        return $this->sendSuccess($this->request->user->avatar, '已成功更换头像');
+        return $this->sendSuccess($this->user->avatar, '已成功更换头像');
     }
 
     /**
@@ -169,7 +157,7 @@ class User extends BaseController
             'newPassword' => 'require',
         ]);
 
-        $this->service->resetPassword($this->request->user, $data['oldPassword'], $data['newPassword']);
+        $this->service->resetPassword($this->user, $data['oldPassword'], $data['newPassword']);
 
         return $this->sendSuccess(null, '修改成功');
     }

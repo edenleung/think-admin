@@ -16,7 +16,7 @@ namespace app\common\service;
 
 use app\BaseService;
 use app\common\model\Member;
-use app\auth\AuthorizationUserInterface;
+use Auth\User\AuthorizationUserInterface;
 
 class MemberService extends BaseService
 {
@@ -62,7 +62,7 @@ class MemberService extends BaseService
 
             return $this->member->save();
         } else {
-            exception('密码错误')
+            exception('密码错误');
         }
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
@@ -12,20 +10,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\api\controller;
+namespace Auth\User\Exception;
 
-use app\common\model\Member;
-use think\annotation\Inject;
-use TAnt\Abstracts\AbstractController;
-
-class MemberController extends AbstractController
+class Unauthorized extends \RuntimeException
 {
-    /**
-     * Member实例(已登录).
-     *
-     * @Inject
-     *
-     * @var Member
-     */
-    protected $member;
 }

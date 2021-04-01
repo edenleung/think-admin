@@ -10,23 +10,47 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\auth;
+namespace Auth\User;
 
 interface AuthorizationUserInterface
 {
+    /**
+     * 登录账号字段
+     */
     public function username();
 
+    /**
+     * 登录密码字段
+     */
     public function password();
 
+    /**
+     * 是否存在用户
+     */
     public function hasUser(string $username);
 
+    /**
+     * 获取用户
+     */
     public function getUser(string $username);
 
+    /**
+     * 获取密码
+     */
     public function getPassword();
 
+    /**
+     * 创建账号
+     */
     public function createAccount(array $data);
 
+    /**
+     * 生成Token
+     */
     public function makeToken();
 
+    /**
+     * 验证密码
+     */
     public function verifyPassword(string $password);
 }

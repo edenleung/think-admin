@@ -14,13 +14,13 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\BaseController;
 use Crud\CrudController;
 use think\annotation\Inject;
 use app\common\service\MenuService;
 use app\common\service\RoleService;
+use Auth\User\AuthorizationController;
 
-class Role extends BaseController
+class Role extends AuthorizationController
 {
     use CrudController;
 

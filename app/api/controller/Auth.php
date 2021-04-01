@@ -14,7 +14,6 @@ namespace app\api\controller;
 
 use app\BaseController;
 use app\auth\AuthService;
-use app\common\model\Member;
 use app\auth\AuthorizationUserInterface;
 
 class Auth extends BaseController
@@ -24,9 +23,9 @@ class Auth extends BaseController
      */
     protected $service;
 
-    public function __construct()
+    public function __construct(AuthService $service)
     {
-        $this->service = new AuthService(new Member());
+        $this->service = $service;
     }
 
     protected $validates = [
@@ -52,14 +51,10 @@ class Auth extends BaseController
         $password = $data['password'];
         $result = $this->service->login($username, $password);
 
-        if ($result !== false) {
-            if (method_exists($this, 'login_after')) {
-                return call_user_func_array([$this, 'login_after'], [$result]);
-            } else {
-                return $this->sendSuccess($result);
-            }
+        if (method_exists($this, 'login_after')) {
+            return call_user_func_array([$this, 'login_after'], [$result]);
         } else {
-            return $this->sendError($this->service->getError());
+            return $this->sendSuccess($result);
         }
     }
 
@@ -68,12 +63,8 @@ class Auth extends BaseController
         $data = $this->request->post();
         $this->validate($data, $this->validates['register']);
 
-        $result = $this->service->register($data);
-        if ($result) {
-            return $this->sendSuccess();
-        } else {
-            return $this->sendError($this->service->getError());
-        }
+        $this->service->register($data);
+        return $this->sendSuccess();
     }
 
     public function login_after(AuthorizationUserInterface $user)

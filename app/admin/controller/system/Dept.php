@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use app\BaseController;
+use Auth\User\AuthorizationController;
 use think\annotation\Inject;
 use app\common\service\DeptService;
 
-class Dept extends BaseController
+class Dept extends AuthorizationController
 {
     use \Crud\CrudController;
 
