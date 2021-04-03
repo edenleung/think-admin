@@ -12,8 +12,8 @@
 
 namespace Auth\User;
 
-use Auth\User\Exception\Unauthorized;
 use TAnt\Abstracts\AbstractService;
+use Auth\User\Exception\Unauthorized;
 
 class AuthService extends AbstractService
 {

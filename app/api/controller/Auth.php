@@ -64,6 +64,7 @@ class Auth extends BaseController
         $this->validate($data, $this->validates['register']);
 
         $this->service->register($data);
+
         return $this->sendSuccess();
     }
 

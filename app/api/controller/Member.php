@@ -12,8 +12,8 @@
 
 namespace app\api\controller;
 
-use Auth\User\AuthorizationController;
 use app\common\service\MemberService;
+use Auth\User\AuthorizationController;
 
 class Member extends AuthorizationController
 {
@@ -37,6 +37,7 @@ class Member extends AuthorizationController
 
         $service = new MemberService($this->user);
         $service->resetPassword($data['old_password'], $data['password']);
+
         return $this->sendSuccess();
     }
 }

@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use Auth\User\AuthorizationController;
 use Crud\CrudController;
 use think\annotation\Inject;
+use Auth\User\AuthorizationController;
 use app\common\service\ArticleCategoryService;
 
 class ArticleCategory extends AuthorizationController

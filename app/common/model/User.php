@@ -13,8 +13,8 @@
 namespace app\common\model;
 
 use app\BaseModel;
-use Auth\User\AuthorizationUserInterface;
 use tauthz\facade\Enforcer;
+use Auth\User\AuthorizationUserInterface;
 
 class User extends BaseModel implements AuthorizationUserInterface
 {

@@ -82,6 +82,7 @@ class User extends AuthorizationController
     public function delete($id)
     {
         $this->service->delete($id);
+
         return $this->sendSuccess();
     }
 

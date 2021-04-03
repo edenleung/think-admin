@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller\system;
 
-use Auth\User\AuthorizationController;
 use think\annotation\Inject;
 use app\common\service\DeptService;
+use Auth\User\AuthorizationController;
 
 class Dept extends AuthorizationController
 {

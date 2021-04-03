@@ -15,7 +15,6 @@ namespace app\common\model;
 use think\Model;
 use Auth\User\AuthorizationUserInterface;
 
-
 class Member extends Model implements AuthorizationUserInterface
 {
     public function username()

@@ -15,22 +15,22 @@ namespace Auth\User;
 interface AuthorizationUserInterface
 {
     /**
-     * 登录账号字段
+     * 登录账号字段.
      */
     public function username();
 
     /**
-     * 登录密码字段
+     * 登录密码字段.
      */
     public function password();
 
     /**
-     * 是否存在用户
+     * 是否存在用户.
      */
     public function hasUser(string $username);
 
     /**
-     * 获取用户
+     * 获取用户.
      */
     public function getUser(string $username);
 
@@ -40,12 +40,12 @@ interface AuthorizationUserInterface
     public function getPassword();
 
     /**
-     * 创建账号
+     * 创建账号.
      */
     public function createAccount(array $data);
 
     /**
-     * 生成Token
+     * 生成Token.
      */
     public function makeToken();
 
