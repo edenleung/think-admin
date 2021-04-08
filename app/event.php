@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 return [
     'bind' => [
-        'Task' => \app\event\Task::class
+        'Task' => \app\event\Task::class,
     ],
 
     'listen' => [
@@ -24,8 +24,8 @@ return [
         'LogLevel' => [],
         'LogWrite' => [],
         'Task'     => [
-            \app\listener\Task::class
-        ]
+            \app\listener\Task::class,
+        ],
     ],
 
     'subscribe' => [],
