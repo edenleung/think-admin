@@ -13,7 +13,9 @@ declare(strict_types=1);
  */
 
 return [
-    'bind' => [],
+    'bind' => [
+        'Task' => \app\event\Task::class
+    ],
 
     'listen' => [
         'AppInit'  => [],
@@ -21,6 +23,9 @@ return [
         'HttpEnd'  => [],
         'LogLevel' => [],
         'LogWrite' => [],
+        'Task'     => [
+            \app\listener\Task::class
+        ]
     ],
 
     'subscribe' => [],
