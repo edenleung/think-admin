@@ -38,7 +38,7 @@ class Timer extends Command
     {
         // 指令配置
         $this->setName('timer')
-            ->addArgument('action', Argument::OPTIONAL, "start|stop|restart|reload|status|connections", 'start')
+            ->addArgument('action', Argument::OPTIONAL, 'start|stop|restart|reload|status|connections', 'start')
             ->addOption('mode', 'm', Option::VALUE_OPTIONAL, 'Run the workerman server in daemon mode.')
             ->setDescription('定时任务');
     }
@@ -66,7 +66,7 @@ class Timer extends Command
         array_unshift($argv, 'think', $action);
         if ($mode == 'd') {
             $argv[] = '-d';
-        } else if ($mode == 'g') {
+        } elseif ($mode == 'g') {
             $argv[] = '-g';
         }
     }
