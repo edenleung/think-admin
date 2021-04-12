@@ -44,9 +44,8 @@ class Tasker extends Command
 
     public function start()
     {
-        foreach($this->tasks as $task)
-        {
-            \call_user_func_array([new $task, 'register'], []);
+        foreach ($this->tasks as $task) {
+            \call_user_func_array([new $task(), 'register'], []);
         }
     }
 
