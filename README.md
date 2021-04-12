@@ -38,6 +38,41 @@ composer create-project xiaodi/tant
 ### 导入数据表
 > database/2020-05-27.sql
 
+## 定时任务
+
+### 配置
+```php
+class Example
+{
+    public function register()
+    {
+        new Crontab('* * * * * *', function () {
+            echo date('Y-m-d H:i:s') . "\n";
+        });
+    }
+}
+```
+
+### 注册
+
+```php
+<?php
+
+namespace app\command;
+
+class Tasker extends Command
+{
+    protected $tasks = [
+        Example::class,
+    ];
+}
+
+```
+
+### 启动
+
+`php think tasker start`
+
 ## 其它包
 ### 权限包
 https://github.com/xiaodit/think-permission
