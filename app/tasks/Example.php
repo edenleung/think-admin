@@ -12,17 +12,16 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\listener;
+namespace app\tasks;
 
-class Task
+use Workerman\Crontab\Crontab;
+
+class Example
 {
-    /**
-     * 事件监听处理.
-     *
-     * @return mixed
-     */
-    public function handle($event)
+    public function register()
     {
-        // 收到定时器的触发 该干点事
+        new Crontab('* * * * * *', function () {
+            echo date('Y-m-d H:i:s') . "\n";
+        });
     }
 }

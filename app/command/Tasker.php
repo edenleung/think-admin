@@ -15,14 +15,13 @@ declare(strict_types=1);
 namespace app\command;
 
 use Workerman\Worker;
-use think\facade\Event;
 use think\console\Input;
 use think\console\Output;
 use think\console\Command;
 use think\console\input\Option;
 use think\console\input\Argument;
 
-class Timer extends Command
+class Tasker extends Command
 {
     protected $interval = 1;
 
@@ -31,13 +30,13 @@ class Timer extends Command
     protected $name = 'TaskServer';
 
     protected $tasks = [
-        \app\event\Task::class,
+        \app\tasks\Example::class,
     ];
 
     protected function configure()
     {
         // 指令配置
-        $this->setName('timer')
+        $this->setName('tasker')
             ->addArgument('action', Argument::OPTIONAL, 'start|stop|restart|reload|status|connections', 'start')
             ->addOption('mode', 'm', Option::VALUE_OPTIONAL, 'Run the workerman server in daemon mode.')
             ->setDescription('定时任务');
@@ -45,14 +44,10 @@ class Timer extends Command
 
     public function start()
     {
-        \Workerman\Lib\Timer::add($this->interval, function () {
-            try {
-                foreach ($this->tasks as $task) {
-                    Event::trigger($task);
-                }
-            } catch (\Throwable $e) {
-            }
-        });
+        foreach($this->tasks as $task)
+        {
+            \call_user_func_array([new $task, 'register'], []);
+        }
     }
 
     protected function init(Input $input, Output $output)
