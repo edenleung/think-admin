@@ -17,7 +17,7 @@ use EasyWeChat\Kernel\Contracts\EventHandlerInterface;
 /**
  * 接管事件消息.
  */
-class EventMessageHandler implements EventHandlerInterface
+class Event implements EventHandlerInterface
 {
     public function handle($payload = null)
     {
