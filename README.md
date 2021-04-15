@@ -32,7 +32,7 @@ git clone https://github.com/edenleung/think-admin.git
 # 稳定版
 composer create-project xiaodi/tant
 
-# 数据库从 database/2020-05-27.sql 导入
+# 数据库从 database/2021-02-18.sql 导入
 ```
 
 ### 导入数据表
