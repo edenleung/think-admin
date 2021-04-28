@@ -245,12 +245,12 @@ class UserService extends BaseService
      */
     public function resetPassword(User $user, string $oldPassword, string $newPassword)
     {
-        if (password_verify($oldPassword, $user->password)) {
+        if (!password_verify($oldPassword, $user->password)) {
             exception('原密码不正确');
         }
 
-        $user->password = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->password = $newPassword;
 
-        return  $user->save();
+        return $user->save();
     }
 }
