@@ -18,7 +18,7 @@ Vben-Admin [项目](https://github.com/edenleung/think-vben-admin) [预览](http
 ## 安装
 
 ### 导入数据表
-> database/2021-05-14.sql
+> database/2021-05-14-vben.sql
 
 ## 定时任务
 
