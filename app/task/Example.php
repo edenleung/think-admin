@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace app\task;
 
-use \Workerman\Connection\AsyncTcpConnection;
+use Workerman\Connection\AsyncTcpConnection;
 
 class Example
 {
@@ -23,10 +23,10 @@ class Example
         for ($i = 0; $i < 10000; $i++) {
             $task_connection = new AsyncTcpConnection('Text://0.0.0.0:12345');
             // 任务及参数数据
-            $task_data = array(
-                'function' => 'send_mail',
-                'args'       => array('contents' => $i),
-            );
+            $task_data = [
+                'function'   => 'send_mail',
+                'args'       => ['contents' => $i],
+            ];
 
             // 发送数据
             // 执行异步连接

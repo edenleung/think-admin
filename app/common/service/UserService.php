@@ -81,6 +81,7 @@ class UserService extends BaseService
     {
         $service = new MenuService(new Menu());
         $menus = $service->getTree();
+
         return $this->formatRoute($menus, $this->model);
     }
 
@@ -88,6 +89,7 @@ class UserService extends BaseService
     {
         $service = new MenuService(new Menu());
         $menus = $service->getTree();
+
         return $this->filterPermissionMenu($menus, $this->model);
     }
 
@@ -203,6 +205,7 @@ class UserService extends BaseService
         ]);
 
         return $data->items();
+
         return [
             'data'       => $data->items(),
             'pageSize'   => (int) $pageSize,

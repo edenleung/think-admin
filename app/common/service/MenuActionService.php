@@ -38,6 +38,7 @@ class MenuActionService extends \Crud\CrudService
     {
         $data['menu_id'] = $data['pid'];
         $data['name'] = $data['permission'];
+
         return $this->model->save($data);
     }
 
@@ -47,7 +48,7 @@ class MenuActionService extends \Crud\CrudService
 
         $data['name'] = $data['permission'];
         $data['menu_id'] = $data['pid'];
+
         return $row->save($data);
     }
-
 }

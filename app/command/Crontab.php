@@ -30,7 +30,7 @@ class Crontab extends Command
     protected $name = 'TaskServer';
 
     protected $crontabs = [
-        'example' => ['1 * * * * *', [\app\task\Example::class, 'execute']]
+        'example' => ['1 * * * * *', [\app\task\Example::class, 'execute']],
     ];
 
     protected function configure()
@@ -93,7 +93,7 @@ class Crontab extends Command
 
             $ch = curl_init();
             //设置选项，包括URL
-            curl_setopt($ch, CURLOPT_URL, "http://192.168.50.66/");
+            curl_setopt($ch, CURLOPT_URL, 'http://192.168.50.66/');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             //执行并获取HTML文档内容

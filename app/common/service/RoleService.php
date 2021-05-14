@@ -48,6 +48,7 @@ class RoleService extends \Crud\CrudService
         ]);
 
         return $data->items();
+
         return [
             'data'       => $data->items(),
             'pageSize'   => (int) $pageSize,

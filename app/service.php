@@ -17,5 +17,5 @@ use think\User\AuthService;
 
 return [
     AppService::class,
-    AuthService::class
+    AuthService::class,
 ];

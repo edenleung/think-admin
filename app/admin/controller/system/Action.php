@@ -26,13 +26,13 @@ class Action extends AuthorizationController
     protected $validates = [
         'create' => [
             'permission'    => 'require',
-            'title'   => 'require',
-            'pid' => 'require',
+            'title'         => 'require',
+            'pid'           => 'require',
         ],
         'update' => [
             'permission'    => 'require',
-            'title'   => 'require',
-            'pid' => 'require',
+            'title'         => 'require',
+            'pid'           => 'require',
         ],
     ];
 

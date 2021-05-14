@@ -12,8 +12,8 @@ declare(strict_types=1);
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-use TAnt\Exception\SystemException;
 use think\Container;
+use TAnt\Exception\SystemException;
 
 /*
  * This file is part of TAnt.
@@ -56,6 +56,7 @@ if (!function_exists('make')) {
     function make(string $abstract, array $vars = [], bool $newInstance = false)
     {
         $container = Container::getInstance();
+
         return $container->make($abstract, $vars, $newInstance);
     }
 }

@@ -14,10 +14,15 @@ namespace Auth\User;
 
 interface AuthorizationUserInterface
 {
-    public function hasUserByUserName($username) :bool;
-    public function getUserByUserName($username): AuthorizationUserInterface;
+    public function hasUserByUserName($username): bool;
+
+    public function getUserByUserName($username): self;
+
     public function verifyPassword($password): bool;
-    public function setUserName($username): AuthorizationUserInterface;
-    public function setPassword($password): AuthorizationUserInterface;
+
+    public function setUserName($username): self;
+
+    public function setPassword($password): self;
+
     public function token(): string;
 }
