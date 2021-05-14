@@ -53,6 +53,6 @@ class Menu extends AuthorizationController
 
     public function tree()
     {
-        return $this->sendSuccess(['data' => $this->service->getTree()]);
+        return $this->sendSuccess($this->service->getTree());
     }
 }

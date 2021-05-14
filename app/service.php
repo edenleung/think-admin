@@ -13,7 +13,9 @@ declare(strict_types=1);
  */
 
 use app\AppService;
+use think\User\AuthService;
 
 return [
     AppService::class,
+    AuthService::class
 ];

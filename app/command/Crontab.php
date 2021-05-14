@@ -21,7 +21,7 @@ use think\console\Command;
 use think\console\input\Option;
 use think\console\input\Argument;
 
-class Tasker extends Command
+class Crontab extends Command
 {
     protected $interval = 1;
 
@@ -29,8 +29,8 @@ class Tasker extends Command
 
     protected $name = 'TaskServer';
 
-    protected $tasks = [
-        \app\tasks\Example::class,
+    protected $crontabs = [
+        'example' => ['1 * * * * *', [\app\task\Example::class, 'execute']]
     ];
 
     protected function configure()
@@ -44,8 +44,10 @@ class Tasker extends Command
 
     public function start()
     {
-        foreach ($this->tasks as $task) {
-            \call_user_func_array([new $task(), 'register'], []);
+        foreach ($this->crontabs as $name => $crontab) {
+            list($rule, $config) = $crontab;
+            list($class, $method) = $config;
+            new \Workerman\Crontab\Crontab($rule, [make($class), $method], $name);
         }
     }
 
@@ -68,11 +70,39 @@ class Tasker extends Command
     protected function execute(Input $input, Output $output)
     {
         $this->init($input, $output);
+
         // 指令输出
         $worker = new Worker();
         $worker->name = $this->name;
-        $worker->count = $this->count;
-        $worker->onWorkerStart = [$this, 'start'];
+        $worker->count = 2;
+
+        $worker2 = new Worker();
+        $worker2->name = 'Crontab';
+        $worker2->count = 4;
+        $worker2->onWorkerStart = [$this, 'start'];
+
+        $task_worker = new Worker('Text://0.0.0.0:12345');
+        $task_worker->count = 100;
+        $task_worker->reusePort = true;
+        $task_worker->name = 'TaskWorker';
+        $task_worker->onMessage = function ($connection, $task_data) {
+            $connection->close();
+            $task_data = json_decode($task_data, true);
+            $time = mt_rand(1, 2);
+            // echo '正在处理' . $task_data['args']['contents'] . '预计花费' . $time . '秒' . "\n";
+
+            $ch = curl_init();
+            //设置选项，包括URL
+            curl_setopt($ch, CURLOPT_URL, "http://192.168.50.66/");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            //执行并获取HTML文档内容
+            $output = curl_exec($ch);
+            //释放curl句柄
+            curl_close($ch);
+            //打印获得的数据
+            echo '已处理' . $task_data['args']['contents'] . "\n";
+        };
         $worker->runAll();
     }
 }

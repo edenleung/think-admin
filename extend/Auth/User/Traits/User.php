@@ -14,38 +14,32 @@ namespace Auth\User\Traits;
 
 trait User
 {
-    public function username()
+    public function hasUserByUserName($username)
     {
-        return 'username';
+        return $this->where('username', $username)->find() ? true : false;
     }
 
-    public function password()
+    public function getUserByUserName($username)
     {
-        return 'password';
+        return $this->where('username', $username)->find();
     }
 
-    public function verifyPassword(string $password)
+    public function verifyPassword($password)
     {
-        return password_verify($password, $this->getPassword());
+        return password_verify($password, $this->password);
     }
 
-    public function getPassword()
+    public function setUserName($username)
     {
-        return $this->getData($this->password());
+        $this->username = $username;
+
+        return $this;
     }
 
-    public function hasUser(string $username)
+    public function setPassword($password)
     {
-        return $this->where($this->username(), $username)->find() ? true : false;
-    }
+        $this->password = $password;
 
-    public function getUser(string $username)
-    {
-        return $this->where($this->username(), $username)->find();
-    }
-
-    public function makeToken()
-    {
-        return app('jwt')->token($this->id)->toString();
+        return $this;
     }
 }

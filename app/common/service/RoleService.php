@@ -33,6 +33,30 @@ class RoleService extends \Crud\CrudService
         parent::__construct($model);
     }
 
+    public function list(array $query)
+    {
+        $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
+        $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
+
+        $data = $this->model->alias($this->alias)->where(function ($q) use ($query) {
+            if (method_exists($this, 'filter')) {
+                call_user_func([$this, 'filter'], ...[$q, $query]);
+            }
+        })->paginate([
+            'list_rows' => $pageSize,
+            'page'      => $pageNo,
+        ]);
+
+        return $data->items();
+        return [
+            'data'       => $data->items(),
+            'pageSize'   => (int) $pageSize,
+            'pageNo'     => (int) $pageNo,
+            'totalPage'  => count($data->items()),
+            'totalCount' => $data->total(),
+        ];
+    }
+
     public function create($data)
     {
         Db::transaction(function () use ($data) {

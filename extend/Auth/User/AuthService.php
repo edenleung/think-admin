@@ -29,11 +29,11 @@ class AuthService extends AbstractService
 
     public function login(string $username, string $password)
     {
-        $row = $this->member->hasUser($username);
+        $row = $this->member->hasUserByUserName($username);
 
         if ($row) {
-            $user = $this->member->getUser($username);
-            if (!password_verify($password, $user->getPassword())) {
+            $user = $this->member->getUserByUserName($username);
+            if (!$user->verifyPassword($password)) {
                 throw new Unauthorized('账号密码错误');
             }
 
@@ -43,11 +43,17 @@ class AuthService extends AbstractService
         throw new Unauthorized('没有此账号');
     }
 
-    public function register(array $data)
+    public function register($username, $password, $params = [])
     {
-        $row = $this->member->hasUser($data[$this->member->username()]);
+        $row = $this->member->hasUserByUserName($username);
         if (!$row) {
-            return $this->member->createAccount($data);
+            $member = $this->member->setUserName($username)->setPassword($password);
+
+            foreach ($params as $key => $value) {
+                $member->$key = $value;
+            }
+
+            $member->save($params);
         }
 
         throw new Unauthorized('此账号已注册');

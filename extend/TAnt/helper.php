@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 
 use TAnt\Exception\SystemException;
+use think\Container;
 
 /*
  * This file is part of TAnt.
@@ -48,5 +49,13 @@ if (!function_exists('exception')) {
     function exception($message, $code = 50015)
     {
         throw new SystemException($message, $code);
+    }
+}
+
+if (!function_exists('make')) {
+    function make(string $abstract, array $vars = [], bool $newInstance = false)
+    {
+        $container = Container::getInstance();
+        return $container->make($abstract, $vars, $newInstance);
     }
 }

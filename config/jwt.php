@@ -41,7 +41,7 @@ return [
             ],
             'token' => [
                 'unique_id_key'         => 'uid',
-                'signer_key'            => 'Dide36Tmm',
+                'signer_key'            => base64_encode('Dide36Tmm'),
                 'not_before'            => 0,
                 'expires_at'            => 86400 * 30,
                 'refresh_ttL'           => 86400 * 30,

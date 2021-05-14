@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:alpine
+    volumes: 
+      - data:/var/www/html
+      - ./logs:/var/log/nginx
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 9501:80
+      - 9502:9999
+  api:
+    image: registry.cn-hangzhou.aliyuncs.com/xiaodi93/vben-api
+    volumes:
+      - data:/var/www/html
+      
+volumes:
+  data:

@@ -33,4 +33,21 @@ class MenuActionService extends \Crud\CrudService
     public function filter($q, $query)
     {
     }
+
+    public function create(array $data)
+    {
+        $data['menu_id'] = $data['pid'];
+        $data['name'] = $data['permission'];
+        return $this->model->save($data);
+    }
+
+    public function update($id, array $data)
+    {
+        $row = $this->info($id);
+
+        $data['name'] = $data['permission'];
+        $data['menu_id'] = $data['pid'];
+        return $row->save($data);
+    }
+
 }

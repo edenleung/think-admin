@@ -18,9 +18,9 @@ class Menu extends BaseModel
 {
     public function setPermissionAttr($value)
     {
-        if (!empty($value)) {
-            return implode(',', $value);
-        }
+        // if (!empty($value)) {
+        //     return implode(',', $value);
+        // }
     }
 
     public function actions()

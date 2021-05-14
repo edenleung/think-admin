@@ -14,19 +14,25 @@ namespace app\common\model;
 
 use app\BaseModel;
 use tauthz\facade\Enforcer;
-use Auth\User\AuthorizationUserInterface;
+use think\User\AuthorizationUserInterface;
 
 class User extends BaseModel implements AuthorizationUserInterface
 {
-    use \Auth\User\Traits\User;
+    use \think\User\Traits\User;
 
-    public function createAccount(array $data)
+    public function getUserById($id): self
     {
+        return $this->where('id', $id)->find();
+    }
+
+    public function token(): string
+    {
+        return app('jwt')->token($this->id)->toString();
     }
 
     public function can($source, $action)
     {
-        if ($this->id !== 1) {
+        if (!$this->super()) {
             return Enforcer::enforce($this->username, $source, $action);
         }
 

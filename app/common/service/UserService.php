@@ -63,21 +63,32 @@ class UserService extends BaseService
 
     public function info()
     {
-        $service = new MenuService(new Menu());
-        $menus = $service->getTree();
+        // $service = new MenuService(new Menu());
 
         // 过滤当前用户有权限的菜单及操作按钮
-        $permissions = $this->filterPermissionMenu($menus, $this->model);
+        // $permissions = $this->filterPermissionMenu($menus, $this->model);
 
         unset($this->model->password);
 
-        $this->model->role = ['permissions' => $permissions];
-
-        $this->model->menus = $this->formatRoute($menus);
+        // $this->model->role = ['permissions' => $permissions];
 
         $this->model->is_super = $this->model->super();
 
         return $this->model;
+    }
+
+    public function menus()
+    {
+        $service = new MenuService(new Menu());
+        $menus = $service->getTree();
+        return $this->formatRoute($menus, $this->model);
+    }
+
+    public function permission()
+    {
+        $service = new MenuService(new Menu());
+        $menus = $service->getTree();
+        return $this->filterPermissionMenu($menus, $this->model);
     }
 
     /**
@@ -87,11 +98,24 @@ class UserService extends BaseService
      *
      * @return array
      */
-    protected function formatRoute($menus)
+    protected function formatRoute($menus, $user)
     {
         $routes = [];
         foreach ($menus as $item) {
             $route = [];
+            if ($item['type'] == 'menu') {
+                $allowAction = 0;
+                foreach ($item['actions'] as $action) {
+                    if ($user->can($item['name'], $action['name'])) {
+                        $allowAction++;
+                    }
+                }
+
+                if (!$allowAction) {
+                    continue;
+                }
+            }
+
             $route['path'] = $item['path'];
             $route['name'] = $item['name'];
             $route['component'] = $item['component'];
@@ -106,8 +130,15 @@ class UserService extends BaseService
             $item['blank'] === 1 && $route['meta']['target'] = '_blank';
 
             if (!empty($item['children'])) {
-                $route['children'] = $this->formatRoute($item['children']);
+                $route['children'] = $this->formatRoute($item['children'], $user);
             }
+
+            if ($item['type'] === 'path') {
+                if (empty($route['children'])) {
+                    continue;
+                }
+            }
+
             $routes[] = $route;
         }
 
@@ -171,6 +202,7 @@ class UserService extends BaseService
             'page'      => $pageNo,
         ]);
 
+        return $data->items();
         return [
             'data'       => $data->items(),
             'pageSize'   => (int) $pageSize,
@@ -252,5 +284,11 @@ class UserService extends BaseService
         $user->password = $newPassword;
 
         return $user->save();
+    }
+
+    public function delete($id)
+    {
+        $user = User::where('id', $id)->find();
+        $user->delete();
     }
 }

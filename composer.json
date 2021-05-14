@@ -24,9 +24,10 @@
         "topthink/think-migration": "^3.0",
         "topthink/think-multi-app": "^1.0",
         "casbin/think-authz": "^1.2",
-        "xiaodi/think-jwt": "3.0.0.beta.3",
+        "xiaodi/think-jwt": "3.0.0.beta.7",
         "workerman/workerman": "^4.0",
-        "workerman/crontab": "^1.0"
+        "workerman/crontab": "^1.0",
+        "xiaodi/think-user": "^0.0.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

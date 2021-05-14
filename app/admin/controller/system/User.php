@@ -55,10 +55,7 @@ class User extends AuthorizationController
     {
         $params = $this->request->get();
 
-        return $this->sendSuccess([
-            'data'  => $this->service->list($params),
-            'depts' => $this->dept->getTree(),
-        ]);
+        return $this->sendSuccess($this->service->list($params));
     }
 
     public function create()
@@ -89,6 +86,20 @@ class User extends AuthorizationController
     public function info()
     {
         $info = $this->service->info();
+
+        return $this->sendSuccess($info);
+    }
+
+    public function menus()
+    {
+        $info = $this->service->menus();
+
+        return $this->sendSuccess($info);
+    }
+
+    public function permission()
+    {
+        $info = $this->service->permission();
 
         return $this->sendSuccess($info);
     }

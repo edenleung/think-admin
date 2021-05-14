@@ -37,12 +37,12 @@ Route::group('auth', function () {
 });
 
 Route::group('menu', function () {
-    Route::get('/$', 'system.menu/index');
-    Route::get('/:id$', 'system.menu/all');
-    Route::get('/tree', 'system.menu/tree');
-    Route::post('/', 'system.menu/create');
-    Route::put('/:id', 'system.menu/update');
-    Route::delete('/:id', 'system.menu/delete');
+    Route::get('$', 'system.menu/index');
+    Route::get(':id$', 'system.menu/all');
+    Route::get('tree', 'system.menu/tree');
+    Route::post('', 'system.menu/create');
+    Route::put(':id', 'system.menu/update');
+    Route::delete(':id', 'system.menu/delete');
 })->middleware(Jwt::class);
 
 Route::group('/action', function () {
@@ -58,32 +58,35 @@ Route::group('/dept', function () {
     Route::delete('/:id', 'system.dept/delete');
 })->middleware(Jwt::class);
 
-Route::group('/role', function () {
-    Route::get('/$', 'system.role/index');
-    Route::get('/:id$', 'system.role/info');
-    Route::post('/', 'system.role/create');
-    Route::put('/:id', 'system.role/update');
-    Route::delete('/:id', 'system.role/delete');
-    Route::get('/config$', 'system.role/config');
+Route::group('role', function () {
+    Route::get('$', 'system.role/index');
+    Route::get(':id$', 'system.role/info');
+    Route::post('$', 'system.role/create');
+    Route::put(':id', 'system.role/update');
+    Route::delete(':id', 'system.role/delete');
+    Route::get('all$', 'system.role/all');
+    Route::get('config$', 'system.role/config');
 })->middleware(Jwt::class);
 
 // 用户
-Route::group('/user', function () {
-    Route::get('/data', 'system.user/data');
+Route::group('user', function () {
+    Route::get('data', 'system.user/data');
+    Route::get('menus', 'system.user/menus');
+    Route::get('permission', 'system.user/permission');
     //获取 个人信息
-    Route::get('/current$', 'system.user/current');
+    Route::get('current$', 'system.user/current');
     //更新 个人信息
-    Route::put('/current$', 'system.user/updateCurrent');
+    Route::put('current$', 'system.user/updateCurrent');
     //更新 头像
-    Route::post('/avatar$', 'system.user/avatar');
+    Route::post('avatar$', 'system.user/avatar');
     //更新 密码
-    Route::put('/reset-password$', 'system.user/resetPassword');
-    Route::get('/', 'system.user/index');
-    Route::post('/', 'system.user/create');
-    Route::get('/info$', 'system.user/info');
-    Route::put('/:id', 'system.user/update');
-    Route::delete('/:id', 'system.user/delete');
-    Route::get('/:id', 'system.user/view');
+    Route::put('reset-password$', 'system.user/resetPassword');
+    Route::get('$', 'system.user/index');
+    Route::post('$', 'system.user/create');
+    Route::get('info$', 'system.user/info');
+    Route::put(':id', 'system.user/update');
+    Route::delete(':id', 'system.user/delete');
+    Route::get(':id', 'system.user/view');
 })->middleware(Jwt::class);
 
 Route::group('article', function () {
