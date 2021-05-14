@@ -7,36 +7,18 @@ ThinkPHP 6.0 与 Ant Design Pro Vue 基础前后分离权限系统
 #### 警告： 不授权 hexianqi1959 使用
 
 预览地址: 
- * http://ant.wfunc.com
+ * https://vben.wfunc.com
 
 ## 前端 
-Ant Design Vue Pro [项目](https://github.com/xiaodit/think-ant-vue) [预览](http://ant.wfunc.com)
+Vben-Admin [项目](https://github.com/edenleung/think-vben-admin) [预览](https://vben.wfunc.com)
 
-## 后端
+[开发文档](https://vvbin.cn/doc-next/)
 
-* https://tant-admin.vercel.app
-
-[开发文档](http://muaawn.coding-pages.com)
-
-[开发计划](https://github.com/edenleung/think-admin/projects/1)
-
-[最新版本](https://github.com/edenleung/think-admin/releases/latest)
-
-没安装Composer？ 请在最新版本链接下找到`TAnt_Full.zip`下载
 
 ## 安装
-### 拉取代码
-```bash
-git clone https://github.com/edenleung/think-admin.git
-
-# 稳定版
-composer create-project xiaodi/tant
-
-# 数据库从 database/2021-02-18.sql 导入
-```
 
 ### 导入数据表
-> database/2020-05-27.sql
+> database/2021-05-14.sql
 
 ## 定时任务
 
