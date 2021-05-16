@@ -34,8 +34,8 @@ class RoleService extends \Crud\CrudService
     public function list(array $query)
     {
         $querys = array_merge([
-            'pageNo' => 1,
-            'pageSize' => 10
+            'pageNo'   => 1,
+            'pageSize' => 10,
         ], $query);
 
         $data = $this->model->paginate([

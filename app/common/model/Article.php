@@ -18,6 +18,7 @@ use app\common\traits\ModelHelper;
 class Article extends BaseModel
 {
     use ModelHelper;
+
     public function category()
     {
         return $this->belongsTo(ArticleCategory::class);
