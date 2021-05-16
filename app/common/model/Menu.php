@@ -13,15 +13,11 @@
 namespace app\common\model;
 
 use app\BaseModel;
+use app\common\traits\ModelHelper;
 
 class Menu extends BaseModel
 {
-    public function setPermissionAttr($value)
-    {
-        // if (!empty($value)) {
-        //     return implode(',', $value);
-        // }
-    }
+    use ModelHelper;
 
     public function actions()
     {

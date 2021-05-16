@@ -13,9 +13,12 @@
 namespace app\common\model;
 
 use app\BaseModel;
+use app\common\traits\ModelHelper;
 
 class MenuAction extends BaseModel
 {
+    use ModelHelper;
+
     public function menu()
     {
         return $this->belongsTo(Menu::class);

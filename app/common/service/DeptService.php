@@ -23,15 +23,9 @@ class DeptService extends \Crud\CrudService
      */
     protected $model;
 
-    protected $pageSize = 10;
-
     public function __construct(Dept $model)
     {
         parent::__construct($model);
-    }
-
-    public function searchFilter($q, $query)
-    {
     }
 
     public function getTree()

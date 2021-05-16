@@ -15,11 +15,43 @@ declare(strict_types=1);
 namespace app;
 
 use TAnt\Abstracts\AbstractModel;
-use think\model\concern\SoftDelete;
 
-class BaseModel extends AbstractModel
+abstract class BaseModel extends AbstractModel
 {
-    use SoftDelete;
-    protected $deleteTime = 'delete_time';
-    protected $defaultSoftDelete = 0;
+    protected $pageSize = 10;
+
+    protected $order = 'id';
+
+    protected $orderType = 'desc';
+
+    /**
+     * @return this
+     */
+    abstract public static function detail($id);
+
+    /**
+     * @return \think\Collection
+     */
+    public function list(array $query)
+    {
+        $querys = array_merge([
+            'pageNo' => 1,
+            'pageSize' => $this->pageSize,
+        ], $query);
+
+        $data = $this->paginate([
+            'list_rows' => $querys['pageNo'],
+            'page'      => $querys['pageSize'],
+        ]);
+
+        return $data;
+    }
+
+    /**
+     * @return \think\Collection
+     */
+    public function all()
+    {
+        return $this->order($this->order, $this->orderType)->select();
+    }
 }

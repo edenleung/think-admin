@@ -60,4 +60,9 @@ class User extends BaseModel implements AuthorizationUserInterface
             return password_hash($value, PASSWORD_DEFAULT);
         }
     }
+
+    public static function detail($id)
+    {
+        return (new self)->where('id', $id)->find();
+    }
 }

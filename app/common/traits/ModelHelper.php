@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of TAnt.
  * @link     https://github.com/edenleung/think-admin
@@ -10,22 +12,12 @@
  * @license  https://github.com/edenleung/think-admin/blob/6.0/LICENSE.txt
  */
 
-namespace app\common\model;
+namespace app\common\traits;
 
-use app\BaseModel;
-use app\common\traits\ModelHelper;
-
-class Role extends BaseModel
+trait ModelHelper
 {
-    use ModelHelper;
-
-    public function rules()
+    public static function detail($id)
     {
-        return $this->hasMany(Rule::class, 'v0', 'title', 'v0')->where('ptype', 'p');
-    }
-
-    public function actions()
-    {
-        return $this->hasMany(RoleAction::class);
+        return (new self)->where('id', $id)->find();
     }
 }

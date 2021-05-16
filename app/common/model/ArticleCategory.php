@@ -13,7 +13,9 @@
 namespace app\common\model;
 
 use app\BaseModel;
+use app\common\traits\ModelHelper;
 
 class ArticleCategory extends BaseModel
 {
+    use ModelHelper;
 }

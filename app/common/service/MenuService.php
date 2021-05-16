@@ -23,15 +23,9 @@ class MenuService extends \Crud\CrudService
      */
     protected $model;
 
-    protected $pageSize = 10;
-
     public function __construct(Menu $model)
     {
         parent::__construct($model);
-    }
-
-    public function filter($q, $query)
-    {
     }
 
     public function getTree()

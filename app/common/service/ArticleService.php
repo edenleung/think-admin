@@ -30,24 +30,20 @@ class ArticleService extends \Crud\CrudService
 
     public function list(array $query)
     {
-        $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
-        $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
+        $querys = array_merge([
+            'pageNo' => 1,
+            'pageSize' => 10
+        ], $query);
 
         $data = $this->model->with('category')->where(function ($q) use ($query) {
             if (isset($query['title'])) {
                 $q->whereLike('title', '%' . $query['title'] . '%');
             }
         })->paginate([
-            'list_rows' => $pageSize,
-            'page'      => $pageNo,
+            'list_rows' => $querys['pageSize'],
+            'page'      => $querys['pageNo'],
         ]);
 
-        return [
-            'data'       => $data->items(),
-            'pageSize'   => (int) $pageSize,
-            'pageNo'     => (int) $pageNo,
-            'totalPage'  => count($data->items()),
-            'totalCount' => $data->total(),
-        ];
+        return $data;
     }
 }

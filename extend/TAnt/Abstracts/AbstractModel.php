@@ -15,13 +15,11 @@ declare(strict_types=1);
 namespace TAnt\Abstracts;
 
 use think\Model;
-use TAnt\DataScope\Scope;
+use think\model\concern\SoftDelete;
 
 abstract class AbstractModel extends Model
 {
-    public $sortBy = 'create_time';
-
-    public $sortOrder = 'asc';
+    use SoftDelete;
 
     protected $autoWriteTimestamp = true;
 
@@ -29,26 +27,9 @@ abstract class AbstractModel extends Model
 
     protected $updateTime = 'update_time';
 
-    /**
-     * 获取所有.
-     */
-    public function all()
-    {
-        return $this->order($this->sortBy, $this->sortOrder)
-            ->select();
-    }
+    protected $deleteTime = 'delete_time';
 
-    /**
-     * 数据权限 (数据范围).
-     *
-     * @param [type] $query
-     * @param [type] $alias
-     */
-    public function scopeDataAccess($query, $alias)
-    {
-        $dataScope = new Scope();
-        $sql = $dataScope->handle($alias);
+    protected $defaultSoftDelete = 0;
 
-        $query->where($sql);
-    }
+    abstract public static function detail($id);
 }

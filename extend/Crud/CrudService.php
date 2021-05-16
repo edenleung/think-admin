@@ -16,49 +16,26 @@ use TAnt\Abstracts\AbstractService;
 
 abstract class CrudService extends AbstractService
 {
-    protected $pageSize = 10;
 
-    protected $order = 'id desc';
-
-    protected $with;
-
-    protected $alias = 'a';
-
+    /**
+     * @return \think\Collection
+     */
     public function list(array $query)
     {
-        $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
-        $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
-
-        $data = $this->model->alias($this->alias)->where(function ($q) use ($query) {
-            if (method_exists($this, 'filter')) {
-                call_user_func([$this, 'filter'], ...[$q, $query]);
-            }
-        })->paginate([
-            'list_rows' => $pageSize,
-            'page'      => $pageNo,
-        ]);
-
-        return [
-            'data'       => $data->items(),
-            'pageSize'   => (int) $pageSize,
-            'pageNo'     => (int) $pageNo,
-            'totalPage'  => count($data->items()),
-            'totalCount' => $data->total(),
-        ];
+       return $this->model->list($query);
     }
 
-    public function with($with)
-    {
-        $this->with = $with;
-
-        return $this;
-    }
-
+    /**
+     * @return bool
+     */
     public function create(array $data)
     {
         return $this->model->save($data);
     }
 
+    /**
+     * @return BaseModel
+     */
     public function update($id, array $data)
     {
         $row = $this->info($id);
@@ -66,6 +43,9 @@ abstract class CrudService extends AbstractService
         return $row->save($data);
     }
 
+    /**
+     * @return bool
+     */
     public function delete($id)
     {
         $row = $this->info($id);
@@ -73,9 +53,13 @@ abstract class CrudService extends AbstractService
         return $row->delete();
     }
 
+
+    /**
+     * @return BaseModel
+     */
     public function info($id)
     {
-        $row = $this->model->with($this->with)->find($id);
+        $row = $this->model->detail($id);
 
         if ($row) {
             return $row;
@@ -84,8 +68,11 @@ abstract class CrudService extends AbstractService
         exception('没有此记录');
     }
 
+    /**
+     * @return \think\Collection
+     */
     public function all()
     {
-        return $this->model->with($this->with)->order($this->order)->select();
+        return $this->model->all();
     }
 }

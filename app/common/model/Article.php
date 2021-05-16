@@ -13,9 +13,11 @@
 namespace app\common\model;
 
 use app\BaseModel;
+use app\common\traits\ModelHelper;
 
 class Article extends BaseModel
 {
+    use ModelHelper;
     public function category()
     {
         return $this->belongsTo(ArticleCategory::class);

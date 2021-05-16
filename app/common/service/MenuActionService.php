@@ -23,15 +23,9 @@ class MenuActionService extends \Crud\CrudService
      */
     protected $model;
 
-    protected $pageSize = 10;
-
     public function __construct(MenuAction $model)
     {
         parent::__construct($model);
-    }
-
-    public function filter($q, $query)
-    {
     }
 
     public function create(array $data)

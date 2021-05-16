@@ -26,8 +26,6 @@ class RoleService extends \Crud\CrudService
      */
     protected $model;
 
-    protected $pageSize = 10;
-
     public function __construct(Role $model)
     {
         parent::__construct($model);
@@ -35,27 +33,17 @@ class RoleService extends \Crud\CrudService
 
     public function list(array $query)
     {
-        $pageNo = isset($query['pageNo']) ? $query['pageNo'] : 1;
-        $pageSize = isset($query['pageSize']) ? $query['pageSize'] : $this->pageSize;
+        $querys = array_merge([
+            'pageNo' => 1,
+            'pageSize' => 10
+        ], $query);
 
-        $data = $this->model->alias($this->alias)->where(function ($q) use ($query) {
-            if (method_exists($this, 'filter')) {
-                call_user_func([$this, 'filter'], ...[$q, $query]);
-            }
-        })->paginate([
-            'list_rows' => $pageSize,
-            'page'      => $pageNo,
+        $data = $this->model->paginate([
+            'list_rows' => $querys['pageSize'],
+            'page'      => $querys['pageNo'],
         ]);
 
         return $data->items();
-
-        return [
-            'data'       => $data->items(),
-            'pageSize'   => (int) $pageSize,
-            'pageNo'     => (int) $pageNo,
-            'totalPage'  => count($data->items()),
-            'totalCount' => $data->total(),
-        ];
     }
 
     public function create($data)
@@ -117,9 +105,5 @@ class RoleService extends \Crud\CrudService
             $row->actions()->select()->delete();
             $row->delete();
         });
-    }
-
-    public function filter($q, $query)
-    {
     }
 }

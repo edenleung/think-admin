@@ -15,12 +15,5 @@ declare(strict_types=1);
 use think\facade\Route;
 
 Route::get('/', function () {
-    dump(app('auth')->isLogin());
-    // return app('jwt')->store('api')->token(1, ['test' => time()])->toString();
-    // $result = app('jwt')->store('api')->verify('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJzZXJ2ZXIudGFudCIsImlzcyI6ImNsaWVudC50YW50IiwianRpIjoiMSIsImlhdCI6IjE2MTkwMTA2NTAuNzAzMjM5IiwibmJmIjoiMTYxOTAxMDY1MC43MDMyMzkiLCJleHAiOiIxNjIxNjAyNjUwLjcwMzIzOSIsInN1YiI6IjEiLCJzdG9yZSI6ImFwaSIsInRlc3QiOjE2MTkwMTA2NTB9.VC-H0Cz7iQf_jJ9d50-ZzH2YOm0-0SVgXA--1XMnBnA');
-    // dump($result);
-    // dump(app('jwt.token')->getClaim('jti'));
-
-    // echo session('uid', 1);
-    // dump(app('auth')->user());
+    return 'hello';
 });

@@ -26,8 +26,6 @@ class UserService extends BaseService
      */
     protected $model;
 
-    protected $pageSize = 10;
-
     public function __construct(User $model)
     {
         parent::__construct($model);
@@ -63,15 +61,6 @@ class UserService extends BaseService
 
     public function info()
     {
-        // $service = new MenuService(new Menu());
-
-        // 过滤当前用户有权限的菜单及操作按钮
-        // $permissions = $this->filterPermissionMenu($menus, $this->model);
-
-        unset($this->model->password);
-
-        // $this->model->role = ['permissions' => $permissions];
-
         $this->model->is_super = $this->model->super();
 
         return $this->model;

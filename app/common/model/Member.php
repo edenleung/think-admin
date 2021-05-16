@@ -17,46 +17,34 @@ use Auth\User\AuthorizationUserInterface;
 
 class Member extends Model implements AuthorizationUserInterface
 {
-    public function username()
+    public function hasUserByUserName($username): bool
     {
-        return 'username';
+        return $this->where('username', $username)->find() ? true : false;
     }
 
-    public function password()
+    public function getUserByUserName($username): self
     {
-        return 'password';
+        return $this->where('username', $username)->find();
     }
 
-    public function verifyPassword(string $password)
+    public function verifyPassword($password): bool
     {
         return password_verify($password, $this->getPassword());
     }
 
-    public function getPassword()
+    public function setUserName($username): self
     {
-        return $this->getData($this->password());
-    }
-
-    public function hasUser(string $username)
-    {
-        return $this->where($this->username(), $username)->find() ? true : false;
-    }
-
-    public function getUser(string $username)
-    {
-        return $this->where($this->username(), $username)->find();
-    }
-
-    public function createAccount(array $data)
-    {
-        $this->username = $data['username'];
-        $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
-        $this->save();
-
+        $this->username = $username;
         return $this;
     }
 
-    public function makeToken()
+    public function setPassword($password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function token(): string
     {
         return app('jwt')->token($this->id)->toString();
     }
