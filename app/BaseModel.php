@@ -25,7 +25,7 @@ abstract class BaseModel extends AbstractModel
     protected $orderType = 'desc';
 
     /**
-     * @return this
+     * @return $this
      */
     abstract public static function detail($id);
 
@@ -35,7 +35,7 @@ abstract class BaseModel extends AbstractModel
     public function list(array $query)
     {
         $querys = array_merge([
-            'pageNo' => 1,
+            'pageNo'   => 1,
             'pageSize' => $this->pageSize,
         ], $query);
 

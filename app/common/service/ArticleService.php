@@ -31,8 +31,8 @@ class ArticleService extends \Crud\CrudService
     public function list(array $query)
     {
         $querys = array_merge([
-            'pageNo' => 1,
-            'pageSize' => 10
+            'pageNo'   => 1,
+            'pageSize' => 10,
         ], $query);
 
         $data = $this->model->with('category')->where(function ($q) use ($query) {

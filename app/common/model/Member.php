@@ -35,12 +35,14 @@ class Member extends Model implements AuthorizationUserInterface
     public function setUserName($username): self
     {
         $this->username = $username;
+
         return $this;
     }
 
     public function setPassword($password): self
     {
         $this->password = $password;
+
         return $this;
     }
 

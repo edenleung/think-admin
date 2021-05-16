@@ -18,6 +18,6 @@ trait ModelHelper
 {
     public static function detail($id)
     {
-        return (new self)->where('id', $id)->find();
+        return (new self())->where('id', $id)->find();
     }
 }

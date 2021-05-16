@@ -16,13 +16,12 @@ use TAnt\Abstracts\AbstractService;
 
 abstract class CrudService extends AbstractService
 {
-
     /**
      * @return \think\Collection
      */
     public function list(array $query)
     {
-       return $this->model->list($query);
+        return $this->model->list($query);
     }
 
     /**
@@ -52,7 +51,6 @@ abstract class CrudService extends AbstractService
 
         return $row->delete();
     }
-
 
     /**
      * @return BaseModel

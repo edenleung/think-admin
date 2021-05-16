@@ -18,6 +18,7 @@ use app\common\traits\ModelHelper;
 class RoleAction extends Model
 {
     use ModelHelper;
+
     public function role()
     {
         return $this->belongsTo(Role::class);

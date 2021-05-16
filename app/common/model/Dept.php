@@ -11,6 +11,7 @@
  */
 
 namespace app\common\model;
+
 use app\common\traits\ModelHelper;
 
 class Dept extends \think\Model
