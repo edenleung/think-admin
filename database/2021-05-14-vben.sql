@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- 主机:                           106.52.123.45
--- 服务器版本:                        5.7.33 - MySQL Community Server (GPL)
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.7.28-log - MySQL Community Server (GPL)
 -- 服务器OS:                        Linux
 -- HeidiSQL 版本:                  10.2.0.5599
 -- --------------------------------------------------------
@@ -176,15 +176,16 @@ CREATE TABLE IF NOT EXISTS `role` (
   `status` int(11) NOT NULL DEFAULT '1',
   `create_time` int(11) DEFAULT '0',
   `update_time` int(11) NOT NULL DEFAULT '0',
+  `delete_time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table think.role: ~3 rows (大约)
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` (`id`, `title`, `status`, `create_time`, `update_time`) VALUES
-	(9, 'ceshi', 1, 1619090073, 1619090073),
-	(10, 'c', 1, 0, 0),
-	(11, '1342', 1, 1620628640, 1620628640);
+INSERT INTO `role` (`id`, `title`, `status`, `create_time`, `update_time`, `delete_time`) VALUES
+	(9, 'ceshi', 1, 1619090073, 1619090073, 0),
+	(10, 'c', 1, 0, 0, 0),
+	(11, '1342', 1, 1620628640, 1620628640, 0);
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 
 -- Dumping structure for table think.role_action
@@ -310,16 +311,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table think.user: ~10 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `nickname`, `dept_id`, `status`, `avatar`, `email`, `allowed_grant_types`, `create_time`, `update_time`, `delete_time`) VALUES
-	(1, 'admin', '$2y$10$jZVblAFfubcFsxYOmOSt7eTXzaAL8.xQqp8eAw42Izm3jmcv0iI1W', 'admin', 0, 1, 'storage/topic/20210422/83730d34b0e9a914b7bd2737174d714b.pem', 'SeratiMa@aliyun.com', 'authorization_code', 1589699902, 1619520089, 0),
-	(3, 'test', '$2y$10$PtaVBleq4JvhhoKN56oYCuP9krqAfAvj3gKQx98PNTTCLqoNtgGO6', '测试', 4, 1, '', '', 'authorization_code', 1593931035, 1619339420, 0),
-	(10, '1234', '$2y$10$sJD.370QlvbVOII6yNZrv.Rj44q1BICLVFF765U6P50gb079.GrXa', '1234', 4, 1, '', '', 'authorization_code', 1613548328, 1617801864, 0),
-	(11, 'admin123', '$2y$10$csS0o29NyMR2Gy9Npquh.exmFSt1ECv5FRHrD5c/wMahSeJyRV06m', '1113', 4, 1, '', '', 'authorization_code', 1618195840, 1618480292, 0),
-	(12, 'lida3', '$2y$10$1Ash2zcZIfFlD/zF76zu7eEMxJd40T421yGT.hrD3aUvr1bNcpYKO', 'da3', 4, 1, '', '', 'authorization_code', 1619090103, 1620553310, 0),
-	(13, 'test888', '$2y$10$uKDXOD0Iww.pV4f8RIzIEuEUWipqvwSwaCpfoOog1YcOB9Ho/LEwK', 'zzzz', 4, 1, '', '', 'authorization_code', 1619282780, 1619282780, 0),
-	(14, 'hello', '$2y$10$D.QtUi1HhN/XepGnMhgqvOUJYhiMYPxrlA0PnpNzVqnUlgSotvU5W', 'hello', 4, 1, '', '', 'authorization_code', 1619427748, 1619427748, 0),
-	(15, '33', '$2y$10$UnD10W6.sy/6Yss4gUe/Mu2AxZRIX.ckvObCBGsAeiOOU.wJHdpeO', '1234', 7, 0, '', '', 'authorization_code', 1620551039, 1620551039, 0),
-	(16, '1324', '$2y$10$9PO8w9EC4AlH2bKEPcT9bOAKqURiXnJRDYYIEnEDlOrnSBRS/dTTq', '1234', 7, 0, '', '', 'authorization_code', 1620551541, 1620554301, 1620554301),
-	(17, 'ggc', '$2y$10$K0uj2n0zqesuOSNfn8dq5OMpzQfEF5qLYz5waknPTzyorH9d/Ib9y', 'ggc', 7, 0, '', '', 'authorization_code', 1620553073, 1620553666, 1620553666);
+	(1, 'admin', '$2y$10$jZVblAFfubcFsxYOmOSt7eTXzaAL8.xQqp8eAw42Izm3jmcv0iI1W', 'admin', 0, 1, 'storage/topic/20210422/83730d34b0e9a914b7bd2737174d714b.pem', 'SeratiMa@aliyun.com', 'authorization_code', 1589699902, 1619520089, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
