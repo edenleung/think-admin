@@ -17,8 +17,8 @@ namespace app\common\service;
 use think\facade\Db;
 use app\common\model\Role;
 use app\common\model\Rule;
-use app\common\model\MenuAction;
 use tauthz\facade\Enforcer;
+use app\common\model\MenuAction;
 
 class RoleService extends \Crud\CrudService
 {

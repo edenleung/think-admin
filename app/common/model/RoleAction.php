@@ -20,8 +20,8 @@ class RoleAction extends Model
     use ModelHelper;
 
     protected $schema = [
-        'id'    => 'int',
-        'role_id' => 'int',
+        'id'                => 'int',
+        'role_id'           => 'int',
         'menu_action_id'    => 'int',
     ];
 

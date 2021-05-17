@@ -21,14 +21,14 @@ class User extends BaseModel implements AuthorizationUserInterface
     use \think\User\Traits\User;
 
     protected $schema = [
-        'id'    => 'int',
-        'username' => 'string',
-        'password'    => 'string',
-        'nickname'    => 'string',
-        'dept_id'    => 'int',
-        'status'    => 'int',
-        'avatar'    => 'string',
-        'email'    => 'string',
+        'id'             => 'int',
+        'username'       => 'string',
+        'password'       => 'string',
+        'nickname'       => 'string',
+        'dept_id'        => 'int',
+        'status'         => 'int',
+        'avatar'         => 'string',
+        'email'          => 'string',
         'create_time'    => 'int',
         'update_time'    => 'int',
         'delete_time'    => 'int',

@@ -20,11 +20,11 @@ class MenuAction extends BaseModel
     use ModelHelper;
 
     protected $schema = [
-        'id'    => 'int',
-        'name' => 'string',
-        'title'    => 'string',
-        'menu_id'    => 'int',
-        'sort'    => 'int',
+        'id'             => 'int',
+        'name'           => 'string',
+        'title'          => 'string',
+        'menu_id'        => 'int',
+        'sort'           => 'int',
         'create_time'    => 'int',
         'update_time'    => 'int',
         'delete_time'    => 'int',

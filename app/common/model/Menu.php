@@ -20,31 +20,30 @@ class Menu extends BaseModel
     use ModelHelper;
 
     /**
-     * 设置字段信息
+     * 设置字段信息.
      *
      * @var array
      */
     protected $schema = [
-        'id'    => 'int',
-        'name' => 'string',
-        'title'    => 'string',
-        'pid'    => 'int',
-        'type'    => 'string',
-        'status'    => 'int',
-        'path'    => 'string',
-        'redirect'    => 'string',
-        'component'    => 'string',
-        'icon'    => 'string',
-        'permission'    => 'string',
-        'keeyAlive'    => 'int',
-        'hidden'    => 'int',
+        'id'                    => 'int',
+        'name'                  => 'string',
+        'title'                 => 'string',
+        'pid'                   => 'int',
+        'type'                  => 'string',
+        'status'                => 'int',
+        'path'                  => 'string',
+        'redirect'              => 'string',
+        'component'             => 'string',
+        'icon'                  => 'string',
+        'permission'            => 'string',
+        'keeyAlive'             => 'int',
+        'hidden'                => 'int',
         'hideChildrenInMenu'    => 'int',
-        'blank'    => 'int',
-        'create_time'    => 'int',
-        'update_time'    => 'int',
-        'delete_time'    => 'int',
+        'blank'                 => 'int',
+        'create_time'           => 'int',
+        'update_time'           => 'int',
+        'delete_time'           => 'int',
     ];
-
 
     public function actions()
     {

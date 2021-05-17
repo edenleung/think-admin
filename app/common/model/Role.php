@@ -20,9 +20,9 @@ class Role extends BaseModel
     use ModelHelper;
 
     protected $schema = [
-        'id'    => 'int',
-        'title' => 'string',
-        'status'    => 'int',
+        'id'             => 'int',
+        'title'          => 'string',
+        'status'         => 'int',
         'create_time'    => 'int',
         'update_time'    => 'int',
         'delete_time'    => 'int',

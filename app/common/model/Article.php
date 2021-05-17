@@ -20,21 +20,21 @@ class Article extends BaseModel
     use ModelHelper;
 
     /**
-     * 设置字段信息
+     * 设置字段信息.
      *
      * @var array
      */
     protected $schema = [
-        'id'    => 'int',
-        'title' => 'string',
-        'image'    => 'string',
+        'id'                     => 'int',
+        'title'                  => 'string',
+        'image'                  => 'string',
         'article_category_id'    => 'int',
-        'content'    => 'string',
-        'sort'    => 'int',
-        'status'    => 'int',
-        'create_time'    => 'int',
-        'update_time'    => 'int',
-        'delete_time'    => 'int',
+        'content'                => 'string',
+        'sort'                   => 'int',
+        'status'                 => 'int',
+        'create_time'            => 'int',
+        'update_time'            => 'int',
+        'delete_time'            => 'int',
     ];
 
     public function category()
