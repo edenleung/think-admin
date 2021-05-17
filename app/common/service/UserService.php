@@ -16,6 +16,7 @@ namespace app\common\service;
 
 use app\BaseService;
 use app\common\model\Menu;
+use app\common\model\Role;
 use app\common\model\User;
 use tauthz\facade\Enforcer;
 
@@ -210,8 +211,9 @@ class UserService extends BaseService
             $user = new User();
             $user->save($data);
 
-            foreach ($data['roles'] as $role) {
-                Enforcer::addRoleForUser($user->username, (string) $role);
+            $roles = Role::whereIn('id', $data['roles'])->select();
+            foreach ($roles as $role) {
+                Enforcer::addRoleForUser($user->username, $role->title);
             }
         });
     }
@@ -226,8 +228,9 @@ class UserService extends BaseService
 
             $user->save($data);
 
-            foreach ($data['roles'] as $role) {
-                Enforcer::addRoleForUser($user->username, (string) $role);
+            $roles = Role::whereIn('id', $data['roles'])->select();
+            foreach ($roles as $role) {
+                Enforcer::addRoleForUser($user->username, $role->title);
             }
         });
     }

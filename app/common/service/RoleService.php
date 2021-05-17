@@ -18,6 +18,7 @@ use think\facade\Db;
 use app\common\model\Role;
 use app\common\model\Rule;
 use app\common\model\MenuAction;
+use tauthz\facade\Enforcer;
 
 class RoleService extends \Crud\CrudService
 {
@@ -58,7 +59,7 @@ class RoleService extends \Crud\CrudService
             }, $data['actions']);
 
             $this->model->actions()->saveAll($ids);
-            $this->addEnforcer($this->model->id, $data['actions']);
+            $this->addEnforcer($this->model->title, $data['actions']);
         });
     }
 
@@ -79,20 +80,22 @@ class RoleService extends \Crud\CrudService
             }, $data['actions']);
 
             $row->actions()->saveAll($ids);
-            $this->addEnforcer($row->id, $data['actions']);
+            $this->addEnforcer($row->title, $data['actions']);
         });
     }
 
-    protected function addEnforcer($id, $actions)
+    protected function addEnforcer($roleName, $actions)
     {
         $actions = MenuAction::whereIn('id', $actions)->with('menu')->select();
         foreach ($actions as $item) {
-            Rule::insert([
-                'ptype' => 'p',
-                'v0'    => $id,
-                'v1'    => $item->menu->name,
-                'v2'    => $item->name,
-            ]);
+            Enforcer::addPermissionForUser($roleName, $item->menu->name, $item->name);
+        }
+    }
+
+    protected function removeEnforcer($roleName, $actions)
+    {
+        foreach ($actions as $item) {
+            Enforcer::deletePermissionForUser($roleName, $item->menu->name, $item->name);
         }
     }
 
@@ -100,7 +103,7 @@ class RoleService extends \Crud\CrudService
     {
         Db::transaction(function () use ($id) {
             $row = $this->info($id);
-            Rule::where('ptype', 'p')->where('v0', $row->title)->delete();
+            $this->removeEnforcer($row->title, $row->actions);
 
             $row->actions()->select()->delete();
             $row->delete();
