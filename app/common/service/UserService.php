@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace app\common\service;
 
 use app\BaseService;
-use app\common\model\Role;
 use app\common\model\Menu;
+use app\common\model\Role;
 use app\common\model\User;
 use tauthz\facade\Enforcer;
 
