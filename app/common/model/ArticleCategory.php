@@ -18,4 +18,20 @@ use app\common\traits\ModelHelper;
 class ArticleCategory extends BaseModel
 {
     use ModelHelper;
+
+    /**
+     * 设置字段信息
+     *
+     * @var array
+     */
+    protected $schema = [
+        'id'    => 'int',
+        'title' => 'string',
+        'pid'    => 'int',
+        'disable'    => 'int',
+        'content'    => 'string',
+        'create_time'    => 'int',
+        'update_time'    => 'int',
+        'delete_time'    => 'int',
+    ];
 }

@@ -19,6 +19,12 @@ class RoleAction extends Model
 {
     use ModelHelper;
 
+    protected $schema = [
+        'id'    => 'int',
+        'role_id' => 'int',
+        'menu_action_id'    => 'int',
+    ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);

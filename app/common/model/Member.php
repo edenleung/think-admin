@@ -17,6 +17,20 @@ use Auth\User\AuthorizationUserInterface;
 
 class Member extends Model implements AuthorizationUserInterface
 {
+    /**
+     * 设置字段信息
+     *
+     * @var array
+     */
+    protected $schema = [
+        'id'    => 'int',
+        'username' => 'string',
+        'password'    => 'string',
+        'create_time'    => 'int',
+        'update_time'    => 'int',
+        'delete_time'    => 'int',
+    ];
+
     public function hasUserByUserName($username): bool
     {
         return $this->where('username', $username)->find() ? true : false;

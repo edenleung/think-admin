@@ -19,6 +19,15 @@ class Role extends BaseModel
 {
     use ModelHelper;
 
+    protected $schema = [
+        'id'    => 'int',
+        'title' => 'string',
+        'status'    => 'int',
+        'create_time'    => 'int',
+        'update_time'    => 'int',
+        'delete_time'    => 'int',
+    ];
+
     public function rules()
     {
         return $this->hasMany(Rule::class, 'v0', 'title', 'v0')->where('ptype', 'p');
