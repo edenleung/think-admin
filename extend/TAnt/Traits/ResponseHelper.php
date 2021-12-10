@@ -19,10 +19,10 @@ trait ResponseHelper
     /**
      * sendSuccess.
      *
-     * @param array  $data
+     * @param array $data
      * @param [type] $msg
-     * @param int    $code
-     * @param array  $header
+     * @param int   $code
+     * @param array $header
      */
     protected function sendSuccess($data = [], $msg = null, $code = 20000, $header = []): Response
     {
@@ -38,8 +38,8 @@ trait ResponseHelper
      * sendError.
      *
      * @param [type] $msg
-     * @param int    $code
-     * @param array  $header
+     * @param int   $code
+     * @param array $header
      */
     protected function sendError($msg = null, $code = 50015, $header = []): Response
     {
